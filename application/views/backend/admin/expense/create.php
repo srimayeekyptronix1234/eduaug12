@@ -15,7 +15,7 @@
       <select class="form-control select2" data-toggle = "select2" name="expense_category_id" id = "expense_category_id_on_create" required>
         <option value=""><?php echo get_phrase('select_an_expense_category'); ?></option>
         <?php
-        $expense_categories = $this->crud_model->get_expense_categories()->result_array();
+        $expense_categories = $this->db->get_expense_categories()->result_array();
         foreach ($expense_categories as $expense_category): ?>
         <option value="<?php echo $expense_category['id']; ?>"><?php echo $expense_category['name']; ?></option>
       <?php endforeach; ?>

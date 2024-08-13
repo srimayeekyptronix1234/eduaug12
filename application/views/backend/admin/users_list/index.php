@@ -6,7 +6,7 @@
         <h4 class="page-title d-inline-block">
           <i class="mdi mdi-account-circle title_icon"></i> <?php echo get_phrase('user'); ?>
         </h4>
-        <button type="button" class="btn btn-outline-primary btn-rounded alignToTitle float-end mt-1" onclick="rightModal('<?php echo site_url('modal/popup/users_list/create'); ?>', '<?php echo get_phrase('create_user'); ?>')"> <i class="mdi mdi-plus"></i> <?php echo get_phrase('create_user'); ?></button>
+        <button type="button" class="btn btn-outline-primary btn-rounded alignToTitle float-end mt-1" onclick="rightModal('<?php echo site_url('modal/popup/users_list/create'); ?>', '<?php echo get_phrase('create_HR'); ?>')"> <i class="mdi mdi-plus"></i> <?php echo get_phrase('create_HR'); ?></button>
       </div> <!-- end card body-->
     </div> <!-- end card -->
   </div><!-- end col-->

@@ -1458,5 +1458,7 @@
     "update_user": "Update user",
     "user_has_been_updated_successfully": "User has been updated successfully",
     "user_has_been_deleted_successfully": "User has been deleted successfully",
-    "route_list": "Route list"
+    "route_list": "Route list",
+    "name1": "Name1",
+    "create_hr": "Create hr"
 }
