@@ -1,7 +1,7 @@
-Eduquest School Management System
+<h1>Eduquest School Management System</h1>
 Eduquest School Management System is a comprehensive software solution designed to streamline the administrative and academic processes of educational institutions. It provides functionalities for managing student records, faculty information, class schedules, grades, and more, ensuring efficient and effective school management.
 
-Features
+<h2>Features</h2>
 Student Management: Enroll students, track attendance, manage grades, and maintain detailed student profiles.
 Faculty Management: Manage teacher profiles, schedules, and assignments.
 Class Scheduling: Create and manage class schedules, assign teachers, and manage classroom allocations.
