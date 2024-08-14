@@ -334,16 +334,67 @@ class Parents extends CI_Controller {
 		$page_data['invoice_details'] = $this->crud_model->get_invoice_by_id($invoice_id);
 		$this->load->view('backend/payment_gateway/index', $page_data);
 	}
-
-
-
-
-
-
 	// PAYUMONEY CHECKOUT
 	public function payumoney($invoice_id = ""){
 		$page_data['page_title']  = 'payment_gateway';
 		$page_data['invoice_details'] = $this->crud_model->get_invoice_by_id($invoice_id);
 		$this->load->view('backend/payment_gateway/payumoney', $page_data);
 	}
+	//complaintactions Section Start
+	public function complaintsactions($param1 = ''){
+
+		
+		if($param1 == 'list'){
+			$page_data['page_form']=$param1;
+			$this->load->view('backend/parent/complaintsactions/list', $page_data);
+		}
+
+		if(empty($param1)){
+			$page_data['folder_name'] = 'complaintsactions';
+			$page_data['page_title'] = 'complaints / actions';
+            $page_data['page_form']=$param1;
+			$this->load->view('backend/index', $page_data);
+		}
+	}
+  	//complaintactions Section End
+  	public function final_report_card($param1 = '', $param2 = '', $param3 = '') {
+		if ($param1 == 'list') {
+			// Collect the posted data
+			$class_id = $this->input->post('class_id');
+			$section_id = $this->input->post('section_id');
+			$student_id = $this->input->post('student_id'); 
+			//$exam_id = $this->input->post('exam_id');
+	
+			// Fetch necessary data
+			$data['class_id'] = $class_id;
+			$data['section_id'] = $section_id;
+			$data['student_id'] = $student_id;
+			//$data['exam_id'] = $exam_id;
+	
+			// Load the list view with the data
+			$this->load->view('backend/parent/finalreportcard/list', $data);
+		} else {
+			$page_data['page_name'] = 'finalreportcard/index';
+			$page_data['page_title'] = get_phrase('manage_final_report_cards');
+			$this->load->view('backend/index', $page_data);
+		}
+	}
+	public function class_wise_student($class_id) {
+        $students = $this->crud_model->get_students_by_class($class_id);
+        echo '<option value="">'.get_phrase('select_student').'</option>';
+        foreach ($students as $student) {
+            echo '<option value="'.$student['id'].'">'.$this->user_model->get_user_details($student['user_id'], 'name').'</option>';
+        }
+    }
+    public function section($action = "", $id = "") {
+
+		// PROVIDE A LIST OF SECTION ACCORDING TO CLASS ID
+		if ($action == 'list') {
+			$page_data['class_id'] = $id;
+			$this->load->view('backend/parent/section/list', $page_data);
+		}
+	}
+	
+
+	
 }
