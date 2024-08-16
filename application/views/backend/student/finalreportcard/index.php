@@ -1,3 +1,13 @@
+<?php
+
+    $login_user_id = $this->session->userdata('user_id');
+    $student_details=$this->db->get_where('students',['user_id'=>$login_user_id])->row_array();
+    $get_student_data=$this->db->get_where('enrols',['student_id'=>$student_details['id']])->row_array();
+    $school_id = school_id();
+    $subject = $this->db->get_where('subjects', array('class_id' => $get_student_data['class_id']))->result_array();
+
+
+?>
 <!--title-->
 <div class="row ">
   <div class="col-xl-12">
@@ -14,108 +24,242 @@
 <div class="row">
     <div class="col-12">
         <div class="card">
-            <div class="row mt-3">
-                <div class="col-md-1 mb-1"></div>
-               
-                <div class="col-md-2 mb-1">
-                    <select name="class" id="class_id" class="form-control select2" data-toggle="select2" required onchange="classWiseSection(this.value)">
-                        <option value=""><?php echo get_phrase('select_a_class'); ?></option>
-                        <?php
-                        $classes = $this->db->get_where('classes', array('school_id' => school_id()))->result_array();
-                        foreach ($classes as $class) {
-                            ?>
-                            <option value="<?php echo $class['id']; ?>"><?php echo $class['name']; ?></option>
-                        <?php } ?>
-                    </select>
-                </div>
-                <div class="col-md-2 mb-1">
-                    <select name="section" id="section_id" class="form-control select2" data-toggle="select2" required>
-                        <option value=""><?php echo get_phrase('select_section'); ?></option>
-                    </select>
-                </div>
-                <div class="col-md-2 mb-1">
-                    <select name="student" id="student_id" class="form-control select2" data-toggle="select2" required>
-                        <option value=""><?php echo get_phrase('select_student'); ?></option>
-                    </select>
-                </div>
-                <div class="col-md-2">
-                    <button class="btn btn-block btn-secondary" onclick="filter_reportcard()"><?php echo get_phrase('filter'); ?></button>
-                </div>
-            </div>
             <div class="card-body mark_content">
-                <table class="table table-bordered table-responsive-sm" width="100%">
-                    <tbody id="report_card_body">
-                        
-                        <!-- Data will be dynamically added here -->
-                    </tbody>
-                </table>
-            </div>
+              
+
+                <?php if (count($subject) > 0): ?>
+                    <table class="table table-bordered table-responsive-sm text-center" width="100%">
+                        <thead class="thead-dark">
+                            <tr>
+                                <th><?php echo get_phrase('subject'); ?></th>
+                                <th><?php echo get_phrase('writtent_test'); ?></th>
+                                <th><?php echo get_phrase('home_work_mark'); ?></th>
+                                <th><?php echo get_phrase('test/quize'); ?></th>
+                                <th><?php echo get_phrase('class_work'); ?></th>
+                                <th><?php echo get_phrase('behavior'); ?></th>
+                                <th><?php echo get_phrase('project'); ?></th>
+                                <th><?php echo get_phrase('Extra_activity'); ?></th>
+                                <th><?php echo get_phrase('total_score'); ?></th>
+                                <th><?php echo get_phrase('grade_name'); ?></th>
+                                <th><?php echo get_phrase('grade_point'); ?></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <?php 
+                            $home_work_multiply = 30;
+                            $test_quize_multiply = 30;
+                            $class_work_multiply = 25;
+                            $behavior_multiply = 10;
+                            $projectmultiply = 5;
+                            $writtenmultiply = 25;
+
+                            foreach ($subject as $list): 
+                                if (!empty($list['id'])) {
+                    //$subject = $this->db->get_where('subjects', array('id' => $mark['subject_id']))->row_array();
+                                    $student_id = $student_details['id'];
+                                    $class_id = $get_student_data['class_id'];
+                                    $subjectId = $list['id'];
+                    //$subjectId = 1;
+
+                    // Class work Mark calculation
+                                    $this->db->select('COUNT(*) as row_count');
+                                    $this->db->from('classwork');
+                                    $this->db->where('student_id', $student_id);
+                                    $this->db->where('class_id', $class_id);
+                                    $this->db->where('subject_id', $subjectId);
+                                    $cnt_classwork_query = $this->db->get();
+                                    $classwork_count = $cnt_classwork_query->row()->row_count;
+
+                                    $this->db->select('student_id, class_id, subject_id, SUM(mark_obtained) AS total_marks');
+                                    $this->db->from('classwork');
+                                    $this->db->where('student_id', $student_id);
+                                    $this->db->where('class_id', $class_id);
+                                    $this->db->where('subject_id', $subjectId);
+                                    $this->db->group_by(array('student_id', 'class_id', 'subject_id'));
+                                    $classwork_query = $this->db->get();
+                                    $classwork_marks = $classwork_query->result_array();
+
+                                    $number_of_classwork_count = $classwork_count > 0 ? 100 * $classwork_count : 0;
+                                    $class_work_mark = $classwork_marks[0]['total_marks'] ? $classwork_marks[0]['total_marks'] : 0;
+
+                                    $class_work_cal_value = $class_work_mark ? $class_work_multiply * ( $class_work_mark / $number_of_classwork_count) : 0;
+
+                    //echo "class_work_cal_value=".$class_work_cal_value;
+
+                    // End
+
+                    // Home work Mark calculation
+                                    $this->db->select('COUNT(*) as row_count');
+                                    $this->db->from('homework');
+                                    $this->db->where('student_id', $student_id);
+                                    $this->db->where('class_id', $class_id);
+                                    $this->db->where('subject_id', $subjectId);
+                                    $cnt_homework_query = $this->db->get();
+                                    $homework_count = $cnt_homework_query->row()->row_count;
+
+                                    $this->db->select('student_id, class_id, subject_id, SUM(mark_obtained) AS total_marks');
+                                    $this->db->from('homework');
+                                    $this->db->where('student_id', $student_id);
+                                    $this->db->where('class_id', $class_id);
+                                    $this->db->where('subject_id', $subjectId);
+                                    $this->db->group_by(array('student_id', 'class_id', 'subject_id'));
+                                    $homework_query = $this->db->get();
+                                    $homework_marks = $homework_query->result_array();
+
+                                    $number_of_homework_count = $homework_count > 0 ? 100 * $homework_count : 0;
+                                    $home_work_marks = $homework_marks[0]['total_marks'] ? $homework_marks[0]['total_marks'] : 0;
+
+                                    $home_work_cal_value = $home_work_marks ? $home_work_multiply * ( $home_work_marks / $number_of_homework_count) : 0;
+                    // End
+
+                    // Behaviour Mark calculation
+                                    $this->db->select('COUNT(*) as row_count');
+                                    $this->db->from('behaviour');
+                                    $this->db->where('student_id', $student_id);
+                                    $this->db->where('class_id', $class_id);
+                                    $this->db->where('subject_id', $subjectId);
+                                    $cnt_behaviour_query = $this->db->get();
+                                    $behaviour_count = $cnt_behaviour_query->row()->row_count;
+
+                                    $this->db->select('student_id, class_id, subject_id, SUM(mark_obtained) AS total_marks');
+                                    $this->db->from('behaviour');
+                                    $this->db->where('student_id', $student_id);
+                                    $this->db->where('class_id', $class_id);
+                                    $this->db->where('subject_id', $subjectId);
+                                    $this->db->group_by(array('student_id', 'class_id', 'subject_id'));
+                                    $behaviour_query = $this->db->get();
+                                    $behaviour_marks = $behaviour_query->result_array();
+
+                                    $number_of_behaviour_count = $behaviour_count > 0 ? 100 * $behaviour_count : 0;
+                                    $behavior_mark = $behaviour_marks[0]['total_marks'] ? $behaviour_marks[0]['total_marks'] : 0;
+
+                                    $behavior_cal_value = $behavior_mark ? $behavior_multiply * ( $behavior_mark / $number_of_behaviour_count) : 0;
+
+                    // End
+
+                    // Test/Quize Mark calculation
+                                    $this->db->select('COUNT(*) as row_count');
+                                    $this->db->from('online_exam_result');
+                                    $this->db->where('student_id', $student_id);
+                                    $this->db->where('class_id', $class_id);
+                                    $this->db->where('subject_id', $subjectId);
+                                    $cnt_test_quize_query = $this->db->get();
+                                    $test_quize_count = $cnt_test_quize_query->row()->row_count;
+
+                                    $this->db->select('student_id, class_id, subject_id, SUM(total_marks_obtained) AS total_marks');
+                                    $this->db->from('online_exam_result');
+                                    $this->db->where('student_id', $student_id);
+                                    $this->db->where('class_id', $class_id);
+                                    $this->db->where('subject_id', $subjectId);
+                                    $this->db->group_by(array('student_id', 'class_id', 'subject_id'));
+                                    $test_quize_query = $this->db->get();
+                                    $test_quize_marks = $test_quize_query->result_array();
+
+                                    $number_of_quize_count = $test_quize_count > 0 ? 100 * $test_quize_count : 0;
+                                    $test_quize_mark = $test_quize_marks[0]['total_marks'] ? $test_quize_marks[0]['total_marks'] : 0;
+
+                                    $test_quize_cal_value = $test_quize_mark ? $test_quize_multiply * ( $test_quize_mark / $number_of_quize_count) : 0;
+                    // End
+
+                    // Project Mark calculation
+
+                                    $this->db->select('COUNT(*) as row_count');
+                                    $this->db->from('project');
+                                    $this->db->where('student_id', $student_id);
+                                    $this->db->where('class_id', $class_id);
+                                    $this->db->where('subject_id', $subjectId);
+                                    $count_project_query = $this->db->get();
+                                    $row_project_count = $count_project_query->row()->row_count; 
+
+                                    $this->db->select('student_id, class_id, subject_id, SUM(mark_obtained) AS total_marks');
+                                    $this->db->from('project');
+                                    $this->db->where('student_id', $student_id);
+                                    $this->db->where('class_id', $class_id);
+                                    $this->db->where('subject_id', $subjectId);
+                                    $this->db->group_by(array('student_id', 'class_id', 'subject_id'));
+                                    $project_query = $this->db->get();
+                                    $project_marks = $project_query->result_array();
+
+                                    $number_of_project_exam = $row_project_count > 0 ? 100 * $row_project_count : 0; 
+                                    $projectmark = $project_marks[0]['total_marks'] ? $project_marks[0]['total_marks'] : 0;
+
+                                    $project_cal_value = $projectmark ? $projectmultiply * ( $projectmark / $number_of_project_exam) : 0;
+
+                    // End
+
+                    // Written test calculation
+
+                                    $this->db->select('COUNT(*) as row_count');
+                                    $this->db->from('marks');
+                                    $this->db->where('student_id', $student_id);
+                                    $this->db->where('class_id', $class_id);
+                                    $this->db->where('subject_id', $subjectId);
+                                    $count_writtent_query = $this->db->get();
+                                    $row_written_count = $count_writtent_query->row()->row_count; 
+
+                                    $this->db->select('student_id, class_id, subject_id, SUM(mark_obtained) AS total_marks');
+                                    $this->db->from('marks');
+                                    $this->db->where('student_id', $student_id);
+                                    $this->db->where('class_id', $class_id);
+                                    $this->db->where('subject_id', $subjectId);
+                                    $this->db->group_by(array('student_id', 'class_id', 'subject_id'));
+                                    $written_query = $this->db->get();
+                                    $written_marks = $written_query->result_array();
+
+                                    $number_of_written_exam = $row_written_count > 0 ? 100 * $row_written_count : 0; 
+                                    $writtentest_mark = $written_marks[0]['total_marks'] ? $written_marks[0]['total_marks'] : 0;
+
+                                    $writtent_test_cal_value = $writtentest_mark ? $writtenmultiply * ( $writtentest_mark / $number_of_written_exam) : 0; 
+
+                    // End
+
+                    // Count ExtraCariculam activity
+                                    $extraCaricularActivityScore = ($class_work_cal_value + $home_work_cal_value + $behavior_cal_value + $test_quize_cal_value + $project_cal_value) / 100;
+
+                    // count Total Score
+                                    $get_original_activityVal = intval($extraCaricularActivityScore);
+                                    $extracaricul_percent = $get_original_activityVal ? 75 * ($get_original_activityVal / 100) : 0;
+                                    $totalScore_of_student = $writtent_test_cal_value + $extracaricul_percent;
+                                    $gettotalScore_of_student = intval($totalScore_of_student);
+
+                    // Calculate Grade
+                                    $this->db->select('*');
+                                    $this->db->from('grades');
+                                    $this->db->where('mark_from <=', $gettotalScore_of_student);
+                                    $this->db->where('mark_upto >=', $gettotalScore_of_student);
+                                    $grade_query = $this->db->get();
+                                    $grade_row = $grade_query->row_array();
+
+                                    $grade_name = $grade_row ? $grade_row['name'] : "";
+                                    $grade_point = $grade_row ? $grade_row['grade_point'] : 0;
+
+                                    
+                                    ?>
+                                    <tr class="text-center">
+                                        <td><?php echo $list['name']; ?></td>
+                                        <td><?php echo intval($writtent_test_cal_value); ?></td>
+                                        <td><?php echo intval($home_work_cal_value); ?></td>
+                                        <td><?php echo intval($test_quize_cal_value); ?></td>
+                                        <td><?php echo intval($class_work_cal_value); ?></td>
+                                        <td><?php echo intval($behavior_cal_value); ?></td>
+                                        <td><?php echo intval($project_cal_value); ?></td>
+                                        <td><?php echo $get_original_activityVal; ?></td>
+                                        <td><?php echo $gettotalScore_of_student; ?></td>
+                                        <td><?php echo $grade_name; ?></td>
+                                        <td><?php echo $grade_point; ?></td>
+                                    </tr>
+                                    <?php 
+                                }
+                            endforeach; 
+                            ?>
+                        </tbody>
+                    </table>
+                    <?php else: ?>
+                        <?php include APPPATH.'views/backend/empty.php'; ?>
+                    <?php endif; ?>
+                    
+           </div>
         </div>
     </div>
 </div>
 
-<script>
-    $('document').ready(function () {
-        $('select.select2:not(.normal)').each(function () {
-            $(this).select2({dropdownParent: '#right-modal'});
-        });
-    });
-
-    function classWiseSection(classId) {
-        $.ajax({
-            url: "<?php echo route('section/list/'); ?>" + classId,
-            success: function (response) {
-                $('#section_id').html(response);
-                classWiseStudent(classId);
-            }
-        });
-    }
-
-    function classWiseStudent(classId) {
-        $.ajax({
-            url: "<?php echo route('class_wise_student/'); ?>" + classId,
-            success: function (response) {
-                $('#student_id').html(response);
-            }
-        });
-    }
-
-    function filter_reportcard() {
-        var exam = $('#exam_id').val();
-        var class_id = $('#class_id').val();
-        var section_id = $('#section_id').val();
-        var student_id = $('#student_id').val();
-        if (class_id != "" && section_id != "" && exam != "" && student_id != "") {
-            $.ajax({
-                type: 'POST',
-                url: '<?php echo site_url('teacher/final_report_card/list') ?>',
-                data: {class_id: class_id, section_id: section_id, student_id: student_id, exam_id: exam},
-                success: function (response) {
-                    $('#report_card_body').html(response);
-                    //updateGrades();
-                }
-            });
-        } else {
-            toastr.error('<?php echo get_phrase('please_select_in_all_fields !'); ?>');
-        }
-    }
-
-    // function updateGrades() {
-    //     $('#report_card_body tr').each(function() {
-    //         var mark = $(this).find('.mark_obtained').text();
-    //         var id = $(this).data('id');
-    //         get_grade(mark, id);
-    //     });
-    // }
-
-    // function get_grade(exam_mark, id) {
-    //     $.ajax({
-    //         url: '<?php echo site_url('admin/get_grade'); ?>/' + exam_mark,
-    //         success: function(response) {
-    //             var grade = JSON.parse(response);
-    //             $('#grade-for-' + id).text(grade.name);
-    //             $('#grade-point-for-' + id).text(grade.grade_point);
-    //         }
-    //     });
-    // }
-</script>
