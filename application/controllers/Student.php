@@ -540,6 +540,34 @@ class Student extends CI_Controller {
 			$this->load->view('backend/index', $page_data);
 		}
 	}
-	
+		//Classwork Section Start
+		public function classwork(){
+			$page_data['folder_name'] = 'classwork';
+			$page_data['page_title'] = 'Classwork Marks';
+			$this->load->view('backend/index', $page_data);
+		}
+		//Classwork Section End
+	    //Project Section Start
+		public function project(){
+
+			$page_data['folder_name'] = 'project';
+			$page_data['page_title'] = 'Project Marks';
+			$this->load->view('backend/index', $page_data);
+		}
+		//Project Section End
+	    //Quiz Section Start
+		public function quiz(){	
+			$page_data['folder_name'] = 'quiz';
+			$page_data['page_title'] = 'quiz';
+			$this->load->view('backend/index', $page_data);
+		}
+		//Quiz Section End
+	    //Behaviour Section Start
+		public function behaviours(){
+			$page_data['folder_name'] = 'behaviour';
+			$page_data['page_title'] = 'Behaviour Marks';
+			$this->load->view('backend/index', $page_data);
+		}
+		
 	
 }

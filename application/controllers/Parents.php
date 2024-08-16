@@ -394,7 +394,36 @@ class Parents extends CI_Controller {
 			$this->load->view('backend/parent/section/list', $page_data);
 		}
 	}
-	
+	public function assignroutes($param1 = '',$param2 = ''){
+
+		if($param1 == 'create'){
+			$response = $this->crud_model->assign_routes_add();
+			echo $response;
+		}
+		
+		if($param1 == 'update_assign_route'){
+			$response = $this->crud_model->assign_routes_update($param2);
+			echo $response;
+		}
+
+        if($param1 == 'delete'){
+			$response = $this->crud_model->assign_routes_delete($param2);
+			echo $response;
+		}
+		
+		if($param1 == 'list'){
+			$page_data['page_form']=$param1;
+			$this->load->view('backend/parent/assign_routes/list', $page_data);
+		}
+
+		if(empty($param1)){
+			$page_data['folder_name'] = 'assign_routes';
+			$page_data['page_title'] = 'Routes';
+            $page_data['page_form']=$param1;
+			$this->load->view('backend/index', $page_data);
+		}
+	}
+
 
 	
 }

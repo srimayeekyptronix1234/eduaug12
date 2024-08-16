@@ -714,7 +714,36 @@ class Teacher extends CI_Controller {
             echo '<option value="'.$student['id'].'">'.$this->user_model->get_user_details($student['user_id'], 'name').'</option>';
         }
     }
+    // Online exam create
+	//START EXAM section
+	public function online_exam_create($param1 = '', $param2 = ''){
 
+		if($param1 == 'create'){
+			$response = $this->crud_model->online_exam_data_submit();
+			echo $response;
+		}
+
+	    if($param1 == 'update_exam'){
+			$response = $this->crud_model->update_online_exam_data($param2);
+		 	echo $response;
+	    }
+
+	    if($param1 == 'delete'){
+			$response = $this->crud_model->online_exam_delete($param2);
+		 	echo $response;
+		}
+
+		// if ($param1 == 'list') {
+		// 	//echo "hello"; //exit;
+		// 	$this->load->view('backend/admin/online_exam/list');
+		// }
+
+		if(empty($param1)){
+			$page_data['folder_name'] = 'online_exam';
+			$page_data['page_title'] = 'online exam details';
+			$this->load->view('backend/index', $page_data);
+		}
+	}
 
 
 	

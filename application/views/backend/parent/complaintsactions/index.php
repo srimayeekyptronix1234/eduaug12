@@ -1,6 +1,12 @@
 <?php 
-     $student_lists = $this->user_model->get_student_list_of_logged_in_parent();
-     $student_data = $this->user_model->get_logged_in_student_details();
+     $parent_id = $this->session->userdata('user_id');
+     $parent_data = $this->db->get_where('parents', array('user_id' => $parent_id))->row_array();
+     $this->db->select('c.*');
+     $this->db->from('students s');
+     $this->db->join('complaint c', 'c.student_id = s.user_id');
+     $this->db->where('s.parent_id', $parent_data['id']);
+     $check_data=$this->db->get()->result_array();
+
 ?>
 <!--title-->
 <div class="row ">
@@ -23,7 +29,6 @@
             <div class="card-body complaint_content">
                 <?php
                          
-                            $check_data=$this->db->get_where('complaint',['student_id'=>$student_lists[0]['user_id']])->result_array();
                             if (count($check_data) > 0):?>
                               <table id="basic-datatable" class="table table-striped dt-responsive nowrap" width="100%">
                                 <thead>
