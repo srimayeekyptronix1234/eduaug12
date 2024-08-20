@@ -1470,5 +1470,8 @@
     "class_subects": "Class subects",
     "class_timetable": "Class timetable",
     "exam_results": "Exam results",
-    "announcements_calender": "Announcements calender"
+    "announcements_calender": "Announcements calender",
+    "active_complaints_count": "Active complaints count",
+    "active_complaints": "Active complaints",
+    "academic_progress": "Academic progress"
 }

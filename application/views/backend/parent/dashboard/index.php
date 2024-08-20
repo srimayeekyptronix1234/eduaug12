@@ -16,48 +16,72 @@
             <div class="col-xl-8">
               <div class="row">
                   <div class="col-lg-6">
-                      <div class="card widget-flat" id="student" style="on">
+                      <div class="card widget-flat" id="complaints" style="on">
                           <div class="card-body">
                               <div class="float-end">
                                   <i class="mdi mdi-account-multiple widget-icon"></i>
                               </div>
-                              <h5 class="text-muted font-weight-normal mt-0" title="Number of Student"> <i class="mdi mdi-account-group title_icon"></i>  <?php echo get_phrase('students'); ?> <a href="<?php echo route('student'); ?>" style="color: #6c757d; display: none;" id = "student_list"><i class = "mdi mdi-export"></i></a></h5>
+                              <h5 class="text-muted font-weight-normal mt-0" title="Active Complaints Count"> <i class="mdi mdi-account-group title_icon"></i>  <?php echo get_phrase('Active Complaints'); ?> <a href="" style="color: #6c757d; display: none;" id = "complaint_list"><i class = "mdi mdi-export"></i></a></h5>
                               <h3 class="mt-3 mb-3">
                                   <?php
-                                      $current_session_students = $this->user_model->get_session_wise_student();
-                                      echo $current_session_students->num_rows();
+                                       $parent_id = $this->session->userdata('user_id');
+                                       $parent_data = $this->db->get_where('parents', array('user_id' => $parent_id))->row_array();
+                                       $this->db->select('c.*');
+                                       $this->db->from('students s');
+                                       $this->db->join('complaint c', 'c.student_id = s.user_id');
+                                       $this->db->where('s.parent_id', $parent_data['id']);
+                                       $this->db->where('c.status','1');
+                                       $total_active_complaints=$this->db->get()->num_rows();
+
+                                      if(isset($total_active_complaints) && $total_active_complaints != ''){
+                                           echo 'Active:' .$total_active_complaints;
+
+                                      }
+                                    
                                   ?>
                               </h3>
                               <p class="mb-0 text-muted">
-                                  <span class="text-nowrap"><?php echo get_phrase('total_number_of_student'); ?></span>
+                                  <span class="text-nowrap"><?php echo get_phrase('Active Complaints'); ?></span>
                               </p>
-                          </div> <!-- end card-body-->
-                      </div> <!-- end card-->
-                  </div> <!-- end col-->
+                          </div> 
+                      </div> 
+                  </div> 
 
                   <div class="col-lg-6">
-                      <div class="card widget-flat" id="teacher" style="on">
+                      <div class="card widget-flat" id="homework" style="on">
                           <div class="card-body">
                               <div class="float-end">
                                   <i class="mdi mdi-account-multiple widget-icon"></i>
                               </div>
-                              <h5 class="text-muted font-weight-normal mt-0" title="Number of Teacher"> <i class="mdi mdi-account-group title_icon"></i><?php echo get_phrase('teacher'); ?>  <a href="<?php echo route('teacher'); ?>" style="color: #6c757d; display: none;" id = "teacher_list"><i class = "mdi mdi-export"></i></a></h5>
+                              <h5 class="text-muted font-weight-normal mt-0" title="Homework"> <i class="mdi mdi-account-group title_icon"></i><?php echo get_phrase('Homework'); ?>  <a href="" style="color: #6c757d; display: none;" id = "academic_progress"><i class = "mdi mdi-export"></i></a></h5>
                               <h3 class="mt-3 mb-3">
                                   <?php
-                                      $teachers = $this->user_model->get_teachers();
-                                      echo $teachers->num_rows();
-                                   ?>
-                              </h3>
+                                       $parent_id = $this->session->userdata('user_id');
+                                       $parent_data = $this->db->get_where('parents', array('user_id' => $parent_id))->row_array();
+                                       $this->db->select('h.*');
+                                       $this->db->from('students s');
+                                       $this->db->join('homework h', 'h.student_id = s.id');
+                                       $this->db->where('s.parent_id', $parent_data['id']);
+                                       $total_homework=$this->db->get()->num_rows();
+
+                                      if(isset($total_homework) && $total_homework != ''){
+                                           echo $total_homework;
+
+                                      }
+                                    
+                                  ?>
+                               </h3>
+
                               <p class="mb-0 text-muted">
-                                  <span class="text-nowrap"><?php echo get_phrase('total_number_of_teacher'); ?></span>
+                                  <span class="text-nowrap"><?php echo get_phrase('Homework'); ?></span>
                               </p>
-                          </div> <!-- end card-body-->
-                      </div> <!-- end card-->
-                  </div> <!-- end col-->
-              </div> <!-- end row -->
+                          </div> 
+                      </div> 
+                  </div> 
+              </div> 
 
               <div class="row">
-                  <div class="col-lg-6">
+                 <!-- <div class="col-lg-6">
                       <div class="card widget-flat" id = "parent">
                           <div class="card-body">
                               <div class="float-end">
@@ -73,11 +97,11 @@
                               <p class="mb-0 text-muted">
                                   <span class="text-nowrap"><?php echo get_phrase('total_number_of_parent'); ?></span>
                               </p>
-                          </div> <!-- end card-body-->
-                      </div> <!-- end card-->
-                  </div> <!-- end col-->
+                          </div> 
+                      </div> 
+                  </div> -->
 
-                  <div class="col-lg-6">
+                 <!-- <div class="col-lg-6">
                       <div class="card widget-flat">
                           <div class="card-body">
                               <div class="float-end">
@@ -95,9 +119,9 @@
                               <p class="mb-0 text-muted">
                                   <span class="text-nowrap"><?php echo get_phrase('total_number_of_staff'); ?></span>
                               </p>
-                          </div> <!-- end card-body-->
-                      </div> <!-- end card-->
-                  </div> <!-- end col-->
+                          </div> 
+                      </div> 
+                  </div> -->
               </div>
             </div> <!-- end col -->
             <div class="col-xl-4">
