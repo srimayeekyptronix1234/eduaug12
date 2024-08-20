@@ -49,6 +49,8 @@ $school_id  = school_id();
      <div class="col-xl-4">
         <div class="card widget-flat" id="teacher" style="on">
           <div class="card-body">
+             <h4 class="header-title mb-3"><?php echo get_phrase('Exam Results'); ?><a href="" style="color: #6c757d"><i class = "mdi mdi-export"></i></a></h4>
+           
              <?php 
                 $subject = $this->db->get_where('subjects', array('class_id' => $enrols_table_data['class_id']))->result_array();
              ?>
