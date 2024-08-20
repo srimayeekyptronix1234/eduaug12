@@ -49,6 +49,44 @@ $school_id  = school_id();
      <div class="col-xl-4">
         <div class="card widget-flat" id="teacher" style="on">
           <div class="card-body">
+            <h5 class="text-muted font-weight-normal mt-0" title="Announcements Calender"> <i class="mdi mdi-book-open-variant title_icon"></i> <?php echo get_phrase('Announcements Calender'); ?> <a href="" style="color: #6c757d; display: none;" id = "event_list"><i class = "mdi mdi-export"></i></a></h5>
+            <h3 class="mt-3 mb-3">
+           
+           </h3>
+           <?php $school_id = school_id(); ?>
+        <?php $query = $this->db->get_where('event_calendars', array('school_id' => $school_id, 'session' => active_session())); ?>
+        <?php if($query->num_rows() > 0): ?>
+          <table id="basic-datatable" class="table table-striped dt-responsive nowrap" width="100%">
+            <thead>
+              <tr style="background-color: #313a46; color: #ababab;">
+                <th><?php echo get_phrase('event_title'); ?></th>
+                <th><?php echo get_phrase('from'); ?></th>
+                <th><?php echo get_phrase('to'); ?></th>
+              </tr>
+            </thead>
+            <tbody>
+              <?php
+              $event_calendars = $this->db->get_where('event_calendars', array('school_id' => $school_id, 'session' => active_session()))->result_array();
+              foreach($event_calendars as $event_calendar){
+                ?>
+                <tr>
+                  <td><?php echo $event_calendar['title']; ?></td>
+                  <td><?php echo date('D, d M Y', strtotime($event_calendar['starting_date'])); ?></td>
+                  <td><?php echo date('D, d M Y', strtotime($event_calendar['ending_date'])); ?></td>
+                </tr>
+              <?php } ?>
+            </tbody>
+          </table>
+         <?php else: ?>
+              <td colspan="2"><?php echo get_phrase('No Data Found'); ?></td>
+        <?php endif; ?>
+        </div> 
+      </div>
+    </div> 
+     
+     <div class="col-xl-4">
+        <div class="card widget-flat" id="teacher" style="on">
+          <div class="card-body">
              <h4 class="header-title mb-3"><?php echo get_phrase('Exam Results'); ?><a href="" style="color: #6c757d"><i class = "mdi mdi-export"></i></a></h4>
            
              <?php 
@@ -119,6 +157,7 @@ $school_id  = school_id();
 
           </div> 
       </div>
+
     </div> 
 
       
