@@ -1,4 +1,4 @@
-<?php $student_lists = $this->user_model->get_student_list_of_logged_in_parent(); 
+<?php $student_lists = $this->user_model->get_student_list_of_logged_in_parent();
 ?>
 <!--title-->
 <div class="row ">

@@ -1,9 +1,12 @@
 <?php
+    $user_id = $this->session->userdata('user_id');
+
     if (!empty($class_id) && !empty($section_id) && !empty($student_id) && !empty($teacher_id)){
         $check_data = $this->db->get_where('complaint', array('class_id' => $class_id,'section_id' => $section_id,'student_id' =>$student_id,'teacher_id'=>$teacher_id))->result_array();
 
     }else{
-        $check_data=$this->crud_model->get_complaints_data();
+        $check_data=$this->db->get_where('complaint',['teacher_id'=>$user_id])->result_array();
+
     }
 
   if (count($check_data) > 0):?>

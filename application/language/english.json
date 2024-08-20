@@ -1460,5 +1460,13 @@
     "user_has_been_deleted_successfully": "User has been deleted successfully",
     "route_list": "Route list",
     "name1": "Name1",
-    "create_hr": "Create hr"
+    "create_hr": "Create hr",
+    "total_number_of_subject": "Total number of subject",
+    "total_number_of_project": "Total number of project",
+    "upcoming_classes_and_subjects": "Upcoming classes and subjects",
+    "homework_management": "Homework management",
+    "complaints": "Complaints",
+    "exam_schedule": "Exam schedule",
+    "class_subects": "Class subects",
+    "class_timetable": "Class timetable"
 }

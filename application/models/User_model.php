@@ -1115,7 +1115,7 @@ class User_model extends CI_Model {
 			$students[$key]['class_name'] = $class_details['name'];
 			$students[$key]['section_name'] = $section_details['name'];
 		}
-		return $students;
+		return  $students;
 	}
 
 	// In Array for associative array
@@ -1512,6 +1512,27 @@ class User_model extends CI_Model {
 			'notification' => get_phrase('user_has_been_deleted_successfully')
 		);
 		return json_encode($response);
+	}
+    public function get_total_data($class_id='') {
+		$checker = array(
+			'session' => $this->active_session,
+			'school_id' => $this->school_id,
+			'class_id' => $class_id
+		);
+		return $this->db->get_where('enrols', $checker)->result_array();
+	}
+    public function get_students_parents($class_id='') {
+    	$this->db->select('s.*');
+    	$this->db->from('enrols e');
+    	$this->db->join('students s','s.id=e.student_id');
+    	$checker = array(
+			'e.session' => $this->active_session,
+			'e.school_id' => $this->school_id,
+			'e.class_id' => $class_id
+		);
+	
+    	$this->db->where($checker);
+    	return $this->db->get()->result_array();
 	}
 
 
