@@ -16,7 +16,7 @@
       <div class="col-xl-8">
         <div class="row">
           <div class="col-lg-6">
-            <div class="card widget-flat bg-primary" id="student" style="on">
+            <div class="card widget-flat @" id="student" style="on">
               <div class="card-body">
                 <div class="float-end">
                   <i class="mdi mdi-account-multiple widget-icon"></i>
