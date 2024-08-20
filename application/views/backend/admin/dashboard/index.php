@@ -18,9 +18,9 @@
           <div class="col-lg-6">
             <div class="card widget-flat bg-primary" id="student" style="on">
             <div class="card-body" style="background-color: #5655AB;">
-    <div class="float-end">
+            <div class="float-end">
         <i class="mdi mdi-account-multiple widget-icon" style="color: #ffffff;"></i>
-    </div>
+       </div>
     <h5 class="text-muted font-weight-normal mt-0" title="Number of Student">
         <i class="fa-solid fa-graduation-cap" style="color: #ffffff;"></i>
         <span style="color: #ffffff;"><?php echo get_phrase('students'); ?></span>
