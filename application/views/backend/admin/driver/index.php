@@ -15,7 +15,7 @@
 <div class="row">
     <div class="col-12">
         <div class="card">
-            <div class="card-body driver_content bg-primary">
+            <div class="card-body driver_content">
                 <?php include 'list.php'; ?>
             </div>
         </div>
