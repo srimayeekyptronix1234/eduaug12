@@ -3,7 +3,8 @@
   <div class="col-xl-12">
     <div class="card">
       <div class="card-body py-2">
-        <h4 class="page-title"> <i class="mdi mdi-view-dashboard title_icon"></i> <?php echo get_phrase('dashboard'); ?> </h4>
+        <h4 class="page-title"> <i class="mdi mdi-view-dashboard title_icon"></i> <?php echo get_phrase('dashboard'); ?>
+        </h4>
       </div> <!-- end card body-->
     </div> <!-- end card -->
   </div><!-- end col-->
@@ -17,27 +18,30 @@
         <div class="row">
           <div class="col-lg-6">
             <div class="card widget-flat bg-primary" id="student" style="on">
-            <div class="card-body" style="background-color: #5655AB;">
-            <div class="float-end">
-        <i class="mdi mdi-account-multiple widget-icon" style="color: #ffffff;"></i>
-       </div>
-    <h5 class="text-muted font-weight-normal mt-0" title="Number of Student">
-        <i class="fa-solid fa-graduation-cap" style="color: #ffffff;"></i>
-        <span style="color: #ffffff;"><?php echo get_phrase('students'); ?></span>
-        <a href="<?php echo route('student'); ?>" style="color: #6c757d; display: none;" id="student_list">
-            <i class="mdi mdi-export"></i>
-        </a>
-    </h5>
-    <h3 class="mt-3 mb-3" style="color: #ffffff;">
-        <?php
-        $current_session_students = $this->user_model->get_session_wise_student();
-        echo $current_session_students->num_rows();
-        ?>
-    </h3>
-    <p class="mb-0 text-muted">
-        <span class="text-nowrap" style="color: #ffffff;"><?php echo get_phrase('total_number_of_student'); ?></span>
-    </p>
-</div> <!-- end card-body-->
+              <div class="card-body" style="background-color: #5655AB;">
+                <div class="float-end">
+                  <i class="mdi mdi-account-multiple widget-icon" style="color: #ffffff;"></i>
+                </div>
+
+
+                <h5 class="text-muted font-weight-normal mt-0" title="Number of Student">
+                  <i class="fa-solid fa-graduation-cap" style="color: #ffffff;"></i>
+                  <span style="color: #ffffff;"><?php echo get_phrase('students'); ?></span>
+                  <a href="<?php echo route('student'); ?>" style="color: #6c757d; display: none;" id="student_list">
+                    <i class="mdi mdi-export"></i>
+                  </a>
+                </h5>
+                <h3 class="mt-3 mb-3" style="color: #ffffff;">
+                  <?php
+                  $current_session_students = $this->user_model->get_session_wise_student();
+                  echo $current_session_students->num_rows();
+                  ?>
+                </h3>
+                <p class="mb-0 text-muted">
+                  <span class="text-nowrap"
+                    style="color: #ffffff;"><?php echo get_phrase('total_number_of_student'); ?></span>
+                </p>
+              </div> <!-- end card-body-->
             </div> <!-- end card-->
           </div> <!-- end col-->
 
@@ -47,7 +51,10 @@
                 <div class="float-end">
                   <i class="mdi mdi-account-multiple widget-icon"></i>
                 </div>
-                <h5 class="text-muted font-weight-normal mt-0" title="Number of Teacher"> <i class="fa-solid fa-chalkboard-user"></i><?php echo get_phrase('teacher'); ?>  <a href="<?php echo route('teacher'); ?>" style="color: #6c757d; display: none;" id = "teacher_list"><i class = "mdi mdi-export"></i></a></h5>
+                <h5 class="text-muted font-weight-normal mt-0" title="Number of Teacher"> <i
+                    class="fa-solid fa-chalkboard-user"></i><?php echo get_phrase('teacher'); ?> <a
+                    href="<?php echo route('teacher'); ?>" style="color: #6c757d; display: none;" id="teacher_list"><i
+                      class="mdi mdi-export"></i></a></h5>
                 <h3 class="mt-3 mb-3">
                   <?php
                   $teachers = $this->user_model->get_teachers();
@@ -64,12 +71,15 @@
 
         <div class="row">
           <div class="col-lg-6">
-            <div class="card widget-flat" id = "parent">
+            <div class="card widget-flat" id="parent">
               <div class="card-body">
                 <div class="float-end">
                   <i class="mdi mdi-account-multiple widget-icon"></i>
                 </div>
-                <h5 class="text-muted font-weight-normal mt-0" title="Number of Parents"> <i class="mdi mdi-account-group title_icon"></i> <?php echo get_phrase('parents'); ?> <a href="<?php echo route('parent'); ?>" style="color: #6c757d; display: none;" id = "parent_list"><i class = "mdi mdi-export"></i></a></h5>
+                <h5 class="text-muted font-weight-normal mt-0" title="Number of Parents"> <i
+                    class="mdi mdi-account-group title_icon"></i> <?php echo get_phrase('parents'); ?> <a
+                    href="<?php echo route('parent'); ?>" style="color: #6c757d; display: none;" id="parent_list"><i
+                      class="mdi mdi-export"></i></a></h5>
                 <h3 class="mt-3 mb-3">
                   <?php
                   $parents = $this->user_model->get_parents();
@@ -89,7 +99,8 @@
                 <div class="float-end">
                   <i class="mdi mdi-account-multiple widget-icon"></i>
                 </div>
-                <h5 class="text-muted font-weight-normal mt-0" title="Number of Staff"> <i class="mdi mdi-account-group title_icon"></i> <?php echo get_phrase('staff'); ?></h5>
+                <h5 class="text-muted font-weight-normal mt-0" title="Number of Staff"> <i
+                    class="mdi mdi-account-group title_icon"></i> <?php echo get_phrase('staff'); ?></h5>
                 <h3 class="mt-3 mb-3">
                   <?php
                   $accountants = $this->user_model->get_accountants()->num_rows();
@@ -114,8 +125,12 @@
               <h3 class="font-weight-normal text-white mb-2">
                 <?php echo $this->crud_model->get_todays_attendance(); ?>
               </h3>
-              <p class="text-light text-uppercase font-13 font-weight-bold"><?php echo $this->crud_model->get_todays_attendance(); ?> <?php echo get_phrase('students_are_attending_today'); ?></p>
-              <a href="<?php echo route('attendance'); ?>" class="btn btn-outline-light btn-sm mb-1"><?php echo get_phrase('go_to_attendance'); ?>
+              <p class="text-light text-uppercase font-13 font-weight-bold">
+                <?php echo $this->crud_model->get_todays_attendance(); ?>
+                <?php echo get_phrase('students_are_attending_today'); ?>
+              </p>
+              <a href="<?php echo route('attendance'); ?>"
+                class="btn btn-outline-light btn-sm mb-1"><?php echo get_phrase('go_to_attendance'); ?>
                 <i class="mdi mdi-arrow-right ms-1"></i>
               </a>
 
@@ -124,7 +139,9 @@
         </div>
         <div class="card">
           <div class="card-body">
-            <h4 class="header-title"><?php echo get_phrase('recent_events'); ?><a href="<?php echo route('event_calendar'); ?>" style="color: #6c757d;"><i class = "mdi mdi-export"></i></a></h4>
+            <h4 class="header-title"><?php echo get_phrase('recent_events'); ?><a
+                href="<?php echo route('event_calendar'); ?>" style="color: #6c757d;"><i class="mdi mdi-export"></i></a>
+            </h4>
             <?php include 'event.php'; ?>
           </div>
         </div>
@@ -139,7 +156,8 @@
       <div class="col-xl-8">
         <div class="card">
           <div class="card-body">
-            <h4 class="header-title mb-3"><?php echo get_phrase('accounts_of'); ?> <?php echo date('F'); ?> <a href="<?php echo route('invoice'); ?>" style="color: #6c757d"><i class = "mdi mdi-export"></i></a></h4>
+            <h4 class="header-title mb-3"><?php echo get_phrase('accounts_of'); ?> <?php echo date('F'); ?> <a
+                href="<?php echo route('invoice'); ?>" style="color: #6c757d"><i class="mdi mdi-export"></i></a></h4>
             <?php include 'invoice.php'; ?>
           </div>
         </div>
@@ -147,7 +165,8 @@
       <div class="col-xl-4">
         <div class="card">
           <div class="card-body">
-            <h4 class="header-title mb-3"> <?php echo get_phrase('expense_of'); ?> <?php echo date('F'); ?> <a href="<?php echo route('expense'); ?>" style="color: #6c757d"><i class = "mdi mdi-export"></i></a></h4>
+            <h4 class="header-title mb-3"> <?php echo get_phrase('expense_of'); ?> <?php echo date('F'); ?> <a
+                href="<?php echo route('expense'); ?>" style="color: #6c757d"><i class="mdi mdi-export"></i></a></h4>
             <?php include 'expense.php'; ?>
           </div>
         </div>
@@ -157,15 +176,15 @@
 </div>
 
 <script>
-$(document).ready(function() {
-  initDataTable("expense-datatable");
-});
+  $(document).ready(function () {
+    initDataTable("expense-datatable");
+  });
 
-$(".widget-flat").mouseenter(function() {
-  var id = $(this).attr('id');
-  $('#'+id+'_list').show();
-}).mouseleave(function() {
-  var id = $(this).attr('id');
-  $('#'+id+'_list').hide();
-});
+  $(".widget-flat").mouseenter(function () {
+    var id = $(this).attr('id');
+    $('#' + id + '_list').show();
+  }).mouseleave(function () {
+    var id = $(this).attr('id');
+    $('#' + id + '_list').hide();
+  });
 </script>
