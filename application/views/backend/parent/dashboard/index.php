@@ -34,7 +34,7 @@
                                        $total_active_complaints=$this->db->get()->num_rows();
 
                                       if(isset($total_active_complaints) && $total_active_complaints != ''){
-                                           echo 'Active:' .$total_active_complaints;
+                                           echo $total_active_complaints;
 
                                       }
                                     
@@ -79,7 +79,6 @@
                       </div> 
                   </div> 
               </div> 
-
               <div class="row">
                  <!-- <div class="col-lg-6">
                       <div class="card widget-flat" id = "parent">
