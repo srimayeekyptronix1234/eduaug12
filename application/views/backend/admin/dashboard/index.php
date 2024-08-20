@@ -17,14 +17,14 @@
         <div class="row">
           <div class="col-lg-6">
             <div class="card widget-flat bg-primary" id="student" style="on">
-            <div class="card-body" style="background-color: #5655AB; color: #ffffff;">
+            <div class="card-body" style="background-color: #5655AB;">
     <div class="float-end">
         <i class="mdi mdi-account-multiple widget-icon" style="color: #ffffff;"></i>
     </div>
-    <h5 class="text-muted font-weight-normal mt-0" title="Number of Student" style="color: #ffffff;">
+    <h5 class="text-muted font-weight-normal mt-0" title="Number of Student">
         <i class="fa-solid fa-graduation-cap" style="color: #ffffff;"></i>
-        <?php echo get_phrase('students'); ?>
-        <a href="<?php echo route('student'); ?>" style="color: #ffffff; display: none;" id="student_list">
+        <span style="color: #ffffff;"><?php echo get_phrase('students'); ?></span>
+        <a href="<?php echo route('student'); ?>" style="color: #6c757d; display: none;" id="student_list">
             <i class="mdi mdi-export"></i>
         </a>
     </h5>
@@ -34,11 +34,11 @@
         echo $current_session_students->num_rows();
         ?>
     </h3>
-    <p class="mb-0 text-muted" style="color: #ffffff;">
-        <span class="text-nowrap"><?php echo get_phrase('total_number_of_student'); ?></span>
+    <p class="mb-0 text-muted">
+        <span class="text-nowrap" style="color: #ffffff;"><?php echo get_phrase('total_number_of_student'); ?></span>
     </p>
 </div> <!-- end card-body-->
- <!-- end card-->
+            </div> <!-- end card-->
           </div> <!-- end col-->
 
           <div class="col-lg-6">
