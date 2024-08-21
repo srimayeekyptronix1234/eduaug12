@@ -18,8 +18,8 @@
         border: none;
         cursor: pointer;
         margin-left: 15px;
-        height: 80px;
         padding: 0;
+        line-height: 80px;
     }
 
     .navbar-toggler i {
