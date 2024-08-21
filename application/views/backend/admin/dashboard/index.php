@@ -314,7 +314,7 @@
 
         <div class="progressbar">
           <div class="progress-header">
-            <p class="mt-2 mb-2">This Month Fee Collection</p>
+            <p class="mt-2 mb-2">This Month Fees Collection</p>
           </div>
           <div class="bar-container mb-3">
             <div class="bar" style="width:76%; background-color:#2CBC63;"></div>
