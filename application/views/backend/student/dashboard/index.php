@@ -19,6 +19,7 @@ $school_id  = school_id();
 <div class="row">
   <div class="col-xl-12">
     <div class="row">
+      <!-- Class Timetable Start -->  
       <div class="col-xl-12">
         <div class="card">
           <div class="card-body">
@@ -27,6 +28,8 @@ $school_id  = school_id();
           </div>
         </div>
       </div>
+      <!-- Class Timetable End -->  
+      <!-- ClassWise Subject Start -->  
       <div class="col-xl-4">
         <div class="card widget-flat" id="teacher" style="on">
           <div class="card-body">
@@ -45,7 +48,9 @@ $school_id  = school_id();
           </p>
         </div> 
       </div>
-    </div> 
+    </div>
+    <!-- ClassWise Subject End -->  
+    <!-- Announcements Calender Start -->  
      <div class="col-xl-4">
         <div class="card widget-flat" id="teacher" style="on">
           <div class="card-body">
@@ -82,8 +87,9 @@ $school_id  = school_id();
         <?php endif; ?>
         </div> 
       </div>
-    </div> 
-     
+    </div>
+   <!-- Announcements Calender End --> 
+    <!--Exam Results Start--> 
      <div class="col-xl-4">
         <div class="card widget-flat" id="teacher" style="on">
           <div class="card-body">
@@ -158,37 +164,24 @@ $school_id  = school_id();
           </div> 
       </div>
 
-    </div> 
+    </div>
+    <!--Exam Results End-->  
+    <!--Attendance Record Start-->
+      <div class="col-xl-12">
+        <div class="card">
+          <div class="card-body">
+            <h4 class="header-title mb-3"><?php echo get_phrase('attendance_record'); ?><a href="" style="color: #6c757d"><i class = "mdi mdi-export"></i></a></h4>
+            <?php include 'attendance_record.php'; ?>
+          </div>
+        </div>
+      </div>
+      <!--Attendance Record End-->
 
       
     </div>
   </div>
 </div>
 
-<div class="row ">
-    <div class="col-xl-12">
-        <div class="row">
-            <div class="col-xl-8">
-              <div class="row">
-
-              </div> 
-
-              <div class="row">
-                  
-                  <div class="col-lg-6">
-                  </div> <!-- end col-->
-              </div>
-            </div> <!-- end col -->
-            <div class="col-xl-4">
-                <div class="card">
-                    <div class="card-body">
-
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div><!-- end col-->
-</div>
 
 <script>
 $(document).ready(function() {

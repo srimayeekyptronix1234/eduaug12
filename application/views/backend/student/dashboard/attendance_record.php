@@ -1,28 +1,11 @@
-<?php $school_id = school_id(); ?>
-<div class="row">
-  <div class="col-md-4"></div>
-  <div class="col-md-4">
-    <div class="card bg-secondary text-white">
-      <div class="card-body">
-        <div class="text-center">
-          <h4><?php echo get_phrase('attendance_report').' '.get_phrase('of').' '.date('F', $attendance_date); ?></h4>
-          <h5><?php echo get_phrase('class'); ?> : <?php echo $this->db->get_where('classes', array('id' => $class_id))->row('name'); ?></h5>
-          <h5><?php echo get_phrase('section'); ?> : <?php echo $this->db->get_where('sections', array('id' => $section_id))->row('name'); ?></h5>
-          <h5>
-            <?php echo get_phrase('last_updated_at'); ?> :
-            <?php if (get_settings('date_of_last_updated_attendance') == ""): ?>
-              <?php echo get_phrase('not_updated_yet'); ?>
-            <?php else: ?>
-              <?php echo date('d-M-Y', get_settings('date_of_last_updated_attendance')); ?> <br>
-              <?php echo get_phrase('time'); ?> : <?php echo date('H:i:s', get_settings('date_of_last_updated_attendance')); ?>
-            <?php endif; ?>
-          </h5>
-        </div>
-      </div> <!-- end card-body-->
-    </div>
-  </div>
-  <div class="col-md-4"></div>
-</div>
+<?php 
+
+$school_id = school_id(); 
+$user_id = $this->session->userdata('user_id');
+$student_table_data=$this->db->get_where('students',['user_id'=>$user_id])->row_array();
+$enrols_table_data=$this->db->get_where('enrols',['student_id'=>$student_table_data['id']])->row_array();
+
+?>
 
 <table  class="table table-bordered table-responsive-sm table-responsive-md table-responsive-lg table-responsive-xl table-sm">
   <thead class="thead-dark">
@@ -36,12 +19,12 @@
   </tr>
 </thead>
 <tbody>
-  <?php
+    <?php
   $student_data = $this->user_model->get_logged_in_student_details();
   $student_id_count = 0;
   $active_sesstion = active_session();
   $this->db->order_by('student_id', 'asc');
-  $attendance_of_students = $this->db->get_where('daily_attendances', array('class_id' => $class_id, 'section_id' => $section_id, 'school_id' => $school_id, 'session_id' => $active_sesstion))->result_array();
+  $attendance_of_students = $this->db->get_where('daily_attendances',['class_id' => $student_data['class_id'], 'section_id' => $student_data['section_id'], 'school_id' => $school_id, 'session_id' => $active_sesstion])->result_array();
   foreach($attendance_of_students as $attendance_of_student){ ?>
     <?php if ($attendance_of_student['student_id'] == $student_data['id']): ?>
       <?php if(date('m', $attendance_date) == date('m', $attendance_of_student['timestamp'])): ?>
@@ -49,11 +32,13 @@
           <tr>
             <td><?php echo $this->user_model->get_user_details($this->db->get_where('students', array('id' => $attendance_of_student['student_id']))->row('user_id'), 'name'); ?></td>
             <?php for ($i = 1; $i <= $number_of_days; $i++): ?>
-              <?php $date = $i.' '.$month.' '.$year;?>
+              <?php 
+              $month=date('M'); $year=date('Y');
+              $date = $i.' '.$month.' '.$year; ?>
               <?php $timestamp = strtotime($date); ?>
               <td class="text-center">
-                <?php $status = $this->db->get_where('daily_attendances', array('class_id' => $class_id, 'section_id' => $section_id, 'school_id' => $school_id, 'session_id' => $active_sesstion, 'student_id' => $attendance_of_student['student_id'], 'timestamp' => $timestamp))->row('status');
-                ?>
+                <?php $status = $this->db->get_where('daily_attendances',['class_id' => $student_data['class_id'], 'section_id' => $student_data['section_id'] , 'school_id' => $school_id, 'session_id' => $active_sesstion, 'student_id' => $attendance_of_student['student_id'], 'timestamp' => $timestamp])->row('status');
+                 ?>
                 <?php if($status == 1){ ?>
                   <i class="mdi mdi-circle text-success"></i>
                 <?php }elseif($status === "0"){ ?>
@@ -67,9 +52,7 @@
       <?php endif; ?>
     <?php endif; ?>
   <?php } ?>
+
 </tbody>
 </table>
 
-<div class="row d-print-none mt-3">
-  <div class="col-12 text-end"><a href="javascript:window.print()" class="btn btn-primary"><i class="mdi mdi-printer"></i><?php echo get_phrase('print'); ?></a></div>
-</div>
