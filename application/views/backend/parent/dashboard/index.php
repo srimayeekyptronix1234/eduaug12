@@ -1,3 +1,9 @@
+<?php 
+$parent_id = $this->session->userdata('user_id');
+$school_id  = school_id();
+$parent_data = $this->db->get_where('parents', array('user_id' => $parent_id))->row_array();
+
+?>
 <!-- start page title -->
 <div class="row ">
   <div class="col-xl-12">
@@ -24,8 +30,6 @@
                               <h5 class="text-muted font-weight-normal mt-0" title="Active Complaints Count"> <i class="mdi mdi-account-group title_icon"></i>  <?php echo get_phrase('Active Complaints'); ?> <a href="" style="color: #6c757d; display: none;" id = "complaint_list"><i class = "mdi mdi-export"></i></a></h5>
                               <h3 class="mt-3 mb-3">
                                   <?php
-                                       $parent_id = $this->session->userdata('user_id');
-                                       $parent_data = $this->db->get_where('parents', array('user_id' => $parent_id))->row_array();
                                        $this->db->select('c.*');
                                        $this->db->from('students s');
                                        $this->db->join('complaint c', 'c.student_id = s.user_id');
@@ -56,8 +60,6 @@
                               <h5 class="text-muted font-weight-normal mt-0" title="Homework"> <i class="mdi mdi-account-group title_icon"></i><?php echo get_phrase('Homework'); ?>  <a href="" style="color: #6c757d; display: none;" id = "academic_progress"><i class = "mdi mdi-export"></i></a></h5>
                               <h3 class="mt-3 mb-3">
                                   <?php
-                                       $parent_id = $this->session->userdata('user_id');
-                                       $parent_data = $this->db->get_where('parents', array('user_id' => $parent_id))->row_array();
                                        $this->db->select('h.*');
                                        $this->db->from('students s');
                                        $this->db->join('homework h', 'h.student_id = s.id');
@@ -124,18 +126,31 @@
               </div>
             </div> <!-- end col -->
             <div class="col-xl-4">
-                <div class="card bg-primary">
+                <div class="card">
                     <div class="card-body">
-                        <h4 class="header-title text-white mb-2"><?php echo get_phrase('todays_attendance'); ?></h4>
+                        <h4 class="header-title"><?php echo get_phrase('todays_attendance'); ?></h4>
                         <div class="text-center">
-                            <h3 class="font-weight-normal text-white mb-2">
-                                <?php echo $this->crud_model->get_todays_attendance(); ?>
-                            </h3>
-                            <p class="text-light text-uppercase font-13 font-weight-bold"><?php echo $this->crud_model->get_todays_attendance(); ?> <?php echo get_phrase('students_are_attending_today'); ?></p>
-                            <!-- <a href="<?php echo route('attendance'); ?>" class="btn btn-outline-light btn-sm mb-1"><?php echo get_phrase('go_to_attendance'); ?>
-                                <i class="mdi mdi-arrow-right ms-1"></i>
-                            </a> -->
+                            <h3 class="font-weight-normal mb-2">
+                                <?php
+                                       $this->db->select('da.*');
+                                       $this->db->from('students s');
+                                       $this->db->join('daily_attendances da', 'da.student_id = s.id');
+                                       $this->db->where('s.parent_id', $parent_data['id']);
+                                       $this->db->where('da.school_id', $school_id);
+                                       $childs_attendances=$this->db->get()->num_rows();
 
+                                      if(isset($childs_attendances) && $childs_attendances != ''){
+                                           echo $childs_attendances;
+                                      }
+                                    
+                                  ?>
+                            </h3>
+                            <p class="mb-0 text-muted">
+                              <?php 
+                                    if(isset($childs_attendances) && $childs_attendances != ''){
+                                           echo $childs_attendances;} 
+                              ?> <?php echo get_phrase('childs_are_attending_today'); ?></p>
+                         
                         </div>
                     </div>
                 </div>
