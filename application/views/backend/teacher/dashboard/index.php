@@ -23,6 +23,7 @@ $school_id  = school_id();
         <div class="row">
             <div class="col-xl-8">
               <div class="row">
+                <!--Number of Student start-->
                   <div class="col-lg-6">
                       <div class="card widget-flat" id="student" style="on">
                           <div class="card-body">
@@ -44,6 +45,7 @@ $school_id  = school_id();
                           </div> <!-- end card-body-->
                       </div> <!-- end card-->
                   </div> <!-- end col-->
+                  <!--Number of Student END-->
                    <!-- COMPLAINT SECTION START -->
                   <div class="col-lg-6">
                       <div class="card widget-flat" id="complaints" style="on">

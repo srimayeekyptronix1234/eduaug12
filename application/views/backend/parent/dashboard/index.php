@@ -21,6 +21,7 @@ $parent_data = $this->db->get_where('parents', array('user_id' => $parent_id))->
         <div class="row">
             <div class="col-xl-8">
               <div class="row">
+                <!--Active Complaints Count Start-->
                   <div class="col-lg-6">
                       <div class="card widget-flat" id="complaints" style="on">
                           <div class="card-body">
@@ -50,7 +51,8 @@ $parent_data = $this->db->get_where('parents', array('user_id' => $parent_id))->
                           </div> 
                       </div> 
                   </div> 
-
+                   <!--Active Complaints Count End-->
+                   <!--Homework Count Start-->
                   <div class="col-lg-6">
                       <div class="card widget-flat" id="homework" style="on">
                           <div class="card-body">
@@ -80,52 +82,13 @@ $parent_data = $this->db->get_where('parents', array('user_id' => $parent_id))->
                           </div> 
                       </div> 
                   </div> 
+                  <!--Homework Count End-->
+
               </div> 
-              <div class="row">
-                 <!-- <div class="col-lg-6">
-                      <div class="card widget-flat" id = "parent">
-                          <div class="card-body">
-                              <div class="float-end">
-                                  <i class="mdi mdi-account-multiple widget-icon"></i>
-                              </div>
-                              <h5 class="text-muted font-weight-normal mt-0" title="Number of Parents"> <i class="mdi mdi-account-group title_icon"></i> <?php echo get_phrase('parents'); ?> <a href="<?php echo route('parent'); ?>" style="color: #6c757d; display: none;" id = "parent_list"><i class = "mdi mdi-export"></i></a></h5>
-                              <h3 class="mt-3 mb-3">
-                                  <?php
-                                      $parents = $this->user_model->get_parents();
-                                      echo $parents->num_rows();
-                                   ?>
-                              </h3>
-                              <p class="mb-0 text-muted">
-                                  <span class="text-nowrap"><?php echo get_phrase('total_number_of_parent'); ?></span>
-                              </p>
-                          </div> 
-                      </div> 
-                  </div> -->
-
-                 <!-- <div class="col-lg-6">
-                      <div class="card widget-flat">
-                          <div class="card-body">
-                              <div class="float-end">
-                                  <i class="mdi mdi-account-multiple widget-icon"></i>
-                              </div>
-                              <h5 class="text-muted font-weight-normal mt-0" title="Number of Staff"> <i class="mdi mdi-account-group title_icon"></i> <?php echo get_phrase('staff'); ?></h5>
-                              <h3 class="mt-3 mb-3">
-                                  <?php
-                                      $accountants = $this->user_model->get_accountants()->num_rows();
-                                      $librarians = $this->user_model->get_librarians()->num_rows();
-                                      echo $accountants + $librarians;
-
-                                   ?>
-                              </h3>
-                              <p class="mb-0 text-muted">
-                                  <span class="text-nowrap"><?php echo get_phrase('total_number_of_staff'); ?></span>
-                              </p>
-                          </div> 
-                      </div> 
-                  </div> -->
-              </div>
+              <div class="row"></div>
             </div> <!-- end col -->
             <div class="col-xl-4">
+              <!--childs attendance start-->
                 <div class="card">
                     <div class="card-body">
                         <h4 class="header-title"><?php echo get_phrase('todays_attendance'); ?></h4>
@@ -154,12 +117,16 @@ $parent_data = $this->db->get_where('parents', array('user_id' => $parent_id))->
                         </div>
                     </div>
                 </div>
+                <!--childs attendance End-->
+                <!--Recent events Start-->
                 <div class="card">
                     <div class="card-body">
                         <h4 class="header-title"><?php echo get_phrase('recent_events'); ?><a href="<?php echo route('event_calendar'); ?>" style="color: #6c757d;"><i class = "mdi mdi-export"></i></a></h4>
                         <?php include 'event.php'; ?>
                     </div>
                 </div>
+                <!--Recent events End-->
+
             </div>
         </div>
     </div><!-- end col-->
