@@ -47,24 +47,30 @@
 
           <div class="col-lg-6">
             <div class="card widget-flat" id="teacher" style="on">
-              <div class="card-body">
+              <div class="card-body" style="background-color: #CD5C08; color: #ffffff!important;">
                 <div class="float-end">
-                  <i class="mdi mdi-account-multiple widget-icon"></i>
+                  <i class="mdi mdi-account-multiple widget-icon" style="color: #ffffff;"></i>
                 </div>
-                <h5 class="text-muted font-weight-normal mt-0" title="Number of Teacher"> <i
-                    class="fa-solid fa-chalkboard-user"></i><?php echo get_phrase('teacher'); ?> <a
-                    href="<?php echo route('teacher'); ?>" style="color: #6c757d; display: none;" id="teacher_list"><i
-                      class="mdi mdi-export"></i></a></h5>
-                <h3 class="mt-3 mb-3">
+                <h5 class="text-muted font-weight-normal mt-0" title="Number of Teacher" style="color: #ffffff;">
+                  <i class="fa-solid fa-chalkboard-user" style="color: #ffffff;"></i>
+                  <?php echo get_phrase('teacher'); ?>
+                  <a href="<?php echo route('teacher'); ?>" style="color: #6c757d; display: none;" id="teacher_list">
+                    <i class="mdi mdi-export"></i>
+                  </a>
+                </h5>
+                <h3 class="mt-3 mb-3" style="color: #ffffff;">
                   <?php
                   $teachers = $this->user_model->get_teachers();
                   echo $teachers->num_rows();
                   ?>
                 </h3>
                 <p class="mb-0 text-muted">
-                  <span class="text-nowrap"><?php echo get_phrase('total_number_of_teacher'); ?></span>
+                  <span class="text-nowrap"
+                    style="color: #ffffff;"><?php echo get_phrase('total_number_of_teacher'); ?></span>
                 </p>
-              </div> <!-- end card-body-->
+              </div>
+              <!-- end card-body-->
+
             </div> <!-- end card-->
           </div> <!-- end col-->
         </div> <!-- end row -->
