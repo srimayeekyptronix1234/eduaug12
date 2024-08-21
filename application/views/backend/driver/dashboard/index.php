@@ -64,11 +64,13 @@
                               <div class="float-end">
                                   <i class="mdi mdi-account-multiple widget-icon"></i>
                               </div>
-                              <h5 class="text-muted font-weight-normal mt-0" title="Route"> <i class="mdi mdi-account-group title_icon"></i><?php echo get_phrase('route'); ?>  <a href="<?php echo route('route'); ?>" style="color: #6c757d; display: none;" id = "route_list"><i class = "mdi mdi-export"></i></a></h5>
-                                  <?php
+                                <?php
                                       $driver_data = $this->user_model->get_logged_in_driver_details(); 
                                       $check_data = $this->db->get_where('routes',['id'=>$driver_data['route_id']])->result_array();
-                                   ?>
+                                  ?>
+                              <h5 class="text-muted font-weight-normal mt-0" title="Route"> <i class="mdi mdi-routes title_icon"></i><?php echo get_phrase('route'); ?> <?php if (count($check_data) > 0){ echo '('.count($check_data).')';} ?>
+                                 <a href="<?php echo route('route'); ?>" style="color: #6c757d; display: none;" id = "route_list"><i class = "mdi mdi-export"></i></a></h5>
+                                
                                    <div class="table-responsive-sm">
                                     <table class="table table-striped table-centered table-bordered mb-0 table-responsive">
                                       <thead>
