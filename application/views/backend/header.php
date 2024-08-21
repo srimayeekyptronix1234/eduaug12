@@ -18,6 +18,7 @@
         border: none;
         cursor: pointer;
         margin-left: 15px;
+        height: 80px;
         padding: 0;
     }
 
@@ -46,7 +47,7 @@
         </a>
 
         <!-- Toggle Button -->
-        <button class="navbar-toggler" type="button" aria-label="Toggle navigation">
+        <button class="navbar-toggler" type="button" id="togl" aria-label="Toggle navigation">
             <i class="fas fa-bars"></i>
         </button>
 
@@ -148,4 +149,11 @@
             }
         });
     }
+    $(document).ready(function () {
+
+        $("#togl").click(function () {
+            $(".leftside-menu-detached").toggle();
+        });
+
+    });
 </script>
