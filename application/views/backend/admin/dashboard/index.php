@@ -12,14 +12,13 @@
 
   p {
     text-align: left;
-    text-transform: uppercase;
-    font-weight: 600;
+    text-transform: capitalize;
+    font-weight: 500;
   }
 
   .progress-header {
     text-align: center;
     margin-bottom: 5px;
-    font-family: tahoma, arial, helvetica;
     font-size: 14px;
     color: black;
   }
@@ -61,6 +60,39 @@
     box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
     transition: 0.3s ease;
   }
+
+  .linebar {
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    margin-bottom: 20px;
+    box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+  }
+
+  .linebar:hover {
+    box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+    transition: 0.3s ease;
+  }
+
+  .boxhover {
+    box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+    border-radius: 10px;
+  }
+
+  .boxhover:hover {
+    box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+    transition: 0.3s ease;
+  }
+
+  .colhover {
+    box-shadow: rgba(50, 50, 93, 0.25) 0px 6px 12px -2px, rgba(0, 0, 0, 0.3) 0px 3px 7px -3px;
+    border-radius: 10px;
+  }
+
+  .colhover:hover {
+    box-shadow: rgb(38, 57, 77) 0px 20px 30px -10px;
+    transition: 1s ease;
+  }
 </style>
 
 <!-- start page title -->
@@ -82,7 +114,7 @@
       <div class="col-xl-8">
         <div class="row">
           <div class="col-lg-6">
-            <div class="card widget-flat bg-primary" id="student" style="on">
+            <div class="card widget-flat bg-primary colhover" id="student" style="on">
               <div class="card-body" style="background-color: #5655AB;">
                 <div class="float-end">
                   <i class="mdi mdi-account-multiple widget-icon" style="color: #ffffff;"></i>
@@ -111,7 +143,7 @@
           </div> <!-- end col-->
 
           <div class="col-lg-6">
-            <div class="card widget-flat" id="teacher" style="on">
+            <div class="card widget-flat colhover" id="teacher" style="on">
               <div class="card-body" style="background-color:#FD858F; color: #ffffff;">
                 <div class="float-end">
                   <i class="mdi mdi-account-multiple widget-icon" style="color: #ffffff!important;"></i>
@@ -143,7 +175,7 @@
 
         <div class="row">
           <div class="col-lg-6">
-            <div class="card widget-flat" id="parent">
+            <div class="card widget-flat colhover" id="parent">
               <div class="card-body" style="background-color: #035fbd; color: #ffffff!important;">
                 <div class="float-end">
                   <i class="mdi mdi-account-multiple widget-icon" style="color: #ffffff;"></i>
@@ -173,7 +205,7 @@
           </div> <!-- end col-->
 
           <div class="col-lg-6">
-            <div class="card widget-flat">
+            <div class="card widget-flat colhover">
               <div class="card-body" style="background-color: #FF8911; color: #ffffff;">
                 <div class="float-end">
                   <i class="mdi mdi-account-multiple widget-icon" style="color: #ffffff;"></i>
@@ -202,7 +234,7 @@
         </div>
       </div> <!-- end col -->
       <div class="col-xl-4">
-        <div class="card bg-primary">
+        <div class="card bg-primary colhover">
           <div class="card-body">
             <h4 class="header-title text-white mb-2"><?php echo get_phrase('todays_attendance'); ?></h4>
             <div class="text-center">
@@ -221,7 +253,7 @@
             </div>
           </div>
         </div>
-        <div class="card">
+        <div class="card boxhover">
           <div class="card-body">
             <h4 class="header-title"><?php echo get_phrase('recent_events'); ?><a
                 href="<?php echo route('event_calendar'); ?>" style="color: #6c757d;"><i
@@ -238,7 +270,7 @@
 <!--CHART OPEN-->
 <div class="row ">
   <div class="col-sm-8">
-    <div>
+    <div class="linebar">
       <canvas id="myLineChart"></canvas>
     </div>
   </div>
@@ -248,31 +280,41 @@
       <div class="progress-container">
         <div class="progressbar">
           <div class="progress-header">
-            <p class="mt-2">Today Present Students</p>
+            <p class="mt-2 mb-2">Today Present Students</p>
           </div>
           <div class="bar-container">
-            <div class="bar" style="width:94%; background-color:#FD858F;"></div>
-            <p class="percent-outside"><b>94%</b></p>
+            <div class="bar" style="width:87%; background-color:#FD858F;"></div>
+            <p class="percent-outside"><b>87%</b></p>
           </div>
         </div>
 
         <div class="progressbar">
           <div class="progress-header">
-            <p class="mt-2">Today Present Employees</p>
+            <p class="mt-2 mb-2">Today Present Employees</p>
           </div>
           <div class="bar-container">
-            <div class="bar" style="width:92%; background-color:#FF8911;"></div>
-            <p class="percent-outside"><b>92%</b></p>
+            <div class="bar" style="width:82%; background-color:#FF8911;"></div>
+            <p class="percent-outside"><b>82%</b></p>
           </div>
         </div>
 
         <div class="progressbar">
           <div class="progress-header">
-            <p class="mt-2">This Month Fee Collection</p>
+            <p class="mt-2 mb-2">Today’s New Enrollments</p>
           </div>
           <div class="bar-container">
-            <div class="bar" style="width:96%; background-color:#035FBD;"></div>
-            <p class="percent-outside"><b>96%</b></p>
+            <div class="bar" style="width:35%; background-color:#035FBD;"></div>
+            <p class="percent-outside"><b>35%</b></p>
+          </div>
+        </div>
+
+        <div class="progressbar">
+          <div class="progress-header">
+            <p class="mt-2 mb-2">This Month Fee Collection</p>
+          </div>
+          <div class="bar-container mb-3">
+            <div class="bar" style="width:76%; background-color:#2CBC63;"></div>
+            <p class="percent-outside"><b>76%</b></p>
           </div>
         </div>
       </div>
@@ -280,103 +322,103 @@
 
 
   </div>
+</div>
 
+<!--CHART CLOSE-->
 
-  <!--CHART CLOSE-->
-
-
-  <div class="row">
-    <div class="col-xl-12">
-      <div class="row">
-        <div class="col-xl-8">
-          <div class="card">
-            <div class="card-body">
-              <h4 class="header-title mb-3"><?php echo get_phrase('accounts_of'); ?> <?php echo date('F'); ?> <a
-                  href="<?php echo route('invoice'); ?>" style="color: #6c757d"><i
-                    class="mdi mdi-export text-light"></i></a></h4>
-              <?php include 'invoice.php'; ?>
-            </div>
+<!--Accounts Start-->
+<div class="row">
+  <div class="col-xl-12">
+    <div class="row">
+      <div class="col-xl-8">
+        <div class="card boxhover">
+          <div class="card-body">
+            <h4 class="header-title mb-3"><?php echo get_phrase('accounts_of'); ?> <?php echo date('F'); ?> <a
+                href="<?php echo route('invoice'); ?>" style="color: #6c757d"><i
+                  class="mdi mdi-export text-light"></i></a></h4>
+            <?php include 'invoice.php'; ?>
           </div>
         </div>
-        <div class="col-xl-4">
-          <div class="card">
-            <div class="card-body">
-              <h4 class="header-title mb-3"> <?php echo get_phrase('expense_of'); ?> <?php echo date('F'); ?> <a
-                  href="<?php echo route('expense'); ?>" style="color: #6c757d"><i
-                    class="mdi mdi-export text-light"></i></a></h4>
-              <?php include 'expense.php'; ?>
-            </div>
+      </div>
+      <div class="col-xl-4">
+        <div class="card boxhover">
+          <div class="card-body">
+            <h4 class="header-title mb-3"> <?php echo get_phrase('expense_of'); ?> <?php echo date('F'); ?> <a
+                href="<?php echo route('expense'); ?>" style="color: #6c757d"><i
+                  class="mdi mdi-export text-light"></i></a></h4>
+            <?php include 'expense.php'; ?>
           </div>
         </div>
       </div>
     </div>
   </div>
+</div>
+<!--Accounts close-->
+<script>
+  $(document).ready(function () {
+    initDataTable("expense-datatable");
+  });
 
-  <script>
-    $(document).ready(function () {
-      initDataTable("expense-datatable");
-    });
+  $(".widget-flat").mouseenter(function () {
+    var id = $(this).attr('id');
+    $('#' + id + '_list').show();
+  }).mouseleave(function () {
+    var id = $(this).attr('id');
+    $('#' + id + '_list').hide();
+  });
 
-    $(".widget-flat").mouseenter(function () {
-      var id = $(this).attr('id');
-      $('#' + id + '_list').show();
-    }).mouseleave(function () {
-      var id = $(this).attr('id');
-      $('#' + id + '_list').hide();
-    });
+  //lINE CHART START//
 
-    //lINE CHART START//
-
-    const data = {
-      labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
-      datasets: [
-        {
-          label: 'Dataset 1',
-          data: [65, 59, 80, 81, 56, 55, 40],
-          fill: false,
-          borderColor: 'rgb(75, 192, 192)',
-          tension: 0.1
-        },
-        {
-          label: 'Dataset 2',
-          data: [28, 48, 40, 19, 86, 27, 90],
-          fill: false,
-          borderColor: 'rgb(255, 99, 132)',
-          tension: 0.1
-        },
-        {
-          label: 'Dataset 3',
-          data: [18, 12, 60, 20, 46, 77, 80],
-          fill: false,
-          borderColor: 'rgb(54, 162, 235)',
-          tension: 0.1
-        }
-      ]
-    };
-
-    const config = {
-      type: 'line',
-      data: data,
-      options: {
-        responsive: true,
-        plugins: {
-          legend: {
-            position: 'top',
-          },
-          title: {
-            display: true,
-            text: 'Student Statistics'
-          }
-        }
+  const data = {
+    labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
+    datasets: [
+      {
+        label: 'Dataset 1',
+        data: [65, 59, 80, 81, 56, 55, 40],
+        fill: false,
+        borderColor: 'rgb(75, 192, 192)',
+        tension: 0.1
       },
-    };
+      {
+        label: 'Dataset 2',
+        data: [28, 48, 40, 19, 86, 27, 90],
+        fill: false,
+        borderColor: 'rgb(255, 99, 132)',
+        tension: 0.1
+      },
+      {
+        label: 'Dataset 3',
+        data: [18, 12, 60, 20, 46, 77, 80],
+        fill: false,
+        borderColor: 'rgb(54, 162, 235)',
+        tension: 0.1
+      }
+    ]
+  };
 
-    const myLineChart = new Chart(
-      document.getElementById('myLineChart'),
-      config
-    );
+  const config = {
+    type: 'line',
+    data: data,
+    options: {
+      responsive: true,
+      plugins: {
+        legend: {
+          position: 'top',
+        },
+        title: {
+          display: true,
+          text: 'Student Statistics'
+        }
+      }
+    },
+  };
 
-    //lINE CHART END//
+  const myLineChart = new Chart(
+    document.getElementById('myLineChart'),
+    config
+  );
+
+  //lINE CHART END//
 
 
-  </script>
+</script>
