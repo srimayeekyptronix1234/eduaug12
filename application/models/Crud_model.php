@@ -2092,38 +2092,6 @@ class Crud_model extends CI_Model {
 		);
 		return json_encode($response);
 	}
-     public function take_staff_attendance()
-	{
-		$staffs = $this->input->post('staff_id');
-		$data['timestamp'] = strtotime($this->input->post('date'));
-		$data['school_id'] = $this->school_id;
-		$data['session_id'] = $this->active_session;
-		$check_data = $this->db->get_where('staff_attendance', array('timestamp' => $data['timestamp'],'session_id' => $data['session_id'], 'school_id' => $data['school_id']));
-		if($check_data->num_rows() > 0){
-			foreach($staffs as $key => $staff):
-				$data['status'] = $this->input->post('status-'.$staff);
-				$data['staff_id'] = $staff;
-				$attendance_id = $this->input->post('attendance_id');
-				$this->db->where('id', $attendance_id[$key]);
-				$this->db->update('staff_attendance', $data);
-			endforeach;
-		}else{
-			foreach($staffs as $staff):
-				$data['status'] = $this->input->post('status-'.$staff);
-				$data['staff_id'] = $staff;
-				$this->db->insert('staff_attendance', $data);
-			endforeach;
-		}
-
-		$this->settings_model->last_updated_attendance_data();
-
-		$response = array(
-			'status' => true,
-			'notification' => get_phrase('attendance_updated_successfully')
-		);
-
-		return json_encode($response);
-	}
 
    
 	

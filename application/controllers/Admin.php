@@ -1554,36 +1554,7 @@ class Admin extends CI_Controller {
 			$this->load->view('backend/index', $page_data);
 		}
 	}
-	//STAFF DAILY ATTENDANCE section
-	public function staff_attendance($param1 = '', $param2 = '', $param3 = ''){
-
-		if($param1 == 'take_attendance'){
-			$response = $this->crud_model->take_staff_attendance();
-			echo $response;
-		}
-
-		if($param1 == 'filter'){
-			$date = '01 '.$this->input->post('month').' '.$this->input->post('year');
-			$page_data['attendance_date'] = strtotime($date);
-			$page_data['month'] = $this->input->post('month');
-			$page_data['year'] = $this->input->post('year');
-			$this->load->view('backend/admin/staff_attendance/list', $page_data);
-		}
-
-		if($param1 == 'staff'){
-			$page_data['attendance_date'] = strtotime($this->input->post('date'));
-			$page_data['staff_role'] = htmlspecialchars($this->input->post('role'));
-			$this->load->view('backend/admin/staff_attendance/staff', $page_data);
-		}
-
-		if(empty($param1)){
-			$page_data['folder_name'] = 'staff_attendance';
-			$page_data['page_title'] = 'attendance';
-			$this->load->view('backend/index', $page_data);
-		}
-	}
-	//STAFF DAILY ATTENDANCE section END
-
+	
 	
 
 	

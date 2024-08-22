@@ -1479,13 +1479,6 @@
     "menu": "Menu",
     "welcome_to_admin_dashboard_": "Welcome to admin dashboard ",
     "welcome_to_admin_dashboard": "Welcome to admin dashboard",
-<<<<<<< HEAD
     "student_panel": "Student panel",
     "teachers_panel": "Teachers panel"
-=======
-    "staff_attendance": "Staff attendance",
-    "staff_daily_attendance": "Staff daily attendance",
-    "select_a_staff": "Select a staff",
-    "show_staff_list": "Show staff list"
->>>>>>> 2aff146c1718dad4d80431e6488bd15603bb119e
 }
