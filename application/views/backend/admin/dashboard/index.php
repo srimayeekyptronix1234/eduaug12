@@ -93,6 +93,10 @@
     box-shadow: rgb(38, 57, 77) 0px 20px 30px -10px;
     transition: 1s ease;
   }
+
+  #myLineChart {
+    width: 100% !important;
+  }
 </style>
 
 <!-- start page title -->
@@ -310,7 +314,7 @@
 
         <div class="progressbar">
           <div class="progress-header">
-            <p class="mt-2 mb-2">This Month Fee Collection</p>
+            <p class="mt-2 mb-2">This Month Fees Collection</p>
           </div>
           <div class="bar-container mb-3">
             <div class="bar" style="width:76%; background-color:#2CBC63;"></div>
