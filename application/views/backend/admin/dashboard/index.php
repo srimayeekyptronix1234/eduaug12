@@ -97,19 +97,42 @@
   #myLineChart {
     width: 100% !important;
   }
+
+  .adminbar {
+    background: #ffdfe8;
+    border-radius: 10px;
+    box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+
+  }
 </style>
 
 <!-- start page title -->
-<div class="row ">
+<div class="row">
   <div class="col-xl-12">
     <div class="card">
-      <div class="card-body py-2">
-        <h4 class="page-title"> <i class="mdi mdi-view-dashboard title_icon"></i> <?php echo get_phrase('dashboard'); ?>
-        </h4>
+      <div class="card-body py-2 d-flex align-items-center justify-content-between adminbar">
+        <div>
+          <h4 class="page-title mb-0 d-flex align-items-center">
+            <i class="mdi mdi-view-dashboard title_icon" style="font-size: 1.5rem; color: #ff7580;"></i>
+            <span
+              style="font-size: 1.5rem; font-weight: 700; color: #ff7580; margin-left: 10px; text-transform: capitalize;">
+              <?php echo get_phrase('Welcome to Admin Dashboard'); ?>
+            </span>
+          </h4>
+
+          <p class="text-muted mt-2" style="font-size: 16px; font-weight: 600; color: #2c2c2c !important;">Empowering
+            your
+            management with seamless efficiency.</p>
+        </div>
+        <img src="https://eskooly.com/bb/assets/images/admin-message.png" alt="Dashboard Image" class="img-fluid"
+          style="width: 215px; margin-top: -30px;">
       </div> <!-- end card body-->
     </div> <!-- end card -->
   </div><!-- end col-->
 </div>
+
+
+
 <!-- end page title -->
 
 <div class="row ">
@@ -118,7 +141,7 @@
       <div class="col-xl-8">
         <div class="row">
           <div class="col-lg-6">
-            <div class="card widget-flat bg-primary colhover" id="student" style="on">
+            <div class="card widget-flat bg-primary colhover" id="student">
               <div class="card-body" style="background-color: #5655AB;">
                 <div class="float-end">
                   <i class="mdi mdi-account-multiple widget-icon" style="color: #ffffff;"></i>
@@ -127,7 +150,9 @@
 
                 <h5 class="text-muted font-weight-normal mt-0" title="Number of Student">
                   <i class="fa-solid fa-graduation-cap" style="color: #ffffff;"></i>
-                  <span style="color: #ffffff;"><?php echo get_phrase('students'); ?></span>
+                  <span style="color: #ffffff;">
+                    <?php echo get_phrase('students'); ?>
+                  </span>
                   <a href="<?php echo route('student'); ?>" style="color: #6c757d; display: none;" id="student_list">
                     <i class="mdi mdi-export text-light"></i>
                   </a>
@@ -139,15 +164,16 @@
                   ?>
                 </h3>
                 <p class="mb-0 text-muted">
-                  <span class="text-nowrap"
-                    style="color: #ffffff;"><?php echo get_phrase('total_number_of_student'); ?></span>
+                  <span class="text-nowrap" style="color: #ffffff;">
+                    <?php echo get_phrase('total_number_of_student'); ?>
+                  </span>
                 </p>
               </div> <!-- end card-body-->
             </div> <!-- end card-->
           </div> <!-- end col-->
 
           <div class="col-lg-6">
-            <div class="card widget-flat colhover" id="teacher" style="on">
+            <div class="card widget-flat colhover" id="teacher">
               <div class="card-body" style="background-color:#FD858F; color: #ffffff;">
                 <div class="float-end">
                   <i class="mdi mdi-account-multiple widget-icon" style="color: #ffffff!important;"></i>
@@ -167,8 +193,9 @@
                   ?>
                 </h3>
                 <p class="mb-0 text-muted">
-                  <span class="text-nowrap"
-                    style="color: #ffffff;"><?php echo get_phrase('total_number_of_teacher'); ?></span>
+                  <span class="text-nowrap" style="color: #ffffff;">
+                    <?php echo get_phrase('total_number_of_teacher'); ?>
+                  </span>
                 </p>
               </div>
               <!-- end card-body-->
@@ -199,8 +226,9 @@
                   ?>
                 </h3>
                 <p class="mb-0 text-muted">
-                  <span class="text-nowrap"
-                    style="color: #ffffff;"><?php echo get_phrase('total_number_of_parent'); ?></span>
+                  <span class="text-nowrap" style="color: #ffffff;">
+                    <?php echo get_phrase('total_number_of_parent'); ?>
+                  </span>
                 </p>
               </div>
               <!-- end card-body-->
@@ -227,8 +255,9 @@
                   ?>
                 </h3>
                 <p class="mb-0 text-muted">
-                  <span class="text-nowrap"
-                    style="color: #ffffff;"><?php echo get_phrase('total_number_of_staff'); ?></span>
+                  <span class="text-nowrap" style="color: #ffffff;">
+                    <?php echo get_phrase('total_number_of_staff'); ?>
+                  </span>
                 </p>
               </div>
               <!-- end card-body-->
@@ -240,7 +269,9 @@
       <div class="col-xl-4">
         <div class="card bg-primary colhover">
           <div class="card-body">
-            <h4 class="header-title text-white mb-2"><?php echo get_phrase('todays_attendance'); ?></h4>
+            <h4 class="header-title text-white mb-2">
+              <?php echo get_phrase('todays_attendance'); ?>
+            </h4>
             <div class="text-center">
               <h3 class="font-weight-normal text-white mb-2">
                 <?php echo $this->crud_model->get_todays_attendance(); ?>
@@ -249,8 +280,8 @@
                 <?php echo $this->crud_model->get_todays_attendance(); ?>
                 <?php echo get_phrase('students_are_attending_today'); ?>
               </p>
-              <a href="<?php echo route('attendance'); ?>"
-                class="btn btn-outline-light btn-sm mb-1"><?php echo get_phrase('go_to_attendance'); ?>
+              <a href="<?php echo route('attendance'); ?>" class="btn btn-outline-light btn-sm mb-1">
+                <?php echo get_phrase('go_to_attendance'); ?>
                 <i class="mdi mdi-arrow-right ms-1"></i>
               </a>
 
@@ -259,9 +290,9 @@
         </div>
         <div class="card boxhover">
           <div class="card-body">
-            <h4 class="header-title"><?php echo get_phrase('recent_events'); ?><a
-                href="<?php echo route('event_calendar'); ?>" style="color: #6c757d;"><i
-                  class="mdi mdi-export text-light"></i></a>
+            <h4 class="header-title">
+              <?php echo get_phrase('recent_events'); ?><a href="<?php echo route('event_calendar'); ?>"
+                style="color: #6c757d;"><i class="mdi mdi-export text-light"></i></a>
             </h4>
             <?php include 'event.php'; ?>
           </div>
@@ -337,9 +368,11 @@
       <div class="col-xl-8">
         <div class="card boxhover">
           <div class="card-body">
-            <h4 class="header-title mb-3"><?php echo get_phrase('accounts_of'); ?> <?php echo date('F'); ?> <a
-                href="<?php echo route('invoice'); ?>" style="color: #6c757d"><i
-                  class="mdi mdi-export text-light"></i></a></h4>
+            <h4 class="header-title mb-3">
+              <?php echo get_phrase('accounts_of'); ?>
+              <?php echo date('F'); ?> <a href="<?php echo route('invoice'); ?>" style="color: #6c757d"><i
+                  class="mdi mdi-export text-light"></i></a>
+            </h4>
             <?php include 'invoice.php'; ?>
           </div>
         </div>
@@ -347,9 +380,11 @@
       <div class="col-xl-4">
         <div class="card boxhover">
           <div class="card-body">
-            <h4 class="header-title mb-3"> <?php echo get_phrase('expense_of'); ?> <?php echo date('F'); ?> <a
-                href="<?php echo route('expense'); ?>" style="color: #6c757d"><i
-                  class="mdi mdi-export text-light"></i></a></h4>
+            <h4 class="header-title mb-3">
+              <?php echo get_phrase('expense_of'); ?>
+              <?php echo date('F'); ?> <a href="<?php echo route('expense'); ?>" style="color: #6c757d"><i
+                  class="mdi mdi-export text-light"></i></a>
+            </h4>
             <?php include 'expense.php'; ?>
           </div>
         </div>

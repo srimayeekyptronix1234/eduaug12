@@ -2548,15 +2548,15 @@ class PHPExcel_Calculation
     public static function unwrapResult($value)
     {
         if (is_string($value)) {
-            if ((isset($value{0})) && ($value{0} == '"') && (substr($value, -1) == '"')) {
+            if (isset($value[0]) && ($value[0] == '"') && (substr($value, -1) == '"')) {
                 return substr($value, 1, -1);
             }
-        //    Convert numeric errors to NaN error
-        } elseif ((is_float($value)) && ((is_nan($value)) || (is_infinite($value)))) {
+        } elseif (is_float($value) && (is_nan($value) || is_infinite($value))) {
             return PHPExcel_Calculation_Functions::NaN();
         }
-        return $value;
+        // Add a default return value or error handling here
     }
+    
 
 
 
@@ -2665,21 +2665,24 @@ class PHPExcel_Calculation
      * @throws    PHPExcel_Calculation_Exception
      */
     public function parseFormula($formula)
-    {
-        //    Basic validation that this is indeed a formula
-        //    We return an empty array if not
-        $formula = trim($formula);
-        if ((!isset($formula{0})) || ($formula{0} != '=')) {
-            return array();
-        }
-        $formula = ltrim(substr($formula, 1));
-        if (!isset($formula{0})) {
-            return array();
-        }
-
-        //    Parse the formula and return the token stack
-        return $this->_parseFormula($formula);
-    }
+   public function validateFormula($formula)
+   {
+       // Basic validation that this is indeed a formula
+       // We return an empty array if not
+       $formula = trim($formula);
+       if (empty($formula) || $formula[0] != '=') {
+           return [];
+       }
+       
+       $formula = ltrim(substr($formula, 1));
+       if (empty($formula)) {
+           return [];
+       }
+   
+       // Parse the formula and return the token stack
+       return $this->_parseFormula($formula);
+   }
+   
 
 
     /**

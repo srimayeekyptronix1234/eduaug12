@@ -1476,5 +1476,7 @@
     "academic_progress": "Academic progress",
     "childs_are_attending_today": "Childs are attending today",
     "attendance_record": "Attendance record",
-    "menu": "Menu"
+    "menu": "Menu",
+    "welcome_to_admin_dashboard_": "Welcome to admin dashboard ",
+    "welcome_to_admin_dashboard": "Welcome to admin dashboard"
 }
