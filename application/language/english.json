@@ -1478,5 +1478,7 @@
     "attendance_record": "Attendance record",
     "menu": "Menu",
     "welcome_to_admin_dashboard_": "Welcome to admin dashboard ",
-    "welcome_to_admin_dashboard": "Welcome to admin dashboard"
+    "welcome_to_admin_dashboard": "Welcome to admin dashboard",
+    "student_panel": "Student panel",
+    "teachers_panel": "Teachers panel"
 }
