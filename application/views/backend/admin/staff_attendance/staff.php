@@ -42,6 +42,7 @@
                     </td>
                     <td>
                         <input type="hidden" name="staff_id[]" value="<?php echo $staff['id']; ?>">
+
                         <div class="custom-control custom-radio">
                             <?php $update_attendance = $this->db->get_where('staff_attendance', array('timestamp' => $attendance_date,'session_id' => active_session(), 'school_id' => $school_id, 'staff_id' => $staff['id'])); ?>
                             <?php if($update_attendance->num_rows() > 0): ?>

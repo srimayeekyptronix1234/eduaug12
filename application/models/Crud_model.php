@@ -2098,7 +2098,8 @@ class Crud_model extends CI_Model {
 		$data['timestamp'] = strtotime($this->input->post('date'));
 		$data['school_id'] = $this->school_id;
 		$data['session_id'] = $this->active_session;
-		$check_data = $this->db->get_where('staff_attendance', array('timestamp' => $data['timestamp'],'session_id' => $data['session_id'], 'school_id' => $data['school_id']));
+		$data['role']=$this->input->post('role');
+		$check_data = $this->db->get_where('staff_attendance', array('timestamp' => $data['timestamp'],'session_id' => $data['session_id'], 'school_id' => $data['school_id'],'role'=>$data['role']));
 		if($check_data->num_rows() > 0){
 			foreach($staffs as $key => $staff):
 				$data['status'] = $this->input->post('status-'.$staff);
