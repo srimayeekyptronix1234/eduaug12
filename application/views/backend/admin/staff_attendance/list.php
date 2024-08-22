@@ -47,7 +47,17 @@
                              <td>
                                  <?php 
                                     $staff_list=$this->db->get_where('users', array('id' => $attendance_of_staff['staff_id']))->row_array();
-                                       echo $staff_list['name'];
+                                      if($staff_list['role'] == 'teacher'){
+                                          echo $staff_list['name'];
+                                      }else if($staff_list['role'] == 'hr'){
+                                          echo $staff_list['name'];
+                                      }else if($staff_list['role'] == 'driver'){
+                                          echo $staff_list['name'];
+                                      }else if($staff_list['role'] == 'librarian'){
+                                          echo $staff_list['name'];
+                                      }else if($staff_list['role'] == 'accountant'){
+                                          echo $staff_list['name'];
+                                      }
                                 
                                  ?>
                              </td>
