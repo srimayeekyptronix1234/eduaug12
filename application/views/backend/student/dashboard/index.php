@@ -133,7 +133,6 @@ $school_id  = school_id();
                                $extracaricul_percent = $get_original_activityVal ? 75 * ($get_original_activityVal / 100) : 0;
                                $totalScore_of_student = $writtent_test_cal_value + $extracaricul_percent;
                                $gettotalScore_of_student = intval($totalScore_of_student);
-
                                $this->db->select('*');
                                $this->db->from('grades');
                                $this->db->where('mark_from <=', $gettotalScore_of_student);
