@@ -36,6 +36,11 @@
         box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
         transition: 1s ease;
     }
+
+    .filbtn {
+        background: #0272f3;
+        padding: 7px 50px 7px 50px;
+    }
 </style>
 
 <!--title-->
@@ -82,7 +87,7 @@
                     </select>
                 </div>
                 <div class="col-md-2">
-                    <button class="btn btn-block btn-secondary"
+                    <button class="btn btn-block btn-secondary filbtn"
                         onclick="filter()"><?php echo get_phrase('filter'); ?></button>
                 </div>
             </div>
