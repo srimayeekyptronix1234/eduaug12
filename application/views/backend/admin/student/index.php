@@ -47,29 +47,29 @@
     </style>
 
     <!--title-->
-    <div class="row">
+    <div class="row d-print-none">
         <div class="col-xl-12">
-            <div class="card teacherbox">
-                <div class="card-body d-flex justify-content-between align-items-start">
-                    <div class="text-content">
-                        <div class="d-flex align-items-center mb-2">
-                            <i class="mdi mdi-account-circle title_icon"></i>
-                            <h4 class="page-title ms-2 mb-0">
-                                <?php echo get_phrase('teachers_panel'); ?>
+            <div class="card studentbox">
+                <div class="card-body py-2 d-flex justify-content-between align-items-center">
+                    <div class="d-flex flex-column">
+                        <div class="d-flex align-items-center">
+                            <i class="mdi mdi-calendar-today title_icon"></i>
+                            <h4 class="page-title ms-2">
+                                <?php echo get_phrase('student panel'); ?>
                             </h4>
                         </div>
-                        <p class="inspiring-line mb-2">
-                            Guiding every step towards a brighter and more successful future.
+                        <p class="inspiring-line mt-2">
+                            Empowering students to reach their full potential and achieve greatness.
                         </p>
                     </div>
-                    <button type="button" class="btn btn-outline-primary btn-rounded"
-                        onclick="rightModal('<?php echo site_url('modal/popup/teacher/create'); ?>', '<?php echo get_phrase('create_teacher'); ?>')">
-                        <i class="mdi mdi-plus"></i> <?php echo get_phrase('create_teacher'); ?>
-                    </button>
+                    <a href="<?php echo route('student/create'); ?>" class="btn btn-outline-primary btn-rounded mt-1">
+                        <i class="mdi mdi-plus"></i> <?php echo get_phrase('add_new_student'); ?>
+                    </a>
                 </div> <!-- end card body-->
             </div> <!-- end card -->
         </div><!-- end col-->
     </div>
+
 
 
 
