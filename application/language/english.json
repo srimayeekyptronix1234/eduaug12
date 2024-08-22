@@ -1478,5 +1478,9 @@
     "attendance_record": "Attendance record",
     "menu": "Menu",
     "welcome_to_admin_dashboard_": "Welcome to admin dashboard ",
-    "welcome_to_admin_dashboard": "Welcome to admin dashboard"
+    "welcome_to_admin_dashboard": "Welcome to admin dashboard",
+    "staff_attendance": "Staff attendance",
+    "staff_daily_attendance": "Staff daily attendance",
+    "select_a_staff": "Select a staff",
+    "show_staff_list": "Show staff list"
 }
