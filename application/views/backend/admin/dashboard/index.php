@@ -119,13 +119,11 @@
               <?php echo get_phrase('Welcome to Admin Dashboard'); ?>
             </span>
           </h4>
-
           <p class="text-muted mt-2" style="font-size: 16px; font-weight: 600; color: #2c2c2c !important;">Empowering
-            your
-            management with seamless efficiency.</p>
+            your management with seamless efficiency.</p>
         </div>
-        <img src="https://eskooly.com/bb/assets/images/admin-message.png" alt="Dashboard Image" class="img-fluid"
-          style="width: 215px; margin-top: -30px;">
+        <img src="<?php echo base_url('assets/backend/images/dashboardimg.png'); ?>" alt="Dashboard Image"
+          class="img-fluid" style="width: 215px; margin-top: -30px;">
       </div> <!-- end card body-->
     </div> <!-- end card -->
   </div><!-- end col-->
@@ -134,7 +132,7 @@
 
 
 <!-- end page title -->
-
+@
 <div class="row ">
   <div class="col-xl-12">
     <div class="row">

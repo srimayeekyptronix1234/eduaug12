@@ -2092,7 +2092,7 @@ class Crud_model extends CI_Model {
 		);
 		return json_encode($response);
 	}
-     public function take_staff_attendance()
+	public function take_staff_attendance()
 	{
 		$staffs = $this->input->post('staff_id');
 		$data['timestamp'] = strtotime($this->input->post('date'));
@@ -2124,6 +2124,7 @@ class Crud_model extends CI_Model {
 
 		return json_encode($response);
 	}
+
 
    
 	
