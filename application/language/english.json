@@ -1485,5 +1485,6 @@
     "staff_daily_attendance": "Staff daily attendance",
     "select_a_staff": "Select a staff",
     "show_staff_list": "Show staff list",
-    "select_a_staff_role": "Select a staff role"
+    "select_a_staff_role": "Select a staff role",
+    "paid_amount_is_not_equal_to_total_amount": "Paid amount is not equal to total amount"
 }
