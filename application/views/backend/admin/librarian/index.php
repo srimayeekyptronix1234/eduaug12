@@ -24,6 +24,7 @@
     .inspiring-line {
         font-size: 16px;
         color: #2c2c2c !important;
+        font-weight: 600;
     }
 
     .parbox {
