@@ -1484,5 +1484,6 @@
     "staff_attendance": "Staff attendance",
     "staff_daily_attendance": "Staff daily attendance",
     "select_a_staff": "Select a staff",
-    "show_staff_list": "Show staff list"
+    "show_staff_list": "Show staff list",
+    "select_a_staff_role": "Select a staff role"
 }

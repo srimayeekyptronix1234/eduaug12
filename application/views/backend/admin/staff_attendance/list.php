@@ -1,4 +1,4 @@
-<?php $school_id = school_id(); ?>
+<?php $school_id = school_id();?>
 <div class="row">
     <div class="col-md-4"></div>
     <div class="col-md-4">
@@ -39,7 +39,12 @@
             $staff_id_count = 0;
             $active_sesstion = active_session();
             $this->db->order_by('staff_id', 'asc');
-            $attendance_of_staffs = $this->db->get_where('staff_attendance', array('school_id' => $school_id, 'session_id' => $active_sesstion))->result_array();
+            if(!empty($role)){
+                $attendance_of_staffs = $this->db->get_where('staff_attendance', array('school_id' => $school_id, 'session_id' => $active_sesstion,'role'=>$role))->result_array();
+            }else{
+                $attendance_of_staffs = $this->db->get_where('staff_attendance', array('school_id' => $school_id, 'session_id' => $active_sesstion))->result_array();
+            }
+
                 foreach($attendance_of_staffs as $attendance_of_staff){ ?>
                     <?php if(date('m', $attendance_date) == date('m', $attendance_of_staff['timestamp'])): ?>
                         <?php if($staff_id_count != $attendance_of_staff['staff_id']): ?>
@@ -65,7 +70,7 @@
                                     <?php $date = $i.' '.$month.' '.$year; ?>
                                     <?php $timestamp = strtotime($date); ?>
                                     <td class="text-center">
-                                        <?php $status = $this->db->get_where('staff_attendance', array('school_id' => $school_id, 'session_id' => $active_sesstion,'staff_id' => $attendance_of_staff['staff_id'], 'timestamp' => $timestamp))->row('status'); ?>
+                                        <?php $status = $this->db->get_where('staff_attendance', array('school_id' => $school_id, 'session_id' => $active_sesstion,'staff_id' => $attendance_of_staff['staff_id'], 'timestamp' => $timestamp,'role'=>$attendance_of_staff['role']))->row('status'); ?>
                                             <?php if($status == 1){ ?>
                                                 <i class="mdi mdi-circle text-success"></i>
                                             <?php }elseif($status === "0"){ ?>
