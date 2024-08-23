@@ -50,24 +50,32 @@
 </style>
 
 <!--title-->
-<div class="row ">
+<div class="row">
   <div class="col-xl-12">
-    <div class="card">
-      <div class="card-body py-2">
-        <h4 class="page-title d-inline-block">
-          <i class="mdi mdi-grease-pencil title_icon"></i> <?php echo get_phrase('Exam'); ?>
-        </h4>
+    <div class="card parentbar">
+      <div class="card-body py-2 d-flex justify-content-between align-items-center">
+        <div>
+          <h4 class="page-title d-flex align-items-center">
+            <i class="mdi mdi-grease-pencil title_icon"></i>
+            <span class="ms-2"><?php echo get_phrase('Exam'); ?></span>
+          </h4>
+          <p class="inspiring-line mt-2">
+            Challenging minds to unlock their fullest potential.
+          </p>
+        </div>
         <button type="button" class="btn btn-outline-primary btn-rounded alignToTitle float-end mt-1"
           onclick="rightModal('<?php echo site_url('modal/popup/exam/create'); ?>', '<?php echo get_phrase('create_exam'); ?>')">
-          <i class="mdi mdi-plus"></i> <?php echo get_phrase('add_exam'); ?></button>
+          <i class="mdi mdi-plus"></i> <?php echo get_phrase('add_exam'); ?>
+        </button>
       </div> <!-- end card body-->
     </div> <!-- end card -->
   </div><!-- end col-->
 </div>
 
+
 <div class="row">
   <div class="col-12">
-    <div class="card">
+    <div class="card parbox">
       <div class="card-body exam_content">
         <?php include 'list.php'; ?>
       </div>
