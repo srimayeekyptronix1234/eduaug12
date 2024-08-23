@@ -1,24 +1,79 @@
+<style>
+    .title_icon {
+        font-size: 1.5rem;
+        color: #ff7580;
+        vertical-align: middle;
+    }
+
+    .page-title {
+        font-size: 20px;
+        font-weight: 700;
+        color: #ff7580;
+        line-height: 1.5;
+    }
+
+    .ms-2 {
+        margin-left: 0.5rem;
+    }
+
+    .parentbar {
+        box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+        background: #ffdfe8;
+    }
+
+    .inspiring-line {
+        font-size: 16px;
+        color: #2c2c2c !important;
+        font-weight: 600;
+    }
+
+    .parbox {
+        font-weight: 600;
+        box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+        border-radius: 10px;
+        padding: 20PX;
+    }
+
+    .parbox:hover {
+        box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+        transition: 1s ease;
+    }
+
+    .boxbtn {
+        background: #0272f3;
+        color: white;
+        padding-left: 30px;
+        padding-right: 30px;
+    }
+</style>
+
 <!--title-->
-<div class="row ">
-  <div class="col-xl-12">
-    <div class="card">
-      <div class="card-body py-2">
-        <h4 class="page-title d-inline-block">
-          <i class="mdi mdi-format-list-numbered title_icon"></i> <?php echo get_phrase('manage_final_report_cards'); ?>
-        </h4>
-      </div> <!-- end card body-->
-    </div> <!-- end card -->
-  </div><!-- end col-->
+<div class="row">
+    <div class="col-xl-12">
+        <div class="card parentbar">
+            <div class="card-body py-2">
+                <h4 class="page-title d-inline-block">
+                    <i class="mdi mdi-format-list-numbered title_icon"></i>
+                    <?php echo get_phrase('manage_final_report_cards'); ?>
+                </h4>
+                <p class="inspiring-line">
+                    Reflecting the journey of growth and excellence through every report card.
+                </p>
+            </div> <!-- end card body-->
+        </div> <!-- end card -->
+    </div><!-- end col-->
 </div>
+
 
 <div class="row">
     <div class="col-12">
-        <div class="card">
+        <div class="card parbox">
             <div class="row mt-3">
                 <div class="col-md-1 mb-1"></div>
-               
+
                 <div class="col-md-2 mb-1">
-                    <select name="class" id="class_id" class="form-control select2" data-toggle="select2" required onchange="classWiseSection(this.value)">
+                    <select name="class" id="class_id" class="form-control select2" data-toggle="select2" required
+                        onchange="classWiseSection(this.value)">
                         <option value=""><?php echo get_phrase('select_a_class'); ?></option>
                         <?php
                         $classes = $this->db->get_where('classes', array('school_id' => school_id()))->result_array();
@@ -39,13 +94,14 @@
                     </select>
                 </div>
                 <div class="col-md-2">
-                    <button class="btn btn-block btn-secondary" onclick="filter_reportcard()"><?php echo get_phrase('filter'); ?></button>
+                    <button class="btn btn-block btn-secondary boxbtn"
+                        onclick="filter_reportcard()"><?php echo get_phrase('filter'); ?></button>
                 </div>
             </div>
             <div class="card-body mark_content">
                 <table class="table table-bordered table-responsive-sm" width="100%">
                     <tbody id="report_card_body">
-                        
+
                         <!-- Data will be dynamically added here -->
                     </tbody>
                 </table>
@@ -57,7 +113,7 @@
 <script>
     $('document').ready(function () {
         $('select.select2:not(.normal)').each(function () {
-            $(this).select2({dropdownParent: '#right-modal'});
+            $(this).select2({ dropdownParent: '#right-modal' });
         });
     });
 
@@ -89,7 +145,7 @@
             $.ajax({
                 type: 'POST',
                 url: '<?php echo site_url('admin/final_report_card/list') ?>',
-                data: {class_id: class_id, section_id: section_id, student_id: student_id, exam_id: exam},
+                data: { class_id: class_id, section_id: section_id, student_id: student_id, exam_id: exam },
                 success: function (response) {
                     $('#report_card_body').html(response);
                     //updateGrades();
