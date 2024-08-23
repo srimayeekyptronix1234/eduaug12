@@ -17,7 +17,7 @@
     <div class="card">
       <div class="row mt-3 d-print-none">
         <div class="col-md-1 mb-1"></div>
-        <div class="col-md-4 mb-1">
+        <div class="col-md-3 mb-1">
           <select name="month" id="month" class="form-control select2" data-bs-toggle="select2" required>
             <option value=""><?php echo get_phrase('select_a_month'); ?></option>
             <option value="Jan"<?php if(date('M') == 'Jan') echo 'selected'; ?>><?php echo get_phrase('january'); ?></option>
@@ -34,7 +34,7 @@
             <option value="Dec"<?php if(date('M') == 'Dec') echo 'selected'; ?>><?php echo get_phrase('december'); ?></option>
           </select>
         </div>
-        <div class="col-md-4 mb-1">
+        <div class="col-md-3 mb-1">
           <select name="year" id="year" class="form-control select2" data-bs-toggle="select2" required>
             <option value=""><?php echo get_phrase('select_a_year'); ?></option>
             <?php for($year = 2015; $year <= date('Y'); $year++){ ?>
@@ -43,7 +43,22 @@
 
           </select>
         </div>
-       
+         <div class="col-md-3 mb-1">
+          <select name="role" id="role" class="form-control select2" data-bs-toggle="select2" required>
+               <option value=""><?php echo get_phrase('select_a_staff_role'); ?></option>
+               <?php
+                      $role=array('student','parent','admin','superadmin');
+                      $this->db->select('DISTINCT(u.role)');
+                      $this->db->where_not_in('u.role',$role);
+                      $all_users=$this->db->get('users u')->result_array();
+                ?>
+                <?php foreach($all_users as $users): ?>
+                    <option value="<?php echo $users['role']; ?>"><?php echo $users['role']; ?></option>
+                <?php endforeach; ?>
+
+          </select>
+        </div>
+      
         <div class="col-md-2">
           <button class="btn btn-block btn-secondary" onclick="filter_staff_attendance()" ><?php echo get_phrase('filter'); ?></button>
         </div>
@@ -68,7 +83,8 @@ $('document').ready(function(){
 function filter_staff_attendance(){
   var month = $('#month').val();
   var year = $('#year').val();
-  if( month != "" && year != ""){
+  var role=$('#role').val();
+  if( month != "" && year != "" && role !=""){
     getDailyStaffAttendance();
   }else{
     toastr.error('<?php echo get_phrase('please_select_in_all_fields !'); ?>');
@@ -78,16 +94,28 @@ function filter_staff_attendance(){
 var getDailyStaffAttendance = function () {
   var month = $('#month').val();
   var year = $('#year').val();
-  if(month != "" && year != ""){
+  var role=$('#role').val();
+  if(month != "" && year != "" && role !=""){
     $.ajax({
       type: 'POST',
       url: '<?php echo route('staff_attendance/filter') ?>',
-      data: {month : month, year : year},
+      data: {month : month, year : year,role:role},
       success: function(response){
         $('.staff_attendance_content').html(response);
         initDataTable('basic-datatable');
       }
     });
+  }else{
+      $.ajax({
+      type: 'POST',
+      url: '<?php echo route('staff_attendance/filter') ?>',
+      data: {month : month, year : year,role:role},
+      success: function(response){
+        $('.staff_attendance_content').html(response);
+        initDataTable('basic-datatable');
+      }
+    });
+ 
   }
 }
 </script>

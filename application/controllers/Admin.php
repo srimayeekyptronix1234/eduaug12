@@ -1567,6 +1567,7 @@ class Admin extends CI_Controller {
 			$page_data['attendance_date'] = strtotime($date);
 			$page_data['month'] = $this->input->post('month');
 			$page_data['year'] = $this->input->post('year');
+		    $page_data['role'] = $this->input->post('role');
 			$this->load->view('backend/admin/staff_attendance/list', $page_data);
 		}
 
