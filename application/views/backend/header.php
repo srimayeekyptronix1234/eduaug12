@@ -19,13 +19,19 @@
         cursor: pointer;
         margin-left: 15px;
         padding: 0;
-        line-height: 80px;
+        border: 22px solid #0272F3;
     }
 
     .navbar-toggler i {
         font-size: 24px;
         color: #fff;
         display: inline-block;
+    }
+
+    @media (max-width: 768px) {
+        .navbar-toggler {
+            display: none;
+        }
     }
 </style>
 

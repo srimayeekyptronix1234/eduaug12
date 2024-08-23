@@ -16,7 +16,7 @@ if ($user_type == 'parent') {
   }
 
   .side-nav-link:hover {
-    background: #035FBD;
+    background: #FFDFE8;
     border-radius: 0px 100px 100px 0px;
   }
 </style>
