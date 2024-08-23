@@ -4,7 +4,7 @@
     <div class="card">
       <div class="card-body py-2">
         <h4 class="page-title d-inline-block">
-          <i class="mdi mdi-calendar-today title_icon"></i> <?php echo get_phrase('staff_daily_attendance'); ?>
+          <i class="mdi mdi-calendar-today title_icon"></i> <?php echo get_phrase('attendance'); ?>
         </h4>
       </div> <!-- end card body-->
     </div> <!-- end card -->

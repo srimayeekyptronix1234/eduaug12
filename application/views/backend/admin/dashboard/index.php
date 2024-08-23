@@ -203,28 +203,28 @@
 
         <div class="row">
           <div class="col-lg-6">
-            <div class="card widget-flat colhover" id="parent">
+            <div class="card widget-flat colhover" id="total_exams">
               <div class="card-body" style="background-color: #035fbd; color: #ffffff!important;">
                 <div class="float-end">
                   <i class="mdi mdi-account-multiple widget-icon" style="color: #ffffff;"></i>
                 </div>
-                <h5 class="text-muted font-weight-normal mt-0" title="Number of Parents"
+                <h5 class="text-muted font-weight-normal mt-0" title="Number of Exam"
                   style="color: #ffffff!important;">
-                  <i class="mdi mdi-account-group title_icon" style="color: #ffffff;"></i>
-                  <?php echo get_phrase('parents'); ?>
-                  <a href="<?php echo route('parent'); ?>" style="color: #6c757d; display: none;" id="parent_list">
+                  <i class="mdi mdi-book-clock title_icon" style="color: #ffffff;"></i>
+                  <?php echo get_phrase('exam'); ?>
+                  <a href="" style="color: #6c757d; display: none;" id="exam_list">
                     <i class="mdi mdi-export text-light"></i>
                   </a>
                 </h5>
                 <h3 class="mt-3 mb-3" style="color: #ffffff;">
                   <?php
-                  $parents = $this->user_model->get_parents();
-                  echo $parents->num_rows();
+                  $total_exams=$this->db->get('online_exam_details')->num_rows();
+                  echo $total_exams;
                   ?>
                 </h3>
                 <p class="mb-0 text-muted">
                   <span class="text-nowrap" style="color: #ffffff;">
-                    <?php echo get_phrase('total_number_of_parent'); ?>
+                    <?php echo get_phrase('total_number_of_exams'); ?>
                   </span>
                 </p>
               </div>
@@ -246,9 +246,15 @@
                 </h5>
                 <h3 class="mt-3 mb-3" style="color: #ffffff;">
                   <?php
-                  $accountants = $this->user_model->get_accountants()->num_rows();
-                  $librarians = $this->user_model->get_librarians()->num_rows();
-                  echo $accountants + $librarians;
+                    $school_id = school_id();
+                    $role=array('student','parent','admin','superadmin');
+                    $this->db->select('u.*');
+                    $this->db->where_not_in('u.role',$role);
+                    $this->db->where('u.school_id',$school_id);
+                    $total_staff=$this->db->get('users u')->num_rows();
+                    if(!(empty($total_staff))){
+                        echo $total_staff;
+                    }
                   ?>
                 </h3>
                 <p class="mb-0 text-muted">
