@@ -1486,5 +1486,6 @@
     "select_a_staff": "Select a staff",
     "show_staff_list": "Show staff list",
     "select_a_staff_role": "Select a staff role",
-    "paid_amount_is_not_equal_to_total_amount": "Paid amount is not equal to total amount"
+    "paid_amount_is_not_equal_to_total_amount": "Paid amount is not equal to total amount",
+    "total_number_of_exams": "Total number of exams"
 }
