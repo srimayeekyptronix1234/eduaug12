@@ -314,6 +314,42 @@
   <div class="col-sm-8">
     <div class="linebar">
       <canvas id="myLineChart"></canvas>
+      <?php 
+           $jan_date = '01-Jan-'.date('Y');
+           $jan_timestamp = strtotime($jan_date);
+           $jan_present_students=$this->db->get_where('daily_attendances',['timestamp'=>$jan_timestamp,'school_id'=>$school_id,'status'=>'1'])->num_rows();
+           $feb_date = '01-Feb-'.date('Y');
+           $feb_timestamp = strtotime($feb_date);
+           $feb_present_students=$this->db->get_where('daily_attendances',['timestamp'=>$feb_timestamp,'school_id'=>$school_id,'status'=>'1'])->num_rows();
+           $mar_date = '01-Mar-'.date('Y');
+           $mar_timestamp = strtotime($mar_date);
+           $mar_present_students=$this->db->get_where('daily_attendances',['timestamp'=>$mar_timestamp,'school_id'=>$school_id,'status'=>'1'])->num_rows();
+           $apr_date = '01-Apr-'.date('Y');
+           $apr_timestamp = strtotime($apr_date);
+           $apr_present_students=$this->db->get_where('daily_attendances',['timestamp'=>$apr_timestamp,'school_id'=>$school_id,'status'=>'1'])->num_rows();
+           $may_date = '01-May-'.date('Y');
+           $may_timestamp = strtotime($may_date);
+           $may_present_students=$this->db->get_where('daily_attendances',['timestamp'=>$may_timestamp,'school_id'=>$school_id,'status'=>'1'])->num_rows();
+           $jun_date = '01-Jun-'.date('Y');
+           $jun_timestamp = strtotime($jun_date);
+           $jun_present_students=$this->db->get_where('daily_attendances',['timestamp'=>$jun_timestamp,'school_id'=>$school_id,'status'=>'1'])->num_rows();
+           $jul_date = '01-Jul-'.date('Y');
+           $jul_timestamp = strtotime($jul_date);
+           $jul_present_students=$this->db->get_where('daily_attendances',['timestamp'=>$jul_timestamp,'school_id'=>$school_id,'status'=>'1'])->num_rows();
+           $aug_date = '01-Aug-'.date('Y');
+           $aug_timestamp = strtotime($aug_date);
+           $aug_present_students=$this->db->get_where('daily_attendances',['timestamp'=>$aug_timestamp,'school_id'=>$school_id,'status'=>'1'])->num_rows();
+
+      ?>
+      <input type="hidden" id="jan_present_students" value="<?=$jan_present_students?>">
+      <input type="hidden" id="feb_present_students" value="<?=$feb_present_students?>">
+      <input type="hidden" id="mar_present_students" value="<?=$mar_present_students?>">
+      <input type="hidden" id="apr_present_students" value="<?=$apr_present_students?>">
+      <input type="hidden" id="may_present_students" value="<?=$may_present_students?>">
+      <input type="hidden" id="jun_present_students" value="<?=$jun_present_students?>">
+      <input type="hidden" id="jul_present_students" value="<?=$jul_present_students?>">
+      <input type="hidden" id="aug_present_students" value="<?=$aug_present_students?>">
+
     </div>
   </div>
 
@@ -333,14 +369,13 @@
                   }else if(isset($today_present_students) && $today_present_students > 0){
                      $student_percent_outside=$today_present_students.'%';
                   }else{$student_percent_outside= '0%';}
-                 
+
             ?>
         
           </div>
           <div class="bar-container">
             <div class="bar" style="width:<?=$student_percent_outside;?>; background-color:#FD858F;"></div>
             <p class="percent-outside"><b><?=$student_percent_outside;?></b></p>
-            <input type="hidden" id="student_percent" value="<?=$today_present_students?>">
           </div>
         </div>
 
@@ -455,26 +490,35 @@
   });
 
   //lINE CHART START//
+  var jan_present_students=$('#jan_present_students').val();
+  var feb_present_students=$('#feb_present_students').val();
+  var mar_present_students=$('#mar_present_students').val();
+  var apr_present_students=$('#apr_present_students').val();
+  var may_present_students=$('#may_present_students').val();
+  var jun_present_students=$('#jun_present_students').val();
+  var jul_present_students=$('#jul_present_students').val();
+  var aug_present_students=$('#aug_present_students').val();
+
   const data = {
-    labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
+    labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July','August'],
     datasets: [
       {
         label: 'Student',
-        data: [65, 59, 80, 81, 56, 55, 40],
+        data: [jan_present_students,feb_present_students,mar_present_students,apr_present_students,may_present_students,jun_present_students,jul_present_students,aug_present_students],
         fill: false,
         borderColor: 'rgb(75, 192, 192)',
         tension: 0.1
       },
       {
         label: 'Teacher',
-        data: [28, 48, 40, 19, 86, 27, 90],
+        data: [28, 48, 40, 19, 86, 27, 90,30],
         fill: false,
         borderColor: 'rgb(255, 99, 132)',
         tension: 0.1
       },
       {
         label: 'Staff',
-        data: [18, 12, 60, 20, 46, 77, 80],
+        data: [18, 12, 60, 20, 46, 77, 80,30],
         fill: false,
         borderColor: 'rgb(54, 162, 235)',
         tension: 0.1
