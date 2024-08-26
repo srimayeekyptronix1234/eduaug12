@@ -1,3 +1,7 @@
+<?php 
+    $school_id = school_id();
+
+?>
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
 <style>
@@ -319,30 +323,71 @@
         <div class="progressbar">
           <div class="progress-header">
             <p class="mt-2 mb-2">Today Present Students</p>
+            <?php $date=date('Y-m-d');
+                  $timestamp=(strtotime($date));
+                  $today_present_students=$this->db->get_where('daily_attendances',['timestamp'=>$timestamp,'school_id'=>$school_id,'status'=>'1'])->num_rows();
+                  $current_students = $this->user_model->get_session_wise_student();
+                  $total_students=$current_students->num_rows();
+                  if(isset($today_present_students) && $today_present_students == $total_students){
+                     $student_percent_outside= '100%';
+                  }else if(isset($today_present_students) && $today_present_students > 0){
+                     $student_percent_outside=$today_present_students.'%';
+                  }else{$student_percent_outside= '0%';}
+                 
+            ?>
+        
           </div>
           <div class="bar-container">
-            <div class="bar" style="width:87%; background-color:#FD858F;"></div>
-            <p class="percent-outside"><b>87%</b></p>
+            <div class="bar" style="width:<?=$student_percent_outside;?>; background-color:#FD858F;"></div>
+            <p class="percent-outside"><b><?=$student_percent_outside;?></b></p>
+            <input type="hidden" id="student_percent" value="<?=$today_present_students?>">
           </div>
         </div>
 
         <div class="progressbar">
           <div class="progress-header">
             <p class="mt-2 mb-2">Today Present Employees</p>
+            <?php 
+                 $date=date('Y-m-d');
+                 $timestamp=(strtotime($date));
+                 $today_present_employees=$this->db->get_where('staff_attendance',['timestamp'=>$timestamp,'school_id'=>$school_id,'status'=>'1'])->num_rows();
+                 $role=array('student','parent','admin','superadmin');
+                 $this->db->select('u.*');
+                 $this->db->where_not_in('u.role',$role);
+                 $this->db->where('u.school_id',$school_id);
+                 $total_number_staffs=$this->db->get('users u')->num_rows();
+                 if(isset($today_present_employees) && $today_present_employees == $total_number_staffs){
+                     $employee_percent_outside= '100%';
+                  }else if(isset($today_present_employees) && $today_present_employees > 0){
+                     $employee_percent_outside= $today_present_employees.'%';
+                  }else{$employee_percent_outside= '0%';}
+
+ 
+ 
+            ?>
           </div>
           <div class="bar-container">
-            <div class="bar" style="width:82%; background-color:#FF8911;"></div>
-            <p class="percent-outside"><b>82%</b></p>
+            <div class="bar" style="width:<?=$employee_percent_outside;?>; background-color:#FF8911;"></div>
+            <p class="percent-outside"><b><?=$employee_percent_outside;?></b></p>
           </div>
         </div>
 
         <div class="progressbar">
           <div class="progress-header">
             <p class="mt-2 mb-2">Today’s New Enrollments</p>
+             <?php $date=date('Y-m-d');
+                  $timestamp=(strtotime($date));
+                  $today_new_enrollments=$this->db->get_where('enrols',['timestamp'=>$timestamp,'school_id'=>$school_id])->num_rows();
+                  if(isset($today_new_enrollments) && $today_new_enrollments > 0){
+                     $emp_percent_outside=$today_new_enrollments.'%';
+                  }else{$emp_percent_outside= '0%';}
+
+            ?>
+        
           </div>
           <div class="bar-container">
-            <div class="bar" style="width:35%; background-color:#035FBD;"></div>
-            <p class="percent-outside"><b>35%</b></p>
+            <div class="bar" style="width:<?=$emp_percent_outside;?>; background-color:#035FBD;"></div>
+            <p class="percent-outside"><b><?=$emp_percent_outside;?></b></p>
           </div>
         </div>
 
@@ -410,26 +455,25 @@
   });
 
   //lINE CHART START//
-
   const data = {
     labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
     datasets: [
       {
-        label: 'Dataset 1',
+        label: 'Student',
         data: [65, 59, 80, 81, 56, 55, 40],
         fill: false,
         borderColor: 'rgb(75, 192, 192)',
         tension: 0.1
       },
       {
-        label: 'Dataset 2',
+        label: 'Teacher',
         data: [28, 48, 40, 19, 86, 27, 90],
         fill: false,
         borderColor: 'rgb(255, 99, 132)',
         tension: 0.1
       },
       {
-        label: 'Dataset 3',
+        label: 'Staff',
         data: [18, 12, 60, 20, 46, 77, 80],
         fill: false,
         borderColor: 'rgb(54, 162, 235)',
