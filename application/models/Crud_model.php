@@ -969,7 +969,6 @@ class Crud_model extends CI_Model {
 			);
 			return json_encode($response);
 		}
-
 		$this->db->insert('invoices', $data);
 
 		$response = array(
@@ -2125,8 +2124,99 @@ class Crud_model extends CI_Model {
 
 		return json_encode($response);
 	}
+    public function create_income_category() {
+		$data['name'] = htmlspecialchars($this->input->post('name'));
+		$data['school_id'] = $this->school_id;
+		$data['session'] = $this->active_session;
+		$this->db->insert('income_categories', $data);
+		$response = array(
+			'status' => true,
+			'notification' => get_phrase('income_category_added_successfully')
+		);
+		return json_encode($response);
+	}
+	public function get_income_categories($id = "") {
+		if ($id > 0) {
+			$this->db->where('id', $id);
+		}
+		$this->db->where('school_id', $this->school_id);
+		$this->db->where('session', $this->active_session);
+		return $this->db->get('income_categories');
+	}
+	
+    public function update_income_category($id) {
+		$data['name'] = htmlspecialchars($this->input->post('name'));
+		$this->db->where('id', $id);
+		$this->db->update('income_categories', $data);
+		$response = array(
+			'status' => true,
+			'notification' => get_phrase('income_category_updated_successfully')
+		);
+		return json_encode($response);
+	}
+    public function delete_income_category($id) {
+		$this->db->where('id', $id);
+		$this->db->delete('income_categories');
+		$response = array(
+			'status' => true,
+			'notification' => get_phrase('income_category_deleted_successfully')
+		);
+		return json_encode($response);
+	}
+    public function create_income_manager() {
+		$data['date'] = strtotime($this->input->post('date'));
+		$data['amount'] = htmlspecialchars($this->input->post('amount'));
+		$data['income_category_id'] = htmlspecialchars($this->input->post('income_category_id'));
+		$data['school_id'] = $this->school_id;
+		$data['session'] = $this->active_session;
+		$data['created_at'] = strtotime(date('d-M-Y'));
+		$this->db->insert('income_manager', $data);
 
+		$response = array(
+			'status' => true,
+			'notification' => get_phrase('income_added_successfully')
+		);
+		return json_encode($response);
+	}
+    public function get_income_manager($date_from = "", $date_to = "", $income_category_id = "") {
+		if ($income_category_id > 0) {
+			$this->db->where('income_category_id', $income_category_id);
+		}
+		$this->db->where('date >=', $date_from);
+		$this->db->where('date <=', $date_to);
+		$this->db->where('school_id', $this->school_id);
+		$this->db->where('session', $this->active_session);
+		return $this->db->get('income_manager');
+	}
+    public function get_income_by_id($id = "") {
+		return $this->db->get_where('income_manager', array('id' => $id))->row_array();
+	}
+    public function update_income_manager($id = "") {
+		$data['date'] = strtotime($this->input->post('date'));
+		$data['amount'] = htmlspecialchars($this->input->post('amount'));
+		$data['income_category_id'] = htmlspecialchars($this->input->post('income_category_id'));
+		$data['school_id'] = $this->school_id;
+		$data['session'] = $this->active_session;
+		$this->db->where('id', $id);
+		$this->db->update('income_manager', $data);
 
+		$response = array(
+			'status' => true,
+			'notification' => get_phrase('income_updated_successfully')
+		);
+		return json_encode($response);
+	}
+    public function delete_income_manager($id = "") {
+		$this->db->where('id', $id);
+		$this->db->delete('income_manager');
+
+		$response = array(
+			'status' => true,
+			'notification' => get_phrase('income_deleted_successfully')
+		);
+		return json_encode($response);
+	}
+	
    
 	
 

@@ -646,6 +646,9 @@ class User_model extends CI_Model {
 			$enroll_data['section_id'] = html_escape($this->input->post('section_id'));
 			$enroll_data['session'] = $this->active_session;
 			$enroll_data['school_id'] = $this->school_id;
+			$date=date('Y-m-d');
+            $timestamp=(strtotime($date));
+            $enroll_data['timestamp'] = $timestamp;
 			$this->db->insert('enrols', $enroll_data);
 
 			move_uploaded_file($_FILES['student_image']['tmp_name'], 'uploads/users/'.$user_id.'.jpg');
@@ -702,6 +705,9 @@ class User_model extends CI_Model {
 				$enroll_data['section_id'] = $section_id;
 				$enroll_data['session'] = $this->active_session;
 				$enroll_data['school_id'] = $this->school_id;
+				$date=date('Y-m-d');
+                $timestamp=(strtotime($date));
+                $enroll_data['timestamp']=$timestamp;
 				$this->db->insert('enrols', $enroll_data);
 			}else{
 				$duplication_counter++;
