@@ -1506,5 +1506,6 @@
     "update_income": "Update income",
     "income_updated_successfully": "Income updated successfully",
     "expense_deleted_successfully": "Expense deleted successfully",
-    "income_deleted_successfully": "Income deleted successfully"
+    "income_deleted_successfully": "Income deleted successfully",
+    "staff_salary": "Staff salary"
 }

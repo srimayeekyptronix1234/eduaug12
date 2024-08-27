@@ -969,7 +969,6 @@ class Crud_model extends CI_Model {
 			);
 			return json_encode($response);
 		}
-
 		$this->db->insert('invoices', $data);
 
 		$response = array(

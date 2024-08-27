@@ -355,10 +355,14 @@
 
   <div class="col-sm-4">
     <div class="bar-box">
+        <h4 class="header-title mb-2">
+              <?php echo get_phrase('todays_attendance'); ?>
+        </h4>
+          
       <div class="progress-container">
         <div class="progressbar">
           <div class="progress-header">
-            <p class="mt-2 mb-2">Today Present Students</p>
+            <p class="mt-2 mb-2">Today's Present Students</p>
             <?php $date=date('Y-m-d');
                   $timestamp=(strtotime($date));
                   $today_present_students=$this->db->get_where('daily_attendances',['timestamp'=>$timestamp,'school_id'=>$school_id,'status'=>'1'])->num_rows();
@@ -381,7 +385,7 @@
 
         <div class="progressbar">
           <div class="progress-header">
-            <p class="mt-2 mb-2">Today Present Employees</p>
+            <p class="mt-2 mb-2">Today's Present Employees</p>
             <?php 
                  $date=date('Y-m-d');
                  $timestamp=(strtotime($date));
@@ -498,8 +502,7 @@
   var jun_present_students=$('#jun_present_students').val();
   var jul_present_students=$('#jul_present_students').val();
   var aug_present_students=$('#aug_present_students').val();
-
-  const data = {
+/*  const data = {
     labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July','August'],
     datasets: [
       {
@@ -546,9 +549,33 @@
   const myLineChart = new Chart(
     document.getElementById('myLineChart'),
     config
-  );
+  );*/
 
   //lINE CHART END//
-
+  //PIE CHART START
+  const data = {
+       labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July','August','September','October','November','December'],
+       datasets: [{
+        label: 'Student Statistics',
+        data: [28, 48, 40, 19, 86, 27, 90,30,50,60,77,88],
+        backgroundColor: [
+              'rgb(255, 99, 132)',
+              'rgb(75, 192, 192)',
+              'rgb(255, 205, 86)',
+              'rgb(201, 203, 207)',
+              'rgb(54, 162, 235)'
+        ],
+        hoverOffset: 4
+      }]
+  };      
+  const config = {
+    type: 'pie',
+    data: data,
+  };
+  const myLineChart = new Chart(
+      document.getElementById('myLineChart'),
+      config
+  );
+//PIE CHART END
 
 </script>
