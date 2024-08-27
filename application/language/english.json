@@ -1507,5 +1507,10 @@
     "income_updated_successfully": "Income updated successfully",
     "expense_deleted_successfully": "Expense deleted successfully",
     "income_deleted_successfully": "Income deleted successfully",
-    "staff_salary": "Staff salary"
+    "staff_salary": "Staff salary",
+    "add_staff_salary": "Add staff salary",
+    "add_salary": "Add salary",
+    "staff_name": "Staff name",
+    "salary_month": "Salary month",
+    "salary_amount": "Salary amount"
 }
