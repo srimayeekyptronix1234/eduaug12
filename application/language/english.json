@@ -1487,5 +1487,7 @@
     "show_staff_list": "Show staff list",
     "select_a_staff_role": "Select a staff role",
     "paid_amount_is_not_equal_to_total_amount": "Paid amount is not equal to total amount",
-    "total_number_of_exams": "Total number of exams"
+    "total_number_of_exams": "Total number of exams",
+    "welcome_to_student_dashboard": "Welcome to student dashboard",
+    "subjects": "Subjects"
 }
