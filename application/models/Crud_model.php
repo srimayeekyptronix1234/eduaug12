@@ -2232,8 +2232,6 @@ class Crud_model extends CI_Model {
 		return json_encode($response);
 	}
     public function update_staff_salary($id) {
-    	$data['staff_name'] = htmlspecialchars($this->input->post('staff_name'));
-		$data['staff_role'] = htmlspecialchars($this->input->post('role'));
 		$data['month'] = htmlspecialchars($this->input->post('month'));
 		$data['date'] = htmlspecialchars($this->input->post('date'));
 		$data['salary_amount'] = htmlspecialchars($this->input->post('salary_amount'));

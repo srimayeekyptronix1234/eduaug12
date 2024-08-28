@@ -13,7 +13,6 @@
            </select>
             <small id="class_help" class="form-text text-muted"><?php echo get_phrase('select_a_driver'); ?></small>
         </div>
-       
         <div class="form-group mb-1">
         <label for=""><?php echo get_phrase('Route'); ?></label>
         <select name="route_id" id="route_id" class="form-control select6" data-toggle = "select6"  required>

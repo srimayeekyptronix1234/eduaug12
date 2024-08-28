@@ -28,6 +28,11 @@
              <input type="text" name="phone" class="form-control"  value="" placeholder="Phone" required>
              <small id="class_help" class="form-text text-muted"><?php echo get_phrase('phone'); ?></small>        
         </div>
+        <div class="form-group mb-1">
+          <label for=""><?php echo get_phrase('salary'); ?></label>
+             <input type="number" name="salary" class="form-control"  value="" placeholder="salary" required>
+             <small id="class_help" class="form-text text-muted"><?php echo get_phrase('salary'); ?></small>        
+        </div>
        
         <div class="form-group mb-1">
           <label for=""><?php echo get_phrase('Route'); ?></label>

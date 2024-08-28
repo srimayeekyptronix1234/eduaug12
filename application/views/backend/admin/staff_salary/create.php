@@ -32,7 +32,7 @@
    </div>
    
     <div class="form-group mb-1">
-      <label for="date"><?php echo get_phrase('date'); ?></label>
+      <label for="date"><?php echo get_phrase('payment_date'); ?></label>
       <input type="text" class="form-control date" id="date" data-bs-toggle="date-picker" data-single-date-picker="true" name="date" value="" required>
     </div>
     <div class="form-group mb-1">

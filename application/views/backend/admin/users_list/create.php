@@ -23,7 +23,12 @@
             <input type="text" class="form-control" id="phone" name="phone" required>
             <small id="" class="form-text text-muted"><?php echo get_phrase('provide_user_phone'); ?></small>
         </div>
-
+        <div class="form-group mb-1">
+          <label for=""><?php echo get_phrase('salary'); ?></label>
+             <input type="number" name="salary" class="form-control"  value="" placeholder="salary" required>
+             <small id="class_help" class="form-text text-muted"><?php echo get_phrase('provide_user_salary'); ?></small>        
+        </div>
+      
         <div class="form-group mt-2 col-md-12">
             <button class="btn btn-block btn-primary" id="submitbtn" type="submit"><?php echo get_phrase('submit'); ?></button>
             <img id="loader" style="display:none; text-align:center;" src="<?php echo base_url('assets/backend/images/straight-loader.gif'); ?>" alt="Loading..." width="30px" height="30px"/>

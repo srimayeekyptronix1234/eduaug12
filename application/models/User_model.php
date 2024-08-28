@@ -1360,6 +1360,7 @@ class User_model extends CI_Model {
 		$user_data['password'] = sha1($this->input->post('password'));
 		$user_data['phone'] = html_escape($this->input->post('phone'));
 		$user_data['role'] = 'driver';
+		$user_data['salary'] = html_escape($this->input->post('salary'));
 
 		// check email duplication
 		$duplication_status = $this->check_duplication('on_create', $user_data['email']);
@@ -1396,6 +1397,7 @@ class User_model extends CI_Model {
 		$data['name'] = html_escape($this->input->post('name'));
 		$data['route_id'] = html_escape($this->input->post('route_id'));
 		$data['vehicle_id'] = html_escape($this->input->post('vehicle_id'));
+
 		$this->db->where('id', $param1);
 		$this->db->update('driver', $data);
 
@@ -1468,6 +1470,7 @@ class User_model extends CI_Model {
 		$data['phone'] = html_escape($this->input->post('phone'));
 		$data['password'] = sha1($this->input->post('password'));
 		$data['role'] = 'hr';
+		$data['salary'] = html_escape($this->input->post('salary'));
 
 		// check email duplication fdgfdg
 		$duplication_status = $this->check_duplication_candidate('on_create', $data['email']);
@@ -1492,6 +1495,7 @@ class User_model extends CI_Model {
 		$data['name'] = html_escape($this->input->post('name'));
 		$data['email'] = html_escape($this->input->post('email'));
 		$data['phone'] = html_escape($this->input->post('phone'));
+		$data['salary'] = html_escape($this->input->post('salary'));
 
 		// check email duplication
 		$duplication_status = $this->check_duplication_candidate('on_update', $data['email'], $param1);
