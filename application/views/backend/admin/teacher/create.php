@@ -24,7 +24,7 @@
             <input type="text" class="form-control" id="designation" name = "designation" required>
             <small id="" class="form-text text-muted"><?php echo get_phrase('provide_teacher_designation'); ?></small>
         </div>
-
+     
         <div class="form-group mb-1">
             <label for="department"><?php echo get_phrase('department'); ?></label>
             <select name="department" id="department" class="form-control select2" data-toggle = "select2" required>
@@ -36,6 +36,11 @@
                 <?php } ?>
             </select>
             <small id="" class="form-text text-muted"><?php echo get_phrase('provide_a_department'); ?></small>
+        </div>
+        <div class="form-group mb-1">
+            <label for="salary"><?php echo get_phrase('salary'); ?></label>
+            <input type="text" class="form-control" id="salary" name = "salary" required>
+            <small id="" class="form-text text-muted"><?php echo get_phrase('provide_teacher_salary'); ?></small>
         </div>
 
         <div class="form-group mb-1">

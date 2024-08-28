@@ -1652,23 +1652,29 @@ class Admin extends CI_Controller {
 	//Staff Salary Start
 	public function staff_salary($param1 = "", $param2 = "") {
 		if ($param1 == 'create') {
-			$response = $this->crud_model->create_income_category();
+			$response = $this->crud_model->save_staff_salary();
 			echo $response;
 		}
 
 		if ($param1 == 'update') {
-			$response = $this->crud_model->update_income_category($param2);
+			$response = $this->crud_model->update_staff_salary($param2);
 			echo $response;
 		}
 
 		if ($param1 == 'delete') {
-			$response = $this->crud_model->delete_income_category($param2);
+			$response = $this->crud_model->delete_staff_salary($param2);
 			echo $response;
 		}
 
 		if ($param1 == 'list') {
 			$this->load->view('backend/admin/staff_salary/list');
 		}
+		if ($param1 == 'salary') {
+			$page_data['staff_id'] = $param2;
+			$this->load->view('backend/admin/staff_salary/salary',$page_data);
+
+		}
+
 		// showing the index file
 		if(empty($param1)){
 			$page_data['folder_name'] = 'staff_salary';
@@ -1678,14 +1684,14 @@ class Admin extends CI_Controller {
 	}
 	//Staff Salary End
     public function role_wise_staff_name($action = "", $id = "") {
-
-		// PROVIDE A LIST OF SECTION ACCORDING TO CLASS ID
+		// PROVIDE A LIST OF STAFF NAME ACCORDING TO STAFF ROLE
 		if ($action == 'list') {
 			$page_data['staff_role'] = $id;
 			$this->load->view('backend/admin/staff_salary/staff_name', $page_data);
 		}
 	}
 	
+
 
 	
 

@@ -128,6 +128,7 @@ class User_model extends CI_Model {
 		$data['address'] = html_escape($this->input->post('address'));
 		$data['role'] = 'teacher';
 		$data['watch_history'] = '[]';
+		$data['salary'] = html_escape($this->input->post('salary'));
 
 		// check email duplication
 		$duplication_status = $this->check_duplication('on_create', $data['email']);
@@ -175,6 +176,7 @@ class User_model extends CI_Model {
 		$data['gender'] = html_escape($this->input->post('gender'));
 		$data['blood_group'] = html_escape($this->input->post('blood_group'));
 		$data['address'] = html_escape($this->input->post('address'));
+        $data['salary'] = html_escape($this->input->post('salary'));
 
 		// check email duplication
 		$duplication_status = $this->check_duplication('on_update', $data['email'], $param1);
@@ -394,7 +396,7 @@ class User_model extends CI_Model {
 		$data['school_id'] = $this->school_id;
 		$data['role'] = 'accountant';
 		$data['watch_history'] = '[]';
-
+        $data['salary']=html_escape($this->input->post('salary'));
 		$duplication_status = $this->check_duplication('on_create', $data['email']);
 		if($duplication_status){
 			$this->db->insert('users', $data);
@@ -421,6 +423,7 @@ class User_model extends CI_Model {
 		$data['gender'] = html_escape($this->input->post('gender'));
 		$data['blood_group'] = html_escape($this->input->post('blood_group'));
 		$data['address'] = html_escape($this->input->post('address'));
+        $data['salary']=html_escape($this->input->post('salary'));
 
 		$duplication_status = $this->check_duplication('on_update', $data['email'], $param1);
 		if($duplication_status){
@@ -486,6 +489,7 @@ class User_model extends CI_Model {
 		$data['school_id'] = $this->school_id;
 		$data['role'] = 'librarian';
 		$data['watch_history'] = '[]';
+		$data['salary'] = html_escape($this->input->post('salary'));
 
 		// check email duplication
 		$duplication_status = $this->check_duplication('on_create', $data['email']);
@@ -514,6 +518,7 @@ class User_model extends CI_Model {
 		$data['gender'] = html_escape($this->input->post('gender'));
 		$data['blood_group'] = html_escape($this->input->post('blood_group'));
 		$data['address'] = html_escape($this->input->post('address'));
+		$data['salary'] = html_escape($this->input->post('salary'));
 
 		// check email duplication
 		$duplication_status = $this->check_duplication('on_update', $data['email'], $param1);

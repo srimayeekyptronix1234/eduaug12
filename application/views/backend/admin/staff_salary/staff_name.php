@@ -6,5 +6,5 @@ if (count($all_staffs) > 0):
     <option value="<?php echo $staff['id']; ?>"><?php echo $staff['name']; ?></option>
   <?php endforeach; ?>
 <?php else: ?>
-  <option value=""><?php echo get_phrase('no_section_found'); ?></option>
+  <option value=""><?php echo get_phrase('no_staff_found'); ?></option>
 <?php endif; ?>

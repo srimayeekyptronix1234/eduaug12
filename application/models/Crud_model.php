@@ -2216,8 +2216,46 @@ class Crud_model extends CI_Model {
 		);
 		return json_encode($response);
 	}
-	
-   
-	
+	public function save_staff_salary() {
+		$data['staff_name'] = htmlspecialchars($this->input->post('staff_name'));
+		$data['staff_role'] = htmlspecialchars($this->input->post('role'));
+		$data['month'] = htmlspecialchars($this->input->post('month'));
+		$data['date'] = htmlspecialchars($this->input->post('date'));
+		$data['salary_amount'] = htmlspecialchars($this->input->post('salary_amount'));
+		$data['status'] = htmlspecialchars($this->input->post('status'));
+
+		$this->db->insert('staff_salary', $data);
+		$response = array(
+			'status' => true,
+			'notification' => get_phrase('staff_salary_added_successfully')
+		);
+		return json_encode($response);
+	}
+    public function update_staff_salary($id) {
+    	$data['staff_name'] = htmlspecialchars($this->input->post('staff_name'));
+		$data['staff_role'] = htmlspecialchars($this->input->post('role'));
+		$data['month'] = htmlspecialchars($this->input->post('month'));
+		$data['date'] = htmlspecialchars($this->input->post('date'));
+		$data['salary_amount'] = htmlspecialchars($this->input->post('salary_amount'));
+		$data['status'] = htmlspecialchars($this->input->post('status'));
+
+		$this->db->where('id', $id);
+		$this->db->update('staff_salary', $data);
+		$response = array(
+			'status' => true,
+			'notification' => get_phrase('staff_salary_updated_successfully')
+		);
+		return json_encode($response);
+	}
+	public function delete_staff_salary($id) {
+		$this->db->where('id', $id);
+		$this->db->delete('staff_salary');
+		$response = array(
+			'status' => true,
+			'notification' => get_phrase('staff_salary_deleted_successfully')
+		);
+		return json_encode($response);
+	}
+    
 
 }

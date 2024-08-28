@@ -1512,5 +1512,16 @@
     "add_salary": "Add salary",
     "staff_name": "Staff name",
     "salary_month": "Salary month",
-    "salary_amount": "Salary amount"
+    "salary_amount": "Salary amount",
+    "salary": "Salary",
+    "provide_teacher_salary": "Provide teacher salary",
+    "select": "Select",
+    "select_status": "Select status",
+    "staff_salary_added_successfully": "Staff salary added successfully",
+    "staff_role": "Staff role",
+    "staff_salary_deleted_successfully": "Staff salary deleted successfully",
+    "staff_salary_updated_successfully": "Staff salary updated successfully",
+    "provide_salary": "Provide salary",
+    "accountant_has_been_updated_successfully": "Accountant has been updated successfully",
+    "librarian_updated_successfully": "Librarian updated successfully"
 }

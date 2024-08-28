@@ -37,6 +37,11 @@ foreach($users as $user):
         </select>
         <small id="" class="form-text text-muted"><?php echo get_phrase('provide_a_department'); ?></small>
       </div>
+      <div class="form-group mb-1">
+        <label for="salary"><?php echo get_phrase('salary'); ?></label>
+        <input type="text" class="form-control" id="salary" name = "salary" value="<?=$user['salary'];?>">
+        <small id="" class="form-text text-muted"><?php echo get_phrase('provide_teacher_salary'); ?></small>
+      </div>
 
       <div class="form-group mb-1">
         <label for="phone"><?php echo get_phrase('phone_number'); ?></label>
