@@ -212,8 +212,7 @@
                 <div class="float-end">
                   <i class="mdi mdi-account-multiple widget-icon" style="color: #ffffff;"></i>
                 </div>
-                <h5 class="text-muted font-weight-normal mt-0" title="Number of Exam"
-                  style="color: #ffffff!important;">
+                <h5 class="text-muted font-weight-normal mt-0" title="Number of Exam" style="color: #ffffff!important;">
                   <i class="mdi mdi-book-clock title_icon" style="color: #ffffff;"></i>
                   <?php echo get_phrase('exam'); ?>
                   <a href="" style="color: #6c757d; display: none;" id="exam_list">
@@ -250,15 +249,15 @@
                 </h5>
                 <h3 class="mt-3 mb-3" style="color: #ffffff;">
                   <?php
-                    $school_id = school_id();
-                    $role=array('student','parent','admin','superadmin');
-                    $this->db->select('u.*');
-                    $this->db->where_not_in('u.role',$role);
-                    $this->db->where('u.school_id',$school_id);
-                    $total_staff=$this->db->get('users u')->num_rows();
-                    if(!(empty($total_staff))){
-                        echo $total_staff;
-                    }
+                  $school_id = school_id();
+                  $role = array('student', 'parent', 'admin', 'superadmin');
+                  $this->db->select('u.*');
+                  $this->db->where_not_in('u.role', $role);
+                  $this->db->where('u.school_id', $school_id);
+                  $total_staff = $this->db->get('users u')->num_rows();
+                  if (!(empty($total_staff))) {
+                    echo $total_staff;
+                  }
                   ?>
                 </h3>
                 <p class="mb-0 text-muted">
