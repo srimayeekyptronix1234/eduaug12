@@ -1527,5 +1527,8 @@
     "accountant_has_been_updated_successfully": "Accountant has been updated successfully",
     "librarian_updated_successfully": "Librarian updated successfully",
     "provide_user_salary": "Provide user salary",
-    "home_page": "Home page"
+    "home_page": "Home page",
+    "route_has_been_added_successfully": "Route has been added successfully",
+    "vehicle_has_been_added_successfully": "Vehicle has been added successfully",
+    "route_has_been_deleted_successfully": "Route has been deleted successfully"
 }

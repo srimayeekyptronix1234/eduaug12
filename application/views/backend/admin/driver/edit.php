@@ -4,14 +4,9 @@
     <div class="form-row">
         <div class="form-group mb-1">
             <label for=""><?php echo get_phrase('name'); ?></label>
-         <select name="name" id="name" class="form-control select6" data-toggle = "select6"  required>
-                    <option value=""><?php echo get_phrase('select_a_driver'); ?></option>
-                    <?php $allvehicle = $this->db->get('vehicle')->result_array(); ?>
-                    <?php foreach($allvehicle as $vehicle){ ?>
-                        <option value="<?php echo $vehicle['vehicle_driver']; ?>"<?php if($vehicle['vehicle_driver'] == $data['name']){ echo 'selected';}?>><?php echo $vehicle['vehicle_driver']; ?></option>
-                    <?php } ?>
-           </select>
-            <small id="class_help" class="form-text text-muted"><?php echo get_phrase('select_a_driver'); ?></small>
+           <input type="name" name="name" class="form-control"  placeholder="Name" value="<?=$data['name'];?>">
+
+            <small id="class_help" class="form-text text-muted"><?php echo get_phrase('driver_name'); ?></small>
         </div>
         <div class="form-group mb-1">
         <label for=""><?php echo get_phrase('Route'); ?></label>

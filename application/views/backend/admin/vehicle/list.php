@@ -16,7 +16,7 @@ if (count($check_data) > 0): ?>
       <tr style="background-color: #0272F3; color: #fff;">
         <th><?php echo get_phrase('Vehicle Number'); ?></th>
         <th><?php echo get_phrase('Vehicle Model'); ?></th>
-        <th><?php echo get_phrase('Driver Name'); ?></th>
+        <!--<th><?php echo get_phrase('Driver Name'); ?></th>-->
         <th><?php echo get_phrase(''); ?></th>
       </tr>
     </thead>
@@ -28,7 +28,7 @@ if (count($check_data) > 0): ?>
         <tr>
           <td><?php echo $data['vehicle_number']; ?></td>
           <td><?php echo $data['vehicle_model']; ?></td>
-          <td><?php echo $data['vehicle_driver']; ?></td>
+          <!--<td><?php echo $data['vehicle_driver']; ?></td>-->
 
           <td>
 

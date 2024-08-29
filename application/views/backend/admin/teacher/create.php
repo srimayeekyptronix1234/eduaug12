@@ -1,5 +1,24 @@
+<?php    
+    $school_id = school_id();
+?>
 <form method="POST" class="d-block ajaxForm" action="<?php echo route('teacher/create'); ?>" enctype="multipart/form-data">
     <div class="form-row">
+        <div class="form-group mb-1">
+            <label class="col-form-label" for="class_id"><?php echo get_phrase('class'); ?></label>
+            <select name="class_id" id="class_id" class="form-control select8" data-toggle = "select8" required onchange="classWiseSection(this.value)">
+                <option value=""><?php echo get_phrase('select_a_class'); ?></option>
+                <?php $classes = $this->db->get_where('classes', array('school_id' => $school_id))->result_array(); ?>
+                <?php foreach($classes as $class){ ?>
+                    <option value="<?php echo $class['id']; ?>"><?php echo $class['name']; ?></option>
+                <?php } ?>
+            </select>
+        </div> 
+        <div class="form-group mb-1">
+            <label class="col-form-label" for="section_id"><?php echo get_phrase('section'); ?></label>
+            <select name="section_id" id="section_id" class="form-control select2" data-toggle = "select2" required >
+               <option value=""><?php echo get_phrase('select_section'); ?></option>
+           </select>
+        </div>   
         <div class="form-group mb-1">
             <input type="hidden" name="school_id" value="<?php echo school_id(); ?>">
             <label for="name"><?php echo get_phrase('name'); ?></label>
@@ -144,4 +163,13 @@ $(".ajaxForm").submit(function(e) {
 });
 
 // initCustomFileUploader();
+function classWiseSection(classId) {
+    $.ajax({
+        url: "<?php echo route('section/list/'); ?>" + classId,
+        success: function (response) {
+            $('#section_id').html(response);
+        }
+    });
+}
+
 </script>

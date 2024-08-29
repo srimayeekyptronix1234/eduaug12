@@ -148,6 +148,9 @@ class User_model extends CI_Model {
 			$teacher_table_data['department_id'] = html_escape($this->input->post('department'));
 			$teacher_table_data['designation'] = html_escape($this->input->post('designation'));
 			$teacher_table_data['school_id'] = html_escape($this->input->post('school_id'));
+		    $teacher_table_data['class_id'] = html_escape($this->input->post('class_id'));
+		    $teacher_table_data['section_id'] = html_escape($this->input->post('section_id'));
+
 			//$teacher_table_data['show_on_website'] = $this->input->post('show_on_website');
 			$this->db->insert('teachers',$teacher_table_data);
 			if ($_FILES['image_file']['name'] != "") {
@@ -188,6 +191,9 @@ class User_model extends CI_Model {
 			$teacher_table_data['department_id'] = html_escape($this->input->post('department'));
 			$teacher_table_data['designation'] = html_escape($this->input->post('designation'));
 			$teacher_table_data['about'] = html_escape($this->input->post('about'));
+			$teacher_table_data['class_id'] = html_escape($this->input->post('class_id'));
+			$teacher_table_data['section_id'] = html_escape($this->input->post('section_id'));
+
 			$social_links = array(
 				'facebook' => $this->input->post('facebook_link'),
 				'twitter' => $this->input->post('twitter_link'),
