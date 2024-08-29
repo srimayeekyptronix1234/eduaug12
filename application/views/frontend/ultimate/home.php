@@ -209,8 +209,7 @@
                                         </nav>
                                     </div>
                                 </div>
-                                <a href="#" class="search-trigger search-icon"><i class="fal fa-search"></i></a>
-                                <div class="header-button">
+                                <div class="header-button d-none d-xl-block">
                                     <a href="/eduaug12/login" class="theme-btn">
                                         <span>
                                             Sign In
