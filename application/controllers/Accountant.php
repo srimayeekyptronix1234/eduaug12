@@ -354,5 +354,12 @@ class Accountant extends CI_Controller {
     }
   }
   //STAFF DAILY ATTENDANCE section END
-
+  //Staff Salary Start
+  public function staff_salary() {
+    $page_data['folder_name'] = 'staff_salary';
+    $page_data['page_title']  = 'staff_salary';
+    $this->load->view('backend/index', $page_data);
+  }
+  //Staff Salary End
+   
 }

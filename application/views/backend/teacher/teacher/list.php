@@ -1,6 +1,7 @@
 <?php
 $school_id = school_id();
-$check_data = $this->db->get_where('teachers', array('school_id' => $school_id));
+$user_id = $this->session->userdata('user_id');
+$check_data = $this->db->get_where('teachers', array('school_id' => $school_id,'user_id'=>$user_id));
 if($check_data->num_rows() > 0):?>
 <table id="basic-datatable" class="table table-striped dt-responsive nowrap" width="100%">
     <thead>
@@ -12,16 +13,14 @@ if($check_data->num_rows() > 0):?>
     </thead>
     <tbody>
         <?php
-        $teachers = $this->db->get_where('teachers', array('school_id' => $school_id))->result_array();
-        foreach($teachers as $teacher){
+        $teachers = $this->db->get_where('teachers', array('school_id' => $school_id,'user_id'=>$user_id))->row_array();
             ?>
             <tr>
-                <td><?php echo $this->db->get_where('users', array('id' => $teacher['user_id']))->row('name'); ?></td>
-                <td><?php echo $this->db->get_where('departments', array('id' => $teacher['department_id']))->row('name'); ?></td>
-                <td><?php echo $teacher['designation']; ?></td>
+                <td><?php echo $this->db->get_where('users', array('id' => $teachers['user_id']))->row('name'); ?></td>
+                <td><?php echo $this->db->get_where('departments', array('id' => $teachers['department_id']))->row('name'); ?></td>
+                <td><?php echo $teachers['designation']; ?></td>
 
             </tr>
-        <?php } ?>
     </tbody>
 </table>
 <?php else: ?>

@@ -314,31 +314,20 @@
     <div class="linebar">
       <canvas id="myLineChart"></canvas>
       <?php 
-           $jan_date = '01-Jan-'.date('Y');
-           $jan_timestamp = strtotime($jan_date);
-           $jan_present_students=$this->db->get_where('daily_attendances',['timestamp'=>$jan_timestamp,'school_id'=>$school_id,'status'=>'1'])->num_rows();
-           $feb_date = '01-Feb-'.date('Y');
-           $feb_timestamp = strtotime($feb_date);
-           $feb_present_students=$this->db->get_where('daily_attendances',['timestamp'=>$feb_timestamp,'school_id'=>$school_id,'status'=>'1'])->num_rows();
-           $mar_date = '01-Mar-'.date('Y');
-           $mar_timestamp = strtotime($mar_date);
-           $mar_present_students=$this->db->get_where('daily_attendances',['timestamp'=>$mar_timestamp,'school_id'=>$school_id,'status'=>'1'])->num_rows();
-           $apr_date = '01-Apr-'.date('Y');
-           $apr_timestamp = strtotime($apr_date);
-           $apr_present_students=$this->db->get_where('daily_attendances',['timestamp'=>$apr_timestamp,'school_id'=>$school_id,'status'=>'1'])->num_rows();
-           $may_date = '01-May-'.date('Y');
-           $may_timestamp = strtotime($may_date);
-           $may_present_students=$this->db->get_where('daily_attendances',['timestamp'=>$may_timestamp,'school_id'=>$school_id,'status'=>'1'])->num_rows();
-           $jun_date = '01-Jun-'.date('Y');
-           $jun_timestamp = strtotime($jun_date);
-           $jun_present_students=$this->db->get_where('daily_attendances',['timestamp'=>$jun_timestamp,'school_id'=>$school_id,'status'=>'1'])->num_rows();
-           $jul_date = '01-Jul-'.date('Y');
-           $jul_timestamp = strtotime($jul_date);
-           $jul_present_students=$this->db->get_where('daily_attendances',['timestamp'=>$jul_timestamp,'school_id'=>$school_id,'status'=>'1'])->num_rows();
-           $aug_date = '01-Aug-'.date('Y');
-           $aug_timestamp = strtotime($aug_date);
-           $aug_present_students=$this->db->get_where('daily_attendances',['timestamp'=>$aug_timestamp,'school_id'=>$school_id,'status'=>'1'])->num_rows();
-
+           $jan_present_students=$this->db->get_where('daily_attendances',['month'=>'Jan','school_id'=>$school_id,'status'=>'1'])->num_rows();
+           $feb_present_students=$this->db->get_where('daily_attendances',['month'=>'Feb','school_id'=>$school_id,'status'=>'1'])->num_rows();
+           $mar_present_students=$this->db->get_where('daily_attendances',['month'=>'Mar','school_id'=>$school_id,'status'=>'1'])->num_rows();
+           $apr_present_students=$this->db->get_where('daily_attendances',['month'=>'Apr','school_id'=>$school_id,'status'=>'1'])->num_rows();
+           $may_present_students=$this->db->get_where('daily_attendances',['month'=>'May','school_id'=>$school_id,'status'=>'1'])->num_rows();
+           $jun_present_students=$this->db->get_where('daily_attendances',['month'=>'Jun','school_id'=>$school_id,'status'=>'1'])->num_rows();
+           $jul_present_students=$this->db->get_where('daily_attendances',['month'=>'Jul','school_id'=>$school_id,'status'=>'1'])->num_rows();
+           $aug_present_students=$this->db->get_where('daily_attendances',['month'=>'Aug','school_id'=>$school_id,'status'=>'1'])->num_rows();
+           $sep_present_students=$this->db->get_where('daily_attendances',['month'=>'Sep','school_id'=>$school_id,'status'=>'1'])->num_rows();
+           $oct_present_students=$this->db->get_where('daily_attendances',['month'=>'Oct','school_id'=>$school_id,'status'=>'1'])->num_rows();
+           $nov_present_students=$this->db->get_where('daily_attendances',['month'=>'Nov','school_id'=>$school_id,'status'=>'1'])->num_rows();
+           $dec_present_students=$this->db->get_where('daily_attendances',['month'=>'Dec','school_id'=>$school_id,'status'=>'1'])->num_rows();
+          
+          
       ?>
       <input type="hidden" id="jan_present_students" value="<?=$jan_present_students?>">
       <input type="hidden" id="feb_present_students" value="<?=$feb_present_students?>">
@@ -501,6 +490,13 @@
   var jun_present_students=$('#jun_present_students').val();
   var jul_present_students=$('#jul_present_students').val();
   var aug_present_students=$('#aug_present_students').val();
+  var sep_present_students=$('#sep_present_students').val();
+  var oct_present_students=$('#oct_present_students').val();
+  var nov_present_students=$('#nov_present_students').val();
+  var dec_present_students=$('#dec_present_students').val();
+
+
+
 /*  const data = {
     labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July','August'],
     datasets: [
@@ -556,7 +552,7 @@
        labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July','August','September','October','November','December'],
        datasets: [{
         label: 'Student Statistics',
-        data: [28, 48, 40, 19, 86, 27, 90,30,50,60,77,88],
+        data: [jan_present_students, feb_present_students, mar_present_students, apr_present_students, may_present_students, jun_present_students, jul_present_students,aug_present_students,sep_present_students,oct_present_students,nov_present_students,dec_present_students],
         backgroundColor: [
               'rgb(255, 99, 132)',
               'rgb(75, 192, 192)',

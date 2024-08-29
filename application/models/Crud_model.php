@@ -433,6 +433,7 @@ class Crud_model extends CI_Model {
 		$data['section_id'] = html_escape($this->input->post('section_id'));
 		$data['school_id'] = $this->school_id;
 		$data['session_id'] = $this->active_session;
+		$data['month']=html_escape($this->input->post('month'));
 		$check_data = $this->db->get_where('daily_attendances', array('timestamp' => $data['timestamp'], 'class_id' => $data['class_id'], 'section_id' => $data['section_id'], 'session_id' => $data['session_id'], 'school_id' => $data['school_id']));
 		if($check_data->num_rows() > 0){
 			foreach($students as $key => $student):
