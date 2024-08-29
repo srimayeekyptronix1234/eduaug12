@@ -773,7 +773,29 @@ class Teacher extends CI_Controller {
 		$this->load->view('backend/index', $page_data);
 	}
 	//Staff Salary End
-   
+   public function reportcard($param1 = '', $param2 = '', $param3 = '') {
+		if ($param1 == 'list') {
+			// Collect the posted data
+			$class_id = $this->input->post('class_id');
+			$section_id = $this->input->post('section_id');
+			$student_id = $this->input->post('student_id');
+			$exam_id = $this->input->post('exam_id');
+	
+			// Fetch necessary data
+			$data['class_id'] = $class_id;
+			$data['section_id'] = $section_id;
+			$data['student_id'] = $student_id;
+			$data['exam_id'] = $exam_id;
+	
+			// Load the list view with the data
+			$this->load->view('backend/teacher/reportcard/list', $data);
+		} else {
+			$page_data['page_name'] = 'reportcard/index';
+			$page_data['page_title'] = get_phrase('manage_report_cards');
+			$this->load->view('backend/index', $page_data);
+		}
+	}
+
 
 	
 }
