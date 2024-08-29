@@ -1526,5 +1526,6 @@
     "provide_salary": "Provide salary",
     "accountant_has_been_updated_successfully": "Accountant has been updated successfully",
     "librarian_updated_successfully": "Librarian updated successfully",
-    "provide_user_salary": "Provide user salary"
+    "provide_user_salary": "Provide user salary",
+    "home_page": "Home page"
 }
