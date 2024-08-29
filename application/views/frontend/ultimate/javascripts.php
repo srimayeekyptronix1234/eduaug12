@@ -1,0 +1,11 @@
+<script src="<?php echo base_url();?>assets/frontend/<?php echo $theme;?>/js/jquery-3.7.1.min.js"></script>
+<script src="<?php echo base_url();?>assets/frontend/<?php echo $theme;?>/js/viewport.jquery.js"></script>
+<script src="<?php echo base_url();?>assets/frontend/<?php echo $theme;?>/js/bootstrap.bundle.min.js"></script>
+<script src="<?php echo base_url();?>assets/frontend/<?php echo $theme;?>/js/jquery.nice-select.min.js"></script>
+<script src="<?php echo base_url();?>assets/frontend/<?php echo $theme;?>/js/jquery.waypoints.js"></script>
+<script src="<?php echo base_url();?>assets/frontend/<?php echo $theme;?>/js/jquery.counterup.min.js"></script>
+<script src="<?php echo base_url();?>assets/frontend/<?php echo $theme;?>/js/swiper-bundle.min.js"></script>
+<script src="<?php echo base_url();?>assets/frontend/<?php echo $theme;?>/js/jquery.meanmenu.min.js"></script>
+<script src="<?php echo base_url();?>assets/frontend/<?php echo $theme;?>/js/jquery.magnific-popup.min.js"></script>
+<script src="<?php echo base_url();?>assets/frontend/<?php echo $theme;?>/js/wow.min.js"></script>
+<script src="<?php echo base_url();?>assets/frontend/<?php echo $theme;?>/js/main.js"></script>
