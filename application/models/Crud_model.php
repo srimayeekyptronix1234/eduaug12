@@ -956,20 +956,7 @@ class Crud_model extends CI_Model {
 			$data['updated_at'] = strtotime(date('d-M-Y'));
 		}
 
-		if ($data['paid_amount'] > $data['total_amount']) {
-			$response = array(
-				'status' => false,
-				'notification' => get_phrase('paid_amount_can_not_get_bigger_than_total_amount')
-			);
-			return json_encode($response);
-		}
-		if ($data['status'] == 'paid' && $data['total_amount'] != $data['paid_amount']) {
-			$response = array(
-				'status' => false,
-				'notification' => get_phrase('paid_amount_is_not_equal_to_total_amount')
-			);
-			return json_encode($response);
-		}
+		
 		$this->db->insert('invoices', $data);
 
 		$response = array(
@@ -983,27 +970,9 @@ class Crud_model extends CI_Model {
 		$data['total_amount'] = htmlspecialchars($this->input->post('total_amount'));
 		$data['paid_amount'] = htmlspecialchars($this->input->post('paid_amount'));
 		$data['status'] = htmlspecialchars($this->input->post('status'));
-
-		if ($data['paid_amount'] > $data['total_amount']) {
-			$response = array(
-				'status' => false,
-				'notification' => get_phrase('paid_amount_can_not_get_bigger_than_total_amount')
-			);
-			return json_encode($response);
-		}
-
-		if ($data['status'] == 'paid' && $data['total_amount'] != $data['paid_amount']) {
-			$response = array(
-				'status' => false,
-				'notification' => get_phrase('paid_amount_is_not_equal_to_total_amount')
-			);
-			return json_encode($response);
-		}
-
 		if ($data['total_amount'] == $data['paid_amount']) {
 			$data['status'] = 'paid';
 		}
-
 		$data['title'] = htmlspecialchars($this->input->post('title'));
 		$data['class_id'] = htmlspecialchars($this->input->post('class_id'));
 		$data['school_id'] = $this->school_id;
