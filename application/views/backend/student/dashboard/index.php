@@ -138,17 +138,18 @@ $school_id = school_id();
 <div class="row">
   <div class="col-xl-12">
     <div class="row">
-      <!-- Class Timetable Start -->
+       <!--Attendance Record Start-->
       <div class="col-xl-12">
         <div class="card boxhover">
           <div class="card-body">
-            <h4 class="header-title mb-3"><?php echo get_phrase('Class Timetable'); ?><a href=""
-                style="color: #6c757d"><i class="mdi mdi-export"></i></a></h4>
-            <?php include 'class_timetable.php'; ?>
+            <h6 class="header-title mb-3"><?php echo get_phrase('attendance_record'); ?><a href=""
+                style="color: #6c757d"><i class="mdi mdi-export"></i></a></h6>
+            <?php include 'attendance_record.php'; ?>
           </div>
         </div>
       </div>
-      <!-- Class Timetable End -->
+      <!--Attendance Record End-->
+     
       <!-- ClassWise Subject Start -->
       <div class="col-xl-4">
         <div class="card widget-flat" id="teacher"
@@ -301,18 +302,18 @@ background: linear-gradient(90deg, rgba(131,58,180,1) 0%, rgba(253,29,29,1) 50%,
 
       </div>
       <!--Exam Results End-->
-      <!--Attendance Record Start-->
+      <!-- Class Timetable Start -->
       <div class="col-xl-12">
         <div class="card boxhover">
           <div class="card-body">
-            <h4 class="header-title mb-3"><?php echo get_phrase('attendance_record'); ?><a href=""
+            <h4 class="header-title mb-3"><?php echo get_phrase('Class Timetable'); ?><a href=""
                 style="color: #6c757d"><i class="mdi mdi-export"></i></a></h4>
-            <?php include 'attendance_record.php'; ?>
+            <?php include 'class_timetable.php'; ?>
           </div>
         </div>
       </div>
-      <!--Attendance Record End-->
-
+      <!-- Class Timetable End -->
+      
 
     </div>
   </div>

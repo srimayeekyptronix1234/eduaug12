@@ -1530,5 +1530,6 @@
     "home_page": "Home page",
     "route_has_been_added_successfully": "Route has been added successfully",
     "vehicle_has_been_added_successfully": "Vehicle has been added successfully",
-    "route_has_been_deleted_successfully": "Route has been deleted successfully"
+    "route_has_been_deleted_successfully": "Route has been deleted successfully",
+    "invoice_deleted_successfully": "Invoice deleted successfully"
 }

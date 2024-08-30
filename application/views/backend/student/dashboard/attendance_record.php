@@ -9,12 +9,12 @@ $enrols_table_data=$this->db->get_where('enrols',['student_id'=>$student_table_d
 
 <table  class="table table-bordered table-responsive-sm table-responsive-md table-responsive-lg table-responsive-xl table-sm">
   <thead class="thead-dark">
-    <tr style="font-size: 12px;">
-      <th width = "40px"><?php echo get_phrase('student'); ?> <i class="mdi mdi-arrow-down"></i> <?php echo get_phrase('date'); ?> <i class="mdi mdi-arrow-right"></i></th>
+    <tr style="font-size: 8px;">
+      <th width = "100%" style="font-size: 8px;"><?php echo get_phrase('student'); ?> <i class="mdi mdi-arrow-down"></i> <?php echo get_phrase('date'); ?> <i class="mdi mdi-arrow-right"></i></th>
       <?php
       $number_of_days = date('m', $attendance_date) == 2 ? (date('Y', $attendance_date) % 4 ? 28 : (date('m', $attendance_date) % 100 ? 29 : (date('m', $attendance_date) % 400 ? 28 : 29))) : ((date('m', $attendance_date) - 1) % 7 % 2 ? 30 : 31);
       for ($i = 1; $i <= $number_of_days; $i++): ?>
-      <th><?php echo $i; ?></th>
+      <th style="font-size: 8px;"><?php echo $i; ?></th>
     <?php endfor; ?>
   </tr>
 </thead>
