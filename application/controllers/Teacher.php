@@ -191,11 +191,12 @@ class Teacher extends CI_Controller {
 	//END CLASS section
 
 	//	SECTION STARTED
-	public function section($action = "", $id = "") {
+	public function section($action = "", $id = "",$section_id="") {
 
 		// PROVIDE A LIST OF SECTION ACCORDING TO CLASS ID
 		if ($action == 'list') {
 			$page_data['class_id'] = $id;
+			$page_data['section_id']=$section_id;
 			$this->load->view('backend/teacher/section/list', $page_data);
 		}
 	}
@@ -288,6 +289,12 @@ class Teacher extends CI_Controller {
 			$page_data['class_id'] = $param2;
 			$page_data['section_id'] = $param3;
 			$this->load->view('backend/teacher/routine/list', $page_data);
+		}
+		if($param1 == 'section_list'){
+          $page_data['class_id'] =$param2;
+          $page_data['section_id']=$param3;
+          $this->load->view('backend/teacher/section/list',$page_data);
+            
 		}
 
 		if(empty($param1)){

@@ -2,7 +2,7 @@
 $user_id = $this->session->userdata('user_id');
 $teacher_table_data=$this->db->get_where('teachers',['user_id'=>$user_id])->row_array();
 $teacher_permissions_data=$this->db->get_where('teacher_permissions',['teacher_id'=>$teacher_table_data['id']])->row_array();
-$current_session_students = $this->user_model->get_total_data($teacher_permissions_data['class_id']);
+$current_session_students = $this->user_model->get_total_students($teacher_table_data['class_id'],$teacher_table_data['section_id']);
 $total_exam=$this->db->get_where('online_exam_details',['class_id'=>$teacher_permissions_data['class_id']])->num_rows();
 $school_id  = school_id();
 ?>
@@ -98,8 +98,13 @@ $school_id  = school_id();
                                        $this->db->from('routines r');
                                        $this->db->join('subjects s', 's.id = r.subject_id', 'left');
                                        $this->db->join('classes c', 'c.id = r.class_id', 'left');
-                                       $this->db->where('r.school_id', $teacher_table_data['school_id']);
-                                       $this->db->where('r.teacher_id', $teacher_table_data['id']);
+                                       $checker = array(
+                                        'r.school_id' => $teacher_table_data['school_id'],
+                                        'r.teacher_id' => $teacher_table_data['id'],
+                                        'r.class_id' => $teacher_table_data['class_id'],
+                                        'r.section_id'=>$teacher_table_data['section_id']
+                                      );
+                                       $this->db->where($checker);
                                        $this->db->group_by('c.id, c.name');
                                        $check_data=$this->db->get()->result_array();
 
@@ -154,7 +159,7 @@ $school_id  = school_id();
                                        $this->db->from('classes c');
                                        $this->db->join('subjects s', 's.class_id = c.id', 'left');
                                        $this->db->where('c.school_id', $school_id);
-                                       $this->db->where('c.id', $teacher_permissions_data['class_id']);
+                                       $this->db->where('c.id', $teacher_table_data['class_id']);
                                        $this->db->group_by('c.id, c.name');
                                        $check_data=$this->db->get()->result_array();
 

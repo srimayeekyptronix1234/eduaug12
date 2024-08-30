@@ -1555,7 +1555,15 @@ class User_model extends CI_Model {
     	$this->db->where($checker);
     	return $this->db->get()->result_array();
 	}
-
+    public function get_total_students($class_id='',$section_id='') {
+		$checker = array(
+			'session' => $this->active_session,
+			'school_id' => $this->school_id,
+			'class_id' => $class_id,
+			'section_id'=>$section_id
+		);
+		return $this->db->get_where('enrols', $checker)->result_array();
+	}
 
 	
 
