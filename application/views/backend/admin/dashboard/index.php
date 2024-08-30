@@ -1,5 +1,5 @@
-<?php 
-    $school_id = school_id();
+<?php
+$school_id = school_id();
 
 ?>
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
@@ -221,7 +221,7 @@
                 </h5>
                 <h3 class="mt-3 mb-3" style="color: #ffffff;">
                   <?php
-                  $total_exams=$this->db->get('online_exam_details')->num_rows();
+                  $total_exams = $this->db->get('online_exam_details')->num_rows();
                   echo $total_exams;
                   ?>
                 </h3>
@@ -310,111 +310,117 @@
 
 <!--CHART OPEN-->
 <div class="row ">
-  <div class="col-sm-8">
+  <div class="col-sm-4">
     <div class="linebar">
       <canvas id="myLineChart"></canvas>
-      <?php 
-           $jan_present_students=$this->db->get_where('daily_attendances',['month'=>'Jan','school_id'=>$school_id,'status'=>'1'])->num_rows();
-           $feb_present_students=$this->db->get_where('daily_attendances',['month'=>'Feb','school_id'=>$school_id,'status'=>'1'])->num_rows();
-           $mar_present_students=$this->db->get_where('daily_attendances',['month'=>'Mar','school_id'=>$school_id,'status'=>'1'])->num_rows();
-           $apr_present_students=$this->db->get_where('daily_attendances',['month'=>'Apr','school_id'=>$school_id,'status'=>'1'])->num_rows();
-           $may_present_students=$this->db->get_where('daily_attendances',['month'=>'May','school_id'=>$school_id,'status'=>'1'])->num_rows();
-           $jun_present_students=$this->db->get_where('daily_attendances',['month'=>'Jun','school_id'=>$school_id,'status'=>'1'])->num_rows();
-           $jul_present_students=$this->db->get_where('daily_attendances',['month'=>'Jul','school_id'=>$school_id,'status'=>'1'])->num_rows();
-           $aug_present_students=$this->db->get_where('daily_attendances',['month'=>'Aug','school_id'=>$school_id,'status'=>'1'])->num_rows();
-           $sep_present_students=$this->db->get_where('daily_attendances',['month'=>'Sep','school_id'=>$school_id,'status'=>'1'])->num_rows();
-           $oct_present_students=$this->db->get_where('daily_attendances',['month'=>'Oct','school_id'=>$school_id,'status'=>'1'])->num_rows();
-           $nov_present_students=$this->db->get_where('daily_attendances',['month'=>'Nov','school_id'=>$school_id,'status'=>'1'])->num_rows();
-           $dec_present_students=$this->db->get_where('daily_attendances',['month'=>'Dec','school_id'=>$school_id,'status'=>'1'])->num_rows();
-          
-          
+      <?php
+      $jan_present_students = $this->db->get_where('daily_attendances', ['month' => 'Jan', 'school_id' => $school_id, 'status' => '1'])->num_rows();
+      $feb_present_students = $this->db->get_where('daily_attendances', ['month' => 'Feb', 'school_id' => $school_id, 'status' => '1'])->num_rows();
+      $mar_present_students = $this->db->get_where('daily_attendances', ['month' => 'Mar', 'school_id' => $school_id, 'status' => '1'])->num_rows();
+      $apr_present_students = $this->db->get_where('daily_attendances', ['month' => 'Apr', 'school_id' => $school_id, 'status' => '1'])->num_rows();
+      $may_present_students = $this->db->get_where('daily_attendances', ['month' => 'May', 'school_id' => $school_id, 'status' => '1'])->num_rows();
+      $jun_present_students = $this->db->get_where('daily_attendances', ['month' => 'Jun', 'school_id' => $school_id, 'status' => '1'])->num_rows();
+      $jul_present_students = $this->db->get_where('daily_attendances', ['month' => 'Jul', 'school_id' => $school_id, 'status' => '1'])->num_rows();
+      $aug_present_students = $this->db->get_where('daily_attendances', ['month' => 'Aug', 'school_id' => $school_id, 'status' => '1'])->num_rows();
+      $sep_present_students = $this->db->get_where('daily_attendances', ['month' => 'Sep', 'school_id' => $school_id, 'status' => '1'])->num_rows();
+      $oct_present_students = $this->db->get_where('daily_attendances', ['month' => 'Oct', 'school_id' => $school_id, 'status' => '1'])->num_rows();
+      $nov_present_students = $this->db->get_where('daily_attendances', ['month' => 'Nov', 'school_id' => $school_id, 'status' => '1'])->num_rows();
+      $dec_present_students = $this->db->get_where('daily_attendances', ['month' => 'Dec', 'school_id' => $school_id, 'status' => '1'])->num_rows();
+
+
       ?>
-      <input type="hidden" id="jan_present_students" value="<?=$jan_present_students?>">
-      <input type="hidden" id="feb_present_students" value="<?=$feb_present_students?>">
-      <input type="hidden" id="mar_present_students" value="<?=$mar_present_students?>">
-      <input type="hidden" id="apr_present_students" value="<?=$apr_present_students?>">
-      <input type="hidden" id="may_present_students" value="<?=$may_present_students?>">
-      <input type="hidden" id="jun_present_students" value="<?=$jun_present_students?>">
-      <input type="hidden" id="jul_present_students" value="<?=$jul_present_students?>">
-      <input type="hidden" id="aug_present_students" value="<?=$aug_present_students?>">
+      <input type="hidden" id="jan_present_students" value="<?= $jan_present_students ?>">
+      <input type="hidden" id="feb_present_students" value="<?= $feb_present_students ?>">
+      <input type="hidden" id="mar_present_students" value="<?= $mar_present_students ?>">
+      <input type="hidden" id="apr_present_students" value="<?= $apr_present_students ?>">
+      <input type="hidden" id="may_present_students" value="<?= $may_present_students ?>">
+      <input type="hidden" id="jun_present_students" value="<?= $jun_present_students ?>">
+      <input type="hidden" id="jul_present_students" value="<?= $jul_present_students ?>">
+      <input type="hidden" id="aug_present_students" value="<?= $aug_present_students ?>">
 
     </div>
   </div>
 
   <div class="col-sm-4">
     <div class="bar-box">
-        <h4 class="header-title mb-2">
-              <?php echo get_phrase('todays_attendance'); ?>
-        </h4>
-          
+      <h4 class="header-title mb-2">
+        <?php echo get_phrase('todays_attendance'); ?>
+      </h4>
+
       <div class="progress-container">
         <div class="progressbar">
           <div class="progress-header">
             <p class="mt-2 mb-2">Today's Present Students</p>
-            <?php $date=date('Y-m-d');
-                  $timestamp=(strtotime($date));
-                  $today_present_students=$this->db->get_where('daily_attendances',['timestamp'=>$timestamp,'school_id'=>$school_id,'status'=>'1'])->num_rows();
-                  $current_students = $this->user_model->get_session_wise_student();
-                  $total_students=$current_students->num_rows();
-                  if(isset($today_present_students) && $today_present_students == $total_students){
-                     $student_percent_outside= '100%';
-                  }else if(isset($today_present_students) && $today_present_students > 0){
-                     $student_percent_outside=$today_present_students.'%';
-                  }else{$student_percent_outside= '0%';}
+            <?php $date = date('Y-m-d');
+            $timestamp = (strtotime($date));
+            $today_present_students = $this->db->get_where('daily_attendances', ['timestamp' => $timestamp, 'school_id' => $school_id, 'status' => '1'])->num_rows();
+            $current_students = $this->user_model->get_session_wise_student();
+            $total_students = $current_students->num_rows();
+            if (isset($today_present_students) && $today_present_students == $total_students) {
+              $student_percent_outside = '100%';
+            } else if (isset($today_present_students) && $today_present_students > 0) {
+              $student_percent_outside = $today_present_students . '%';
+            } else {
+              $student_percent_outside = '0%';
+            }
 
             ?>
-        
+
           </div>
           <div class="bar-container">
-            <div class="bar" style="width:<?=$student_percent_outside;?>; background-color:#FD858F;"></div>
-            <p class="percent-outside"><b><?=$student_percent_outside;?></b></p>
+            <div class="bar" style="width:<?= $student_percent_outside; ?>; background-color:#FD858F;"></div>
+            <p class="percent-outside"><b><?= $student_percent_outside; ?></b></p>
           </div>
         </div>
 
         <div class="progressbar">
           <div class="progress-header">
             <p class="mt-2 mb-2">Today's Present Employees</p>
-            <?php 
-                 $date=date('Y-m-d');
-                 $timestamp=(strtotime($date));
-                 $today_present_employees=$this->db->get_where('staff_attendance',['timestamp'=>$timestamp,'school_id'=>$school_id,'status'=>'1'])->num_rows();
-                 $role=array('student','parent','admin','superadmin');
-                 $this->db->select('u.*');
-                 $this->db->where_not_in('u.role',$role);
-                 $this->db->where('u.school_id',$school_id);
-                 $total_number_staffs=$this->db->get('users u')->num_rows();
-                 if(isset($today_present_employees) && $today_present_employees == $total_number_staffs){
-                     $employee_percent_outside= '100%';
-                  }else if(isset($today_present_employees) && $today_present_employees > 0){
-                     $employee_percent_outside= $today_present_employees.'%';
-                  }else{$employee_percent_outside= '0%';}
+            <?php
+            $date = date('Y-m-d');
+            $timestamp = (strtotime($date));
+            $today_present_employees = $this->db->get_where('staff_attendance', ['timestamp' => $timestamp, 'school_id' => $school_id, 'status' => '1'])->num_rows();
+            $role = array('student', 'parent', 'admin', 'superadmin');
+            $this->db->select('u.*');
+            $this->db->where_not_in('u.role', $role);
+            $this->db->where('u.school_id', $school_id);
+            $total_number_staffs = $this->db->get('users u')->num_rows();
+            if (isset($today_present_employees) && $today_present_employees == $total_number_staffs) {
+              $employee_percent_outside = '100%';
+            } else if (isset($today_present_employees) && $today_present_employees > 0) {
+              $employee_percent_outside = $today_present_employees . '%';
+            } else {
+              $employee_percent_outside = '0%';
+            }
 
- 
- 
+
+
             ?>
           </div>
           <div class="bar-container">
-            <div class="bar" style="width:<?=$employee_percent_outside;?>; background-color:#FF8911;"></div>
-            <p class="percent-outside"><b><?=$employee_percent_outside;?></b></p>
+            <div class="bar" style="width:<?= $employee_percent_outside; ?>; background-color:#FF8911;"></div>
+            <p class="percent-outside"><b><?= $employee_percent_outside; ?></b></p>
           </div>
         </div>
 
         <div class="progressbar">
           <div class="progress-header">
             <p class="mt-2 mb-2">Today’s New Enrollments</p>
-             <?php $date=date('Y-m-d');
-                  $timestamp=(strtotime($date));
-                  $today_new_enrollments=$this->db->get_where('enrols',['timestamp'=>$timestamp,'school_id'=>$school_id])->num_rows();
-                  if(isset($today_new_enrollments) && $today_new_enrollments > 0){
-                     $emp_percent_outside=$today_new_enrollments.'%';
-                  }else{$emp_percent_outside= '0%';}
+            <?php $date = date('Y-m-d');
+            $timestamp = (strtotime($date));
+            $today_new_enrollments = $this->db->get_where('enrols', ['timestamp' => $timestamp, 'school_id' => $school_id])->num_rows();
+            if (isset($today_new_enrollments) && $today_new_enrollments > 0) {
+              $emp_percent_outside = $today_new_enrollments . '%';
+            } else {
+              $emp_percent_outside = '0%';
+            }
 
             ?>
-        
+
           </div>
           <div class="bar-container">
-            <div class="bar" style="width:<?=$emp_percent_outside;?>; background-color:#035FBD;"></div>
-            <p class="percent-outside"><b><?=$emp_percent_outside;?></b></p>
+            <div class="bar" style="width:<?= $emp_percent_outside; ?>; background-color:#035FBD;"></div>
+            <p class="percent-outside"><b><?= $emp_percent_outside; ?></b></p>
           </div>
         </div>
 
@@ -433,6 +439,8 @@
 
   </div>
 </div>
+
+
 
 <!--CHART CLOSE-->
 
@@ -482,95 +490,95 @@
   });
 
   //lINE CHART START//
-  var jan_present_students=$('#jan_present_students').val();
-  var feb_present_students=$('#feb_present_students').val();
-  var mar_present_students=$('#mar_present_students').val();
-  var apr_present_students=$('#apr_present_students').val();
-  var may_present_students=$('#may_present_students').val();
-  var jun_present_students=$('#jun_present_students').val();
-  var jul_present_students=$('#jul_present_students').val();
-  var aug_present_students=$('#aug_present_students').val();
-  var sep_present_students=$('#sep_present_students').val();
-  var oct_present_students=$('#oct_present_students').val();
-  var nov_present_students=$('#nov_present_students').val();
-  var dec_present_students=$('#dec_present_students').val();
+  var jan_present_students = $('#jan_present_students').val();
+  var feb_present_students = $('#feb_present_students').val();
+  var mar_present_students = $('#mar_present_students').val();
+  var apr_present_students = $('#apr_present_students').val();
+  var may_present_students = $('#may_present_students').val();
+  var jun_present_students = $('#jun_present_students').val();
+  var jul_present_students = $('#jul_present_students').val();
+  var aug_present_students = $('#aug_present_students').val();
+  var sep_present_students = $('#sep_present_students').val();
+  var oct_present_students = $('#oct_present_students').val();
+  var nov_present_students = $('#nov_present_students').val();
+  var dec_present_students = $('#dec_present_students').val();
 
 
 
-/*  const data = {
-    labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July','August'],
-    datasets: [
-      {
-        label: 'Student',
-        data: [jan_present_students,feb_present_students,mar_present_students,apr_present_students,may_present_students,jun_present_students,jul_present_students,aug_present_students],
-        fill: false,
-        borderColor: 'rgb(75, 192, 192)',
-        tension: 0.1
-      },
-      {
-        label: 'Teacher',
-        data: [28, 48, 40, 19, 86, 27, 90,30],
-        fill: false,
-        borderColor: 'rgb(255, 99, 132)',
-        tension: 0.1
-      },
-      {
-        label: 'Staff',
-        data: [18, 12, 60, 20, 46, 77, 80,30],
-        fill: false,
-        borderColor: 'rgb(54, 162, 235)',
-        tension: 0.1
-      }
-    ]
-  };
-
-  const config = {
-    type: 'line',
-    data: data,
-    options: {
-      responsive: true,
-      plugins: {
-        legend: {
-          position: 'top',
+  /*  const data = {
+      labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July','August'],
+      datasets: [
+        {
+          label: 'Student',
+          data: [jan_present_students,feb_present_students,mar_present_students,apr_present_students,may_present_students,jun_present_students,jul_present_students,aug_present_students],
+          fill: false,
+          borderColor: 'rgb(75, 192, 192)',
+          tension: 0.1
         },
-        title: {
-          display: true,
-          text: 'Student Statistics'
+        {
+          label: 'Teacher',
+          data: [28, 48, 40, 19, 86, 27, 90,30],
+          fill: false,
+          borderColor: 'rgb(255, 99, 132)',
+          tension: 0.1
+        },
+        {
+          label: 'Staff',
+          data: [18, 12, 60, 20, 46, 77, 80,30],
+          fill: false,
+          borderColor: 'rgb(54, 162, 235)',
+          tension: 0.1
         }
-      }
-    },
-  };
-
-  const myLineChart = new Chart(
-    document.getElementById('myLineChart'),
-    config
-  );*/
+      ]
+    };
+  
+    const config = {
+      type: 'line',
+      data: data,
+      options: {
+        responsive: true,
+        plugins: {
+          legend: {
+            position: 'top',
+          },
+          title: {
+            display: true,
+            text: 'Student Statistics'
+          }
+        }
+      },
+    };
+  
+    const myLineChart = new Chart(
+      document.getElementById('myLineChart'),
+      config
+    );*/
 
   //lINE CHART END//
   //PIE CHART START
   const data = {
-       labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July','August','September','October','November','December'],
-       datasets: [{
-        label: 'Student Statistics',
-        data: [jan_present_students, feb_present_students, mar_present_students, apr_present_students, may_present_students, jun_present_students, jul_present_students,aug_present_students,sep_present_students,oct_present_students,nov_present_students,dec_present_students],
-        backgroundColor: [
-              'rgb(255, 99, 132)',
-              'rgb(75, 192, 192)',
-              'rgb(255, 205, 86)',
-              'rgb(201, 203, 207)',
-              'rgb(54, 162, 235)'
-        ],
-        hoverOffset: 4
-      }]
-  };      
+    labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
+    datasets: [{
+      label: 'Student Statistics',
+      data: [jan_present_students, feb_present_students, mar_present_students, apr_present_students, may_present_students, jun_present_students, jul_present_students, aug_present_students, sep_present_students, oct_present_students, nov_present_students, dec_present_students],
+      backgroundColor: [
+        'rgb(255, 99, 132)',
+        'rgb(75, 192, 192)',
+        'rgb(255, 205, 86)',
+        'rgb(201, 203, 207)',
+        'rgb(54, 162, 235)'
+      ],
+      hoverOffset: 4
+    }]
+  };
   const config = {
     type: 'pie',
     data: data,
   };
   const myLineChart = new Chart(
-      document.getElementById('myLineChart'),
-      config
+    document.getElementById('myLineChart'),
+    config
   );
-//PIE CHART END
+  //PIE CHART END
 
 </script>
