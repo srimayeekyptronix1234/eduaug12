@@ -81,6 +81,7 @@ $online_exams = $this->db->select('online_exam_details.*, exams.name')->from('on
             <tr style="background-color: #0272F3; color: #FFF;">
                 <th><?php echo get_phrase('exam_name'); ?></th>
                 <th><?php echo get_phrase('quarter_name'); ?></th>
+                <th><?php echo get_phrase('class'); ?></th>
                 <th><?php echo get_phrase('starting_date'); ?></th>
                 <th><?php echo get_phrase('exam_time'); ?></th>
                 <th><?php echo get_phrase('exam_duration'); ?></th>
@@ -92,6 +93,11 @@ $online_exams = $this->db->select('online_exam_details.*, exams.name')->from('on
                 <tr>
                     <td><?php echo $exam['online_exam_name']; ?></td>
                     <td><?php echo $exam['name']; ?></td>
+                    <td><?php 
+                           $class_details=$this->db->get_where('classes',['id'=>$exam['class_id']])->row_array();
+                           echo $class_details['name'];
+                        ?>
+                    </td>
                     <td><?php echo $exam['exam_start_date']; ?></td>
                     <td>Time:
                         <?php echo $exam['exam_start_time'] . $exam['exam_start_am_pm'] . "-" . $exam['exam_end_time'] . $exam['exam_end_am_pm']; ?>
