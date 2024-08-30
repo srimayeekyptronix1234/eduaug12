@@ -671,7 +671,6 @@ class Teacher extends CI_Controller {
 			$page_data['class_id'] = $param2;
 			$page_data['section_id']=$param3;
 			$page_data['student_id']=$param4;
-			$page_data['teacher_id']=$param5;
 			$page_data['page_form']=$param1;
 			$this->load->view('backend/teacher/complaintsactions/list', $page_data);
 		}

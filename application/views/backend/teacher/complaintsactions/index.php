@@ -1,3 +1,8 @@
+<?php
+$user_id = $this->session->userdata('user_id');
+$teacher_table_data=$this->db->get_where('teachers',['user_id'=>$user_id])->row_array();
+?>
+
 <!--title-->
 <div class="row ">
   <div class="col-xl-12">
@@ -17,10 +22,10 @@
             <div class="row mt-3">
                 <div class="col-md-1 mb-1"></div>
                 <div class="col-md-2 mb-1">
-                    <select name="class" id="class_id" class="form-control select2" data-toggle = "select2" required onchange="classWiseSection(this.value)">
+                    <select name="class" id="class_id" class="form-control select2" data-toggle = "select2" required onchange="classWiseSectionTeacherLogin(this.value,'<?=$teacher_table_data['section_id']?>')">
                         <option value=""><?php echo get_phrase('select_a_class'); ?></option>
                         <?php
-                        $classes = $this->db->get_where('classes', array('school_id' => school_id()))->result_array();
+                        $classes = $this->db->get_where('classes', array('id'=>$teacher_table_data['class_id'],'school_id' => school_id()))->result_array();
                         foreach($classes as $class){
                             ?>
                             <option value="<?php echo $class['id']; ?>"><?php echo $class['name']; ?></option>
@@ -38,7 +43,7 @@
                     </select>
                 </div>
                 
-                 <div class="col-md-2 mb-1">
+                 <!--<div class="col-md-2 mb-1">
                     <select name="teacher" id="teacher_id" class="form-control select2" data-toggle = "select2" required>
                         <option value=""><?php echo get_phrase('select_a_teacher'); ?></option>
                         <?php
@@ -48,7 +53,7 @@
                             <option value="<?php echo $teachers['id']; ?>"><?php echo $teachers['name']; ?></option>
                         <?php } ?>
                     </select>
-                </div>
+                </div>-->
                
                 <div class="col-md-2">
                     <button class="btn btn-block btn-secondary" onclick="filter_complaint_class()" ><?php echo get_phrase('filter'); ?></button>
@@ -78,11 +83,11 @@ var showAllComplaint = function () {
     var class_id = $('#class_id').val();
     var section_id = $('#section_id').val();
     var student_id = $('#student_id').val();
-    var teacher_id =$('#teacher_id').val();
+  //  var teacher_id =$('#teacher_id').val();
    
-    if(class_id != "" && section_id != "" && student_id != "" && teacher_id != ""){
+    if(class_id != "" && section_id != "" && student_id != ""){
         $.ajax({
-            url: '<?php echo route('complaintsactions/list/') ?>'+class_id+'/'+section_id+'/'+student_id+'/'+teacher_id,
+            url: '<?php echo route('complaintsactions/list/') ?>'+class_id+'/'+section_id+'/'+student_id,
             success: function(response){
                 $('.complaint_content').html(response);
             }
@@ -96,15 +101,18 @@ var showAllComplaint = function () {
         }); 
     }
 }
-function classWiseSection(classId) {
-    $.ajax({
-        url: "<?php echo route('section/list/'); ?>"+classId,
-        success: function(response){
-            $('#section_id').html(response);
-            showClassWiseStudent(classId);
-        }
-    });
+function classWiseSectionTeacherLogin(classId,sectionId) {
+  $.ajax({
+    url: "<?php echo route('section/list/'); ?>"+classId+'/'+sectionId,
+    success: function(response){
+      $('#section_id').html(response);
+      showClassWiseStudent(classId);
+
+    }
+  });
 }
+
+
 function showClassWiseStudent(classId) {
     $.ajax({
         url: "<?php echo route('show_class_wise_student/'); ?>"+classId,

@@ -1,11 +1,13 @@
 <?php
     $user_id = $this->session->userdata('user_id');
+    $teacher_table_data=$this->db->get_where('teachers',['user_id'=>$user_id])->row_array();
 
-    if (!empty($class_id) && !empty($section_id) && !empty($student_id) && !empty($teacher_id)){
-        $check_data = $this->db->get_where('complaint', array('class_id' => $class_id,'section_id' => $section_id,'student_id' =>$student_id,'teacher_id'=>$teacher_id))->result_array();
+
+    if (!empty($class_id) && !empty($section_id) && !empty($student_id)){
+        $check_data = $this->db->get_where('complaint', array('class_id' => $class_id,'section_id' => $section_id,'student_id' =>$student_id,'teacher_id'=>$user_id))->result_array();
 
     }else{
-        $check_data=$this->db->get_where('complaint',['teacher_id'=>$user_id])->result_array();
+        $check_data=$this->db->get_where('complaint',['teacher_id'=>$user_id,'class_id'=>$teacher_table_data['class_id'],'section_id'=>$teacher_table_data['section_id']])->result_array();
 
     }
 
