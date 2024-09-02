@@ -2224,6 +2224,24 @@ class Crud_model extends CI_Model {
 		);
 		return json_encode($response);
 	}
+	public function get_student_classwork_marks_parent_login($exam_id = "",$class_id = "",$section_id = "", $subject_id = "") {
+		  $parent_id = $this->session->userdata('user_id');
+          $parent_data = $this->db->get_where('parents', array('user_id' => $parent_id))->row_array();
+
+		  $this->db->select('c.*');
+          $this->db->from('students s');
+		$checker = array(
+			'class_id' => $class_id,
+			'section_id' => $section_id,
+			'subject_id' => $subject_id,
+			'exam_id' => $exam_id,
+			'school_id' => $this->school_id,
+			'session' => $this->active_session
+		);
+		$this->db->where($checker);
+        $this->db->where('s.parent_id', $parent_data['id']);
+		return $this->db->get('classwork c');
+	}
     
 
 }

@@ -95,11 +95,15 @@ $parent_data = $this->db->get_where('parents', array('user_id' => $parent_id))->
                         <div class="text-center">
                             <h3 class="font-weight-normal mb-2">
                                 <?php
+                                       $date = date('Y-m-d');
+                                       $timestamp = (strtotime($date));
                                        $this->db->select('da.*');
                                        $this->db->from('students s');
                                        $this->db->join('daily_attendances da', 'da.student_id = s.id');
                                        $this->db->where('s.parent_id', $parent_data['id']);
                                        $this->db->where('da.school_id', $school_id);
+                                       $this->db->where('da.timestamp',$timestamp);
+                                       $this->db->where('da.status',1);
                                        $childs_attendances=$this->db->get()->num_rows();
 
                                       if(isset($childs_attendances) && $childs_attendances != ''){

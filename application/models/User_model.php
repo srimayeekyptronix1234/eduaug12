@@ -1564,6 +1564,123 @@ class User_model extends CI_Model {
 		);
 		return $this->db->get_where('enrols', $checker)->result_array();
 	}
+    public function get_student_project_marks_list_of_logged_in_parent() {
+        $parent_id = $this->session->userdata('user_id');
+        $parent_data = $this->db->get_where('parents', array('user_id' => $parent_id))->row_array();
+        $checker = array(
+            'parent_id' => $parent_data['id'],
+            'session' => $this->active_session,
+            'school_id' => $this->school_id
+        );
+        $students = $this->db->get_where('students', $checker)->result_array();
+        foreach ($students as $key => $student) {
+            $checker = array(
+                'student_id' => $student['id'],
+                'session' => $this->active_session,
+                'school_id' => $this->school_id
+            );
+            $enrol_data = $this->db->get_where('enrols', $checker)->row_array();
+
+            $user_details = $this->db->get_where('users', array('id' => $student['user_id']))->row_array();
+            $students[$key]['student_id'] = $student['id'];
+            $students[$key]['name'] = $user_details['name'];
+            $students[$key]['email'] = $user_details['email'];
+            $students[$key]['role'] = $user_details['role'];
+            $students[$key]['address'] = $user_details['address'];
+            $students[$key]['phone'] = $user_details['phone'];
+            $students[$key]['birthday'] = $user_details['birthday'];
+            $students[$key]['gender'] = $user_details['gender'];
+            $students[$key]['blood_group'] = $user_details['blood_group'];
+            $students[$key]['class_id'] = $enrol_data['class_id'];
+            $students[$key]['section_id'] = $enrol_data['section_id'];
+
+            $class_details = $this->crud_model->get_class_details_by_id($enrol_data['class_id'])->row_array();
+            $section_details = $this->crud_model->get_section_details_by_id('section', $enrol_data['section_id'])->row_array();
+            $marks = $this->db->get_where('project',['student_id'=>$student['id'],'class_id'=>$enrol_data['class_id'],'school_id'=>$this->school_id])->result_array();
+
+            $students[$key]['class_name'] = $class_details['name'];
+            $students[$key]['section_name'] = $section_details['name'];
+        }
+        return  $marks;
+    }
+    public function get_student_behaviour_marks_list_of_logged_in_parent() {
+        $parent_id = $this->session->userdata('user_id');
+        $parent_data = $this->db->get_where('parents', array('user_id' => $parent_id))->row_array();
+        $checker = array(
+            'parent_id' => $parent_data['id'],
+            'session' => $this->active_session,
+            'school_id' => $this->school_id
+        );
+        $students = $this->db->get_where('students', $checker)->result_array();
+        foreach ($students as $key => $student) {
+            $checker = array(
+                'student_id' => $student['id'],
+                'session' => $this->active_session,
+                'school_id' => $this->school_id
+            );
+            $enrol_data = $this->db->get_where('enrols', $checker)->row_array();
+
+            $user_details = $this->db->get_where('users', array('id' => $student['user_id']))->row_array();
+            $students[$key]['student_id'] = $student['id'];
+            $students[$key]['name'] = $user_details['name'];
+            $students[$key]['email'] = $user_details['email'];
+            $students[$key]['role'] = $user_details['role'];
+            $students[$key]['address'] = $user_details['address'];
+            $students[$key]['phone'] = $user_details['phone'];
+            $students[$key]['birthday'] = $user_details['birthday'];
+            $students[$key]['gender'] = $user_details['gender'];
+            $students[$key]['blood_group'] = $user_details['blood_group'];
+            $students[$key]['class_id'] = $enrol_data['class_id'];
+            $students[$key]['section_id'] = $enrol_data['section_id'];
+
+            $class_details = $this->crud_model->get_class_details_by_id($enrol_data['class_id'])->row_array();
+            $section_details = $this->crud_model->get_section_details_by_id('section', $enrol_data['section_id'])->row_array();
+            $marks = $this->db->get_where('behaviour',['student_id'=>$student['id'],'class_id'=>$enrol_data['class_id'],'school_id'=>$this->school_id])->result_array();
+
+            $students[$key]['class_name'] = $class_details['name'];
+            $students[$key]['section_name'] = $section_details['name'];
+        }
+        return  $marks;
+    }
+    public function get_student_homework_marks_list_of_logged_in_parent() {
+        $parent_id = $this->session->userdata('user_id');
+        $parent_data = $this->db->get_where('parents', array('user_id' => $parent_id))->row_array();
+        $checker = array(
+            'parent_id' => $parent_data['id'],
+            'session' => $this->active_session,
+            'school_id' => $this->school_id
+        );
+        $students = $this->db->get_where('students', $checker)->result_array();
+        foreach ($students as $key => $student) {
+            $checker = array(
+                'student_id' => $student['id'],
+                'session' => $this->active_session,
+                'school_id' => $this->school_id
+            );
+            $enrol_data = $this->db->get_where('enrols', $checker)->row_array();
+
+            $user_details = $this->db->get_where('users', array('id' => $student['user_id']))->row_array();
+            $students[$key]['student_id'] = $student['id'];
+            $students[$key]['name'] = $user_details['name'];
+            $students[$key]['email'] = $user_details['email'];
+            $students[$key]['role'] = $user_details['role'];
+            $students[$key]['address'] = $user_details['address'];
+            $students[$key]['phone'] = $user_details['phone'];
+            $students[$key]['birthday'] = $user_details['birthday'];
+            $students[$key]['gender'] = $user_details['gender'];
+            $students[$key]['blood_group'] = $user_details['blood_group'];
+            $students[$key]['class_id'] = $enrol_data['class_id'];
+            $students[$key]['section_id'] = $enrol_data['section_id'];
+
+            $class_details = $this->crud_model->get_class_details_by_id($enrol_data['class_id'])->row_array();
+            $section_details = $this->crud_model->get_section_details_by_id('section', $enrol_data['section_id'])->row_array();
+            $marks = $this->db->get_where('homework',['student_id'=>$student['id'],'class_id'=>$enrol_data['class_id'],'school_id'=>$this->school_id])->result_array();
+
+            $students[$key]['class_name'] = $class_details['name'];
+            $students[$key]['section_name'] = $section_details['name'];
+         }
+        return  $marks;
+    }
 
 	
 

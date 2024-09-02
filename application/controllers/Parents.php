@@ -424,6 +424,45 @@ class Parents extends CI_Controller {
 		}
 	}
 
+    //Classwork Section Start
+	public function classwork($param1 = '', $param2 = ''){
 
+		if($param1 == 'list'){
+			$page_data['class_id'] = htmlspecialchars($this->input->post('class_id'));
+			$page_data['section_id'] = htmlspecialchars($this->input->post('section_id'));
+			$page_data['subject_id'] = htmlspecialchars($this->input->post('subject_id'));
+			$page_data['exam_id'] = htmlspecialchars($this->input->post('exam_id'));
+           $this->load->view('backend/parent/classwork/list', $page_data);
+		}
+
+		
+		if(empty($param1)){
+			$page_data['folder_name'] = 'classwork';
+			$page_data['page_title'] = 'Classwork Marks';
+			$this->load->view('backend/index', $page_data);
+		}
+	}
 	
+	//Classwork Section End
+    //Project Section Start
+    public function project(){
+     	$page_data['folder_name'] = 'project';
+     	$page_data['page_title'] = 'Project Marks';
+     	$this->load->view('backend/index', $page_data);
+    }
+	//Project Section End
+    //Behaviour Section Start
+	public function behaviours(){
+		$page_data['folder_name'] = 'behaviour';
+		$page_data['page_title'] = 'Behaviour Marks';
+		$this->load->view('backend/index', $page_data);
+	}
+	// HOMEWORK MARK SECTION STARTS
+
+    public function homework(){
+    	$page_data['folder_name'] = 'homework';
+    	$page_data['page_title'] = 'Homework Marks';
+    	$this->load->view('backend/index', $page_data);
+	}	
+
 }
