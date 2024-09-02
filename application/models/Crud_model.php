@@ -2281,6 +2281,25 @@ class Crud_model extends CI_Model {
 	        $this->db->join('behaviour b','b.student_id =s.id');
 			return $this->db->get()->result_array();
 	}
+    public function get_student_homework_marks_parent_login($exam_id = "",$class_id = "",$section_id = "", $subject_id = "") {
+		  $parent_id = $this->session->userdata('user_id');
+          $parent_data = $this->db->get_where('parents', array('user_id' => $parent_id))->row_array();
+
+		  $this->db->select('h.*,s.user_id');
+          $this->db->from('students s');
+			$checker = array(
+				'h.class_id' => $class_id,
+				'h.section_id' => $section_id,
+				'h.subject_id' => $subject_id,
+				'h.exam_id' => $exam_id,
+				'h.school_id' => $this->school_id,
+				'h.session' => $this->active_session
+			);
+			$this->db->where($checker);
+	        $this->db->where('s.parent_id', $parent_data['id']);
+	        $this->db->join('homework h','h.student_id =s.id');
+			return $this->db->get()->result_array();
+	}
 
 
 
