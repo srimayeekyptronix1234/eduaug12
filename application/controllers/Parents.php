@@ -499,6 +499,14 @@ class Parents extends CI_Controller {
 			$this->load->view('backend/index', $page_data);
 		}
 	}
+	//Online exam section start
+	public function online_exam_create(){
+		$page_data['folder_name'] = 'online_exam';
+		$page_data['page_title'] = 'online exam details';
+		$this->load->view('backend/index', $page_data);
+		
+	}
+    
 	
 
 }
