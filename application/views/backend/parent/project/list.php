@@ -9,7 +9,8 @@
 </div>
 <?php
 $school_id = school_id();
-$marks = $this->crud_model->get_student_classwork_marks_parent_login($exam_id, $class_id, $section_id, $subject_id);
+$marks = $this->crud_model->get_student_project_marks_parent_login($exam_id, $class_id, $section_id, $subject_id);
+
 ?>
 <?php if (count($marks) > 0): ?>
     <table class="table table-bordered table-responsive-sm" width="100%">
@@ -22,12 +23,14 @@ $marks = $this->crud_model->get_student_classwork_marks_parent_login($exam_id, $
             </tr>
         </thead>
         <tbody>
-        <?php foreach($marks as $mark):?>
+        <?php foreach($marks as $mark):
+        ?>
                 <tr>
                     <td><?php echo $this->user_model->get_user_details($mark['user_id'], 'name'); ?></td>
                     <td><?php echo $mark['mark_obtained']; ?></td>
                     <td><span id="grade-for-mark-<?php echo $mark['student_id']; ?>"><?php echo get_grade($mark['mark_obtained']); ?></span></td>
                     <td><?php echo $mark['comment']; ?></td>
+
                 </tr>
         <?php endforeach; ?>
         </tbody>

@@ -47,7 +47,6 @@
    $parent_id = $this->session->userdata('user_id');
    $school_id  = school_id();
    $parent_data = $this->db->get_where('parents', array('user_id' => $parent_id))->row_array();
-   $student_lists = $this->user_model->get_student_list_of_logged_in_parent();
                                     
 ?>
 <!--title-->

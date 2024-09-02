@@ -2228,20 +2228,60 @@ class Crud_model extends CI_Model {
 		  $parent_id = $this->session->userdata('user_id');
           $parent_data = $this->db->get_where('parents', array('user_id' => $parent_id))->row_array();
 
-		  $this->db->select('c.*');
+		  $this->db->select('c.*,s.user_id');
           $this->db->from('students s');
-		$checker = array(
-			'class_id' => $class_id,
-			'section_id' => $section_id,
-			'subject_id' => $subject_id,
-			'exam_id' => $exam_id,
-			'school_id' => $this->school_id,
-			'session' => $this->active_session
-		);
-		$this->db->where($checker);
-        $this->db->where('s.parent_id', $parent_data['id']);
-		return $this->db->get('classwork c');
+			$checker = array(
+				'c.class_id' => $class_id,
+				'c.section_id' => $section_id,
+				'c.subject_id' => $subject_id,
+				'c.exam_id' => $exam_id,
+				'c.school_id' => $this->school_id,
+				'c.session' => $this->active_session
+			);
+			$this->db->where($checker);
+	        $this->db->where('s.parent_id', $parent_data['id']);
+	        $this->db->join('classwork c','c.student_id =s.id');
+			return $this->db->get()->result_array();
 	}
-    
+    public function get_student_project_marks_parent_login($exam_id = "",$class_id = "",$section_id = "", $subject_id = "") {
+		  $parent_id = $this->session->userdata('user_id');
+          $parent_data = $this->db->get_where('parents', array('user_id' => $parent_id))->row_array();
+
+		  $this->db->select('p.*,s.user_id');
+          $this->db->from('students s');
+			$checker = array(
+				'p.class_id' => $class_id,
+				'p.section_id' => $section_id,
+				'p.subject_id' => $subject_id,
+				'p.exam_id' => $exam_id,
+				'p.school_id' => $this->school_id,
+				'p.session' => $this->active_session
+			);
+			$this->db->where($checker);
+	        $this->db->where('s.parent_id', $parent_data['id']);
+	        $this->db->join('project p','p.student_id =s.id');
+			return $this->db->get()->result_array();
+	}
+    public function get_student_behaviour_marks_parent_login($exam_id = "",$class_id = "",$section_id = "", $subject_id = "") {
+		  $parent_id = $this->session->userdata('user_id');
+          $parent_data = $this->db->get_where('parents', array('user_id' => $parent_id))->row_array();
+
+		  $this->db->select('b.*,s.user_id');
+          $this->db->from('students s');
+			$checker = array(
+				'b.class_id' => $class_id,
+				'b.section_id' => $section_id,
+				'b.subject_id' => $subject_id,
+				'b.exam_id' => $exam_id,
+				'b.school_id' => $this->school_id,
+				'b.session' => $this->active_session
+			);
+			$this->db->where($checker);
+	        $this->db->where('s.parent_id', $parent_data['id']);
+	        $this->db->join('behaviour b','b.student_id =s.id');
+			return $this->db->get()->result_array();
+	}
+
+
 
 }
