@@ -125,7 +125,7 @@ $school_id = school_id();
             </span>
           </h4>
           <p class="text-muted mt-2" style="font-size: 16px; font-weight: 600; color: #2c2c2c !important;">Empowering
-            your learning journey with seamless efficiency.</p>
+            your learning journey with Eduquest</p>
         </div>
         <img src="<?php echo base_url('assets/backend/images/dashboardimg.png'); ?>" alt="Student Dashboard Image"
           class="img-fluid" style="width: 215px; margin-top: -30px;">
@@ -138,7 +138,7 @@ $school_id = school_id();
 <div class="row">
   <div class="col-xl-12">
     <div class="row">
-       <!--Attendance Record Start-->
+      <!--Attendance Record Start-->
       <div class="col-xl-12">
         <div class="card boxhover">
           <div class="card-body">
@@ -149,7 +149,7 @@ $school_id = school_id();
         </div>
       </div>
       <!--Attendance Record End-->
-     
+
       <!-- ClassWise Subject Start -->
       <div class="col-xl-4">
         <div class="card widget-flat" id="teacher"
@@ -313,7 +313,7 @@ background: linear-gradient(90deg, rgba(131,58,180,1) 0%, rgba(253,29,29,1) 50%,
         </div>
       </div>
       <!-- Class Timetable End -->
-      
+
 
     </div>
   </div>
