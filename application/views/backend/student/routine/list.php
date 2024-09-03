@@ -7,24 +7,24 @@
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
 <?php if (isset($class_id) && isset($section_id)): ?>
-<table class="table table-hover table-bordered mb-0 table-custom">
-    <thead class="thead-light">
-        <tr>
-            <th style="width: 100px;">Day</th>
-            <th>Routine</th>
-        </tr>
-    </thead>
-    <tbody>
-        <?php
+    <table class="table table-hover table-bordered mb-0 table-custom">
+        <thead class="thead-light">
+            <tr>
+                <th style="width: 100px;">Day</th>
+                <th>Routine</th>
+            </tr>
+        </thead>
+        <tbody>
+            <?php
             $days = ['saturday', 'sunday', 'monday', 'tuesday', 'wednesday', 'thursday', 'friday'];
             foreach ($days as $day) {
                 ?>
-        <tr>
-            <td class="font-weight-bold">
-                <?php echo get_phrase($day); ?>
-            </td>
-            <td>
-                <?php
+                <tr>
+                    <td class="font-weight-bold">
+                        <?php echo get_phrase($day); ?>
+                    </td>
+                    <td>
+                        <?php
                         $routines = $this->db->get_where('routines', array('class_id' => $class_id, 'section_id' => $section_id, 'session_id' => active_session(), 'day' => $day))->result_array();
                         foreach ($routines as $index => $routine) {
                             $subject_name = $this->db->get_where('subjects', array('id' => $routine['subject_id']))->row('name');
@@ -33,65 +33,65 @@
                             $time_range = $routine['starting_hour'] . ':' . $routine['starting_minute'] . ' - ' . $routine['ending_hour'] . ':' . $routine['ending_minute'];
                             $modal_id = 'routineModal' . $day . $index; // Unique ID for each modal
                             ?>
-                <div class="routine-container">
-                    <button type="button" class="btn btn-custom routine-btn">
-                        <p style="margin-bottom: 0;">
-                            <i class="mdi mdi-book-open-variant"></i>
-                            <?php echo $subject_name; ?>
-                        </p>
-                        <p style="margin-bottom: 0;">
-                            <i class="mdi mdi-clock"></i>
-                            <?php echo $time_range; ?>
-                        </p>
-                    </button>
-                    <div class="center-btn">
-                        <button type="button" class="btn btn-view-more" data-toggle="modal"
-                            data-target="#<?php echo $modal_id; ?>">View More</button>
-                    </div>
-
-
-                    <!-- Modal -->
-                    <div class="modal fade" id="<?php echo $modal_id; ?>" tabindex="-1" role="dialog"
-                        aria-labelledby="<?php echo $modal_id; ?>Label" aria-hidden="true">
-                        <div class="modal-dialog modal-dialog-centered modal-sm" role="document">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <h5 class="modal-title" id="<?php echo $modal_id; ?>Label">
-                                        <?php echo $subject_name; ?> Details
-                                    </h5>
-                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                        <span aria-hidden="true">&times;</span>
-                                    </button>
-                                </div>
-                                <div class="modal-body">
-                                    <p><b>Subject:</b>
+                            <div class="routine-container">
+                                <button type="button" class="btn btn-custom routine-btn">
+                                    <p style="margin-bottom: 0;">
+                                        <i class="mdi mdi-book-open-variant"></i>
                                         <?php echo $subject_name; ?>
                                     </p>
-                                    <p><b>Time:</b>
+                                    <p style="margin-bottom: 0;">
+                                        <i class="mdi mdi-clock"></i>
                                         <?php echo $time_range; ?>
                                     </p>
-                                    <p><b>Teacher:</b>
-                                        <?php echo $teacher_name; ?>
-                                    </p>
-                                    <p><b>Room:</b>
-                                        <?php echo $room_name; ?>
-                                    </p>
+                                </button>
+                                <div class="center-btn">
+                                    <button type="button" class="btn btn-view-more" data-toggle="modal"
+                                        data-target="#<?php echo $modal_id; ?>">View More</button>
                                 </div>
-                                <div class="modal-footer">
-                                    <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+
+
+                                <!-- Modal -->
+                                <div class="modal fade" id="<?php echo $modal_id; ?>" tabindex="-1" role="dialog"
+                                    aria-labelledby="<?php echo $modal_id; ?>Label" aria-hidden="true">
+                                    <div class="modal-dialog modal-dialog-centered modal-sm" role="document">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title" id="<?php echo $modal_id; ?>Label">
+                                                    <?php echo $subject_name; ?> Details
+                                                </h5>
+                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                    <span aria-hidden="true">&times;</span>
+                                                </button>
+                                            </div>
+                                            <div class="modal-body">
+                                                <p><b>Subject:</b>
+                                                    <?php echo $subject_name; ?>
+                                                </p>
+                                                <p><b>Time:</b>
+                                                    <?php echo $time_range; ?>
+                                                </p>
+                                                <p><b>Teacher:</b>
+                                                    <?php echo $teacher_name; ?>
+                                                </p>
+                                                <p><b>Room:</b>
+                                                    <?php echo $room_name; ?>
+                                                </p>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                    </div>
-                </div>
-                <?php } ?>
-            </td>
-        </tr>
-        <?php } ?>
-    </tbody>
-</table>
+                        <?php } ?>
+                    </td>
+                </tr>
+            <?php } ?>
+        </tbody>
+    </table>
 <?php else: ?>
-<?php include APPPATH . 'views/backend/empty.php'; ?>
+    <?php include APPPATH . 'views/backend/empty.php'; ?>
 <?php endif; ?>
 
 <!-- Custom CSS -->
