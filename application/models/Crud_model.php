@@ -958,6 +958,15 @@ class Crud_model extends CI_Model {
 
 		
 		$this->db->insert('invoices', $data);
+		if($data['status'] == 'paid' || $data['status'] == 'partialy'){
+		   $insert_data['date'] = strtotime(date('d-M-Y'));
+		   $insert_data['income_category_id'] = '1';
+		   $insert_data['school_id'] = $this->school_id;
+		   $insert_data['session'] = $this->active_session;
+		   $insert_data['created_at'] = strtotime(date('d-M-Y'));
+		   $insert_data['amount'] = $data['paid_amount'];
+		   $this->db->insert('income_manager', $insert_data);
+		}
 
 		$response = array(
 			'status' => true,
@@ -988,6 +997,15 @@ class Crud_model extends CI_Model {
 		foreach ($enrolments as $enrolment) {
 			$data['student_id'] = $enrolment['student_id'];
 			$this->db->insert('invoices', $data);
+			if($data['status'] == 'paid' || $data['status'] == 'partialy'){
+			   $insert_data['date'] = strtotime(date('d-M-Y'));
+			   $insert_data['income_category_id'] = '1';
+			   $insert_data['school_id'] = $this->school_id;
+			   $insert_data['session'] = $this->active_session;
+			   $insert_data['created_at'] = strtotime(date('d-M-Y'));
+			   $insert_data['amount'] = $data['paid_amount'];
+			   $this->db->insert('income_manager', $insert_data);
+		   }
 		}
 
 		if (sizeof($enrolments) > 0) {

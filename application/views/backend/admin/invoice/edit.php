@@ -47,6 +47,8 @@
                 <option value=""><?php echo get_phrase('select_a_status'); ?></option>
                 <option value="paid" <?php if ($invoice_details['status'] == 'paid'): ?> selected <?php endif; ?>><?php echo get_phrase('paid'); ?></option>
                 <option value="unpaid" <?php if ($invoice_details['status'] == 'unpaid'): ?> selected <?php endif; ?>><?php echo get_phrase('unpaid'); ?></option>
+                <option value="partialy" <?php if ($invoice_details['status'] == 'partialy'): ?> selected <?php endif; ?>><?php echo get_phrase('partialy'); ?></option>
+
             </select>
         </div>
     </div>
