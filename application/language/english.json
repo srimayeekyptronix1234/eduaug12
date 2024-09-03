@@ -1540,5 +1540,9 @@
     "event_date": "Event date",
     "event_time": "Event time",
     "exam_records": "Exam records",
-    "upcoming_events": "Upcoming events"
+    "upcoming_events": "Upcoming events",
+    "teacherss": "Teacherss",
+    "daily_attendancess": "Daily attendancess",
+    "daily_attendances": "Daily attendances",
+    "class_routines": "Class routines"
 }
