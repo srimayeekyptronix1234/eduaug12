@@ -49,13 +49,13 @@
 $parent_id = $this->session->userdata('user_id');
 $school_id  = school_id();
 $parent_data = $this->db->get_where('parents', array('user_id' => $parent_id))->row_array();
+$this->db->select('DISTINCT(oed.class_id),oed.*');
+$this->db->from('students s');
+$this->db->join('enrols e','e.student_id=s.id');
+$this->db->join('online_exam_details oed','oed.class_id=e.class_id');
+$this->db->where('s.parent_id',$parent_data['id']);
+$online_exams=$this->db->get()->result_array();
 
-
-$online_exams = $this->db->select('online_exam_details.*, exams.name')->from('online_exam_details')->join('exams', 'online_exam_details.quarter_id = exams.id')->where('online_exam_details.status', '1')->order_by('online_exam_details.id', 'desc')->get()->result_array();
-// Debug the query
-//echo $this->db->last_query();  
-
-// $online_exams = $this->db->get_where('online_exam_details', array('status' => '1'))->result_array();
 ?>
 
 <div class="row">
@@ -91,7 +91,11 @@ $online_exams = $this->db->select('online_exam_details.*, exams.name')->from('on
             <?php foreach ($online_exams as $exam): ?>
                 <tr>
                     <td><?php echo $exam['online_exam_name']; ?></td>
-                    <td><?php echo $exam['name']; ?></td>
+                    <td><?php
+                             $exam_details=$this->db->get_where('exams',['id'=>$exam['quarter_id']])->row_array();
+                             echo $exam_details['name'];
+                      ?>
+                    </td>
                     <td><?php 
                            $class_details=$this->db->get_where('classes',['id'=>$exam['class_id']])->row_array();
                            echo $class_details['name'];

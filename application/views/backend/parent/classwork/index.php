@@ -47,7 +47,7 @@
    $parent_id = $this->session->userdata('user_id');
    $school_id  = school_id();
    $parent_data = $this->db->get_where('parents', array('user_id' => $parent_id))->row_array();
-                                    
+                                
 ?>
 <!--title-->
 <div class="row">
