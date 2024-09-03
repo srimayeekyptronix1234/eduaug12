@@ -102,6 +102,14 @@
     box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
 
   }
+
+  .table-responsive {
+    display: revert !important;
+  }
+
+  .card {
+    border: none !important;
+  }
 </style>
 
 <?php
@@ -115,7 +123,7 @@ $school_id = school_id();
 <div class="row">
   <div class="col-xl-12">
     <div class="card">
-      <div class="card-body py-2 d-flex align-items-center justify-content-between adminbar">
+      <div class="card-body d-flex align-items-center justify-content-between adminbar">
         <div>
           <h4 class="page-title mb-0 d-flex align-items-center">
             <i class="mdi mdi-view-dashboard title_icon" style="font-size: 1.5rem; color: #ff7580;"></i>
@@ -128,7 +136,7 @@ $school_id = school_id();
             your learning journey with Eduquest</p>
         </div>
         <img src="<?php echo base_url('assets/backend/images/dashboardimg.png'); ?>" alt="Student Dashboard Image"
-          class="img-fluid" style="width: 215px; margin-top: -30px;">
+          class="img-fluid" style="width: 244px; margin-top: -40px;">
       </div> <!-- end card body-->
     </div> <!-- end card -->
   </div><!-- end col-->
@@ -151,8 +159,8 @@ $school_id = school_id();
       <!--Attendance Record End-->
 
       <!-- ClassWise Subject Start -->
-      <div class="col-xl-4">
-        <div class="card widget-flat" id="teacher"
+      <div class="col-xl-3">
+        <div class="card widget-flat boxhover" id="teacher"
           style="background: rgb(131,58,180);
 background: linear-gradient(90deg, rgba(131,58,180,1) 0%, rgba(253,29,29,1) 50%, rgba(252,176,69,1) 100%);; border-radius: 10px;">
           <div class="card-body">
@@ -184,7 +192,7 @@ background: linear-gradient(90deg, rgba(131,58,180,1) 0%, rgba(253,29,29,1) 50%,
 
       <!-- ClassWise Subject End -->
       <!-- Announcements Calender Start -->
-      <div class="col-xl-4">
+      <div class="col-xl-6">
         <div class="card widget-flat boxhover" id="teacher" style="on">
           <div class="card-body">
             <h5 class="text-muted font-weight-normal mt-0" title="Announcements Calender"
@@ -226,7 +234,7 @@ background: linear-gradient(90deg, rgba(131,58,180,1) 0%, rgba(253,29,29,1) 50%,
       </div>
       <!-- Announcements Calender End -->
       <!--Exam Results Start-->
-      <div class="col-xl-4">
+      <div class="col-xl-3">
         <div class="card widget-flat boxhover" id="teacher" style="on">
           <div class="card-body">
             <h4 class="header-title mb-3"><?php echo get_phrase('Exam Results'); ?><a href="" style="color: #6c757d"><i

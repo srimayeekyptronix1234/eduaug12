@@ -1535,5 +1535,10 @@
     "select_a_student1": "Select a student1",
     "manage_behaviour_marks": "Manage behaviour marks",
     "student_report": "Student report",
-    "partialy": "Partialy"
+    "partialy": "Partialy",
+    "announcements_calendar": "Announcements calendar",
+    "event_date": "Event date",
+    "event_time": "Event time",
+    "exam_records": "Exam records",
+    "upcoming_events": "Upcoming events"
 }
