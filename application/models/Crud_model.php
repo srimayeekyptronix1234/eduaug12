@@ -2213,6 +2213,15 @@ class Crud_model extends CI_Model {
 		$data['status'] = htmlspecialchars($this->input->post('status'));
 
 		$this->db->insert('staff_salary', $data);
+		if($data['status'] == '1' || $data['status'] == '3'){
+		   $insert_data['date'] = strtotime(date('d-M-Y'));
+		   $insert_data['expense_category_id'] = '1';
+		   $insert_data['school_id'] = $this->school_id;
+		   $insert_data['session'] = $this->active_session;
+		   $insert_data['created_at'] = strtotime(date('d-M-Y'));
+		   $insert_data['amount'] = $data['salary_amount'];
+		   $this->db->insert('expenses', $insert_data);
+		}
 		$response = array(
 			'status' => true,
 			'notification' => get_phrase('staff_salary_added_successfully')

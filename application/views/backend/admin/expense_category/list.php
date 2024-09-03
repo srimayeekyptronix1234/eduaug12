@@ -29,8 +29,10 @@
                                     <a href="javascript:void(0);" class="dropdown-item"
                                         onclick="rightModal('<?php echo site_url('modal/popup/expense_category/edit/' . $expense_category['id']) ?>', '<?php echo get_phrase('update_expense_category'); ?>');"><?php echo get_phrase('edit'); ?></a>
                                     <!-- item-->
+                                    <?php if($expense_category['id'] != '1'){?>
                                     <a href="javascript:void(0);" class="dropdown-item"
                                         onclick="confirmModal('<?php echo route('expense_category/delete/' . $expense_category['id']); ?>', showAllExpenseCategories )"><?php echo get_phrase('delete'); ?></a>
+                                    <?php } ?>
                                 </div>
                             </div>
                         </td>
