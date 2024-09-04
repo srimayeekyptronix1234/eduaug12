@@ -152,12 +152,10 @@ $marks = $this->db->get_where('homework', ['student_id' => $student_details['id'
   </div><!-- end col-->
 </div>
 
-
 <div class="row">
   <div class="col-12">
     <div class="card">
       <div class="card-body boxhover">
-
         <?php if (count($marks) > 0): ?>
           <table class="table table-bordered table-responsive-sm" width="100%">
             <thead class="thead-dark">
