@@ -1544,5 +1544,7 @@
     "teacherss": "Teacherss",
     "daily_attendancess": "Daily attendancess",
     "daily_attendances": "Daily attendances",
-    "class_routines": "Class routines"
+    "class_routines": "Class routines",
+    "assignment_has_been_added_successfully": "Assignment has been added successfully",
+    "assignment_has_been_updated_successfully": "Assignment has been updated successfully"
 }

@@ -191,12 +191,12 @@ class Teacher extends CI_Controller {
 	//END CLASS section
 
 	//	SECTION STARTED
-	public function section($action = "", $id = "",$section_id="") {
+	public function section($action = "", $id = "",$teacher_id="") {
 
 		// PROVIDE A LIST OF SECTION ACCORDING TO CLASS ID
 		if ($action == 'list') {
 			$page_data['class_id'] = $id;
-			$page_data['section_id']=$section_id;
+			$page_data['teacher_id']=$teacher_id;
 			$this->load->view('backend/teacher/section/list', $page_data);
 		}
 	}
@@ -801,6 +801,40 @@ class Teacher extends CI_Controller {
 			$this->load->view('backend/index', $page_data);
 		}
 	}
+	//Assignment Section Start
+	public function assignment($param1 = '', $param2 = '',$param3 = '',$param4 = ''){
+
+		if($param1 == 'create'){
+			$response = $this->crud_model->assignment_create();
+			echo $response;
+		}
+
+		if($param1 == 'update'){
+			$response = $this->crud_model->assignment_update($param2);
+			echo $response;
+		}
+
+		if($param1 == 'delete'){
+			$response = $this->crud_model->assignment_delete($param2);
+			echo $response;
+		}
+
+		if($param1 == 'list'){
+			$page_data['class_id'] = $param2;
+			$page_data['section_id']=$param3;
+			$page_data['subject_id']=$param4;	
+			$this->load->view('backend/teacher/assignment/list', $page_data);
+		}
+
+		if(empty($param1)){
+			$page_data['folder_name'] = 'assignment';
+			$page_data['page_title'] = 'assignment';
+			$this->load->view('backend/index', $page_data);
+		}
+	}
+
+	//Assignment Section End
+
 
 
 	
