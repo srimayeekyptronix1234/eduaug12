@@ -1545,5 +1545,16 @@
     "daily_attendancess": "Daily attendancess",
     "daily_attendances": "Daily attendances",
     "class_routines": "Class routines",
-    "assign_route_has_been_updated_successfully": "Assign route has been updated successfully"
+    "assign_route_has_been_updated_successfully": "Assign route has been updated successfully",
+    "class:": "Class:",
+    "student:": "Student:",
+    "teacher:": "Teacher:",
+    "complaint_type:": "Complaint type:",
+    "complaint_by:": "Complaint by:",
+    "complaint_date:": "Complaint date:",
+    "complaint_description:": "Complaint description:",
+    "type:": "Type:",
+    "by:": "By:",
+    "date:": "Date:",
+    "description:": "Description:"
 }
