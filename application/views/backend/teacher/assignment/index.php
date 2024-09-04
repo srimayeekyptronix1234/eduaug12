@@ -34,7 +34,7 @@ $teacher_table_data=$this->db->get_where('teachers',['user_id'=>$user_id])->row_
                     </select>
                 </div>
                 <div class="col-md-2 mb-1">
-                    <select name="section" id="section_id" class="form-control select2" data-toggle = "select2" required>
+                    <select name="section" id="section_id" class="form-control select8" data-toggle = "select8" required>
                         <option value=""><?php echo get_phrase('select_section'); ?></option>
                     </select>
                 </div>

@@ -7,10 +7,9 @@
         $check_data = $this->db->get_where('complaint', array('class_id' => $class_id,'section_id' => $section_id,'student_id' =>$student_id,'teacher_id'=>$user_id))->result_array();
 
     }else{
-        $check_data=$this->db->get_where('complaint',['teacher_id'=>$user_id,'class_id'=>$teacher_table_data['class_id'],'section_id'=>$teacher_table_data['section_id']])->result_array();
+        $check_data=$this->db->get_where('complaint',['teacher_id'=>$user_id])->result_array();
 
     }
-
   if (count($check_data) > 0):?>
   <table id="basic-datatable" class="table table-striped dt-responsive nowrap" width="100%">
     <thead>

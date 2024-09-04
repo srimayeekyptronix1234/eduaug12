@@ -31,7 +31,7 @@ $teacher_table_data=$this->db->get_where('teachers',['user_id'=>$user_id])->row_
     </div>
     <div class="form-group mb-1">
       <label for="subject"><?php echo get_phrase('subject'); ?></label>
-      <select name="subject" id="subject_id" class="form-control select2" data-toggle = "select2" required onchange="classWiseSection(this.value)">
+      <select name="subject" id="subject_id" class="form-control select2" data-toggle = "select2" required onchange="">
         <option value=""><?php echo get_phrase('select_a_subject'); ?></option>
         <?php
         $subjects = $this->db->get_where('subjects', array('class_id'=>$teacher_table_data['class_id'],'school_id' => school_id()))->result_array();

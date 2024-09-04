@@ -61,7 +61,7 @@ $teacher_table_data=$this->db->get_where('teachers',['user_id'=>$user_id])->row_
       </div>
 
         <div class="form-group  col-md-12">
-            <button class="btn btn-block btn-primary" type="submit"><?php echo get_phrase('assignment'); ?></button>
+            <button class="btn btn-block btn-primary" type="submit"><?php echo get_phrase('create_assignment'); ?></button>
         </div>
     </div>
 </form>

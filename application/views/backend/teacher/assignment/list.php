@@ -4,7 +4,7 @@
     $school_id = school_id(); 
 
     if (!empty($class_id) && !empty($section_id) && !empty($subject_id)){
-        $check_data = $this->db->get_where('assignment', array('class' => $class_id,'section' => $section_id,'subject' =>$subject_id,'teacher_id'=>$teacher_table_data['id']))->result_array();
+        $check_data = $this->db->get_where('assignment', array('class' => $class_id,'subject' =>$subject_id,'teacher_id'=>$teacher_table_data['id']))->result_array();
 
     }else{
         $check_data=$this->db->get_where('assignment',['teacher_id'=>$teacher_table_data['id']])->result_array();

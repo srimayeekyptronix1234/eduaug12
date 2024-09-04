@@ -196,7 +196,6 @@ class Teacher extends CI_Controller {
 		// PROVIDE A LIST OF SECTION ACCORDING TO CLASS ID
 		if ($action == 'list') {
 			$page_data['class_id'] = $id;
-			$page_data['teacher_id']=$teacher_id;
 			$this->load->view('backend/teacher/section/list', $page_data);
 		}
 	}
@@ -834,7 +833,7 @@ class Teacher extends CI_Controller {
 	}
 
 	//Assignment Section End
-
+    
 
 
 	
