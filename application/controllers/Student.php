@@ -568,6 +568,23 @@ class Student extends CI_Controller {
 			$page_data['page_title'] = 'Behaviour Marks';
 			$this->load->view('backend/index', $page_data);
 		}
-		
+		//Assignment Section Start
+		public function assignment($param1 = '', $param2 = '',$param3 = '',$param4 = ''){
+			if($param1 == 'list'){
+				$page_data['class_id'] = $param2;
+				$page_data['section_id']=$param3;
+				$page_data['subject_id']=$param4;	
+				$this->load->view('backend/student/assignment/list', $page_data);
+			}
+
+			if(empty($param1)){
+				$page_data['folder_name'] = 'assignment';
+				$page_data['page_title'] = 'assignment';
+				$this->load->view('backend/index', $page_data);
+			}
+		}
+
+	//Assignment Section End
+
 	
 }

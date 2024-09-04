@@ -1,6 +1,9 @@
-<?php 
+<?php
 $school_id = school_id(); 
+$user_id = $this->session->userdata('user_id');
+$teacher_table_data=$this->db->get_where('teachers',['user_id'=>$user_id])->row_array();
 ?>
+
 <form method="POST" class="d-block ajaxForm" action="<?php echo route('complaintsactions/create'); ?>">
   <div class="form-row">
 
@@ -9,20 +12,22 @@ $school_id = school_id();
    
     <div class="form-group mb-1">
       <label for=""><?php echo get_phrase('class'); ?></label>
-     <select name="class_id" id="class_id" class="form-control select6" data-toggle = "select6" onchange="classWiseSection(this.value)" required>
-                <option value=""><?php echo get_phrase('select_a_class'); ?></option>
-                <?php $classes = $this->db->get_where('classes', array('school_id' => $school_id))->result_array(); ?>
-                <?php foreach($classes as $class){ ?>
-                    <option value="<?php echo $class['id']; ?>"><?php echo $class['name']; ?></option>
-                <?php } ?>
-       </select>
-         <small id="class_help" class="form-text text-muted"><?php echo get_phrase('select_a_class'); ?></small>
+      <select name="class" id="class_id" class="form-control select2" data-toggle = "select2" required onchange="classWiseSectionTeacherLogin(this.value,'<?=$teacher_table_data['section_id']?>')">
+        <option value=""><?php echo get_phrase('select_a_class'); ?></option>
+        <?php
+        $classes = $this->db->get_where('classes', array('id'=>$teacher_table_data['class_id'],'school_id' => school_id()))->result_array();
+        foreach($classes as $class){
+          ?>
+          <option value="<?php echo $class['id']; ?>"><?php echo $class['name']; ?></option>
+        <?php } ?>
+      </select>   
+       <small id="class_help" class="form-text text-muted"><?php echo get_phrase('select_a_class'); ?></small>
     </div>
     <div class="form-group mb-1">
        <label for=""><?php echo get_phrase('section'); ?></label>
-       <select name="section_id" id="sectionid" class="form-control select3" data-toggle = "select3" required >
-                <option value=""><?php echo get_phrase('select_section'); ?></option>
-        </select>        
+       <select name="section" id="sectionid" class="form-control select2" data-toggle = "select2" required>
+        <option value=""><?php echo get_phrase('select_section'); ?></option>
+      </select>
     </div>
     <div class="form-group mb-1">
       <label for=""><?php echo get_phrase('Student'); ?></label>
@@ -87,15 +92,17 @@ $(".ajaxForm").submit(function(e) {
   var form = $(this);
   ajaxSubmit(e, form, showAllComplaint);
 });
-function classWiseSection(classId) {
-    $.ajax({
-        url: "<?php echo route('section/list/'); ?>"+classId,
-        success: function(response){
-            $('#sectionid').html(response);
-            showClassWiseStudent(classId);
-        }
-    });
+function classWiseSectionTeacherLogin(classId,sectionId) {
+  $.ajax({
+    url: "<?php echo route('section/list/'); ?>"+classId+'/'+sectionId,
+    success: function(response){
+      $('#sectionid').html(response);
+      showClassWiseStudent(classId);
+
+    }
+  });
 }
+
 function showClassWiseStudent(classId) {
     $.ajax({
         url: "<?php echo route('show_class_wise_student/'); ?>"+classId,

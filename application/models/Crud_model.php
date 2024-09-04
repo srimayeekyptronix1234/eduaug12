@@ -2327,7 +2327,50 @@ class Crud_model extends CI_Model {
 	        $this->db->join('homework h','h.student_id =s.id');
 			return $this->db->get()->result_array();
 	}
+    public function assignment_create()
+	{
+		$data['class'] = html_escape($this->input->post('class'));
+		$data['section'] = html_escape($this->input->post('section'));
+		$data['school_id'] = html_escape($this->input->post('school_id'));
+		$data['subject'] = html_escape($this->input->post('subject'));
+		$data['remark'] = html_escape($this->input->post('remark'));
+		$data['lesson'] = html_escape($this->input->post('lesson'));
+		$data['teacher_id'] = html_escape($this->input->post('teacher_id'));
+		$this->db->insert('assignment', $data);
 
+		$response = array(
+			'status' => true,
+			'notification' => get_phrase('assignment_has_been_added_successfully')
+		);
+
+		return json_encode($response);
+	}
+	public function assignment_update($id)
+	{
+		$data['class'] = html_escape($this->input->post('class'));
+		$data['section'] = html_escape($this->input->post('section'));
+		$data['subject'] = html_escape($this->input->post('subject'));
+		$data['remark'] = html_escape($this->input->post('remark'));
+		$data['lesson'] = html_escape($this->input->post('lesson'));
+        $this->db->where('id',$id);
+		$this->db->update('assignment', $data);
+
+		$response = array(
+			'status' => true,
+			'notification' => get_phrase('assignment_has_been_updated_successfully')
+		);
+
+		return json_encode($response);
+	}
+    public function assignment_delete($id) {
+		$this->db->where('id', $id);
+		$this->db->delete('assignment');
+		$response = array(
+			'status' => true,
+			'notification' => get_phrase('assignment_deleted_successfully')
+		);
+		return json_encode($response);
+	}
 
 
 }
