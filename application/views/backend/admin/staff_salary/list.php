@@ -61,6 +61,8 @@ if (count($staff_salary) > 0): ?>
                   <!-- item-->
                   <a href="javascript:void(0);" class="dropdown-item"
                     onclick="confirmModal('<?php echo route('staff_salary/delete/' . $staff['id']); ?>', showAllStaffSalary )"><?php echo get_phrase('delete'); ?></a>
+                  <a class="dropdown-item" id="export-pdf" href="javascript:0" onclick="getPayslip('pdf','<?=$staff['id']?>')">Download Payslip</a>
+
                 </div>
               </div>
             </td>
@@ -72,3 +74,21 @@ if (count($staff_salary) > 0): ?>
 <?php else: ?>
   <?php include APPPATH . 'views/backend/empty.php'; ?>
 <?php endif; ?>
+<script type="text/javascript">
+    function getPayslip(type='',staff_salary_id='') {
+    var url = '<?php echo route('payslip_download/url'); ?>';
+    $.ajax({
+      type: 'post',
+      data: { type: type, staff_salary_id: staff_salary_id },
+      url: url,
+      success: function (response) {
+        if (type == 'csv') {
+          window.open(response, '_self');
+        } else {
+          window.open(response, '_blank');
+        }
+      }
+    });
+  }
+
+</script>
