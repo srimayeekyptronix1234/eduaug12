@@ -66,7 +66,15 @@ class Settings_model extends CI_Model {
   public function update_current_school_settings() {
     $data['name'] = htmlspecialchars($this->input->post('school_name'));
     $data['phone'] = htmlspecialchars($this->input->post('phone'));
+    $data['email'] = htmlspecialchars($this->input->post('email'));
+    $data['total_school_days'] = htmlspecialchars($this->input->post('total_school_days'));
     $data['address'] = htmlspecialchars($this->input->post('address'));
+    $data['quote'] = htmlspecialchars($this->input->post('quote'));
+    if ($_FILES['principal_signature_file']['name'] != "") {
+
+      move_uploaded_file($_FILES['principal_signature_file']['tmp_name'], 'uploads/principal/signature/'.$schoolId.'.jpg');
+		}
+
     $this->db->where('id', school_id());
     $this->db->update('schools', $data);
     $response = array(

@@ -153,6 +153,10 @@ class User_model extends CI_Model {
 					move_uploaded_file($_FILES['image_file']['tmp_name'], 'uploads/users/'.$teacher_id.'.jpg');
 			}
 
+			if ($_FILES['signature_file']['name'] != "") {
+					move_uploaded_file($_FILES['signature_file']['tmp_name'], 'uploads/users/'.$teacher_id.'-signature.jpg');
+			}
+
 			$response = array(
 				'status' => true,
 				'notification' => get_phrase('teacher_added_successfully')
@@ -199,6 +203,10 @@ class User_model extends CI_Model {
 
 			if ($_FILES['image_file']['name'] != "") {
 				move_uploaded_file($_FILES['image_file']['tmp_name'], 'uploads/users/'.$param1.'.jpg');
+			}
+
+			if ($_FILES['signature_file']['name'] != "") {
+					move_uploaded_file($_FILES['signature_file']['tmp_name'], 'uploads/users/'.$param1.'-signature.jpg');
 			}
 
 			$response = array(
@@ -789,6 +797,23 @@ class User_model extends CI_Model {
 		}
 
 		return json_encode($response);
+	}
+
+	// Student leaving data update
+	public function student_update_leaving_data($user_id = ''){
+		$user_data['leaving_date'] = strtotime($this->input->post('leaving_date'));
+		$user_data['reason_for_leaving'] = html_escape($this->input->post('reason_for_leaving'));
+		$user_data['academic_performance'] = html_escape($this->input->post('academic_performance'));
+
+	    $this->db->where('id', $user_id);
+		$this->db->update('users', $user_data);
+		$response = array(
+				'status' => true,
+				'notification' => get_phrase('student_leaving_data_updated_successfully')
+		);
+
+		return json_encode($response);
+
 	}
 
 	public function student_update($student_id = '', $user_id = ''){
@@ -1502,6 +1527,23 @@ class User_model extends CI_Model {
 
 		return json_encode($response);
 	}
+
+	public function student_remarks_update($data)
+	{
+		$student_id = $data['student_id'];
+		$update_data['behavior_grade'] = html_escape($data['behavior_grade']);
+		$update_data['student_remarks'] = html_escape($data['student_remarks']);
+        $this->db->where('id', $student_id);
+		$this->db->update('users', $update_data);
+
+		$response = array(
+				'status' => true,
+				'notification' => get_phrase('student_remarks_has_been_updated_successfully')
+			);
+	    return json_encode($response);		
+
+	}
+
     public function delete_users($param1 = '')
 	{
 		$this->db->where('id', $param1);

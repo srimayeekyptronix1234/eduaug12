@@ -21,10 +21,36 @@
                             </div>
 
                             <div class="form-group row mb-3">
+                                <label class="col-md-3 col-form-label" for="email"><?php echo get_phrase('email') ;?></label>
+                                <div class="col-md-9">
+                                    <input type="text" id="email" name="email" class="form-control"  value="<?php echo $school_data['email'] ;?>" required>
+                                </div>
+                            </div>
+
+                            <div class="form-group row mb-3">
+                                <label class="col-md-3 col-form-label" for="total_school_days"><?php echo get_phrase('total_school_days') ;?></label>
+                                <div class="col-md-9">
+                                    <input type="number" id="total_school_days" name="total_school_days" class="form-control"  value="<?php echo $school_data['total_school_days'] ;?>" required>
+                                </div>
+                            </div>
+
+                            <div class="form-group row mb-3">
                                 <label class="col-md-3 col-form-label" for="address"> <?php echo get_phrase('address') ;?></label>
                                 <div class="col-md-9">
                                     <textarea class="form-control" id="address" name = "address" rows="5" required><?php echo $school_data['address'] ;?></textarea>
                                 </div>
+                            </div>
+
+                            <div class="form-group row mb-3">
+                                <label class="col-md-3 col-form-label" for="quote"> <?php echo get_phrase('certificate_quote') ;?></label>
+                                <div class="col-md-9">
+                                    <textarea class="form-control" id="quote" name = "quote" rows="5" required><?php echo $school_data['quote'] ;?></textarea>
+                                </div>
+                            </div>
+
+                            <div class="form-group mb-1">
+                                <label for="image_file"><?php echo get_phrase('upload_principal_signature'); ?></label>
+                                <input type="file" class="form-control" id="principal_signature_file" name="principal_signature_file">
                             </div>
 
                             <div class="text-center">

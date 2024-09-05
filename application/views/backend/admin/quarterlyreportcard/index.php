@@ -4,7 +4,7 @@
     <div class="card">
       <div class="card-body py-2">
         <h4 class="page-title d-inline-block">
-          <i class="mdi mdi-format-list-numbered title_icon"></i> <?php echo get_phrase('manage_final_report_cards'); ?>
+          <i class="mdi mdi-format-list-numbered title_icon"></i> <?php echo get_phrase('manage_quarterly_report_cards'); ?>
         </h4>
       </div> <!-- end card body-->
     </div> <!-- end card -->
@@ -16,7 +16,17 @@
         <div class="card">
             <div class="row mt-3">
                 <div class="col-md-1 mb-1"></div>
-               
+                <div class="col-md-2 mb-1">
+                    <select name="exam" id="exam_id" class="form-control select2" data-toggle = "select2" required>
+                        <option value=""><?php echo get_phrase('select_a_exam'); ?></option>
+                        <?php 
+                        $school_id = school_id();
+                        $exams = $this->db->get_where('exams', array('school_id' => $school_id, 'session' => active_session()))->result_array();
+                        foreach($exams as $exam){ ?>
+                            <option value="<?php echo $exam['id']; ?>"><?php echo $exam['name'];?></option>
+                        <?php } ?>
+                    </select>
+                </div>
                 <div class="col-md-2 mb-1">
                     <select name="class" id="class_id" class="form-control select2" data-toggle="select2" required onchange="classWiseSection(this.value)">
                         <option value=""><?php echo get_phrase('select_a_class'); ?></option>
@@ -93,7 +103,7 @@
         if (class_id != "" && section_id != "" && exam != "" && student_id != "") {
             $.ajax({
                 type: 'POST',
-                url: '<?php echo site_url('admin/final_report_card/list') ?>',
+                url: '<?php echo site_url('admin/quarterly_report_card/list') ?>',
                 data: {class_id: class_id, section_id: section_id, student_id: student_id, exam_id: exam},
                 success: function (response) {
                     $("#remarks_add").css("display","block");
