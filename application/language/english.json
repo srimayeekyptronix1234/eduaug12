@@ -1545,7 +1545,6 @@
     "daily_attendancess": "Daily attendancess",
     "daily_attendances": "Daily attendances",
     "class_routines": "Class routines",
-<<<<<<< HEAD
     "assign_route_has_been_updated_successfully": "Assign route has been updated successfully",
     "class:": "Class:",
     "student:": "Student:",
@@ -1557,11 +1556,9 @@
     "type:": "Type:",
     "by:": "By:",
     "date:": "Date:",
-    "description:": "Description:"
-=======
+    "description:": "Description:",
     "assignment_has_been_added_successfully": "Assignment has been added successfully",
     "assignment_has_been_updated_successfully": "Assignment has been updated successfully",
     "assign_route_has_been_updated_successfully": "Assign route has been updated successfully",
     "manage_assignment": "Manage assignment"
->>>>>>> 442208a8f96f3fa39b7442c594280e0208f5db19
 }
