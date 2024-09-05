@@ -2336,6 +2336,7 @@ class Crud_model extends CI_Model {
 		$data['remark'] = html_escape($this->input->post('remark'));
 		$data['lesson'] = html_escape($this->input->post('lesson'));
 		$data['teacher_id'] = html_escape($this->input->post('teacher_id'));
+		$data['date'] = htmlspecialchars($this->input->post('date'));
 		$this->db->insert('assignment', $data);
 
 		$response = array(
@@ -2352,6 +2353,7 @@ class Crud_model extends CI_Model {
 		$data['subject'] = html_escape($this->input->post('subject'));
 		$data['remark'] = html_escape($this->input->post('remark'));
 		$data['lesson'] = html_escape($this->input->post('lesson'));
+	    $data['date'] = htmlspecialchars($this->input->post('date'));
         $this->db->where('id',$id);
 		$this->db->update('assignment', $data);
 

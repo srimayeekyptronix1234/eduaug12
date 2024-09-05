@@ -1559,6 +1559,9 @@
     "description:": "Description:",
     "assignment_has_been_added_successfully": "Assignment has been added successfully",
     "assignment_has_been_updated_successfully": "Assignment has been updated successfully",
-    "assign_route_has_been_updated_successfully": "Assign route has been updated successfully",
-    "manage_assignment": "Manage assignment"
+    "manage_assignment": "Manage assignment",
+    "section:": "Section:",
+    "subject:": "Subject:",
+    "lesson:": "Lesson:",
+    "remark:": "Remark:"
 }

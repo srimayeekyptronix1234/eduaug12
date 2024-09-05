@@ -11,6 +11,11 @@ $teacher_table_data=$this->db->get_where('teachers',['user_id'=>$user_id])->row_
     <input type="hidden" name="session" value="<?php echo active_session();?>">
     <input type="hidden" name="teacher_id" value="<?=$teacher_table_data['id'];?>">
     <div class="form-group mb-1">
+      <label for="date"><?php echo get_phrase('date'); ?></label>
+      <input type="text" class="form-control date" id="date" data-bs-toggle="date-picker" data-single-date-picker="true" name="date" value="" required>
+    </div>
+   
+    <div class="form-group mb-1">
       <label for=""><?php echo get_phrase('class'); ?></label>
       <select name="class" id="class_id" class="form-control select2" data-toggle="select2" required
       onchange="classWiseSection(this.value)">
@@ -60,7 +65,9 @@ $teacher_table_data=$this->db->get_where('teachers',['user_id'=>$user_id])->row_
 
 <script>
 $(document).ready(function() {
-  $('select.select2:not(.normal)').each(function () { $(this).select2({ dropdownParent: '#right-modal' }); }); //initSelect2(['#class_id_on_create']);
+  $('select.select2:not(.normal)').each(function () { $(this).select2({ dropdownParent: '#right-modal' }); }); 
+  $('#date').daterangepicker();
+
 });
 $(".ajaxForm").validate({}); // Jquery form validation initialization
 $(".ajaxForm").submit(function(e) {

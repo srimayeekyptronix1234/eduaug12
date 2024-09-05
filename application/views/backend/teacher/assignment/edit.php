@@ -8,6 +8,10 @@ $teacher_table_data=$this->db->get_where('teachers',['user_id'=>$user_id])->row_
 <?php foreach($assignment_data as $assignment){?>
 <form method="POST" class="d-block ajaxForm" action="<?php echo route('assignment/update/'.$param1); ?>">
     <div class="form-row">
+         <div class="form-group mb-1">
+            <label for="date"><?php echo get_phrase('date'); ?></label>
+            <input type="text" class="form-control date" id="date" data-bs-toggle="date-picker" data-single-date-picker="true" name="date" value="<?=$assignment['date'];?>" required>
+         </div>   
           <div class="form-group mb-1">
              <label for=""><?php echo get_phrase('class'); ?></label>
                <select name="class" id="cid" class="form-control select10" data-toggle="select10" required
@@ -76,6 +80,8 @@ $(".ajaxForm").submit(function(e) {
 
 $(document).ready(function() {
   $('select.select2:not(.normal)').each(function () { $(this).select2({ dropdownParent: '#right-modal' }); }); //initSelect2(['#class_id_on_create']);
+  $('#date').daterangepicker();
+
 });
 function classWiseSection(classId) {
     $.ajax({
