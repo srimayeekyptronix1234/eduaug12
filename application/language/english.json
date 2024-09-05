@@ -1564,5 +1564,6 @@
     "subject:": "Subject:",
     "lesson:": "Lesson:",
     "remark:": "Remark:",
-    "payslip_pdf": "Payslip pdf"
+    "payslip_pdf": "Payslip pdf",
+    "payment_month": "Payment month"
 }

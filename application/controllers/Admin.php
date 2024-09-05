@@ -1691,28 +1691,27 @@ class Admin extends CI_Controller {
 		}
 	}
 	
-   //EXPORT STUDENT FEES
-  public function payslip_download($param1 = "",$staff_salary_id='') {
+   //EXPORT STAFF SALARY
+  public function payslip_download($param1 = "",$user_id='') {
     //RETURN EXPORT URL
     if ($param1 == 'url') {
       $type = htmlspecialchars($this->input->post('type'));
-      $staff_salary_id = htmlspecialchars($this->input->post('staff_salary_id'));
-      echo route('payslip_download/'.$type.'/'.$staff_salary_id);
+      $user_id = htmlspecialchars($this->input->post('user_id'));
+      echo route('payslip_download/'.$type.'/'.$user_id);
     }
     // EXPORT AS PDF
     if($param1 == 'pdf' || $param1 == 'print') {
       $page_data['action']   = $param1;
-      $page_data['staff_salary_id']   = $staff_salary_id;
+      $page_data['user_id']=$user_id;
       $html = $this->load->view('backend/admin/staff_salary/download_payslip',$page_data, true);
 
       $this->pdf->loadHtml($html);
       $this->pdf->set_paper("a4", "landscape" );
       $this->pdf->render();
       // FILE DOWNLOADING CODES
-      $staff_salary_details=$this->db->get_where('staff_salary',['id'=>$staff_salary_id])->row_array();
-      $user_details=$this->db->get_where('users',['id'=>$staff_salary_details['staff_name']])->row_array();
+      $user_details=$this->db->get_where('users',['id'=>$user_id])->row_array();
 
-      $fileName = $staff_salary_details['staff_role'].'-Salary - '.$user_details['name'].'.pdf';
+      $fileName = $user_details['role'].'-Salary - '.$user_details['name'].'.pdf';
 
       if ($param1 == 'pdf') {
         $this->pdf->stream($fileName, array("Attachment" => 1));
