@@ -2,7 +2,7 @@
 $user_id = $this->session->userdata('user_id');
 $teacher_table_data=$this->db->get_where('teachers',['user_id'=>$user_id])->row_array();
 $teacher_permissions_data=$this->db->get_where('teacher_permissions',['teacher_id'=>$teacher_table_data['id']])->row_array();
-$current_session_students = $this->user_model->get_total_data($teacher_permissions_data['class_id']);
+$current_session_students = $this->user_model->get_total_students($teacher_table_data['class_id'],$teacher_table_data['section_id']);
 $total_exam=$this->db->get_where('online_exam_details',['class_id'=>$teacher_permissions_data['class_id']])->num_rows();
 $school_id  = school_id();
 ?>
@@ -23,6 +23,7 @@ $school_id  = school_id();
         <div class="row">
             <div class="col-xl-8">
               <div class="row">
+                <!--Number of Student start-->
                   <div class="col-lg-6">
                       <div class="card widget-flat" id="student" style="on">
                           <div class="card-body">
@@ -44,6 +45,7 @@ $school_id  = school_id();
                           </div> <!-- end card-body-->
                       </div> <!-- end card-->
                   </div> <!-- end col-->
+                  <!--Number of Student END-->
                    <!-- COMPLAINT SECTION START -->
                   <div class="col-lg-6">
                       <div class="card widget-flat" id="complaints" style="on">
@@ -51,7 +53,7 @@ $school_id  = school_id();
                               <div class="float-end">
                                   <i class="mdi mdi-account-multiple widget-icon"></i>
                               </div>
-                              <h5 class="text-muted font-weight-normal mt-0" title="Number of Complaints"> <i class="mdi mdi-account-group title_icon"></i><?php echo get_phrase('complaints'); ?>  <a href="<?php echo route('complaints'); ?>" style="color: #6c757d; display: none;" id = "parent_list"><i class = "mdi mdi-export"></i></a></h5>
+                              <h5 class="text-muted font-weight-normal mt-0" title="Number of Complaints"> <i class="mdi mdi-file-compare title_icon"></i><?php echo get_phrase('complaints'); ?>  <a href="<?php echo route('complaints'); ?>" style="color: #6c757d; display: none;" id = "parent_list"><i class = "mdi mdi-export"></i></a></h5>
                               <h4 class="mt-3 mb-3">
                                   <?php
                                       $total_active_complaints = $this->db->get_where('complaint',['teacher_id'=>$user_id,'status'=>'1'])->num_rows();
@@ -87,7 +89,7 @@ $school_id  = school_id();
                               <div class="float-end">
                                   <i class="mdi mdi-account-multiple widget-icon"></i>
                               </div>
-                              <h5 class="text-muted font-weight-normal mt-0" title="Upcoming classes and subjects"> <i class="mdi mdi-account-group title_icon"></i> <?php echo get_phrase('Upcoming classes and subjects'); ?> <a href="<?php echo route('class'); ?>" style="color: #6c757d; display: none;" id = "class_list"><i class = "mdi mdi-export"></i></a></h5>
+                              <h5 class="text-muted font-weight-normal mt-0" title="Upcoming classes and subjects"> <i class="mdi mdi-book-variant title_icon"></i> <?php echo get_phrase('Upcoming classes and subjects'); ?> <a href="<?php echo route('class'); ?>" style="color: #6c757d; display: none;" id = "class_list"><i class = "mdi mdi-export"></i></a></h5>
                               <h3 class="mt-3 mb-3">
                                  
                               </h3>
@@ -96,8 +98,13 @@ $school_id  = school_id();
                                        $this->db->from('routines r');
                                        $this->db->join('subjects s', 's.id = r.subject_id', 'left');
                                        $this->db->join('classes c', 'c.id = r.class_id', 'left');
-                                       $this->db->where('r.school_id', $teacher_table_data['school_id']);
-                                       $this->db->where('r.teacher_id', $teacher_table_data['id']);
+                                       $checker = array(
+                                        'r.school_id' => $teacher_table_data['school_id'],
+                                        'r.teacher_id' => $teacher_table_data['id'],
+                                        'r.class_id' => $teacher_table_data['class_id'],
+                                        'r.section_id'=>$teacher_table_data['section_id']
+                                      );
+                                       $this->db->where($checker);
                                        $this->db->group_by('c.id, c.name');
                                        $check_data=$this->db->get()->result_array();
 
@@ -143,7 +150,7 @@ $school_id  = school_id();
                               <div class="float-end">
                                   <i class="mdi mdi-account-multiple widget-icon"></i>
                               </div>
-                              <h5 class="text-muted font-weight-normal mt-0" title="Class Subects"> <i class="mdi mdi-account-group title_icon"></i> <?php echo get_phrase('Class Subects'); ?> <a href="<?php echo route('class'); ?>" style="color: #6c757d; display: none;" id = "class_sub_list"><i class = "mdi mdi-export"></i></a></h5>
+                              <h5 class="text-muted font-weight-normal mt-0" title="Class Subects"> <i class="mdi mdi-book-multiple title_icon"></i> <?php echo get_phrase('Class Subects'); ?> <a href="<?php echo route('class'); ?>" style="color: #6c757d; display: none;" id = "class_sub_list"><i class = "mdi mdi-export"></i></a></h5>
                               <h3 class="mt-3 mb-3">
                                  
                               </h3>
@@ -152,7 +159,7 @@ $school_id  = school_id();
                                        $this->db->from('classes c');
                                        $this->db->join('subjects s', 's.class_id = c.id', 'left');
                                        $this->db->where('c.school_id', $school_id);
-                                       $this->db->where('c.id', $teacher_permissions_data['class_id']);
+                                       $this->db->where('c.id', $teacher_table_data['class_id']);
                                        $this->db->group_by('c.id, c.name');
                                        $check_data=$this->db->get()->result_array();
 
@@ -200,10 +207,21 @@ $school_id  = school_id();
                         <h4 class="header-title text-white mb-2"><?php echo get_phrase('todays_attendance'); ?></h4>
                         <div class="text-center">
                             <h3 class="font-weight-normal text-white mb-2">
-                                <?php echo $this->crud_model->get_todays_attendance(); ?>
-                            </h3>
-                            <p class="text-light text-uppercase font-13 font-weight-bold"><?php echo $this->crud_model->get_todays_attendance(); ?> <?php echo get_phrase('students_are_attending_today'); ?></p>
+                                <?php 
 
+                                    $students_attendence=$this->db->get_where('daily_attendances',['class_id'=>$teacher_permissions_data['class_id'],'school_id'=>$school_id,'status'=>1,'timestamp' => strtotime(date('Y-m-d'))])->num_rows();
+                                       if(isset($students_attendence) && $students_attendence != ''){
+                                           echo $students_attendence;
+                                        }
+                                ?>
+                            </h3>
+                            <p class="text-light text-uppercase font-13 font-weight-bold">
+                              <?php 
+                                  if(isset($students_attendence) && $students_attendence != ''){
+                                           echo $students_attendence;
+                                  }
+                              ?>
+                             <?php echo get_phrase('students_are_attending_today'); ?></p>
                         </div>
                     </div>
                 </div>
@@ -213,7 +231,7 @@ $school_id  = school_id();
                 ?>
                 <div class="card">
                     <div class="card-body">
-                              <h5 class="text-muted font-weight-normal mt-0" title="Exam Schedule"> <i class="mdi mdi-account-group title_icon"></i>  <?php echo get_phrase('Exam Schedule'); ?> <a href="<?php echo route('exam'); ?>" style="color: #6c757d; display: none;" id = "exam_list"><i class = "mdi mdi-export"></i></a></h5>
+                              <h5 class="text-muted font-weight-normal mt-0" title="Exam Schedule"> <i class="mdi mdi-book-clock title_icon"></i>  <?php echo get_phrase('Exam Schedule'); ?> <a href="<?php echo route('exam'); ?>" style="color: #6c757d; display: none;" id = "exam_list"><i class = "mdi mdi-export"></i></a></h5>
                               <h3 class="mt-3 mb-3">
                                   <?php
                                       $this->db->select('oed.*');

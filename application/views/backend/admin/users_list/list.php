@@ -1,12 +1,18 @@
-<?php
-    
-    $check_data = $this->db->get_where('users',['role'=>'hr'])->result_array();
+<style>
+  .boxbtn:hover {
+    background: #0272F3;
+  }
+</style>
 
-   
-  if (count($check_data) > 0):?>
+<?php
+
+$check_data = $this->db->get_where('users', ['role' => 'hr'])->result_array();
+
+
+if (count($check_data) > 0): ?>
   <table id="basic-datatable" class="table table-striped dt-responsive nowrap" width="100%">
     <thead>
-      <tr style="background-color: #313a46; color: #ababab;">
+      <tr style="background-color: #0272F3; color: #fff;">
         <th><?php echo get_phrase('Name'); ?></th>
         <th><?php echo get_phrase('Email'); ?></th>
         <th><?php echo get_phrase('Phone'); ?></th>
@@ -15,20 +21,24 @@
     </thead>
     <tbody>
       <?php
-      foreach($check_data as $data){
+      foreach ($check_data as $data) {
         ?>
         <tr>
-          <td><?=$data['name'];?></td>
-          <td><?=$data['email'];?></td>
-          <td><?=$data['phone'];?></td>
+          <td><?= $data['name']; ?></td>
+          <td><?= $data['email']; ?></td>
+          <td><?= $data['phone']; ?></td>
           <td>
 
             <div class="dropdown text-center">
-              <button type="button" class="btn btn-sm btn-icon btn-rounded btn-outline-secondary dropdown-btn dropdown-toggle arrow-none card-drop" data-bs-toggle="dropdown" aria-expanded="false"><i class="mdi mdi-dots-vertical"></i></button>
+              <button type="button"
+                class="btn btn-sm btn-icon btn-rounded btn-outline-secondary dropdown-btn dropdown-toggle arrow-none card-drop boxbtn"
+                data-bs-toggle="dropdown" aria-expanded="false"><i class="mdi mdi-dots-vertical"></i></button>
               <div class="dropdown-menu dropdown-menu-end">
-                <a href="javascript:void(0);" class="dropdown-item" onclick="rightModal('<?php echo site_url('modal/popup/users_list/edit/'.$data['id'])?>', '<?php echo get_phrase('update_user'); ?>');"><?php echo get_phrase('edit'); ?></a>
-                <a href="javascript:void(0);" class="dropdown-item" onclick="confirmModal('<?php echo route('users_list/delete/'.$data['id']); ?>', showAllUsers)"><?php echo get_phrase('delete'); ?></a>
-                                              
+                <a href="javascript:void(0);" class="dropdown-item"
+                  onclick="rightModal('<?php echo site_url('modal/popup/users_list/edit/' . $data['id']) ?>', '<?php echo get_phrase('update_user'); ?>');"><?php echo get_phrase('edit'); ?></a>
+                <a href="javascript:void(0);" class="dropdown-item"
+                  onclick="confirmModal('<?php echo route('users_list/delete/' . $data['id']); ?>', showAllUsers)"><?php echo get_phrase('delete'); ?></a>
+
               </div>
             </div>
           </td>
@@ -37,5 +47,5 @@
     </tbody>
   </table>
 <?php else: ?>
-  <?php include APPPATH.'views/backend/empty.php'; ?>
+  <?php include APPPATH . 'views/backend/empty.php'; ?>
 <?php endif; ?>

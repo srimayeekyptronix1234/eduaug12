@@ -3,14 +3,16 @@
         <input type="hidden" name="school_id" value="<?php echo school_id(); ?>">
         <div class="form-group mb-1">
           <label for=""><?php echo get_phrase('name'); ?></label>
-         <select name="name" id="name" class="form-control select6" data-toggle = "select6"  required>
+        <!-- <select name="name" id="name" class="form-control select6" data-toggle = "select6"  required>
                     <option value=""><?php echo get_phrase('select_a_driver'); ?></option>
                     <?php $allvehicle = $this->db->get('vehicle')->result_array(); ?>
                     <?php foreach($allvehicle as $vehicle){ ?>
                         <option value="<?php echo $vehicle['vehicle_driver']; ?>"><?php echo $vehicle['vehicle_driver']; ?></option>
                     <?php } ?>
-           </select>
-             <small id="class_help" class="form-text text-muted"><?php echo get_phrase('select_a_driver'); ?></small>
+           </select>-->
+            <input type="name" name="name" class="form-control"  value="" placeholder="Name" required>
+
+             <small id="class_help" class="form-text text-muted"><?php echo get_phrase('driver_name'); ?></small>
         
         </div>
         <div class="form-group mb-1">
@@ -27,6 +29,11 @@
           <label for=""><?php echo get_phrase('phone'); ?></label>
              <input type="text" name="phone" class="form-control"  value="" placeholder="Phone" required>
              <small id="class_help" class="form-text text-muted"><?php echo get_phrase('phone'); ?></small>        
+        </div>
+        <div class="form-group mb-1">
+          <label for=""><?php echo get_phrase('salary'); ?></label>
+             <input type="number" name="salary" class="form-control"  value="" placeholder="salary" required>
+             <small id="class_help" class="form-text text-muted"><?php echo get_phrase('salary'); ?></small>        
         </div>
        
         <div class="form-group mb-1">

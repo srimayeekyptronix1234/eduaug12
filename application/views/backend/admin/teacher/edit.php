@@ -1,11 +1,33 @@
 <?php
 $users = $this->db->get_where('users', array('id' => $param1))->result_array();
+$school_id = school_id();
+
 foreach($users as $user):
   $teacher = $this->db->get_where('teachers', array('user_id' => $user['id']))->row_array();
   $social_links = json_decode($teacher['social_links'], true);
   ?>
   <form method="POST" class="d-block ajaxForm" action="<?php echo route('teacher/update/'.$param1); ?>">
     <div class="form-row">
+      <div class="form-group mb-1">
+            <label class="col-form-label" for="class_id"><?php echo get_phrase('class'); ?></label>
+            <select name="class_id" id="class_id" class="form-control select10" data-toggle = "select8" required onchange="classWiseSection(this.value)">
+                <option value=""><?php echo get_phrase('select_a_class'); ?></option>
+                <?php $classes = $this->db->get_where('classes', array('school_id' => $school_id))->result_array(); ?>
+                <?php foreach($classes as $class){ ?>
+                    <option value="<?php echo $class['id']; ?>" <?php if($teacher['section_id'] == $class['id']) echo 'selected'; ?>><?php echo $class['name']; ?></option>
+                <?php } ?>
+            </select>
+      </div> 
+       <div class="form-group mb-1">
+        <label class="col-form-label" for="class_id"><?php echo get_phrase('section'); ?></label>
+        <select name="section_id" id="section_id" class="form-control" required >
+          <option value=""><?php echo get_phrase('select_a_section'); ?></option>
+          <?php $sections = $this->db->get_where('sections', array('class_id' => $teacher['class_id']))->result_array(); ?>
+          <?php foreach($sections as $section){ ?>
+            <option value="<?php echo $section['id']; ?>" <?php if($teacher['section_id'] == $section['id']) echo 'selected'; ?>><?php echo $section['name']; ?></option>
+          <?php } ?>
+        </select>
+       </div> 
       <div class="form-group mb-1">
         <input type="hidden" name="school_id" value="<?php echo school_id(); ?>">
         <label for="name"><?php echo get_phrase('name'); ?></label>
@@ -36,6 +58,11 @@ foreach($users as $user):
           <?php } ?>
         </select>
         <small id="" class="form-text text-muted"><?php echo get_phrase('provide_a_department'); ?></small>
+      </div>
+      <div class="form-group mb-1">
+        <label for="salary"><?php echo get_phrase('salary'); ?></label>
+        <input type="text" class="form-control" id="salary" name = "salary" value="<?=$user['salary'];?>">
+        <small id="" class="form-text text-muted"><?php echo get_phrase('provide_teacher_salary'); ?></small>
       </div>
 
       <div class="form-group mb-1">
@@ -154,4 +181,13 @@ $(".ajaxForm").submit(function(e) {
 });
 
 // initCustomFileUploader();
+function classWiseSection(classId) {
+    $.ajax({
+        url: "<?php echo route('section/list/'); ?>" + classId,
+        success: function (response) {
+            $('#section_id').html(response);
+        }
+    });
+}
+
 </script>

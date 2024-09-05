@@ -128,6 +128,7 @@ class User_model extends CI_Model {
 		$data['address'] = html_escape($this->input->post('address'));
 		$data['role'] = 'teacher';
 		$data['watch_history'] = '[]';
+		$data['salary'] = html_escape($this->input->post('salary'));
 
 		// check email duplication
 		$duplication_status = $this->check_duplication('on_create', $data['email']);
@@ -147,6 +148,9 @@ class User_model extends CI_Model {
 			$teacher_table_data['department_id'] = html_escape($this->input->post('department'));
 			$teacher_table_data['designation'] = html_escape($this->input->post('designation'));
 			$teacher_table_data['school_id'] = html_escape($this->input->post('school_id'));
+		    $teacher_table_data['class_id'] = html_escape($this->input->post('class_id'));
+		    $teacher_table_data['section_id'] = html_escape($this->input->post('section_id'));
+
 			//$teacher_table_data['show_on_website'] = $this->input->post('show_on_website');
 			$this->db->insert('teachers',$teacher_table_data);
 			if ($_FILES['image_file']['name'] != "") {
@@ -179,6 +183,7 @@ class User_model extends CI_Model {
 		$data['gender'] = html_escape($this->input->post('gender'));
 		$data['blood_group'] = html_escape($this->input->post('blood_group'));
 		$data['address'] = html_escape($this->input->post('address'));
+        $data['salary'] = html_escape($this->input->post('salary'));
 
 		// check email duplication
 		$duplication_status = $this->check_duplication('on_update', $data['email'], $param1);
@@ -190,6 +195,9 @@ class User_model extends CI_Model {
 			$teacher_table_data['department_id'] = html_escape($this->input->post('department'));
 			$teacher_table_data['designation'] = html_escape($this->input->post('designation'));
 			$teacher_table_data['about'] = html_escape($this->input->post('about'));
+			$teacher_table_data['class_id'] = html_escape($this->input->post('class_id'));
+			$teacher_table_data['section_id'] = html_escape($this->input->post('section_id'));
+
 			$social_links = array(
 				'facebook' => $this->input->post('facebook_link'),
 				'twitter' => $this->input->post('twitter_link'),
@@ -402,7 +410,7 @@ class User_model extends CI_Model {
 		$data['school_id'] = $this->school_id;
 		$data['role'] = 'accountant';
 		$data['watch_history'] = '[]';
-
+        $data['salary']=html_escape($this->input->post('salary'));
 		$duplication_status = $this->check_duplication('on_create', $data['email']);
 		if($duplication_status){
 			$this->db->insert('users', $data);
@@ -429,6 +437,7 @@ class User_model extends CI_Model {
 		$data['gender'] = html_escape($this->input->post('gender'));
 		$data['blood_group'] = html_escape($this->input->post('blood_group'));
 		$data['address'] = html_escape($this->input->post('address'));
+        $data['salary']=html_escape($this->input->post('salary'));
 
 		$duplication_status = $this->check_duplication('on_update', $data['email'], $param1);
 		if($duplication_status){
@@ -494,6 +503,7 @@ class User_model extends CI_Model {
 		$data['school_id'] = $this->school_id;
 		$data['role'] = 'librarian';
 		$data['watch_history'] = '[]';
+		$data['salary'] = html_escape($this->input->post('salary'));
 
 		// check email duplication
 		$duplication_status = $this->check_duplication('on_create', $data['email']);
@@ -522,6 +532,7 @@ class User_model extends CI_Model {
 		$data['gender'] = html_escape($this->input->post('gender'));
 		$data['blood_group'] = html_escape($this->input->post('blood_group'));
 		$data['address'] = html_escape($this->input->post('address'));
+		$data['salary'] = html_escape($this->input->post('salary'));
 
 		// check email duplication
 		$duplication_status = $this->check_duplication('on_update', $data['email'], $param1);
@@ -654,6 +665,9 @@ class User_model extends CI_Model {
 			$enroll_data['section_id'] = html_escape($this->input->post('section_id'));
 			$enroll_data['session'] = $this->active_session;
 			$enroll_data['school_id'] = $this->school_id;
+			$date=date('Y-m-d');
+            $timestamp=(strtotime($date));
+            $enroll_data['timestamp'] = $timestamp;
 			$this->db->insert('enrols', $enroll_data);
 
 			move_uploaded_file($_FILES['student_image']['tmp_name'], 'uploads/users/'.$user_id.'.jpg');
@@ -710,6 +724,9 @@ class User_model extends CI_Model {
 				$enroll_data['section_id'] = $section_id;
 				$enroll_data['session'] = $this->active_session;
 				$enroll_data['school_id'] = $this->school_id;
+				$date=date('Y-m-d');
+                $timestamp=(strtotime($date));
+                $enroll_data['timestamp']=$timestamp;
 				$this->db->insert('enrols', $enroll_data);
 			}else{
 				$duplication_counter++;
@@ -1374,6 +1391,7 @@ class User_model extends CI_Model {
 		$user_data['password'] = sha1($this->input->post('password'));
 		$user_data['phone'] = html_escape($this->input->post('phone'));
 		$user_data['role'] = 'driver';
+		$user_data['salary'] = html_escape($this->input->post('salary'));
 
 		// check email duplication
 		$duplication_status = $this->check_duplication('on_create', $user_data['email']);
@@ -1410,6 +1428,7 @@ class User_model extends CI_Model {
 		$data['name'] = html_escape($this->input->post('name'));
 		$data['route_id'] = html_escape($this->input->post('route_id'));
 		$data['vehicle_id'] = html_escape($this->input->post('vehicle_id'));
+
 		$this->db->where('id', $param1);
 		$this->db->update('driver', $data);
 
@@ -1482,6 +1501,7 @@ class User_model extends CI_Model {
 		$data['phone'] = html_escape($this->input->post('phone'));
 		$data['password'] = sha1($this->input->post('password'));
 		$data['role'] = 'hr';
+		$data['salary'] = html_escape($this->input->post('salary'));
 
 		// check email duplication fdgfdg
 		$duplication_status = $this->check_duplication_candidate('on_create', $data['email']);
@@ -1506,6 +1526,7 @@ class User_model extends CI_Model {
 		$data['name'] = html_escape($this->input->post('name'));
 		$data['email'] = html_escape($this->input->post('email'));
 		$data['phone'] = html_escape($this->input->post('phone'));
+		$data['salary'] = html_escape($this->input->post('salary'));
 
 		// check email duplication
 		$duplication_status = $this->check_duplication_candidate('on_update', $data['email'], $param1);
@@ -1576,7 +1597,54 @@ class User_model extends CI_Model {
     	$this->db->where($checker);
     	return $this->db->get()->result_array();
 	}
+    public function get_total_students($class_id='',$section_id='') {
+		$checker = array(
+			'session' => $this->active_session,
+			'school_id' => $this->school_id,
+			'class_id' => $class_id,
+			'section_id'=>$section_id
+		);
+		return $this->db->get_where('enrols', $checker)->result_array();
+	}
+    public function get_student_homework_marks_list_of_logged_in_parent() {
+        $parent_id = $this->session->userdata('user_id');
+        $parent_data = $this->db->get_where('parents', array('user_id' => $parent_id))->row_array();
+        $checker = array(
+            'parent_id' => $parent_data['id'],
+            'session' => $this->active_session,
+            'school_id' => $this->school_id
+        );
+        $students = $this->db->get_where('students', $checker)->result_array();
+        foreach ($students as $key => $student) {
+            $checker = array(
+                'student_id' => $student['id'],
+                'session' => $this->active_session,
+                'school_id' => $this->school_id
+            );
+            $enrol_data = $this->db->get_where('enrols', $checker)->row_array();
 
+            $user_details = $this->db->get_where('users', array('id' => $student['user_id']))->row_array();
+            $students[$key]['student_id'] = $student['id'];
+            $students[$key]['name'] = $user_details['name'];
+            $students[$key]['email'] = $user_details['email'];
+            $students[$key]['role'] = $user_details['role'];
+            $students[$key]['address'] = $user_details['address'];
+            $students[$key]['phone'] = $user_details['phone'];
+            $students[$key]['birthday'] = $user_details['birthday'];
+            $students[$key]['gender'] = $user_details['gender'];
+            $students[$key]['blood_group'] = $user_details['blood_group'];
+            $students[$key]['class_id'] = $enrol_data['class_id'];
+            $students[$key]['section_id'] = $enrol_data['section_id'];
+
+            $class_details = $this->crud_model->get_class_details_by_id($enrol_data['class_id'])->row_array();
+            $section_details = $this->crud_model->get_section_details_by_id('section', $enrol_data['section_id'])->row_array();
+            $marks = $this->db->get_where('homework',['student_id'=>$student['id'],'class_id'=>$enrol_data['class_id'],'school_id'=>$this->school_id])->result_array();
+
+            $students[$key]['class_name'] = $class_details['name'];
+            $students[$key]['section_name'] = $section_details['name'];
+         }
+        return  $marks;
+    }
 
 	
 

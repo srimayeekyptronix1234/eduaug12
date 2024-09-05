@@ -6,7 +6,7 @@
             <input type="text" class="form-control date" id="date_on_taking_attendance" data-bs-toggle="date-picker" data-single-date-picker="true" name = "date" value="" required>
         </div>
     </div>
-
+    <input type="hidden" id="month" name="month" value="<?php echo date('M');?>">
     <div class="form-group row">
         <div class="col-md-12">
             <label  for="class_id_on_taking_attendance"><?php echo get_phrase('class'); ?></label>

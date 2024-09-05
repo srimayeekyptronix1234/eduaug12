@@ -1671,7 +1671,176 @@ class Admin extends CI_Controller {
 			$this->load->view('backend/index', $page_data);
 		}
 	}
+	//STAFF DAILY ATTENDANCE section
+	public function staff_attendance($param1 = '', $param2 = '', $param3 = ''){
+
+		if($param1 == 'take_attendance'){
+			$response = $this->crud_model->take_staff_attendance();
+			echo $response;
+		}
+
+		if($param1 == 'filter'){
+			$date = '01 '.$this->input->post('month').' '.$this->input->post('year');
+			$page_data['attendance_date'] = strtotime($date);
+			$page_data['month'] = $this->input->post('month');
+			$page_data['year'] = $this->input->post('year');
+		    $page_data['role'] = $this->input->post('role');
+			$this->load->view('backend/admin/staff_attendance/list', $page_data);
+		}
+
+		if($param1 == 'staff'){
+			$page_data['attendance_date'] = strtotime($this->input->post('date'));
+			$page_data['staff_role'] = htmlspecialchars($this->input->post('role'));
+			$this->load->view('backend/admin/staff_attendance/staff', $page_data);
+		}
+
+		if(empty($param1)){
+			$page_data['folder_name'] = 'staff_attendance';
+			$page_data['page_title'] = 'attendance';
+			$this->load->view('backend/index', $page_data);
+		}
+	}
+	//STAFF DAILY ATTENDANCE section END
+    // Income Category
+	public function income_category($param1 = "", $param2 = "") {
+		if ($param1 == 'create') {
+			$response = $this->crud_model->create_income_category();
+			echo $response;
+		}
+
+		if ($param1 == 'update') {
+			$response = $this->crud_model->update_income_category($param2);
+			echo $response;
+		}
+
+		if ($param1 == 'delete') {
+			$response = $this->crud_model->delete_income_category($param2);
+			echo $response;
+		}
+
+		if ($param1 == 'list') {
+			$this->load->view('backend/admin/income_category/list');
+		}
+		// showing the index file
+		if(empty($param1)){
+			$page_data['folder_name'] = 'income_category';
+			$page_data['page_title']  = 'income_category';
+			$this->load->view('backend/index', $page_data);
+		}
+	}
+    //Income Manager
+	public function income_manager($param1 = "", $param2 = "") {
+
+		// adding income
+		if ($param1 == 'create') {
+			$response = $this->crud_model->create_income_manager();
+			echo $response;
+		}
+
+		// update income
+		if ($param1 == 'update') {
+			$response = $this->crud_model->update_income_manager($param2);
+			echo $response;
+		}
+
+		// deleting income
+		if ($param1 == 'delete') {
+			$response = $this->crud_model->delete_income_manager($param2);
+			echo $response;
+		}
+		// showing the list of income
+		if ($param1 == 'list') {
+			$date = explode('-', $this->input->get('date'));
+			$page_data['date_from'] = strtotime($date[0].' 00:00:00');
+			$page_data['date_to']   = strtotime($date[1].' 23:59:59');
+			$page_data['income_category_id'] = htmlspecialchars($this->input->get('income_category_id'));
+			$this->load->view('backend/admin/income_manager/list', $page_data);
+		}
+
+		// showing the index file
+		if(empty($param1)){
+			$page_data['folder_name'] = 'income_manager';
+			$page_data['page_title']  = 'income_manager';
+			$page_data['date_from']   = strtotime(date('d-M-Y', strtotime(' -30 day')).' 00:00:00');
+			$page_data['date_to']     = strtotime(date('d-M-Y').' 23:59:59');
+			$this->load->view('backend/index', $page_data);
+		}
+	}
+	//Staff Salary Start
+	public function staff_salary($param1 = "", $param2 = "") {
+		if ($param1 == 'create') {
+			$response = $this->crud_model->save_staff_salary();
+			echo $response;
+		}
+
+		if ($param1 == 'update') {
+			$response = $this->crud_model->update_staff_salary($param2);
+			echo $response;
+		}
+
+		if ($param1 == 'delete') {
+			$response = $this->crud_model->delete_staff_salary($param2);
+			echo $response;
+		}
+
+		if ($param1 == 'list') {
+			$this->load->view('backend/admin/staff_salary/list');
+		}
+		if ($param1 == 'salary') {
+			$page_data['staff_id'] = $param2;
+			$this->load->view('backend/admin/staff_salary/salary',$page_data);
+
+		}
+
+		// showing the index file
+		if(empty($param1)){
+			$page_data['folder_name'] = 'staff_salary';
+			$page_data['page_title']  = 'staff_salary';
+			$this->load->view('backend/index', $page_data);
+		}
+	}
+	//Staff Salary End
+    public function role_wise_staff_name($action = "", $id = "") {
+		// PROVIDE A LIST OF STAFF NAME ACCORDING TO STAFF ROLE
+		if ($action == 'list') {
+			$page_data['staff_role'] = $id;
+			$this->load->view('backend/admin/staff_salary/staff_name', $page_data);
+		}
+	}
 	
+   //EXPORT STUDENT FEES
+  public function payslip_download($param1 = "",$staff_salary_id='') {
+    //RETURN EXPORT URL
+    if ($param1 == 'url') {
+      $type = htmlspecialchars($this->input->post('type'));
+      $staff_salary_id = htmlspecialchars($this->input->post('staff_salary_id'));
+      echo route('payslip_download/'.$type.'/'.$staff_salary_id);
+    }
+    // EXPORT AS PDF
+    if($param1 == 'pdf' || $param1 == 'print') {
+      $page_data['action']   = $param1;
+      $page_data['staff_salary_id']   = $staff_salary_id;
+      $html = $this->load->view('backend/admin/staff_salary/download_payslip',$page_data, true);
+
+      $this->pdf->loadHtml($html);
+      $this->pdf->set_paper("a4", "landscape" );
+      $this->pdf->render();
+      // FILE DOWNLOADING CODES
+      $staff_salary_details=$this->db->get_where('staff_salary',['id'=>$staff_salary_id])->row_array();
+      $user_details=$this->db->get_where('users',['id'=>$staff_salary_details['staff_name']])->row_array();
+
+      $fileName = $staff_salary_details['staff_role'].'-Salary - '.$user_details['name'].'.pdf';
+
+      if ($param1 == 'pdf') {
+        $this->pdf->stream($fileName, array("Attachment" => 1));
+      }else{
+        $this->pdf->stream($fileName, array("Attachment" => 0));
+      }
+    }
+    
+  }
+
+
 	
 
 	

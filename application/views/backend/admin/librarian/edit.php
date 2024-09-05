@@ -21,6 +21,11 @@ foreach($users as $user){
                 <input type="text" value="<?php echo $user['phone']; ?>" class="form-control" id="phone" name = "phone" required>
                 <small id="" class="form-text text-muted"><?php echo get_phrase('provide_phone_number'); ?></small>
             </div>
+            <div class="form-group mb-1">
+              <label for="salary"><?php echo get_phrase('salary'); ?></label>
+              <input type="text" class="form-control" id="salary" name = "salary" value="<?=$user['salary'];?>">
+              <small id="" class="form-text text-muted"><?php echo get_phrase('provide_salary'); ?></small>
+          </div>
 
             <div class="form-group mb-1">
                 <label for="gender"><?php echo get_phrase('gender'); ?></label>

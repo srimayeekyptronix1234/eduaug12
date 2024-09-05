@@ -13,8 +13,21 @@
         </div>
         <div class="form-group mb-1">
           <label for="name">Driver</label>
-          <input type="text" class="form-control" id="vehicle_driver" name="vehicle_driver" value="<?=$vehicle['vehicle_driver']?>"  required>
+          <select name="vehicle_driver" id="vehicle_driver" class="form-control select6" data-toggle = "select6">
+            <option value=""><?php echo get_phrase('select_a_driver'); ?></option>
+            <?php 
+            $this->db->select('u.name');
+            $this->db->where('u.role','driver');
+            $all_drivers=$this->db->get('users u')->result_array();
+
+            ?>
+            <?php foreach($all_drivers as $drivers){ ?>
+              <option value="<?php echo $drivers['name']; ?>" <?php if($vehicle['vehicle_driver'] == $drivers['name']){echo 'selected';}?>><?php echo $drivers['name']; ?></option>
+            <?php } ?>
+          </select>
+
         </div>
+
         <div class="form-group mb-1">
           <label for="name">Note</label>
           <textarea class="form-control" id="example-textarea" rows="5" name = "note" placeholder="Note"><?=$vehicle['note']?></textarea>

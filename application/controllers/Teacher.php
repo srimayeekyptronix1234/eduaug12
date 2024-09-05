@@ -191,7 +191,7 @@ class Teacher extends CI_Controller {
 	//END CLASS section
 
 	//	SECTION STARTED
-	public function section($action = "", $id = "") {
+	public function section($action = "", $id = "",$teacher_id="") {
 
 		// PROVIDE A LIST OF SECTION ACCORDING TO CLASS ID
 		if ($action == 'list') {
@@ -288,6 +288,12 @@ class Teacher extends CI_Controller {
 			$page_data['class_id'] = $param2;
 			$page_data['section_id'] = $param3;
 			$this->load->view('backend/teacher/routine/list', $page_data);
+		}
+		if($param1 == 'section_list'){
+          $page_data['class_id'] =$param2;
+          $page_data['section_id']=$param3;
+          $this->load->view('backend/teacher/section/list',$page_data);
+            
 		}
 
 		if(empty($param1)){
@@ -664,7 +670,6 @@ class Teacher extends CI_Controller {
 			$page_data['class_id'] = $param2;
 			$page_data['section_id']=$param3;
 			$page_data['student_id']=$param4;
-			$page_data['teacher_id']=$param5;
 			$page_data['page_form']=$param1;
 			$this->load->view('backend/teacher/complaintsactions/list', $page_data);
 		}
@@ -744,6 +749,91 @@ class Teacher extends CI_Controller {
 			$this->load->view('backend/index', $page_data);
 		}
 	}
+     
+    //STAFF DAILY ATTENDANCE section
+	public function staff_attendance($param1 = '', $param2 = '', $param3 = ''){
+
+		
+		if($param1 == 'filter'){
+			$date = '01 '.$this->input->post('month').' '.$this->input->post('year');
+			$page_data['attendance_date'] = strtotime($date);
+			$page_data['month'] = $this->input->post('month');
+			$page_data['year'] = $this->input->post('year');
+		    $page_data['role'] = $this->input->post('role');
+			$this->load->view('backend/teacher/staff_attendance/list', $page_data);
+		}
+
+		
+		if(empty($param1)){
+			$page_data['folder_name'] = 'staff_attendance';
+			$page_data['page_title'] = 'attendance';
+			$this->load->view('backend/index', $page_data);
+		}
+	}
+	//STAFF DAILY ATTENDANCE section END
+    //Staff Salary Start
+	public function staff_salary() {
+		$page_data['folder_name'] = 'staff_salary';
+		$page_data['page_title']  = 'staff_salary';
+		$this->load->view('backend/index', $page_data);
+	}
+	//Staff Salary End
+   public function reportcard($param1 = '', $param2 = '', $param3 = '') {
+		if ($param1 == 'list') {
+			// Collect the posted data
+			$class_id = $this->input->post('class_id');
+			$section_id = $this->input->post('section_id');
+			$student_id = $this->input->post('student_id');
+			$exam_id = $this->input->post('exam_id');
+	
+			// Fetch necessary data
+			$data['class_id'] = $class_id;
+			$data['section_id'] = $section_id;
+			$data['student_id'] = $student_id;
+			$data['exam_id'] = $exam_id;
+	
+			// Load the list view with the data
+			$this->load->view('backend/teacher/reportcard/list', $data);
+		} else {
+			$page_data['page_name'] = 'reportcard/index';
+			$page_data['page_title'] = get_phrase('manage_report_cards');
+			$this->load->view('backend/index', $page_data);
+		}
+	}
+	//Assignment Section Start
+	public function assignment($param1 = '', $param2 = '',$param3 = '',$param4 = ''){
+
+		if($param1 == 'create'){
+			$response = $this->crud_model->assignment_create();
+			echo $response;
+		}
+
+		if($param1 == 'update'){
+			$response = $this->crud_model->assignment_update($param2);
+			echo $response;
+		}
+
+		if($param1 == 'delete'){
+			$response = $this->crud_model->assignment_delete($param2);
+			echo $response;
+		}
+
+		if($param1 == 'list'){
+			$page_data['class_id'] = $param2;
+			$page_data['section_id']=$param3;
+			$page_data['subject_id']=$param4;	
+			$this->load->view('backend/teacher/assignment/list', $page_data);
+		}
+
+		if(empty($param1)){
+			$page_data['folder_name'] = 'assignment';
+			$page_data['page_title'] = 'assignment';
+			$this->load->view('backend/index', $page_data);
+		}
+	}
+
+	//Assignment Section End
+    
 
 
 	

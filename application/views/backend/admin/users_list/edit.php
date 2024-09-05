@@ -18,7 +18,12 @@
             <input type="text" class="form-control" id="phone" value="<?=$data['phone']?>" name="phone" required>
             <small id="" class="form-text text-muted"><?php echo get_phrase('provide_user_phone'); ?></small>
         </div>
-
+        <div class="form-group mb-1">
+          <label for=""><?php echo get_phrase('salary'); ?></label>
+             <input type="number" name="salary" class="form-control"  value="<?=$data['salary']?>" placeholder="salary">
+             <small id="class_help" class="form-text text-muted"><?php echo get_phrase('provide_user_salary'); ?></small>        
+        </div>
+     
         <div class="form-group  col-md-12">
           <button class="btn btn-block btn-primary" type="submit"><?php echo get_phrase('update_user'); ?></button>
         </div>

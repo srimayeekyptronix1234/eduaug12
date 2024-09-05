@@ -1,3 +1,9 @@
+<?php
+$user_id = $this->session->userdata('user_id');
+$teacher_table_data=$this->db->get_where('teachers',['user_id'=>$user_id])->row_array();
+?>
+
+
 <!--title-->
 <div class="row ">
   <div class="col-xl-12">
@@ -30,7 +36,7 @@
                     <select name="class" id="class_id" class="form-control select2" data-toggle = "select2" required onchange="classWiseSection(this.value)">
                         <option value=""><?php echo get_phrase('select_a_class'); ?></option>
                         <?php
-                        $classes = $this->db->get_where('classes', array('school_id' => school_id()))->result_array();
+                        $classes = $this->db->get_where('classes', array('id' =>$teacher_table_data['class_id'],'school_id' => school_id()))->result_array();
                         foreach($classes as $class){
                             ?>
                             <option value="<?php echo $class['id']; ?>"><?php echo $class['name']; ?></option>
@@ -41,7 +47,7 @@
                     <select name="subject" id="subject_id" class="form-control select2" data-toggle = "select2" required onchange="classWiseSection(this.value)">
                         <option value=""><?php echo get_phrase('select_a_subject'); ?></option>
                         <?php
-                        $subjects = $this->db->get_where('subjects', array('school_id' => school_id()))->result_array();
+                        $subjects = $this->db->get_where('subjects', array('id'=>$teacher_table_data['class_id'],'school_id' => school_id()))->result_array();
                         foreach($subjects as $sub){
                             ?>
                             <option value="<?php echo $sub['id']; ?>"><?php echo $sub['name']; ?></option>

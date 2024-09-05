@@ -49,7 +49,13 @@
                         </div>
                         <div class="form-group mb-3 mb-0 text-center">
                             <button class="btn btn-primary btn-block" type="submit"><i class="mdi mdi-login"></i> <?php echo get_phrase('log_in'); ?> </button>
+                             <a href="/eduaug12" class="btn btn-primary">
+                                    Sign Up
+                                    <i class="fa-solid fa-arrow-right-long"></i>
+                            </a>
+
                         </div>
+                        
                     </form>
 
                     <form action="<?php echo site_url('login/retrieve_password'); ?>" method="post" id="forgotForm" style="display: none;">

@@ -1,15 +1,24 @@
+<?php
+$user_id = $this->session->userdata('user_id');
+$teacher_table_data = $this->db->get_where('teachers', ['user_id' => $user_id])->row_array();
+
+?>
 <!--title-->
 <div class="row d-print-none">
   <div class="col-xl-12">
     <div class="card">
       <div class="card-body py-2">
         <h4 class="page-title d-inline-block">
-          <i class="mdi mdi-calendar-today title_icon"></i> <?php echo get_phrase('daily_attendance'); ?>
+          <i class="mdi mdi-calendar-today title_icon"></i> <?php echo get_phrase('daily_attendances'); ?>
         </h4>
-        <button type="button" class="btn btn-outline-primary btn-rounded alignToTitle float-end mt-1" onclick="rightModal('<?php echo site_url('modal/popup/attendance/take_attendance'); ?>', '<?php echo get_phrase('take_attendance'); ?>')"> <i class="mdi mdi-plus"></i> <?php echo get_phrase('take_attendance'); ?></button>
-          <?php if (addon_status('biometric-attendance')): ?>
-            <button type="button" class="btn btn-outline-info btn-rounded alignToTitle float-end my-1 me-1" onclick="rightModal('<?php echo site_url('modal/popup/attendance/biometric_attendance'); ?>', '<?php echo get_phrase('import_biometric_attendance'); ?>')"> <i class="mdi mdi-plus"></i> <?php echo get_phrase('biometric_attendance'); ?></button>
-          <?php endif; ?>
+        <button type="button" class="btn btn-outline-primary btn-rounded alignToTitle float-end mt-1"
+          onclick="rightModal('<?php echo site_url('modal/popup/attendance/take_attendance'); ?>', '<?php echo get_phrase('take_attendance'); ?>')">
+          <i class="mdi mdi-plus"></i> <?php echo get_phrase('take_attendance'); ?></button>
+        <?php if (addon_status('biometric-attendance')): ?>
+          <button type="button" class="btn btn-outline-info btn-rounded alignToTitle float-end my-1 me-1"
+            onclick="rightModal('<?php echo site_url('modal/popup/attendance/biometric_attendance'); ?>', '<?php echo get_phrase('import_biometric_attendance'); ?>')">
+            <i class="mdi mdi-plus"></i> <?php echo get_phrase('biometric_attendance'); ?></button>
+        <?php endif; ?>
       </div> <!-- end card body-->
     </div> <!-- end card -->
   </div><!-- end col-->
@@ -23,35 +32,62 @@
         <div class="col-md-2 mb-1">
           <select name="month" id="month" class="form-control select2" data-bs-toggle="select2" required>
             <option value=""><?php echo get_phrase('select_a_month'); ?></option>
-            <option value="Jan"<?php if(date('M') == 'Jan') echo 'selected'; ?>><?php echo get_phrase('january'); ?></option>
-            <option value="Feb"<?php if(date('M') == 'Feb') echo 'selected'; ?>><?php echo get_phrase('february'); ?></option>
-            <option value="Mar"<?php if(date('M') == 'Mar') echo 'selected'; ?>><?php echo get_phrase('march'); ?></option>
-            <option value="Apr"<?php if(date('M') == 'Apr') echo 'selected'; ?>><?php echo get_phrase('april'); ?></option>
-            <option value="May"<?php if(date('M') == 'May') echo 'selected'; ?>><?php echo get_phrase('may'); ?></option>
-            <option value="Jun"<?php if(date('M') == 'Jun') echo 'selected'; ?>><?php echo get_phrase('june'); ?></option>
-            <option value="Jul"<?php if(date('M') == 'Jul') echo 'selected'; ?>><?php echo get_phrase('july'); ?></option>
-            <option value="Aug"<?php if(date('M') == 'Aug') echo 'selected'; ?>><?php echo get_phrase('august'); ?></option>
-            <option value="Sep"<?php if(date('M') == 'Sep') echo 'selected'; ?>><?php echo get_phrase('september'); ?></option>
-            <option value="Oct"<?php if(date('M') == 'Oct') echo 'selected'; ?>><?php echo get_phrase('october'); ?></option>
-            <option value="Nov"<?php if(date('M') == 'Nov') echo 'selected'; ?>><?php echo get_phrase('november'); ?></option>
-            <option value="Dec"<?php if(date('M') == 'Dec') echo 'selected'; ?>><?php echo get_phrase('december'); ?></option>
+            <option value="Jan" <?php if (date('M') == 'Jan')
+              echo 'selected'; ?>><?php echo get_phrase('january'); ?>
+            </option>
+            <option value="Feb" <?php if (date('M') == 'Feb')
+              echo 'selected'; ?>><?php echo get_phrase('february'); ?>
+            </option>
+            <option value="Mar" <?php if (date('M') == 'Mar')
+              echo 'selected'; ?>><?php echo get_phrase('march'); ?>
+            </option>
+            <option value="Apr" <?php if (date('M') == 'Apr')
+              echo 'selected'; ?>><?php echo get_phrase('april'); ?>
+            </option>
+            <option value="May" <?php if (date('M') == 'May')
+              echo 'selected'; ?>><?php echo get_phrase('may'); ?>
+            </option>
+            <option value="Jun" <?php if (date('M') == 'Jun')
+              echo 'selected'; ?>><?php echo get_phrase('june'); ?>
+            </option>
+            <option value="Jul" <?php if (date('M') == 'Jul')
+              echo 'selected'; ?>><?php echo get_phrase('july'); ?>
+            </option>
+            <option value="Aug" <?php if (date('M') == 'Aug')
+              echo 'selected'; ?>><?php echo get_phrase('august'); ?>
+            </option>
+            <option value="Sep" <?php if (date('M') == 'Sep')
+              echo 'selected'; ?>><?php echo get_phrase('september'); ?>
+            </option>
+            <option value="Oct" <?php if (date('M') == 'Oct')
+              echo 'selected'; ?>><?php echo get_phrase('october'); ?>
+            </option>
+            <option value="Nov" <?php if (date('M') == 'Nov')
+              echo 'selected'; ?>><?php echo get_phrase('november'); ?>
+            </option>
+            <option value="Dec" <?php if (date('M') == 'Dec')
+              echo 'selected'; ?>><?php echo get_phrase('december'); ?>
+            </option>
           </select>
         </div>
         <div class="col-md-2 mb-1">
           <select name="year" id="year" class="form-control select2" data-bs-toggle="select2" required>
             <option value=""><?php echo get_phrase('select_a_year'); ?></option>
-            <?php for($year = 2015; $year <= date('Y'); $year++){ ?>
-              <option value="<?php echo $year; ?>"<?php if(date('Y') == $year) echo 'selected'; ?>><?php echo $year; ?></option>
+            <?php for ($year = 2015; $year <= date('Y'); $year++) { ?>
+              <option value="<?php echo $year; ?>" <?php if (date('Y') == $year)
+                   echo 'selected'; ?>><?php echo $year; ?>
+              </option>
             <?php } ?>
 
           </select>
         </div>
         <div class="col-md-2 mb-1">
-          <select name="class" id="class_id" class="form-control select2" data-bs-toggle="select2" onchange="classWiseSection(this.value)" required>
+          <select name="class" id="class_id" class="form-control select2" data-bs-toggle="select2"
+            onchange="classWiseSectionTeacherLogin(this.value,'<?= $teacher_table_data['section_id'] ?>')" required>
             <option value=""><?php echo get_phrase('select_a_class'); ?></option>
             <?php
-            $classes = $this->db->get_where('classes', array('school_id' => school_id()))->result_array();
-            foreach($classes as $class){
+            $classes = $this->db->get_where('classes', array('id' => $teacher_table_data['class_id'], 'school_id' => school_id()))->result_array();
+            foreach ($classes as $class) {
               ?>
               <option value="<?php echo $class['id']; ?>"><?php echo $class['name']; ?></option>
             <?php } ?>
@@ -63,7 +99,8 @@
           </select>
         </div>
         <div class="col-md-2">
-          <button class="btn btn-block btn-secondary" onclick="filter_attendance()" ><?php echo get_phrase('filter'); ?></button>
+          <button class="btn btn-block btn-secondary"
+            onclick="filter_attendance()"><?php echo get_phrase('filter'); ?></button>
         </div>
       </div>
       <div class="card-body attendance_content">
@@ -78,46 +115,46 @@
 </div>
 
 <script>
-$('document').ready(function(){
-  $('select.select2:not(.normal)').each(function () { $(this).select2({ dropdownParent: '#right-modal' }); }); //initSelect2(['#month', '#year', '#class_id', '#section_id']);
-});
-
-function classWiseSection(classId) {
-  $.ajax({
-    url: "<?php echo route('section/list/'); ?>"+classId,
-    success: function(response){
-      $('#section_id').html(response);
-    }
+  $('document').ready(function () {
+    $('select.select2:not(.normal)').each(function () { $(this).select2({ dropdownParent: '#right-modal' }); }); //initSelect2(['#month', '#year', '#class_id', '#section_id']);
   });
-}
 
-function filter_attendance(){
-  var month = $('#month').val();
-  var year = $('#year').val();
-  var class_id = $('#class_id').val();
-  var section_id = $('#section_id').val();
-  if(class_id != "" && section_id != "" && month != "" && year != ""){
-    getDailtyAttendance();
-  }else{
-    toastr.error('<?php echo get_phrase('please_select_in_all_fields !'); ?>');
-  }
-}
-
-var getDailtyAttendance = function () {
-  var month = $('#month').val();
-  var year = $('#year').val();
-  var class_id = $('#class_id').val();
-  var section_id = $('#section_id').val();
-  if(class_id != "" && section_id != "" && month != "" && year != ""){
+  function classWiseSectionTeacherLogin(classId, sectionId) {
     $.ajax({
-      type: 'POST',
-      url: '<?php echo route('attendance/filter') ?>',
-      data: {month : month, year : year, class_id : class_id, section_id : section_id},
-      success: function(response){
-        $('.attendance_content').html(response);
-        initDataTable('basic-datatable');
+      url: "<?php echo route('section/list/'); ?>" + classId + '/' + sectionId,
+      success: function (response) {
+        $('#section_id').html(response);
       }
     });
   }
-}
+
+  function filter_attendance() {
+    var month = $('#month').val();
+    var year = $('#year').val();
+    var class_id = $('#class_id').val();
+    var section_id = $('#section_id').val();
+    if (class_id != "" && section_id != "" && month != "" && year != "") {
+      getDailtyAttendance();
+    } else {
+      toastr.error('<?php echo get_phrase('please_select_in_all_fields !'); ?>');
+    }
+  }
+
+  var getDailtyAttendance = function () {
+    var month = $('#month').val();
+    var year = $('#year').val();
+    var class_id = $('#class_id').val();
+    var section_id = $('#section_id').val();
+    if (class_id != "" && section_id != "" && month != "" && year != "") {
+      $.ajax({
+        type: 'POST',
+        url: '<?php echo route('attendance/filter') ?>',
+        data: { month: month, year: year, class_id: class_id, section_id: section_id },
+        success: function (response) {
+          $('.attendance_content').html(response);
+          initDataTable('basic-datatable');
+        }
+      });
+    }
+  }
 </script>

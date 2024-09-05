@@ -1,58 +1,107 @@
+<style>
+    .topnav {
+        background: #0272F3;
+    }
+
+    .nav-user .account-user-name {
+        display: block;
+        font-weight: 600;
+        color: #000;
+    }
+
+    .navbar-custom.topnav-navbar {
+        background-color: #0272F3;
+    }
+
+    .navbar-toggler {
+        background-color: transparent;
+        border: none;
+        cursor: pointer;
+        margin-left: 15px;
+        padding: 0;
+        border: 22px solid #0272F3;
+    }
+
+    .navbar-toggler i {
+        font-size: 24px;
+        color: #fff;
+        display: inline-block;
+    }
+
+    @media (max-width: 768px) {
+        .navbar-toggler {
+            display: none;
+        }
+    }
+</style>
+
 <!-- Topbar Start -->
-<div class="navbar-custom topnav-navbar topnav-navbar-dark">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+
+<div class="navbar-custom topnav-navbar topnav">
     <div class="container-fluid">
 
         <!-- LOGO -->
-        <a href="<?php echo site_url($this->session->userdata('role')); ?>" class="topnav-logo" style = "min-width: unset;">
+        <a href="<?php echo site_url($this->session->userdata('role')); ?>" class="topnav-logo"
+            style="min-width: unset;">
             <span class="topnav-logo-lg">
-                <img src="<?php echo $this->settings_model->get_logo_light(); ?>" alt="" height="40">
+                <img src="<?php echo $this->settings_model->get_logo_light(); ?>" alt="" height="80">
             </span>
             <span class="topnav-logo-sm">
                 <img src="<?php echo $this->settings_model->get_logo_light('small'); ?>" alt="" height="40">
             </span>
         </a>
 
+        <!-- Toggle Button -->
+        <button class="navbar-toggler" type="button" id="togl" aria-label="Toggle navigation">
+            <i class="fas fa-bars"></i>
+        </button>
+
         <ul class="list-unstyled topbar-menu float-end mb-0">
 
-          <?php if ($this->session->userdata('user_type') == 'superadmin'): ?>
-              <li class="dropdown notification-list topbar-dropdown d-none d-lg-block">
-                  <a class="nav-link dropdown-toggle arrow-none" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="false" aria-expanded="false" onclick="getLanguageList()">
-                      <i class="mdi mdi-translate noti-icon"></i> <?php echo ucfirst(get_settings('language')); ?>
-                  </a>
-                  <div class="dropdown-menu dropdown-menu-end dropdown-menu-animated dropdown-lg">
+            <?php if ($this->session->userdata('user_type') == 'superadmin'): ?>
+                <li class="dropdown notification-list topbar-dropdown d-none d-lg-block">
+                    <a class="nav-link dropdown-toggle arrow-none" data-bs-toggle="dropdown" href="#" role="button"
+                        aria-haspopup="false" aria-expanded="false" onclick="getLanguageList()">
+                        <i class="mdi mdi-translate noti-icon"></i> <?php echo ucfirst(get_settings('language')); ?>
+                    </a>
+                    <div class="dropdown-menu dropdown-menu-end dropdown-menu-animated dropdown-lg">
 
-                      <!-- item-->
-                      <div class="dropdown-item noti-title">
-                          <h5 class="m-0">
-                              <?php echo get_phrase('language'); ?>
-                          </h5>
-                      </div>
+                        <!-- item-->
+                        <div class="dropdown-item noti-title">
+                            <h5 class="m-0">
+                                <?php echo get_phrase('language'); ?>
+                            </h5>
+                        </div>
 
-                      <div class="slimscroll" id="language-list" style="min-height: 150px;">
+                        <div class="slimscroll" id="language-list" style="min-height: 150px;">
 
-                      </div>
-                  </div>
-              </li>
-          <?php endif; ?>
+                        </div>
+                    </div>
+                </li>
+            <?php endif; ?>
 
             <li class="dropdown notification-list">
-                <a class="nav-link dropdown-toggle nav-user arrow-none me-0" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="false"
-                aria-expanded="false">
+                <a class="nav-link dropdown-toggle nav-user arrow-none me-0" data-bs-toggle="dropdown" href="#"
+                    role="button" aria-haspopup="false" aria-expanded="false">
                     <span class="account-user-avatar">
-                        <img src="<?php echo $this->user_model->get_user_image($this->session->userdata('user_id')); ?>" alt="user-image" class="rounded-circle">
+                        <img src="<?php echo $this->user_model->get_user_image($this->session->userdata('user_id')); ?>"
+                            alt="user-image" class="rounded-circle">
                     </span>
                     <span>
                         <span class="account-user-name"><?php echo $user_name; ?></span>
                         <?php if (strtolower($this->db->get_where('users', array('id' => $user_id))->row('role')) == 'admin'): ?>
                             <span class="account-position"><?php echo get_phrase('school_admin'); ?></span>
                         <?php else: ?>
-                            <span class="account-position"><?php echo ucfirst($this->db->get_where('users', array('id' => $user_id))->row('role')); ?></span>
+                            <span
+                                class="account-position"><?php echo ucfirst($this->db->get_where('users', array('id' => $user_id))->row('role')); ?></span>
                         <?php endif; ?>
 
                     </span>
                 </a>
 
-                <div class="dropdown-menu dropdown-menu-end dropdown-menu-animated topbar-dropdown-menu profile-dropdown">
+                <div
+                    class="dropdown-menu dropdown-menu-end dropdown-menu-animated topbar-dropdown-menu profile-dropdown">
                     <!-- item-->
                     <div class=" dropdown-header noti-title">
                         <h6 class="text-overflow m-0"><?php echo get_phrase('welcome'); ?> !</h6>
@@ -98,12 +147,19 @@
 
 
 <script type="text/javascript">
-function getLanguageList() {
-    $.ajax({
-        url: "<?php echo route('language/dropdown'); ?>",
-        success: function(response){
-            $('#language-list').html(response);
-        }
+    function getLanguageList() {
+        $.ajax({
+            url: "<?php echo route('language/dropdown'); ?>",
+            success: function (response) {
+                $('#language-list').html(response);
+            }
+        });
+    }
+    $(document).ready(function () {
+
+        $("#togl").click(function () {
+            $(".leftside-menu-detached").toggle();
+        });
+
     });
-}
 </script>

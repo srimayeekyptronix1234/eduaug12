@@ -433,6 +433,7 @@ class Crud_model extends CI_Model {
 		$data['section_id'] = html_escape($this->input->post('section_id'));
 		$data['school_id'] = $this->school_id;
 		$data['session_id'] = $this->active_session;
+		$data['month']=html_escape($this->input->post('month'));
 		$check_data = $this->db->get_where('daily_attendances', array('timestamp' => $data['timestamp'], 'class_id' => $data['class_id'], 'section_id' => $data['section_id'], 'session_id' => $data['session_id'], 'school_id' => $data['school_id']));
 		if($check_data->num_rows() > 0){
 			foreach($students as $key => $student):
@@ -955,22 +956,17 @@ class Crud_model extends CI_Model {
 			$data['updated_at'] = strtotime(date('d-M-Y'));
 		}
 
-		if ($data['paid_amount'] > $data['total_amount']) {
-			$response = array(
-				'status' => false,
-				'notification' => get_phrase('paid_amount_can_not_get_bigger_than_total_amount')
-			);
-			return json_encode($response);
-		}
-		if ($data['status'] == 'paid' && $data['total_amount'] != $data['paid_amount']) {
-			$response = array(
-				'status' => false,
-				'notification' => get_phrase('paid_amount_is_not_equal_to_total_amount')
-			);
-			return json_encode($response);
-		}
-
+		
 		$this->db->insert('invoices', $data);
+		if($data['status'] == 'paid' || $data['status'] == 'partialy'){
+		   $insert_data['date'] = strtotime(date('d-M-Y'));
+		   $insert_data['income_category_id'] = '1';
+		   $insert_data['school_id'] = $this->school_id;
+		   $insert_data['session'] = $this->active_session;
+		   $insert_data['created_at'] = strtotime(date('d-M-Y'));
+		   $insert_data['amount'] = $data['paid_amount'];
+		   $this->db->insert('income_manager', $insert_data);
+		}
 
 		$response = array(
 			'status' => true,
@@ -983,27 +979,9 @@ class Crud_model extends CI_Model {
 		$data['total_amount'] = htmlspecialchars($this->input->post('total_amount'));
 		$data['paid_amount'] = htmlspecialchars($this->input->post('paid_amount'));
 		$data['status'] = htmlspecialchars($this->input->post('status'));
-
-		if ($data['paid_amount'] > $data['total_amount']) {
-			$response = array(
-				'status' => false,
-				'notification' => get_phrase('paid_amount_can_not_get_bigger_than_total_amount')
-			);
-			return json_encode($response);
-		}
-
-		if ($data['status'] == 'paid' && $data['total_amount'] != $data['paid_amount']) {
-			$response = array(
-				'status' => false,
-				'notification' => get_phrase('paid_amount_is_not_equal_to_total_amount')
-			);
-			return json_encode($response);
-		}
-
 		if ($data['total_amount'] == $data['paid_amount']) {
 			$data['status'] = 'paid';
 		}
-
 		$data['title'] = htmlspecialchars($this->input->post('title'));
 		$data['class_id'] = htmlspecialchars($this->input->post('class_id'));
 		$data['school_id'] = $this->school_id;
@@ -1019,6 +997,15 @@ class Crud_model extends CI_Model {
 		foreach ($enrolments as $enrolment) {
 			$data['student_id'] = $enrolment['student_id'];
 			$this->db->insert('invoices', $data);
+			if($data['status'] == 'paid' || $data['status'] == 'partialy'){
+			   $insert_data['date'] = strtotime(date('d-M-Y'));
+			   $insert_data['income_category_id'] = '1';
+			   $insert_data['school_id'] = $this->school_id;
+			   $insert_data['session'] = $this->active_session;
+			   $insert_data['created_at'] = strtotime(date('d-M-Y'));
+			   $insert_data['amount'] = $data['paid_amount'];
+			   $this->db->insert('income_manager', $insert_data);
+		   }
 		}
 
 		if (sizeof($enrolments) > 0) {
@@ -2092,8 +2079,300 @@ class Crud_model extends CI_Model {
 		);
 		return json_encode($response);
 	}
+	public function take_staff_attendance()
+	{
+		$staffs = $this->input->post('staff_id');
+		$data['timestamp'] = strtotime($this->input->post('date'));
+		$data['school_id'] = $this->school_id;
+		$data['session_id'] = $this->active_session;
+		$data['role']=$this->input->post('role');
+		$check_data = $this->db->get_where('staff_attendance', array('timestamp' => $data['timestamp'],'session_id' => $data['session_id'], 'school_id' => $data['school_id'],'role'=>$data['role']));
+		if($check_data->num_rows() > 0){
+			foreach($staffs as $key => $staff):
+				$data['status'] = $this->input->post('status-'.$staff);
+				$data['staff_id'] = $staff;
+				$attendance_id = $this->input->post('attendance_id');
+				$this->db->where('id', $attendance_id[$key]);
+				$this->db->update('staff_attendance', $data);
+			endforeach;
+		}else{
+			foreach($staffs as $staff):
+				$data['status'] = $this->input->post('status-'.$staff);
+				$data['staff_id'] = $staff;
+				$this->db->insert('staff_attendance', $data);
+			endforeach;
+		}
 
-   
+		$this->settings_model->last_updated_attendance_data();
+
+		$response = array(
+			'status' => true,
+			'notification' => get_phrase('attendance_updated_successfully')
+		);
+
+		return json_encode($response);
+	}
+    public function create_income_category() {
+		$data['name'] = htmlspecialchars($this->input->post('name'));
+		$data['school_id'] = $this->school_id;
+		$data['session'] = $this->active_session;
+		$this->db->insert('income_categories', $data);
+		$response = array(
+			'status' => true,
+			'notification' => get_phrase('income_category_added_successfully')
+		);
+		return json_encode($response);
+	}
+	public function get_income_categories($id = "") {
+		if ($id > 0) {
+			$this->db->where('id', $id);
+		}
+		$this->db->where('school_id', $this->school_id);
+		$this->db->where('session', $this->active_session);
+		return $this->db->get('income_categories');
+	}
 	
+    public function update_income_category($id) {
+		$data['name'] = htmlspecialchars($this->input->post('name'));
+		$this->db->where('id', $id);
+		$this->db->update('income_categories', $data);
+		$response = array(
+			'status' => true,
+			'notification' => get_phrase('income_category_updated_successfully')
+		);
+		return json_encode($response);
+	}
+    public function delete_income_category($id) {
+		$this->db->where('id', $id);
+		$this->db->delete('income_categories');
+		$response = array(
+			'status' => true,
+			'notification' => get_phrase('income_category_deleted_successfully')
+		);
+		return json_encode($response);
+	}
+    public function create_income_manager() {
+		$data['date'] = strtotime($this->input->post('date'));
+		$data['amount'] = htmlspecialchars($this->input->post('amount'));
+		$data['income_category_id'] = htmlspecialchars($this->input->post('income_category_id'));
+		$data['school_id'] = $this->school_id;
+		$data['session'] = $this->active_session;
+		$data['created_at'] = strtotime(date('d-M-Y'));
+		$this->db->insert('income_manager', $data);
+
+		$response = array(
+			'status' => true,
+			'notification' => get_phrase('income_added_successfully')
+		);
+		return json_encode($response);
+	}
+    public function get_income_manager($date_from = "", $date_to = "", $income_category_id = "") {
+		if ($income_category_id > 0) {
+			$this->db->where('income_category_id', $income_category_id);
+		}
+		$this->db->where('date >=', $date_from);
+		$this->db->where('date <=', $date_to);
+		$this->db->where('school_id', $this->school_id);
+		$this->db->where('session', $this->active_session);
+		return $this->db->get('income_manager');
+	}
+    public function get_income_by_id($id = "") {
+		return $this->db->get_where('income_manager', array('id' => $id))->row_array();
+	}
+    public function update_income_manager($id = "") {
+		$data['date'] = strtotime($this->input->post('date'));
+		$data['amount'] = htmlspecialchars($this->input->post('amount'));
+		$data['income_category_id'] = htmlspecialchars($this->input->post('income_category_id'));
+		$data['school_id'] = $this->school_id;
+		$data['session'] = $this->active_session;
+		$this->db->where('id', $id);
+		$this->db->update('income_manager', $data);
+
+		$response = array(
+			'status' => true,
+			'notification' => get_phrase('income_updated_successfully')
+		);
+		return json_encode($response);
+	}
+    public function delete_income_manager($id = "") {
+		$this->db->where('id', $id);
+		$this->db->delete('income_manager');
+
+		$response = array(
+			'status' => true,
+			'notification' => get_phrase('income_deleted_successfully')
+		);
+		return json_encode($response);
+	}
+	public function save_staff_salary() {
+		$data['staff_name'] = htmlspecialchars($this->input->post('staff_name'));
+		$data['staff_role'] = htmlspecialchars($this->input->post('role'));
+		$data['month'] = htmlspecialchars($this->input->post('month'));
+		$data['date'] = htmlspecialchars($this->input->post('date'));
+		$data['salary_amount'] = htmlspecialchars($this->input->post('salary_amount'));
+		$data['status'] = htmlspecialchars($this->input->post('status'));
+
+		$this->db->insert('staff_salary', $data);
+		if($data['status'] == '1' || $data['status'] == '3'){
+		   $insert_data['date'] = strtotime(date('d-M-Y'));
+		   $insert_data['expense_category_id'] = '1';
+		   $insert_data['school_id'] = $this->school_id;
+		   $insert_data['session'] = $this->active_session;
+		   $insert_data['created_at'] = strtotime(date('d-M-Y'));
+		   $insert_data['amount'] = $data['salary_amount'];
+		   $this->db->insert('expenses', $insert_data);
+		}
+		$response = array(
+			'status' => true,
+			'notification' => get_phrase('staff_salary_added_successfully')
+		);
+		return json_encode($response);
+	}
+    public function update_staff_salary($id) {
+		$data['month'] = htmlspecialchars($this->input->post('month'));
+		$data['date'] = htmlspecialchars($this->input->post('date'));
+		$data['salary_amount'] = htmlspecialchars($this->input->post('salary_amount'));
+		$data['status'] = htmlspecialchars($this->input->post('status'));
+
+		$this->db->where('id', $id);
+		$this->db->update('staff_salary', $data);
+		$response = array(
+			'status' => true,
+			'notification' => get_phrase('staff_salary_updated_successfully')
+		);
+		return json_encode($response);
+	}
+	public function delete_staff_salary($id) {
+		$this->db->where('id', $id);
+		$this->db->delete('staff_salary');
+		$response = array(
+			'status' => true,
+			'notification' => get_phrase('staff_salary_deleted_successfully')
+		);
+		return json_encode($response);
+	}
+	public function get_student_classwork_marks_parent_login($exam_id = "",$class_id = "",$section_id = "", $subject_id = "") {
+		  $parent_id = $this->session->userdata('user_id');
+          $parent_data = $this->db->get_where('parents', array('user_id' => $parent_id))->row_array();
+
+		  $this->db->select('c.*,s.user_id');
+          $this->db->from('students s');
+			$checker = array(
+				'c.class_id' => $class_id,
+				'c.section_id' => $section_id,
+				'c.subject_id' => $subject_id,
+				'c.exam_id' => $exam_id,
+				'c.school_id' => $this->school_id,
+				'c.session' => $this->active_session
+			);
+			$this->db->where($checker);
+	        $this->db->where('s.parent_id', $parent_data['id']);
+	        $this->db->join('classwork c','c.student_id =s.id');
+			return $this->db->get()->result_array();
+	}
+    public function get_student_project_marks_parent_login($exam_id = "",$class_id = "",$section_id = "", $subject_id = "") {
+		  $parent_id = $this->session->userdata('user_id');
+          $parent_data = $this->db->get_where('parents', array('user_id' => $parent_id))->row_array();
+
+		  $this->db->select('p.*,s.user_id');
+          $this->db->from('students s');
+			$checker = array(
+				'p.class_id' => $class_id,
+				'p.section_id' => $section_id,
+				'p.subject_id' => $subject_id,
+				'p.exam_id' => $exam_id,
+				'p.school_id' => $this->school_id,
+				'p.session' => $this->active_session
+			);
+			$this->db->where($checker);
+	        $this->db->where('s.parent_id', $parent_data['id']);
+	        $this->db->join('project p','p.student_id =s.id');
+			return $this->db->get()->result_array();
+	}
+    public function get_student_behaviour_marks_parent_login($exam_id = "",$class_id = "",$section_id = "", $subject_id = "") {
+		  $parent_id = $this->session->userdata('user_id');
+          $parent_data = $this->db->get_where('parents', array('user_id' => $parent_id))->row_array();
+
+		  $this->db->select('b.*,s.user_id');
+          $this->db->from('students s');
+			$checker = array(
+				'b.class_id' => $class_id,
+				'b.section_id' => $section_id,
+				'b.subject_id' => $subject_id,
+				'b.exam_id' => $exam_id,
+				'b.school_id' => $this->school_id,
+				'b.session' => $this->active_session
+			);
+			$this->db->where($checker);
+	        $this->db->where('s.parent_id', $parent_data['id']);
+	        $this->db->join('behaviour b','b.student_id =s.id');
+			return $this->db->get()->result_array();
+	}
+    public function get_student_homework_marks_parent_login($exam_id = "",$class_id = "",$section_id = "", $subject_id = "") {
+		  $parent_id = $this->session->userdata('user_id');
+          $parent_data = $this->db->get_where('parents', array('user_id' => $parent_id))->row_array();
+
+		  $this->db->select('h.*,s.user_id');
+          $this->db->from('students s');
+			$checker = array(
+				'h.class_id' => $class_id,
+				'h.section_id' => $section_id,
+				'h.subject_id' => $subject_id,
+				'h.exam_id' => $exam_id,
+				'h.school_id' => $this->school_id,
+				'h.session' => $this->active_session
+			);
+			$this->db->where($checker);
+	        $this->db->where('s.parent_id', $parent_data['id']);
+	        $this->db->join('homework h','h.student_id =s.id');
+			return $this->db->get()->result_array();
+	}
+    public function assignment_create()
+	{
+		$data['class'] = html_escape($this->input->post('class'));
+		$data['section'] = html_escape($this->input->post('section'));
+		$data['school_id'] = html_escape($this->input->post('school_id'));
+		$data['subject'] = html_escape($this->input->post('subject'));
+		$data['remark'] = html_escape($this->input->post('remark'));
+		$data['lesson'] = html_escape($this->input->post('lesson'));
+		$data['teacher_id'] = html_escape($this->input->post('teacher_id'));
+		$data['date'] = htmlspecialchars($this->input->post('date'));
+		$this->db->insert('assignment', $data);
+
+		$response = array(
+			'status' => true,
+			'notification' => get_phrase('assignment_has_been_added_successfully')
+		);
+
+		return json_encode($response);
+	}
+	public function assignment_update($id)
+	{
+		$data['class'] = html_escape($this->input->post('class'));
+		$data['section'] = html_escape($this->input->post('section'));
+		$data['subject'] = html_escape($this->input->post('subject'));
+		$data['remark'] = html_escape($this->input->post('remark'));
+		$data['lesson'] = html_escape($this->input->post('lesson'));
+	    $data['date'] = htmlspecialchars($this->input->post('date'));
+        $this->db->where('id',$id);
+		$this->db->update('assignment', $data);
+
+		$response = array(
+			'status' => true,
+			'notification' => get_phrase('assignment_has_been_updated_successfully')
+		);
+
+		return json_encode($response);
+	}
+    public function assignment_delete($id) {
+		$this->db->where('id', $id);
+		$this->db->delete('assignment');
+		$response = array(
+			'status' => true,
+			'notification' => get_phrase('assignment_deleted_successfully')
+		);
+		return json_encode($response);
+	}
+
 
 }

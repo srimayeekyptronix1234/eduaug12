@@ -1,3 +1,9 @@
+<?php 
+$user_id = $this->session->userdata('user_id');
+$teacher_table_data=$this->db->get_where('teachers',['user_id'=>$user_id])->row_array();
+
+?>
+
 <!--title-->
 <div class="row ">
     <div class="col-xl-12">
@@ -27,10 +33,10 @@
                     </select>
                 </div>
                 <div class="col-md-2 mb-1">
-                    <select name="class" id="class_id" class="form-control select2" data-toggle = "select2" required onchange="classWiseSection(this.value)">
+                    <select name="class" id="class_id" class="form-control select2" data-toggle = "select2" required onchange="classWiseSectionTeacherLogin(this.value,'<?=$teacher_table_data['section_id']?>')">
                         <option value=""><?php echo get_phrase('select_a_class'); ?></option>
                         <?php
-                        $classes = $this->db->get_where('classes', array('school_id' => school_id()))->result_array();
+                        $classes = $this->db->get_where('classes', array('id'=>$teacher_table_data['class_id'],'school_id' => school_id()))->result_array();
                         foreach($classes as $class){
                             ?>
                             <option value="<?php echo $class['id']; ?>"><?php echo $class['name']; ?></option>
@@ -67,14 +73,16 @@ $('document').ready(function(){
     $('select.select2:not(.normal)').each(function () { $(this).select2({ dropdownParent: '#right-modal' }); }); //initSelect2(['#class_id', '#exam_id', '#section_id', '#subject_id']);
 });
 
-function classWiseSection(classId) {
-    $.ajax({
-        url: "<?php echo route('section/list/'); ?>"+classId,
-        success: function(response){
-            $('#section_id').html(response);
-            classWiseSubject(classId);
-        }
-    });
+
+function classWiseSectionTeacherLogin(classId,sectionId) {
+  $.ajax({
+    url: "<?php echo route('section/list/'); ?>"+classId+'/'+sectionId,
+    success: function(response){
+      $('#section_id').html(response);
+      classWiseSubject(classId);
+
+    }
+  });
 }
 
 function classWiseSubject(classId) {

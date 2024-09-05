@@ -1,13 +1,15 @@
 <!--title-->
 <div class="row ">
     <div class="col-xl-12">
-      <div class="card">
-        <div class="card-body">
-          <h4 class="page-title"> <i class="mdi mdi-account-circle title_icon"></i> <?php echo get_phrase('teachers'); ?> </h4>
-        </div> <!-- end card body-->
-      </div> <!-- end card -->
+        <div class="card">
+            <div class="card-body">
+                <h4 class="page-title"> <i class="mdi mdi-account-circle title_icon"></i>
+                    <?php echo get_phrase('teachers'); ?> </h4>
+            </div> <!-- end card body-->
+        </div> <!-- end card -->
     </div><!-- end col-->
-  </div>
+</div>
+
 <div class="row">
     <div class="col-12">
         <div class="card">
@@ -23,9 +25,9 @@
         var url = '<?php echo route('teacher/list'); ?>';
 
         $.ajax({
-            type : 'GET',
+            type: 'GET',
             url: url,
-            success : function(response) {
+            success: function (response) {
                 $('.teacher_content').html(response);
                 initDataTable('basic-datatable');
             }

@@ -18,7 +18,19 @@ $school_id = school_id();
     </div>
     <div class="form-group mb-1">
       <label for="name">Driver</label>
-      <input type="text" class="form-control" id="vehicle_driver" name="vehicle_driver" required>
+      <select name="vehicle_driver" id="vehicle_driver" class="form-control select6" data-toggle = "select6">
+        <option value=""><?php echo get_phrase('select_a_driver'); ?></option>
+        <?php 
+          $this->db->select('u.name');
+          $this->db->where('u.role','driver');
+          $all_drivers=$this->db->get('users u')->result_array();
+
+        ?>
+        <?php foreach($all_drivers as $drivers){ ?>
+          <option value="<?php echo $drivers['name']; ?>"><?php echo $drivers['name']; ?></option>
+        <?php } ?>
+      </select>
+
     </div>
     <div class="form-group mb-1">
       <label for="name">Note</label>
