@@ -1,5 +1,9 @@
 <?php
 $school_id = school_id();
+// echo "hello";print_r($user_details); 
+// $subject = $this->db->get_where('subjects', array('class_id' => $class_id))
+// exit;
+
 // $marks = $this->db->get_where('marks', array(
 //     'class_id' => $class_id,
 //     'section_id' => $section_id,
@@ -244,14 +248,66 @@ $subject = $this->db->get_where('subjects', array('class_id' => $class_id))->res
                 }
             endforeach; 
             ?>
+
         </tbody>
+
+        
+
     </table>
+
+    <div id="remarks_add">    
+    <form method="POST" id="remarksFrm">
+        <input type="hidden" name="for_remark_hid_studentId" id="for_remark_hid_studentId" value="<?php echo $student_id;?>">
+        <label for="name">Behavior/Conduct Grade:</label>
+        <input type="text" id="behavior_grade" name="behavior_grade" value="<?php echo $user_details['behavior_grade'];?>" required>
+
+        <label for="message">Final Remarks:</label>
+        <textarea id="student_remarks" name="student_remarks" rows="4" cols="50" required><?php echo $user_details['student_remarks'];?></textarea>
+
+        <button id="remarks_submit">Save</button>
+    </form>
+</div>
+
 <?php else: ?>
     <?php include APPPATH.'views/backend/empty.php'; ?>
 <?php endif; ?>
 
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script>
 
+// Submit student total remarks
+    $("#remarks_submit").click(function(event) {
+        event.preventDefault(); // Prevent the default form submission
 
+        var student_id = $('#for_remark_hid_studentId').val();
+        var behavior_grade = $('#behavior_grade').val();
+        var student_remarks = $('#student_remarks').val();
+
+        $.ajax({
+            type: 'POST',
+            url: '<?php echo site_url('admin/final_report_card/remarks_submit') ?>',
+            data: { behavior_grade: behavior_grade, student_remarks: student_remarks, student_id: student_id },
+            success: function(response) {
+                console.log(response);
+                const responseObject = JSON.parse(response);
+                if (responseObject.status === true) {
+                    Swal.fire({
+                        title: 'Success!',
+                        text: responseObject.notification,
+                        icon: 'success',
+                        confirmButtonText: 'OK'
+                    });
+                } else {
+                    Swal.fire({
+                        title: 'Error!',
+                        text: 'An error occurred',
+                        icon: 'error',
+                        confirmButtonText: 'OK'
+                    });
+                }
+                
+            }
+        });
+    });
     
 </script>

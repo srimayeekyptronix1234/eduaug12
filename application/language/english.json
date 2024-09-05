@@ -1565,5 +1565,7 @@
     "lesson:": "Lesson:",
     "remark:": "Remark:",
     "payslip_pdf": "Payslip pdf",
-    "payment_month": "Payment month"
+    "payment_month": "Payment month",
+    "quarterly_report_card": "Quarterly report card"
+
 }

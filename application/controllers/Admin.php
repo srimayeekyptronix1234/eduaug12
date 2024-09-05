@@ -1,6 +1,12 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
+// Include Composer's autoload
+require_once FCPATH . 'vendor/autoload.php';
+
+use Dompdf\Dompdf;
+use Dompdf\Options;
+
 class Admin extends CI_Controller {
 
 	public function __construct(){
@@ -539,6 +545,13 @@ class Admin extends CI_Controller {
 			$response = $this->user_model->student_update($param2, $param3);
 			echo $response;
 		}
+
+		//updated to database
+		if($param1 == 'updated-leaving-data'){
+			$response = $this->user_model->student_update_leaving_data($param2);
+			echo $response;
+		}
+
 		//updated to database
 		if($param1 == 'id_card'){
 			$page_data['student_id'] = $param2;
@@ -557,6 +570,66 @@ class Admin extends CI_Controller {
 			$page_data['class_id'] = $param2;
 			$page_data['section_id'] = $param3;
 			$this->load->view('backend/admin/student/list', $page_data);
+		}
+
+		// Download student certificate
+		if($param1 == 'download-certificate'){
+
+		// Instantiate and configure dompdf
+        $options = new Options();
+        $options->set('isHtml5ParserEnabled', true);
+        $options->set('isRemoteEnabled', true);
+        $dompdf = new Dompdf($options);
+
+		$page_data['student_id'] = $param2;
+		$page_data['student_details'] = $this->user_model->get_user_details($param2);
+
+        // Load HTML content
+        $html = $this->load->view('backend/admin/student-certificate/certificate',$page_data, true);
+
+        // Load the HTML content into dompdf
+        $dompdf->loadHtml($html);
+
+        // Set paper size and orientation
+        $dompdf->setPaper('A4', 'portrait');
+
+        // Render the PDF
+        $dompdf->render();
+
+		$fileName = 'Student_certificate-'.$param2.'.pdf';
+        // Output the generated PDF to the browser (1 = download, 0 = preview)
+        $dompdf->stream($fileName, array("Attachment" => 1));
+
+		}
+
+		// Download student leaving certificate
+		if($param1 == 'download-leaving-certificate'){
+
+		// Instantiate and configure dompdf
+        $options = new Options();
+        $options->set('isHtml5ParserEnabled', true);
+        $options->set('isRemoteEnabled', true);
+        $dompdf = new Dompdf($options);
+
+		$page_data['student_id'] = $param2;
+		$page_data['student_details'] = $this->user_model->get_user_details($param2);
+
+        // Load HTML content
+        $html = $this->load->view('backend/admin/student-certificate/leaving-certificate',$page_data, true);
+
+        // Load the HTML content into dompdf
+        $dompdf->loadHtml($html);
+
+        // Set paper size and orientation
+        $dompdf->setPaper('A4', 'portrait');
+
+        // Render the PDF
+        $dompdf->render();
+
+		$fileName = 'Student_leaving_certificate-'.$param2.'.pdf';
+        // Output the generated PDF to the browser (1 = download, 0 = preview)
+        $dompdf->stream($fileName, array("Attachment" => 1));
+
 		}
 
 		if(empty($param1)){
@@ -722,7 +795,7 @@ class Admin extends CI_Controller {
         $students = $this->crud_model->get_students_by_class($class_id);
         echo '<option value="">'.get_phrase('select_student').'</option>';
         foreach ($students as $student) {
-            echo '<option value="'.$student['id'].'">'.$this->user_model->get_user_details($student['user_id'], 'name').'</option>';
+            echo '<option value="'.$student['id'].'">'.$this->user_model->get_user_details($student['id'], 'name').'</option>';
         }
     }
 
@@ -1456,6 +1529,9 @@ class Admin extends CI_Controller {
 			$student_id = $this->input->post('student_id'); 
 			//$exam_id = $this->input->post('exam_id');
 	
+			// Get user details
+			$data['user_details'] =$this->user_model->get_user_details($student_id);
+			
 			// Fetch necessary data
 			$data['class_id'] = $class_id;
 			$data['section_id'] = $section_id;
@@ -1464,9 +1540,50 @@ class Admin extends CI_Controller {
 	
 			// Load the list view with the data
 			$this->load->view('backend/admin/finalreportcard/list', $data);
+		} else if ($param1 == 'remarks_submit') {
+			// Collect the posted data
+			$behavior_grade = $this->input->post('behavior_grade');
+			$student_remarks = $this->input->post('student_remarks');
+			$student_id = $this->input->post('student_id'); 
+
+			// Fetch necessary data
+			$data['behavior_grade'] = $behavior_grade;
+			$data['student_remarks'] = $student_remarks;
+			$data['student_id'] = $student_id;
+			$response = $this->user_model->student_remarks_update($data);
+			//echo $response;
+			echo $response;
 		} else {
 			$page_data['page_name'] = 'finalreportcard/index';
 			$page_data['page_title'] = get_phrase('manage_final_report_cards');
+			$this->load->view('backend/index', $page_data);
+		}
+	}
+	// Quarterly Grade calculation
+	public function quarterly_report_card($param1 = '', $param2 = '', $param3 = '') {
+		if ($param1 == 'list') {
+			// Collect the posted data
+			$exam_id = $this->input->post('exam_id');
+			$class_id = $this->input->post('class_id');
+			$section_id = $this->input->post('section_id');
+			$student_id = $this->input->post('student_id'); 
+			//$exam_id = $this->input->post('exam_id');
+	
+			// Get user details
+			$data['user_details'] =$this->user_model->get_user_details($student_id);
+			
+			// Fetch necessary data
+			$data['exam_id'] = $exam_id;
+			$data['class_id'] = $class_id;
+			$data['section_id'] = $section_id;
+			$data['student_id'] = $student_id;
+			//$data['exam_id'] = $exam_id;
+	
+			// Load the list view with the data
+			$this->load->view('backend/admin/quarterlyreportcard/list', $data);
+		} else {
+			$page_data['page_name'] = 'quarterlyreportcard/index';
+			$page_data['page_title'] = get_phrase('manage_quarterly_report_cards');
 			$this->load->view('backend/index', $page_data);
 		}
 	}

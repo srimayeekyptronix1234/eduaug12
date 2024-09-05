@@ -157,6 +157,11 @@ foreach($users as $user):
           <input type="file" class="form-control" id="image_file" name = "image_file">
       </div>
 
+      <div class="form-group mb-1">
+          <label for="image_file"><?php echo get_phrase('upload_signature'); ?></label>
+          <input type="file" class="form-control" id="signature_file" name="signature_file">
+      </div>
+
       <div class="form-group mt-2 col-md-12">
         <button class="btn btn-block btn-primary" type="submit"><?php echo get_phrase('update_teacher'); ?></button>
       </div>
