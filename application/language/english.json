@@ -1565,5 +1565,21 @@
     "lesson:": "Lesson:",
     "remark:": "Remark:",
     "payslip_pdf": "Payslip pdf",
-    "quarterly_report_card": "Quarterly report card"
+    "quarterly_report_card": "Quarterly report card",
+    "manage_quarterly_report_cards": "Manage quarterly report cards",
+    "download_certificate": "Download certificate",
+    "leaving_data_update": "Leaving data update",
+    "download_leaving_certificate": "Download leaving certificate",
+    "academic_performance_certificate": "Academic performance certificate",
+    "school_leaving_certificate": "School leaving certificate",
+    "leaving_date": "Leaving date",
+    "provide_leaving_date": "Provide leaving date",
+    "reason_for_leaving": "Reason for leaving",
+    "provide_reason_for_leaving": "Provide reason for leaving",
+    "academic_performance": "Academic performance",
+    "provide_academic_performance": "Provide academic performance",
+    "add": "Add",
+    "student_leaving_data_updated_successfully": "Student leaving data updated successfully",
+    "upload_signature": "Upload signature",
+    "payment_month": "Payment month"
 }

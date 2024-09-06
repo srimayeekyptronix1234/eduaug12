@@ -4,9 +4,8 @@
   }else{
     $action = get_phrase($action);
   }
-  $staff_salary_details=$this->db->get_where('staff_salary',['id'=>$staff_salary_id])->row_array();
-  $user_details=$this->db->get_where('users',['id'=>$staff_salary_details['staff_name']])->row_array();
-
+  $staff_salary_details=$this->db->get_where('staff_salary',['staff_name'=>$user_id])->result_array();
+  $user_details=$this->db->get_where('users',['id'=>$user_id])->row_array();
 ?>
 <!DOCTYPE html>
 <html>
@@ -23,6 +22,7 @@
   <table width="100%">
     <thead>
       <tr>
+        <th><?php echo get_phrase('payment_month');?></th>
         <th><?php echo get_phrase('staff_role'); ?></th>
         <th><?php echo get_phrase('staff_name'); ?></th>
         <th><?php echo get_phrase('salary'); ?></th>
@@ -31,36 +31,47 @@
       </tr>
     </thead>
     <tbody>
+      <?php if(count($staff_salary_details) > 0){
+             foreach($staff_salary_details as $staff){
+      ?>
         <tr>
+           <td><?php 
+                 $monthNum = sprintf("%02s", $staff["month"]);
+                 $monthName = date("F", strtotime($monthNum));
+                  echo $monthName;
+             ?>
+          </td>
            <td>
-              <?=$staff_salary_details['staff_role'];?>
+              <?=$staff['staff_role'];?>
             </td>
             <td>
               <?php 
-                echo $user_details['name'];
+                $user_detail=$this->db->get_where('users',['id'=>$staff['staff_name']])->row_array();
+                echo $user_detail['name'];
               ?>
             </td>
             <td>
               <?php
-                  if(!empty($staff_salary_details['salary_amount'])){
-                    echo $staff_salary_details['salary_amount'];  
+                  if(!empty($staff['salary_amount'])){
+                    echo $staff['salary_amount'];  
                   }
               ?>
             </td>
             <td>
               <?php
-                   if($staff_salary_details['status'] == '1'){
+                   if($staff['status'] == '1'){
                        echo 'Paid';
-                   }else if($staff_salary_details['status'] == '2'){
+                   }else if($staff['status'] == '2'){
                        echo 'Unpaid';
-                   }else if($staff_salary_details['status'] == '3'){
+                   }else if($staff['status'] == '3'){
                        echo 'Partialy';
                    } 
  
               ?>
             </td>
-            <td><?=$staff_salary_details['date'];?></td>
+            <td><?=$staff['date'];?></td>
         </tr>
+      <?php }} ?>
     </tbody>
   </table>
 </body>
