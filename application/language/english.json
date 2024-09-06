@@ -1581,5 +1581,8 @@
     "add": "Add",
     "student_leaving_data_updated_successfully": "Student leaving data updated successfully",
     "upload_signature": "Upload signature",
-    "payment_month": "Payment month"
+    "payment_month": "Payment month",
+    "payment_month": "Payment month",
+    "quarterly_report_card": "Quarterly report card"
+
 }

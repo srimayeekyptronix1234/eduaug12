@@ -79,7 +79,7 @@ if (count($staff_salary) > 0): ?>
     var url = '<?php echo route('payslip_download/url'); ?>';
     $.ajax({
       type: 'post',
-      data: { type: type, user_id: user_id },
+      data: { type: type, user_id:user_id},
       url: url,
       success: function (response) {
         if (type == 'csv') {
