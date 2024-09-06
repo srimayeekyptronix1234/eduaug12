@@ -1,8 +1,8 @@
 <?php
 $user_id = $this->session->userdata('user_id');
 $teacher_table_data=$this->db->get_where('teachers',['user_id'=>$user_id])->row_array();
+$teacher_permission=$this->db->get_where('teacher_permissions',['teacher_id'=>$teacher_table_data['id']])->row_array();
 ?>
-
 
 <!--title-->
 <div class="row ">
@@ -61,7 +61,6 @@ $teacher_table_data=$this->db->get_where('teachers',['user_id'=>$user_id])->row_
         </div>
     </div>
 </div>
-
 <script>
 function filter_assignment(){
     var class_id = $('#class_id').val();

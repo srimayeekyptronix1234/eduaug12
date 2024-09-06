@@ -361,5 +361,33 @@ class Accountant extends CI_Controller {
     $this->load->view('backend/index', $page_data);
   }
   //Staff Salary End
-   
+  //EXPORT STAFF SALARY
+  public function payslip_download($param1 = "",$user_id='') {
+    //RETURN EXPORT URL
+    if ($param1 == 'url') {
+      $type = htmlspecialchars($this->input->post('type'));
+      $user_id = htmlspecialchars($this->input->post('user_id'));
+      echo route('payslip_download/'.$type.'/'.$user_id);
+    }
+    // EXPORT AS PDF
+    if($param1 == 'pdf' || $param1 == 'print') {
+      $page_data['action']   = $param1;
+      $page_data['user_id']=$user_id;
+      $html = $this->load->view('backend/accountant/staff_salary/download_payslip',$page_data, true);
+      $this->pdf->loadHtml($html);
+      $this->pdf->set_paper("a4", "landscape" );
+      $this->pdf->render();
+      // FILE DOWNLOADING CODES
+      $user_details=$this->db->get_where('users',['id'=>$user_id])->row_array();
+
+      $fileName = $user_details['role'].'-Salary - '.$user_details['name'].'.pdf';
+      if ($param1 == 'pdf') {
+        $this->pdf->stream($fileName, array("Attachment" => 1));
+      }else{
+        $this->pdf->stream($fileName, array("Attachment" => 0));
+      }
+    }
+    
+  }
+
 }

@@ -24,6 +24,7 @@ class Driver extends CI_Controller {
 		$this->output->set_header("Cache-Control: no-store, no-cache, must-revalidate, max-age=0");
 		$this->output->set_header("Cache-Control: post-check=0, pre-check=0", false);
 		$this->output->set_header("Pragma: no-cache");
+        $this->load->library('pdf');
 
 		/*SET DEFAULT TIMEZONE*/
 		timezone();
@@ -200,7 +201,62 @@ class Driver extends CI_Controller {
 		$this->load->view('backend/index', $page_data);
 	}
   //Staff Salary End
-	
+   public function payslip_download($param1 = "",$user_id='') {
+    //RETURN EXPORT URL
+    	if ($param1 == 'url') {
+    		$type = htmlspecialchars($this->input->post('type'));
+    		$user_id = htmlspecialchars($this->input->post('user_id'));
+    		echo route('payslip_download/'.$type.'/'.$user_id);
+    	}
+    // EXPORT AS PDF
+    	if($param1 == 'pdf' || $param1 == 'print') {
+    		$page_data['action']   = $param1;
+    		$page_data['user_id']=$user_id;
+    		$html = $this->load->view('backend/driver/staff_salary/download_payslip',$page_data, true);
+    		$this->pdf->loadHtml($html);
+    		$this->pdf->set_paper("a4", "landscape" );
+    		$this->pdf->render();
+      // FILE DOWNLOADING CODES
+    		$user_details=$this->db->get_where('users',['id'=>$user_id])->row_array();
+
+    		$fileName = $user_details['role'].'-Salary - '.$user_details['name'].'.pdf';
+    		if ($param1 == 'pdf') {
+    			$this->pdf->stream($fileName, array("Attachment" => 1));
+    		}else{
+    			$this->pdf->stream($fileName, array("Attachment" => 0));
+    		}
+    	}
+
+  }
+   /*FUNCTION FOR DOWNLOADING A FILE*/
+  function download_file($path, $name)
+  {
+    // make sure it's a file before doing anything!
+    if(is_file($path))
+    {
+      // required for IE
+      if(ini_get('zlib.output_compression')) { ini_set('zlib.output_compression', 'Off'); }
+
+      // get the file mime type using the file extension
+      $this->load->helper('file');
+
+      $mime = get_mime_by_extension($path);
+
+      // Build the headers to push out the file properly.
+      header('Pragma: public');     // required
+      header('Expires: 0');         // no cache
+      header('Cache-Control: must-revalidate, post-check=0, pre-check=0');
+      header('Last-Modified: '.gmdate ('D, d M Y H:i:s', filemtime ($path)).' GMT');
+      header('Cache-Control: private',false);
+      header('Content-Type: '.$mime);  // Add the mime type from Code igniter.
+      header('Content-Disposition: attachment; filename="'.basename($name).'"');  // Add the file name
+      header('Content-Transfer-Encoding: binary');
+      header('Content-Length: '.filesize($path)); // provide file size
+      header('Connection: close');
+      readfile($path); // push it out
+      exit();
+    }
+  }
 
 	
   	

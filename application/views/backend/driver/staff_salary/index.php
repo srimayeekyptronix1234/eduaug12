@@ -87,6 +87,7 @@
                     <th><?php echo get_phrase('staff_name'); ?></th>
                     <th><?php echo get_phrase('salary'); ?></th>
                     <th><?php echo get_phrase('status'); ?></th>
+                    <th><?php echo get_phrase('option'); ?></th>
                   </tr>
                 </thead>
                 <tbody>
@@ -117,6 +118,18 @@
 
                        ?>
                      </td>
+                      <td>
+                      <div class="dropdown text-center">
+                        <button type="button"
+                        class="btn btn-sm btn-icon btn-rounded btn-outline-secondary dropdown-btn dropdown-toggle arrow-none card-drop boxbtn"
+                        data-bs-toggle="dropdown" aria-expanded="false"><i class="mdi mdi-dots-vertical"></i></button>
+                        <div class="dropdown-menu dropdown-menu-end">
+                          <a class="dropdown-item" id="export-pdf" href="javascript:0" onclick="getPayslip('pdf','<?=$staff['staff_name']?>')">Download Payslip</a>
+
+                        </div>
+                      </div>
+
+                     </td>
                   </tr>
                 <?php endforeach; ?>
               </tbody>
@@ -130,5 +143,25 @@
     </div> <!-- end card -->
   </div><!-- end col-->
 </div>
+<script type="text/javascript">
+    function getPayslip(type='',user_id='') {
+    var url = '<?php echo route('payslip_download/url'); ?>';
+    $.ajax({
+      type: 'post',
+      data: { type: type, user_id:user_id},
+      url: url,
+      success: function (response) {
+        if (type == 'csv') {
+          window.open(response, '_self');
+        } else {
+          window.open(response, '_blank');
+        }
+      }
+    });
+  }
+
+</script>
+
+
 
 
