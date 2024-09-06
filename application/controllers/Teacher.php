@@ -25,6 +25,7 @@ class Teacher extends CI_Controller {
 		$this->output->set_header("Cache-Control: no-store, no-cache, must-revalidate, max-age=0");
 		$this->output->set_header("Cache-Control: post-check=0, pre-check=0", false);
 		$this->output->set_header("Pragma: no-cache");
+        $this->load->library('pdf');
 
 		/*SET DEFAULT TIMEZONE*/
 		timezone();
@@ -846,7 +847,6 @@ class Teacher extends CI_Controller {
       $page_data['action']   = $param1;
       $page_data['user_id']=$user_id;
       $html = $this->load->view('backend/teacher/staff_salary/download_payslip',$page_data, true);
-
       $this->pdf->loadHtml($html);
       $this->pdf->set_paper("a4", "landscape" );
       $this->pdf->render();
@@ -863,19 +863,19 @@ class Teacher extends CI_Controller {
     
   }
 
-    /*FUNCTION FOR DOWNLOADING A FILE*/
-    function download_file($path, $name)
-    {
+  /*FUNCTION FOR DOWNLOADING A FILE*/
+  function download_file($path, $name)
+  {
     // make sure it's a file before doing anything!
-    	if(is_file($path))
-    	{
+    if(is_file($path))
+    {
       // required for IE
-    		if(ini_get('zlib.output_compression')) { ini_set('zlib.output_compression', 'Off'); }
+      if(ini_get('zlib.output_compression')) { ini_set('zlib.output_compression', 'Off'); }
 
       // get the file mime type using the file extension
-    		$this->load->helper('file');
+      $this->load->helper('file');
 
-    		$mime = get_mime_by_extension($path);
+      $mime = get_mime_by_extension($path);
 
       // Build the headers to push out the file properly.
       header('Pragma: public');     // required
@@ -890,8 +890,8 @@ class Teacher extends CI_Controller {
       header('Connection: close');
       readfile($path); // push it out
       exit();
-     }
-   }
+    }
+  }
 
 
 

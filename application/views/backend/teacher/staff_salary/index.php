@@ -124,7 +124,7 @@
                           class="btn btn-sm btn-icon btn-rounded btn-outline-secondary dropdown-btn dropdown-toggle arrow-none card-drop boxbtn"
                           data-bs-toggle="dropdown" aria-expanded="false"><i class="mdi mdi-dots-vertical"></i></button>
                           <div class="dropdown-menu dropdown-menu-end">
-                            <a class="dropdown-item" id="export-pdf" href="javascript:0" onclick="getPayslip('pdf','<?=$staff['id']?>')">Download Payslip</a>
+                            <a class="dropdown-item" id="export-pdf" href="javascript:0" onclick="getPayslip('pdf','<?=$staff['staff_name']?>')">Download Payslip</a>
 
                           </div>
                         </div>

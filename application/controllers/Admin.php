@@ -1820,9 +1820,7 @@ class Admin extends CI_Controller {
     if($param1 == 'pdf' || $param1 == 'print') {
       $page_data['action']   = $param1;
       $page_data['user_id']   = $user_id;
-      $page_data['user_id']=$user_id;
       $html = $this->load->view('backend/admin/staff_salary/download_payslip',$page_data, true);
-
       $this->pdf->loadHtml($html);
       $this->pdf->set_paper("a4", "landscape" );
       $this->pdf->render();
