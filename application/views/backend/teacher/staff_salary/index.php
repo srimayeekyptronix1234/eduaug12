@@ -85,6 +85,7 @@
                 <thead class="thead-dark">
                   <tr>
                     <th><?php echo get_phrase('staff_name'); ?></th>
+                    <th><?php echo get_phrase('month'); ?></th>
                     <th><?php echo get_phrase('salary'); ?></th>
                     <th><?php echo get_phrase('status'); ?></th>
                     <th><?php echo get_phrase('option'); ?></th>
@@ -97,6 +98,13 @@
                         <?php 
                         $user_details=$this->db->get_where('users',['id'=>$staff['staff_name']])->row_array();
                         echo $user_details['name'];
+                        ?>
+                      </td>
+                      <td>
+                        <?php 
+                        $monthNum = sprintf("%02s", $staff["month"]);
+                        $monthName = date("F", strtotime($monthNum));
+                        echo $monthName;
                         ?>
                       </td>
                       <td>
