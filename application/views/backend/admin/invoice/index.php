@@ -105,6 +105,7 @@
                 <option value="all"><?php echo get_phrase('all_status'); ?></option>
                 <option value="paid"><?php echo get_phrase('paid'); ?></option>
                 <option value="unpaid"><?php echo get_phrase('unpaid'); ?></option>
+                <option value="partialy"><?php echo get_phrase('partialy'); ?></option>
               </select>
             </div>
           </div>

@@ -13,6 +13,7 @@ if (count($staff_salary) > 0): ?>
         <tr>
           <th><?php echo get_phrase('staff_role'); ?></th>
           <th><?php echo get_phrase('staff_name'); ?></th>
+          <th><?php echo get_phrase('month'); ?></th>
           <th><?php echo get_phrase('salary'); ?></th>
           <th><?php echo get_phrase('status'); ?></th>
           <th><?php echo get_phrase('option'); ?></th>
@@ -28,6 +29,12 @@ if (count($staff_salary) > 0): ?>
               <?php 
                 $user_details=$this->db->get_where('users',['id'=>$staff['staff_name']])->row_array();
                 echo $user_details['name'];
+              ?>
+            </td>
+            <td><?php 
+                   $month_num=sprintf("%02s",$staff['month']);
+                   $month_name=date("F",strtotime($month_num));
+                   echo $month_name;
               ?>
             </td>
             <td>
