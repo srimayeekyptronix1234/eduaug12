@@ -1,7 +1,7 @@
 <?php
 $user_id = $this->session->userdata('user_id');
 $teacher_table_data=$this->db->get_where('teachers',['user_id'=>$user_id])->row_array();
-$teacher_permission=$this->db->get_where('teacher_permissions',['teacher_id'=>$teacher_table_data['id']])->row_array();
+$check_permission = has_permission($teacher_table_data['class_id'], $teacher_table_data['section_id'], 'assignment',$teacher_table_data['id']);
 ?>
 
 <!--title-->
@@ -12,7 +12,9 @@ $teacher_permission=$this->db->get_where('teacher_permissions',['teacher_id'=>$t
         <h4 class="page-title d-inline-block">
           <i class="mdi mdi-book-open-page-variant title_icon"></i> <?php echo get_phrase('assignment'); ?>
         </h4>
+        <?php if(isset($check_permission) && $check_permission == '1'){?>
         <button type="button" class="btn btn-outline-primary btn-rounded alignToTitle float-end mt-1" onclick="rightModal('<?php echo site_url('modal/popup/assignment/create'); ?>', '<?php echo get_phrase('create_assignment'); ?>')"> <i class="mdi mdi-plus"></i> <?php echo get_phrase('add_assignment'); ?></button>
+       <?php } ?>
       </div> <!-- end card body-->
     </div> <!-- end card -->
   </div><!-- end col-->

@@ -2,6 +2,7 @@
     $user_id = $this->session->userdata('user_id');
     $teacher_table_data=$this->db->get_where('teachers',['user_id'=>$user_id])->row_array();
     $school_id = school_id(); 
+    $check_permission = has_permission($teacher_table_data['class_id'], $teacher_table_data['section_id'], 'assignment',$teacher_table_data['id']);
 
     if (!empty($class_id) && !empty($section_id) && !empty($subject_id)){
         $check_data = $this->db->get_where('assignment', array('class' => $class_id,'subject' =>$subject_id,'teacher_id'=>$teacher_table_data['id']))->result_array();
@@ -10,8 +11,10 @@
         $check_data=$this->db->get_where('assignment',['teacher_id'=>$teacher_table_data['id']])->result_array();
 
     }
+?>
+<?php if ($check_permission): ?>
 
-  if (count($check_data) > 0):?>
+<?php if (count($check_data) > 0):?>
   <table id="basic-datatable" class="table table-striped dt-responsive nowrap" width="100%">
     <thead>
       <tr style="background-color: #313a46; color: #ababab;">
@@ -52,4 +55,13 @@
   </table>
 <?php else: ?>
   <?php include APPPATH.'views/backend/empty.php'; ?>
+<?php endif; ?>
+<?php else: ?>
+  <div class="col-md-12 text-center">
+    <div class="alert alert-danger" role="alert">
+      <h4 class="alert-heading"><?php echo get_phrase('access_denied'); ?>!</h4>
+      <hr>
+      <p class="mb-0"><?php echo get_phrase('sorry_you_are_not_permitted_to_access_this_view').'. <br/>'.get_phrase('admin_handles_it'); ?>.</p>
+    </div>
+  </div>
 <?php endif; ?>

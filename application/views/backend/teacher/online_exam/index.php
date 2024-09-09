@@ -5,6 +5,9 @@ $online_exams = $this->db->select('online_exam_details.*, exams.name')->from('on
 //echo $this->db->last_query();  
 
 // $online_exams = $this->db->get_where('online_exam_details', array('status' => '1'))->result_array();
+$user_id = $this->session->userdata('user_id');
+$teacher_table_data=$this->db->get_where('teachers',['user_id'=>$user_id])->row_array();
+$check_permission = has_permission($teacher_table_data['class_id'], $teacher_table_data['section_id'], 'online_exam',$teacher_table_data['id']);
 ?>
 
 <div class="row ">
@@ -13,13 +16,16 @@ $online_exams = $this->db->select('online_exam_details.*, exams.name')->from('on
       <div class="card-body py-2 parent_content">
         <h4 class="page-title d-inline-block">
           <i class="mdi mdi-grease-pencil title_icon"></i> Online Exam Details </h4>
+        <?php if(isset($check_permission) && $check_permission == '1'){?>
 		  
         <button type="button" class="btn btn-outline-primary btn-rounded alignToTitle float-end mt-1" onclick="rightModal('<?php echo site_url('modal/popup/online_exam/create')?>', 'Create exam')"> <i class="mdi mdi-plus"></i> Add exam details</button>
+       <?php } ?>
+
       </div> <!-- end card body-->
     </div> <!-- end card -->
   </div><!-- end col-->
 </div>
-
+<?php if ($check_permission): ?>
 <?php if (count($online_exams) > 0): ?>
 <table id="basic-datatable" class="table table-striped dt-responsive nowrap" width="100%">
     <thead>
@@ -116,4 +122,13 @@ function delete_online_exam_details(id)
 
 <?php else: ?>
 	<?php include APPPATH.'views/backend/empty.php'; ?>
+<?php endif; ?>
+<?php else: ?>
+  <div class="col-md-12 text-center">
+    <div class="alert alert-danger" role="alert">
+      <h4 class="alert-heading"><?php echo get_phrase('access_denied'); ?>!</h4>
+      <hr>
+      <p class="mb-0"><?php echo get_phrase('sorry_you_are_not_permitted_to_access_this_view').'. <br/>'.get_phrase('admin_handles_it'); ?>.</p>
+    </div>
+  </div>
 <?php endif; ?>
