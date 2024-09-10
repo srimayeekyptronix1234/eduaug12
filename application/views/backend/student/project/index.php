@@ -160,14 +160,25 @@ $marks = $this->db->get_where('project', ['student_id' => $student_details['id']
     <div class="card">
       <div class="card-body boxhover">
         <?php if (count($marks) > 0): ?>
-          <table class="table table-bordered table-responsive-sm" width="100%">
-            <thead class="thead-dark">
+          <table class="table" width="100%"
+            style="border-collapse: collapse; font-family: Arial, sans-serif; background-color: #f9f9f9; box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); border-radius: 8px; overflow: hidden;">
+            <thead style="background: linear-gradient(135deg, #A02334, #1B81F6); color: #fff;">
               <tr>
-                <th><?php echo get_phrase('subject_name'); ?></td>
-                <th><?php echo get_phrase('exam'); ?></td>
-                <th><?php echo get_phrase('mark'); ?></td>
-                <th><?php echo get_phrase('grade_point'); ?></td>
-                <th><?php echo get_phrase('comment'); ?></td>
+                <th style="padding: 12px; text-align: left; font-weight: bold; border-bottom: 2px solid #ddd;">
+                  <?php echo get_phrase('subject_name'); ?>
+                </th>
+                <th style="padding: 12px; text-align: left; font-weight: bold; border-bottom: 2px solid #ddd;">
+                  <?php echo get_phrase('exam'); ?>
+                </th>
+                <th style="padding: 12px; text-align: left; font-weight: bold; border-bottom: 2px solid #ddd;">
+                  <?php echo get_phrase('mark'); ?>
+                </th>
+                <th style="padding: 12px; text-align: left; font-weight: bold; border-bottom: 2px solid #ddd;">
+                  <?php echo get_phrase('grade_point'); ?>
+                </th>
+                <th style="padding: 12px; text-align: left; font-weight: bold; border-bottom: 2px solid #ddd;">
+                  <?php echo get_phrase('comment'); ?>
+                </th>
               </tr>
             </thead>
             <tbody>
@@ -175,18 +186,27 @@ $marks = $this->db->get_where('project', ['student_id' => $student_details['id']
                 $subject = $this->db->get_where('subjects', array('id' => $mark['subject_id'], 'class_id' => $mark['class_id'], 'school_id' => $school_id))->row_array();
                 $exam_details = $this->db->get_where('exams', ['id' => $mark['exam_id']])->row_array();
                 ?>
-                <tr>
-                  <td><?= $subject['name']; ?></td>
-                  <td><?= $exam_details['name']; ?></td>
-                  <td><?php echo $mark['mark_obtained']; ?></td>
-                  <td><span
+                <tr style="border-bottom: 1px solid #ddd; transition: background-color 0.3s ease;">
+                  <td style="padding: 10px; border-bottom: 1px solid #eee; color: #333; background-color: #f0f4fa;">
+                    <?php echo $subject['name']; ?>
+                  </td>
+                  <td style="padding: 10px; border-bottom: 1px solid #eee; color: #333; background-color: #f9f9f9;">
+                    <?php echo $exam_details['name']; ?>
+                  </td>
+                  <td style="padding: 10px; border-bottom: 1px solid #eee; color: #333; background-color: #f0f4fa;">
+                    <?php echo $mark['mark_obtained']; ?>
+                  </td>
+                  <td style="padding: 10px; border-bottom: 1px solid #eee; color: #333; background-color: #f9f9f9;"><span
                       id="grade-for-mark-<?php echo $mark['student_id']; ?>"><?php echo get_grade($mark['mark_obtained']); ?></span>
                   </td>
-                  <td><?php echo $mark['comment']; ?></td>
+                  <td style="padding: 10px; border-bottom: 1px solid #eee; color: #333; background-color: #f0f4fa;">
+                    <?php echo $mark['comment']; ?>
+                  </td>
                 </tr>
               <?php endforeach; ?>
             </tbody>
           </table>
+
         <?php else: ?>
           <?php include APPPATH . 'views/backend/empty.php'; ?>
         <?php endif; ?>
