@@ -1,38 +1,38 @@
-<?php 
-$school_id = school_id(); 
+<?php $school_id = school_id(); ?>
+<?php $classroom_walkthrough_data = $this->db->get_where('classroom_walkthrough', array('id' => $param1))->result_array(); ?>
+<?php foreach($classroom_walkthrough_data as $data){ 
+  $classroom_layout=explode(',', $data['classroom_layout']);
 ?>
-<form method="POST" class="d-block ajaxForm" action="<?php echo route('classroom_walkthrough/create'); ?>">
-  <div class="form-row">
+<form method="POST" class="d-block ajaxForm" action="<?php echo route('classroom_walkthrough/update/'.$param1); ?>">
+    <div class="form-row">
+        <div class="form-group mb-1">
+            <label for=""><?php echo get_phrase('classrooms'); ?></label>
+            <select name="class_rooms_id" id="class_rooms" class="form-control select6" data-toggle = "select6" onchange="classWiseSection(this.value)">
+              <option value=""><?php echo get_phrase('select_a_class_rooms'); ?></option>
+              <?php $classes = $this->db->get_where('class_rooms', array('school_id' => $school_id))->result_array(); ?>
+              <?php foreach($classes as $class){ ?>
+                <option value="<?php echo $class['id']; ?>"<?php if($class['id'] == $data['class_rooms_id']){echo 'selected';}?>><?php echo $class['name']; ?></option>
+              <?php } ?>
+            </select>
+            <small id="class_help" class="form-text text-muted"><?php echo get_phrase('select_a_class_rooms'); ?></small>
 
-    <input type="hidden" name="school_id" value="<?php echo school_id(); ?>">
-    <input type="hidden" name="session" value="<?php echo active_session();?>">
-   
-    <div class="form-group mb-1">
-      <label for=""><?php echo get_phrase('classrooms'); ?></label>
-     <select name="class_rooms_id" id="class_rooms" class="form-control select6" data-toggle = "select6" onchange="classWiseSection(this.value)" required>
-                <option value=""><?php echo get_phrase('select_a_class_rooms'); ?></option>
-                <?php $classes = $this->db->get_where('class_rooms', array('school_id' => $school_id))->result_array(); ?>
-                <?php foreach($classes as $class){ ?>
-                    <option value="<?php echo $class['id']; ?>"><?php echo $class['name']; ?></option>
-                <?php } ?>
-       </select>
-         <small id="class_help" class="form-text text-muted"><?php echo get_phrase('select_a_class_rooms'); ?></small>
-    </div>
-    <div class="form-group mb-1">
+        </div>
+
+      <div class="form-group mb-1">
        <label for=""><?php echo get_phrase('Observer Name'); ?></label>
-       <input type="text" class="form-control" id="observer_name" name="observer_name" required>
-    </div>
-    <div class="form-group mb-1">
+       <input type="text" class="form-control" id="observer_name" name="observer_name" value="<?=$data['observer_name'];?>">
+      </div>
+          <div class="form-group mb-1">
       <label for="date"><?php echo get_phrase('date'); ?></label>
-      <input type="date" class="form-control date" id="date"  name="date" value="" required>
+      <input type="date" class="form-control date" id="date"  name="date" value="<?=$data['date'];?>" >
     </div>
     <div class="form-group mb-1">
       <label for="name">Time</label>
-      <input type="time" class="form-control" id="time" name="time" required>
+      <input type="time" class="form-control" id="time" name="time"  value="<?=$data['time'];?>">
     </div>
     <div class="form-group mb-1">
       <label for="name">Grade Level</label>
-      <input type="text" class="form-control" id="grade" name="grade">
+      <input type="text" class="form-control" id="grade" name="grade"  value="<?=$data['grade'];?>">
     </div>
     
      <div class="form-group mb-1">
@@ -41,7 +41,7 @@ $school_id = school_id();
                 <option value=""><?php echo get_phrase('select_a_teacher'); ?></option>
                 <?php $allteachers = $this->db->get_where('users', array('role'=>'teacher','school_id' => $school_id))->result_array(); ?>
                 <?php foreach($allteachers as $teachers){ ?>
-                    <option value="<?php echo $teachers['id']; ?>"><?php echo $teachers['name']; ?></option>
+                    <option value="<?php echo $teachers['id']; ?>" <?php if($teachers['id'] == $data['teacher_id']){ echo 'selected';}?>><?php echo $teachers['name']; ?></option>
                 <?php } ?>
        </select>
          <small id="class_help" class="form-text text-muted"><?php echo get_phrase('select_a_teacher'); ?></small>
@@ -52,14 +52,14 @@ $school_id = school_id();
                 <option value=""><?php echo get_phrase('select_a_subject'); ?></option>
                 <?php $subjects = $this->db->get_where('subjects', array('school_id' => $school_id))->result_array(); ?>
                 <?php foreach($subjects as $sub){ ?>
-                    <option value="<?php echo $sub['id']; ?>"><?php echo $sub['name']; ?></option>
+                    <option value="<?php echo $sub['id']; ?>"<?php if($sub['id'] ==$data['subject_id']){echo 'selected';}?>><?php echo $sub['name']; ?></option>
                 <?php } ?>
        </select>
          <small id="class_help" class="form-text text-muted"><?php echo get_phrase('select_a_subject'); ?></small>
     </div>
     <div class="form-group mb-1">
       <label for="name">Classroom Location</label>
-      <input type="text" class="form-control" id="location" name="location">
+      <input type="text" class="form-control" id="location" name="location" value="<?=$data['location'];?>">
     </div>
     <h4>Classroom Environment</h4>
       <div class="form-group mb-1">
@@ -139,21 +139,22 @@ $school_id = school_id();
       </div>
 
 
-
-    <div class="form-group  col-md-12">
-      <button class="btn btn-block btn-primary" type="submit"><?php echo get_phrase('create_classroom_walkthrough'); ?></button>
+        <div class="form-group  col-md-12">
+            <button class="btn btn-block btn-primary" type="submit"><?php echo get_phrase('classroom_walkthrough'); ?></button>
+        </div>
     </div>
-  </div>
 </form>
+<?php } ?>
 
 <script>
-$(document).ready(function() {
-  $('select.select2:not(.normal)').each(function () { $(this).select2({ dropdownParent: '#right-modal' }); }); //initSelect2(['#class_id_on_create']);
-
-});
 $(".ajaxForm").validate({}); // Jquery form validation initialization
 $(".ajaxForm").submit(function(e) {
   var form = $(this);
   ajaxSubmit(e, form, showAllClassroomWalkthrough);
 });
+
+$(document).ready(function() {
+  $('select.select2:not(.normal)').each(function () { $(this).select2({ dropdownParent: '#right-modal' }); }); //initSelect2(['#class_id_on_create']);
+});
+
 </script>

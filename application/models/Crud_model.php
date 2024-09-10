@@ -631,18 +631,19 @@ class Crud_model extends CI_Model {
 		$data['class_id'] = $this->input->post('class_id');
 		$data['subject_id'] = $this->input->post('subject_id');
 		$data['exam_start_time'] = $this->input->post('from-time');
-		$data['exam_start_am_pm'] = $this->input->post('from-ampm');
+		//$data['exam_start_am_pm'] = $this->input->post('from-ampm');
 		$data['exam_end_time'] = $this->input->post('to-time');
-		$data['exam_end_am_pm'] = $this->input->post('to-ampm');
+		//$data['exam_end_am_pm'] = $this->input->post('to-ampm');
 
 		// Calculate time duration
 		$fromTime = $this->input->post('from-time');
-		$fromAmPm = $this->input->post('from-ampm');
+		//$fromAmPm = $this->input->post('from-ampm');
 		$toTime = $this->input->post('to-time');
-		$toAmPm = $this->input->post('to-ampm');
+		//$toAmPm = $this->input->post('to-ampm');*/
+        
 
-
-        $duration = $this->calculateDurationInMinutes($fromTime, $fromAmPm, $toTime, $toAmPm);
+        //$duration = $this->calculateDurationInMinutes($fromTime, $fromAmPm, $toTime, $toAmPm);
+        $duration = $this->calculateDuration($fromTime,$toTime);
 
 
 		$data['exam_duration'] = urlencode($duration);
@@ -656,24 +657,43 @@ class Crud_model extends CI_Model {
 	}
 
 	// Function for time duration start
-	public function convertTo24HourFormat($time, $ampm) {
+	public function convertTo24HourFormat($time, $ampm='') {
         list($hours, $minutes) = explode(':', $time);
         $hours = (int)$hours;
         $minutes = (int)$minutes;
 
-        if ($ampm === 'PM' && $hours != 12) {
-            $hours += 12;
-        } elseif ($ampm === 'AM' && $hours == 12) {
-            $hours = 0;
-        }
+        // if ($ampm === 'PM' && $hours != 12) {
+        //     $hours += 12;
+        // } elseif ($ampm === 'AM' && $hours == 12) {
+        //     $hours = 0;
+        // }
 
         return sprintf('%02d:%02d', $hours, $minutes);
     }
 
-    public function calculateDurationInMinutes($fromTime, $fromAmPm, $toTime, $toAmPm) {
+  //   public function calculateDurationInMinutes($fromTime, $fromAmPm, $toTime, $toAmPm) {
+		// date_default_timezone_set('Asia/kolkata'); 
+  //       $fromTime24 = $this->convertTo24HourFormat($fromTime, $fromAmPm);
+  //       $toTime24 = $this->convertTo24HourFormat($toTime, $toAmPm);
+
+  //       $fromDateTime = new DateTime($fromTime24);
+  //       $toDateTime = new DateTime($toTime24);
+
+  //       if ($toDateTime < $fromDateTime) {
+  //           $toDateTime->modify('+1 day');
+  //       }
+
+  //       $interval = $fromDateTime->diff($toDateTime);
+  //       $minutes = ($interval->h * 60) + $interval->i;
+
+  //       return $minutes;
+  //   }
+
+	// Function for time duration End
+     public function calculateDuration($fromTime,$toTime) {
 		date_default_timezone_set('Asia/kolkata'); 
-        $fromTime24 = $this->convertTo24HourFormat($fromTime, $fromAmPm);
-        $toTime24 = $this->convertTo24HourFormat($toTime, $toAmPm);
+        $fromTime24 = $this->convertTo24HourFormat($fromTime);
+        $toTime24 = $this->convertTo24HourFormat($toTime);
 
         $fromDateTime = new DateTime($fromTime24);
         $toDateTime = new DateTime($toTime24);
@@ -687,8 +707,6 @@ class Crud_model extends CI_Model {
 
         return $minutes;
     }
-
-	// Function for time duration End
 
 	public function exam_update($param1 = '')
 	{
@@ -2065,10 +2083,12 @@ class Crud_model extends CI_Model {
 
 		// Calculate time duration
 		$fromTime = $this->input->post('from-time');
-		$fromAmPm = $this->input->post('from-ampm');
+		//$fromAmPm = $this->input->post('from-ampm');
 		$toTime = $this->input->post('to-time');
-		$toAmPm = $this->input->post('to-ampm');
-        $duration = $this->calculateDurationInMinutes($fromTime, $fromAmPm, $toTime, $toAmPm);
+		//$toAmPm = $this->input->post('to-ampm');
+       // $duration = $this->calculateDurationInMinutes($fromTime, $fromAmPm, $toTime, $toAmPm);
+		$duration = $this->calculateDuration($fromTime,$toTime);
+
 		$data['exam_duration'] = urlencode($duration);
 		$this->db->where('id', $param1);
 		$this->db->update('online_exam_details', $data);
@@ -2445,5 +2465,9 @@ class Crud_model extends CI_Model {
 
 		return json_encode($response);
 	}
+	public function get_classroom_walkthrough_data() {
+		return $this->db->get('classroom_walkthrough')->result_array();
+	}
+   
 
 }

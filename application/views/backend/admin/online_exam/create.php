@@ -61,20 +61,20 @@
         <div class="form-group mb-1">
             <label for="from_time"><?php echo get_phrase('from_time'); ?></label>
             <input type="time" id="from-time" name="from-time" class="form-control" required>
-            <select id="from-ampm" name="from-ampm">
+           <!-- <select id="from-ampm" name="from-ampm">
                 <option value="AM">AM</option>
                 <option value="PM">PM</option>
-            </select>
+            </select>-->
             <small id="name_help" class="form-text text-muted"><?php echo get_phrase('enter_from_time'); ?></small>
         </div>
 
         <div class="form-group mb-1">
             <label for="to_time"><?php echo get_phrase('to_time'); ?></label>
             <input type="time" id="to-time" name="to-time" class="form-control" required>
-            <select id="to-ampm" name="to-ampm">
+            <!--<select id="to-ampm" name="to-ampm">
                 <option value="AM">AM</option>
                 <option value="PM">PM</option>
-            </select>
+            </select>-->
             <small id="name_help" class="form-text text-muted"><?php echo get_phrase('enter_to_time'); ?></small>
         </div>
 

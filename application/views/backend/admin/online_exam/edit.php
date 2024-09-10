@@ -60,20 +60,20 @@
         <div class="form-group mb-1">
             <label for="from_time"><?php echo get_phrase('from_time'); ?></label>
             <input type="time" id="from-time" name="from-time" class="form-control"  value="<?php echo $exam['exam_start_time']; ?>" required>
-            <select id="from-ampm" name="from-ampm">
+          <!--  <select id="from-ampm" name="from-ampm">
                 <option value="AM" <?php if($exam['exam_start_am_pm'] == 'AM'){ echo 'selected'; } ?>>AM</option>
                 <option value="PM" <?php if($exam['exam_start_am_pm'] == 'PM'){ echo 'selected'; } ?>>PM</option>
-            </select>
+            </select>-->
             <small id="name_help" class="form-text text-muted"><?php echo get_phrase('enter_from_time'); ?></small>
         </div>
 
         <div class="form-group mb-1">
             <label for="to_time"><?php echo get_phrase('to_time'); ?></label>
             <input type="time" id="to-time" name="to-time" class="form-control" value="<?php echo $exam['exam_end_time']; ?>" required>
-            <select id="to-ampm" name="to-ampm">
+            <!--<select id="to-ampm" name="to-ampm">
                 <option value="AM" <?php if($exam['exam_end_am_pm'] == 'AM'){ echo 'selected'; } ?>>AM</option>
                 <option value="PM" <?php if($exam['exam_end_am_pm'] == 'PM'){ echo 'selected'; } ?>>PM</option>
-            </select>
+            </select>-->
             <small id="name_help" class="form-text text-muted"><?php echo get_phrase('enter_to_time'); ?></small>
         </div>
 
