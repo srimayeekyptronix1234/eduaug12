@@ -2445,5 +2445,9 @@ class Crud_model extends CI_Model {
 
 		return json_encode($response);
 	}
+	public function get_classroom_walkthrough_data() {
+		return $this->db->get('classroom_walkthrough')->result_array();
+	}
+   
 
 }

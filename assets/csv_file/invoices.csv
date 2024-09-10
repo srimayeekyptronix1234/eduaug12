@@ -1,1 +1,13 @@
 Invoice-no,Student,Class,Invoice-Title,Total-Amount,Paid-Amount,Creation-Date,Payment-Date,Status
+00000001,sri,"Class 1",demo,$10000,$5000,03-Sep-2024,03-Sep-2024,Paid
+00000002,"Ava Brown","Class 1",title,$50000,$4000,03-Sep-2024,03-Sep-2024,Partialy
+00000003,"Ethan Lee","Class 1",title,$50000,$4000,03-Sep-2024,03-Sep-2024,Partialy
+00000004,"William Johnson","Class 1",title,$50000,$4000,03-Sep-2024,03-Sep-2024,Partialy
+00000005,"Benjamin Miller","Class 1",title,$50000,$4000,03-Sep-2024,03-Sep-2024,Partialy
+00000006,"Olivia Davis","Class 1",title,$50000,$4000,03-Sep-2024,03-Sep-2024,Partialy
+00000007,kyp,"Class 1",title,$50000,$4000,03-Sep-2024,03-Sep-2024,Partialy
+00000008,sri,"Class 1",title,$50000,$4000,03-Sep-2024,03-Sep-2024,Partialy
+00000009,kyp22,"Class 1",title,$50000,$4000,03-Sep-2024,03-Sep-2024,Partialy
+00000010,ria,"Class 1",title,$50000,$4000,03-Sep-2024,03-Sep-2024,Partialy
+00000011,Dipika,"Class 1",title,$50000,$4000,03-Sep-2024,03-Sep-2024,Partialy
+00000012,pamela,"Class 1",title,$50000,$4000,03-Sep-2024,03-Sep-2024,Partialy
