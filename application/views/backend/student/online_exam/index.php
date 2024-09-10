@@ -86,7 +86,6 @@
                                     //$currentDatetime = new DateTime(); 
                                     $currentDatetimeToday = new DateTime();
                                     $currentDatetimeString = $currentDatetimeToday->format('Y-m-d h:i A');
-
                                     $currentDatetime = DateTime::createFromFormat('Y-m-d h:i A', $currentDatetimeString);
 
                                     $get_exam_status = $this->db->get_where('online_exam_details', array('status' => '1', 'id' => $examId))->row_array();
@@ -104,8 +103,9 @@
 
                                     // $examStartDateTimeString = $get_exam_start_dt.' '.$get_exam_start_time.' '.$get_exam_start_am_pm;
                         
-                                    $examEndDateTimeString = $get_exam_start_dt . ' ' . $get_exam_end_time . ' ' . $get_exam_end_am_pm;
-
+                                    //$examEndDateTimeString = $get_exam_start_dt . ' ' . $get_exam_end_time . ' ' . $get_exam_end_am_pm;
+                                     $examEndDateTimeString = $get_exam_start_dt . ' ' . $get_exam_end_time;
+ 
                                     // echo $examStartDateTime = $get_exam_start_dt.' '.$get_exam_start_time.' '.$get_exam_start_am_pm;
                         
                                     // $examEndDateTime = $get_exam_start_dt.' '.$get_exam_end_time.' '.$get_exam_end_am_pm;
@@ -113,10 +113,10 @@
                                     // Convert the datetime string to a DateTime object
                                     // For 12 hour use 'h'
                                     //    $examStartDateTime = DateTime::createFromFormat('Y-m-d h:i A', $examStartDateTimeString);
-                                    $examEndDateTime = DateTime::createFromFormat('Y-m-d h:i A', $examEndDateTimeString);
+                                   /* $examEndDateTime = DateTime::createFromFormat('Y-m-d h:i A', $examEndDateTimeString);*/
                                     // For 24 hour use 'H'
                                     // $examStartDateTime = DateTime::createFromFormat('Y-m-d H:i', $examStartDateTimeString);
-                                    // $examEndDateTime = DateTime::createFromFormat('Y-m-d H:i', $examEndDateTimeString);
+                                     $examEndDateTime = DateTime::createFromFormat('Y-m-d H:i', $examEndDateTimeString);
                         
                                     $exam_status = $get_student_exam_status ? "Closed" : (($examEndDateTime < $currentDatetime) ? 'Closed' : 'Open');
 

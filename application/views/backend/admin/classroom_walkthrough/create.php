@@ -63,7 +63,7 @@ $school_id = school_id();
     </div>
     <h4>Classroom Environment</h4>
       <div class="form-group mb-1">
-        <label for="name">Classroom Layout</label><br>
+        <label for="name"><h5>Classroom Layout</h5></label><br>
         <input type="checkbox" id="layout1" name="classroom_layout[]" value="Organized"> Organized <br>
         <input type="checkbox" id="layout2" name="classroom_layout[]" value="Disorganized"> Disorganized <br>
         <input type="checkbox" id="layout3" name="classroom_layout[]" value="Flexible seating"> Flexible seating <br>
