@@ -1582,5 +1582,12 @@
     "student_leaving_data_updated_successfully": "Student leaving data updated successfully",
     "upload_signature": "Upload signature",
     "payment_month": "Payment month",
-    "month": "Month"
+    "month": "Month",
+    "classroom_walkthrough": "Classroom walkthrough",
+    "add_classroom_walkthrough": "Add classroom walkthrough",
+    "create_classroom_walkthrough": "Create classroom walkthrough",
+    "classrooms": "Classrooms",
+    "select_a_class_rooms": "Select a class rooms",
+    "observer_name": "Observer name",
+    "classroom_walkthrough_has_been_added_successfully": "Classroom walkthrough has been added successfully"
 }
