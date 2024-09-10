@@ -13,7 +13,6 @@
 
     .timeline {
         position: relative;
-        padding: 20px 0;
     }
 
     .timeline-event {

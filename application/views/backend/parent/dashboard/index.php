@@ -235,7 +235,7 @@ $parent_data = $this->db->get_where('parents', array('user_id' => $parent_id))->
                     style="background-color: #035fbd; border-radius: 12px; box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15); transition: all 0.3s ease; overflow: hidden;">
                     <div class="card-body" style="color: #fff; padding: 20px;">
                         <h4 class="header-title"
-                            style="font-size: 21px; font-weight: 600; display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+                            style="font-size: 19px; font-weight: 600; display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
                             <?php echo get_phrase('Recent Events'); ?>
                             <a href="<?php echo route('event_calendar'); ?>"
                                 style="color: #fff; font-size: 1.25rem; text-decoration: none;">
