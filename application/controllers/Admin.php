@@ -1845,15 +1845,15 @@ class Admin extends CI_Controller {
 			echo $response;
 		}
 
-		/*if($param1 == 'update'){
-			$response = $this->crud_model->complaints_update($param2);
+		if($param1 == 'update'){
+			$response = $this->crud_model->classroom_walkthrough_update($param2);
 			echo $response;
 		}
 
 		if($param1 == 'delete'){
-			$response = $this->crud_model->complaints_delete($param2);
+			$response = $this->crud_model->classroom_walkthrough_delete($param2);
 			echo $response;
-		}*/
+		}
 		
 		if($param1 == 'list'){
 			$page_data['class_id'] = $param2;

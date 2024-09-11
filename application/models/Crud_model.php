@@ -2395,6 +2395,8 @@ class Crud_model extends CI_Model {
 	}
     public function classroom_walkthrough_add()
 	{
+		$data['class_id'] = html_escape($this->input->post('class_id'));
+		$data['section_id'] = html_escape($this->input->post('section_id'));
 		$data['class_rooms_id'] = html_escape($this->input->post('class_rooms_id'));
 		$data['observer_name'] = html_escape($this->input->post('observer_name'));
 		$data['date'] = html_escape($this->input->post('date'));
@@ -2468,6 +2470,94 @@ class Crud_model extends CI_Model {
 	public function get_classroom_walkthrough_data() {
 		return $this->db->get('classroom_walkthrough')->result_array();
 	}
-   
+    public function classroom_walkthrough_update($param1 = '')
+	{
+		$data['class_id'] = html_escape($this->input->post('class_id'));
+		$data['section_id'] = html_escape($this->input->post('section_id'));
+		$data['class_rooms_id'] = html_escape($this->input->post('class_rooms_id'));
+		$data['observer_name'] = html_escape($this->input->post('observer_name'));
+		$data['date'] = html_escape($this->input->post('date'));
+		$data['time'] = html_escape($this->input->post('time'));
+		$data['grade'] = html_escape($this->input->post('grade'));
+		$data['teacher_id'] = html_escape($this->input->post('teacher_id'));
+		$data['subject_id'] = html_escape($this->input->post('subject_id'));
+		$data['location'] = html_escape($this->input->post('location'));
+		$classroom_layout= html_escape($this->input->post('classroom_layout'));
+		if(isset($classroom_layout) && $classroom_layout !=''){
+		   $class_layout=implode(',', $classroom_layout);
+           $data['classroom_layout']=$class_layout;
+		}
+        $student_engagement= html_escape($this->input->post('student_engagement'));
+		if(isset($student_engagement) && $student_engagement !=''){
+		     $s_layout=implode(',', $student_engagement);
+             $data['student_engagement']=$s_layout;
+        }
+        $classroom_management= html_escape($this->input->post('classroom_management'));
+        if(isset($classroom_management) && $classroom_management !=''){
+		    $c_management=implode(',', $classroom_management);
+            $data['classroom_management']=$c_management;
+        }
+        $lesson_objective= html_escape($this->input->post('lesson_objective'));
+        if(isset($lesson_objective) && $lesson_objective !=''){
+		    $objective=implode(',', $lesson_objective);
+            $data['lesson_objective']=$objective;
+        }
+        $instructional_strategies= html_escape($this->input->post('instructional_strategies'));
+        if(isset($instructional_strategies) && $instructional_strategies !=''){
+		    $strategies=implode(',', $instructional_strategies);
+            $data['instructional_strategies']=$strategies;
+        }
+        $questioning_techniques= html_escape($this->input->post('questioning_techniques'));
+        if(isset($questioning_techniques) && $questioning_techniques !=''){
+		    $questioning=implode(',', $questioning_techniques);
+            $data['questioning_techniques']=$questioning;
+        }
+        $use_resources= html_escape($this->input->post('use_resources'));
+        if(isset($use_resources) && $use_resources !=''){
+
+		    $resources=implode(',', $use_resources);
+            $data['use_resources']=$resources;
+        }
+        $student_understanding= html_escape($this->input->post('student_understanding'));
+        if(isset($student_understanding) && $student_understanding !=''){
+	    	$understanding=implode(',', $student_understanding);
+            $data['student_understanding']=$understanding;
+        }
+        $student_work= html_escape($this->input->post('student_work'));
+        if(isset($student_work) && $student_work !=''){
+
+		     $works=implode(',', $student_work);
+             $data['student_work']=$works;
+        }
+        $differentiation= html_escape($this->input->post('differentiation'));
+        if(isset($differentiation) && $differentiation !=''){
+		    $all_differentiation=implode(',', $differentiation);
+            $data['differentiation']=$all_differentiation;
+        }
+        
+		$this->db->where('id', $param1);
+		$this->db->update('classroom_walkthrough', $data);
+
+		$response = array(
+			'status' => true,
+			'notification' => get_phrase('classroom_walkthrough_has_been_updated_successfully')
+		);
+
+		return json_encode($response);
+	}
+    public function classroom_walkthrough_delete($param1 = '')
+	{
+		$this->db->where('id', $param1);
+		$this->db->delete('classroom_walkthrough');
+
+		$response = array(
+			'status' => true,
+			'notification' => get_phrase('classroom_walkthrough_has_been_deleted_successfully')
+		);
+
+		return json_encode($response);
+	}
+
+	
 
 }

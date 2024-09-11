@@ -1,9 +1,31 @@
 <?php $school_id = school_id(); ?>
 <?php $classroom_walkthrough_data = $this->db->get_where('classroom_walkthrough', array('id' => $param1))->result_array(); ?>
-<?php foreach($classroom_walkthrough_data as $data){ 
-  $classroom_layout=explode(',', $data['classroom_layout']);
-?>
+<?php foreach($classroom_walkthrough_data as $data){ ?>
 <form method="POST" class="d-block ajaxForm" action="<?php echo route('classroom_walkthrough/update/'.$param1); ?>">
+    <div class="form-group mb-1">
+      <label for=""><?php echo get_phrase('class'); ?></label>
+     <select name="class_id" id="class_id" class="form-control select6" data-toggle = "select6" onchange="classWiseSection(this.value)" required>
+                <option value=""><?php echo get_phrase('select_a_class'); ?></option>
+                <?php $classes = $this->db->get_where('classes', array('school_id' => $school_id))->result_array(); ?>
+                <?php foreach($classes as $class){ ?>
+                    <option value="<?php echo $class['id']; ?>" <?php if($class['id'] == $data['class_id']){echo  'selected';}?>><?php echo $class['name']; ?></option>
+                <?php } ?>
+       </select>
+         <small id="class_help" class="form-text text-muted"><?php echo get_phrase('select_a_class'); ?></small>
+    </div>
+    <div class="form-group mb-1">
+      <label for=""><?php echo get_phrase('section'); ?></label>
+      <select name="section_id" id="sectionidss" class="form-control select9" data-toggle = "select9" required >
+        <option value=""><?php echo get_phrase('select_section'); ?></option>
+        <?php
+        $allsections = $this->db->get_where('sections', array('id' => $data['section_id']))->result_array();
+        foreach($allsections as $sections){
+          ?>
+          <option value="<?php echo $sections['id']; ?>" <?php if($sections['id'] == $data['section_id']){ echo 'selected'; } ?>><?php echo $sections['name']; ?></option>
+        <?php } ?>
+      </select>        
+    </div>
+
     <div class="form-row">
         <div class="form-group mb-1">
             <label for=""><?php echo get_phrase('classrooms'); ?></label>
@@ -64,77 +86,196 @@
     <h4>Classroom Environment</h4>
       <div class="form-group mb-1">
         <label for="name"><h5>Classroom Layout</h5></label><br>
-        <input type="checkbox" id="layout1" name="classroom_layout[]" value="Organized"> Organized <br>
-        <input type="checkbox" id="layout2" name="classroom_layout[]" value="Disorganized"> Disorganized <br>
-        <input type="checkbox" id="layout3" name="classroom_layout[]" value="Flexible seating"> Flexible seating <br>
-        <input type="checkbox" id="layout4" name="classroom_layout[]" value="Traditional seating"> Traditional seating <br>
+        <?php   
+           $classroom_layout=explode(',', $data['classroom_layout']);
+        ?>
+        <input type="checkbox" id="layout1" name="classroom_layout[]" value="Organized" <?php 
+            $organized=in_array('Organized', $classroom_layout);
+            if($organized == '1'){ echo 'checked';}?>> Organized <br>
+        <input type="checkbox" id="layout2" name="classroom_layout[]" value="Disorganized" <?php 
+            $disorganized=in_array('Disorganized', $classroom_layout);
+            if($disorganized == '1'){ echo 'checked';}?>> Disorganized <br>
+        <input type="checkbox" id="layout3" name="classroom_layout[]" value="Flexible seating"
+          <?php 
+            $seating=in_array('Flexible seating', $classroom_layout);
+            if($seating == '1'){ echo 'checked';}?>> Flexible seating <br>
+        <input type="checkbox" id="layout4" name="classroom_layout[]" value="Traditional seating"  <?php 
+            $t_seating=in_array('Traditional seating', $classroom_layout);
+            if($t_seating == '1'){ echo 'checked';}?> > Traditional seating <br>
         <input type="checkbox" id="layout5" name="classroom_layout[]" value="Other"> Other
       </div>
       <div class="form-group mb-1">
-        <label for="name">Student Engagement</label><br>
-        <input type="checkbox" id="student_engagement1" name="student_engagement[]" value="Highly engaged"> Highly engaged <br>
-        <input type="checkbox" id="student_engagement2" name="student_engagement[]" value="Moderately engaged"> Moderately engaged <br>
-        <input type="checkbox" id="student_engagement3" name="student_engagement[]" value="Disengaged"> Disengaged <br>
-        <input type="checkbox" id="student_engagement4" name="student_engagement[]" value="Off-task behavior observed"> Off-task behavior observed 
+        <label for="name"><h5>Student Engagement</h5></label><br>
+        <?php 
+           $student_engagement=explode(',',$data['student_engagement']);
+        ?>
+        <input type="checkbox" id="student_engagement1" name="student_engagement[]" value="Highly engaged" <?php 
+            $highly_engaged=in_array('Highly engaged', $student_engagement);
+            if($highly_engaged == '1'){ echo 'checked';}?>> Highly engaged <br>
+        <input type="checkbox" id="student_engagement2" name="student_engagement[]" value="Moderately engaged"<?php 
+            $m_engaged=in_array('Moderately engaged', $student_engagement);
+            if($m_engaged == '1'){ echo 'checked';}?>> Moderately engaged <br>
+        <input type="checkbox" id="student_engagement3" name="student_engagement[]" value="Disengaged"
+        <?php 
+            $disengaged=in_array('Disengaged', $student_engagement);
+            if($disengaged == '1'){ echo 'checked';}?>> Disengaged <br>
+        <input type="checkbox" id="student_engagement4" name="student_engagement[]" value="Off-task behavior observed"  <?php 
+            $off_task=in_array('Off-task behavior observed', $student_engagement);
+            if($off_task == '1'){ echo 'checked';}?>> Off-task behavior observed 
       </div>
       <div class="form-group mb-1">
-        <label for="name">Classroom Management</label><br>
-        <input type="checkbox" id="classroom_management1" name="classroom_management[]" value="Clear routines and procedures"> Clear routines and procedures <br>
-        <input type="checkbox" id="classroom_management2" name="classroom_management[]" value="Effective transitions"> Effective transitions <br>
-        <input type="checkbox" id="classroom_management3" name="classroom_management[]" value="Few behavior issues"> Few behavior issues <br>
-        <input type="checkbox" id="classroom_management4" name="classroom_management[]" value="Frequent redirection needed"> Frequent redirection needed
+        <label for="name"><h5>Classroom Management</h5></label><br>
+        <?php
+          $classroom_management=explode(',',$data['classroom_management']); 
+        ?>
+        <input type="checkbox" id="classroom_management1" name="classroom_management[]" value="Clear routines and procedures" <?php 
+            $clear_routines=in_array('Clear routines and procedures', $classroom_management);
+            if($clear_routines == '1'){ echo 'checked';}?>> Clear routines and procedures <br>
+        <input type="checkbox" id="classroom_management2" name="classroom_management[]" value="Effective transitions" <?php 
+            $effective=in_array('Effective transitions', $classroom_management);
+            if($effective == '1'){ echo 'checked';}?>> Effective transitions <br>
+        <input type="checkbox" id="classroom_management3" name="classroom_management[]" value="Few behavior issues" <?php 
+            $issues=in_array('Few behavior issues', $classroom_management);
+            if($issues == '1'){ echo 'checked';}?>> Few behavior issues <br>
+        <input type="checkbox" id="classroom_management4" name="classroom_management[]" value="Frequent redirection needed" <?php 
+            $frequent=in_array('Frequent redirection needed', $classroom_management);
+            if($frequent == '1'){ echo 'checked';}?>> Frequent redirection needed
       </div>
       <h4>Instructional Practices</h4>
         <div class="form-group mb-1">
-        <label for="name">Lesson Objective</label><br>
-        <input type="checkbox" id="lesson_objective1" name="lesson_objective[]" value="Clearly stated"> Clearly stated <br>
-        <input type="checkbox" id="lesson_objective2" name="lesson_objective[]" value="Implied"> Implied <br>
-        <input type="checkbox" id="lesson_objective3" name="lesson_objective[]" value="Unclear/Not evident"> Unclear/Not evident 
+        <label for="name"><h5>Lesson Objective</h5></label><br>
+        <?php 
+            $lesson_objective=explode(',', $data['lesson_objective']);
+        ?>
+        <input type="checkbox" id="lesson_objective1" name="lesson_objective[]" value="Clearly stated" <?php 
+            $clearly_stated=in_array('Clearly stated', $lesson_objective);
+            if($clearly_stated == '1'){ echo 'checked';}?>> Clearly stated <br>
+        <input type="checkbox" id="lesson_objective2" name="lesson_objective[]" value="Implied" <?php 
+            $implied=in_array('Implied', $lesson_objective);
+            if($implied == '1'){ echo 'checked';}?>> Implied <br>
+        <input type="checkbox" id="lesson_objective3" name="lesson_objective[]" value="Unclear/Not evident"  <?php 
+            $evident=in_array('Unclear/Not evident', $lesson_objective);
+            if($evident == '1'){ echo 'checked';}?>> Unclear/Not evident 
       </div>
        <div class="form-group mb-1">
-        <label for="name">Instructional Strategies</label><br>
-        <input type="checkbox" id="instructional_strategies1" name="instructional_strategies[]" value="Whole group instruction"> Whole group instruction <br>
-        <input type="checkbox" id="instructional_strategies2" name="instructional_strategies[]" value="Small group instruction"> Small group instruction <br>
-        <input type="checkbox" id="instructional_strategies3" name="instructional_strategies[]" value="Differentiated instruction"> Differentiated instruction <br>
-        <input type="checkbox" id="instructional_strategies4" name="instructional_strategies[]" value="Student-led activities"> Student-led activities  <br>
-        <input type="checkbox" id="instructional_strategies5" name="instructional_strategies[]" value="Technology integration"> Technology integration  <br>
-        <input type="checkbox" id="instructional_strategies6" name="instructional_strategies[]" value="Other">Other
+        <label for="name"><h5>Instructional Strategies</h5></label><br>
+         <?php 
+            $instructional_strategies=explode(',', $data['instructional_strategies']);
+        ?>
+       
+        <input type="checkbox" id="instructional_strategies1" name="instructional_strategies[]" value="Whole group instruction" <?php 
+            $instruction=in_array('Whole group instruction', $instructional_strategies);
+            if($instruction == '1'){ echo 'checked';}?>> Whole group instruction <br>
+        <input type="checkbox" id="instructional_strategies2" name="instructional_strategies[]" value="Small group instruction" <?php 
+            $small=in_array('Small group instruction', $instructional_strategies);
+            if($small == '1'){ echo 'checked';}?>> Small group instruction <br>
+        <input type="checkbox" id="instructional_strategies3" name="instructional_strategies[]" value="Differentiated instruction" <?php 
+            $diff_instruction=in_array('Differentiated instruction', $instructional_strategies);
+            if($diff_instruction == '1'){ echo 'checked';}?>> Differentiated instruction <br>
+        <input type="checkbox" id="instructional_strategies4" name="instructional_strategies[]" value="Student-led activities" <?php 
+            $activities=in_array('Student-led activities', $instructional_strategies);
+            if($activities == '1'){ echo 'checked';}?>> Student-led activities  <br>
+        <input type="checkbox" id="instructional_strategies5" name="instructional_strategies[]" value="Technology integration" <?php 
+            $integration=in_array('Technology integration', $instructional_strategies);
+            if($integration == '1'){ echo 'checked';}?>> Technology integration  <br>
+        <input type="checkbox" id="instructional_strategies6" name="instructional_strategies[]" value="Other"
+        <?php 
+            $other=in_array('Other', $instructional_strategies);
+            if($other == '1'){ echo 'checked';}?>
+        >Other
       </div>
       <div class="form-group mb-1">
-        <label for="name">Questioning Techniques</label><br>
-        <input type="checkbox" id="questioning_techniques1" name="questioning_techniques[]" value="Higher-order questioning"> Higher-order questioning <br>
-        <input type="checkbox" id="questioning_techniques2" name="questioning_techniques[]" value="Effective transitions"> Effective transitions <br>
-        <input type="checkbox" id="questioning_techniques3" name="questioning_techniques[]" value="Few behavior issues"> Few behavior issues <br>
-        <input type="checkbox" id="questioning_techniques4" name="questioning_techniques[]" value="Frequent redirection needed"> Frequent redirection needed
+        <label for="name"><h5>Questioning Techniques</h5></label><br>
+        <?php 
+           $questioning_techniques=explode(',', $data['questioning_techniques']);
+        ?>
+        <input type="checkbox" id="questioning_techniques1" name="questioning_techniques[]" value="Higher-order questioning" <?php 
+            $questioning=in_array('Higher-order questioning', $questioning_techniques);
+            if($questioning == '1'){ echo 'checked';}?>> Higher-order questioning <br>
+        <input type="checkbox" id="questioning_techniques2" name="questioning_techniques[]" value="Effective transitions" <?php 
+            $effective=in_array('Effective transitions', $questioning_techniques);
+            if($effective == '1'){ echo 'checked';}?>> Effective transitions <br>
+        <input type="checkbox" id="questioning_techniques3" name="questioning_techniques[]" value="Few behavior issues" <?php 
+            $behavior_issues=in_array('Few behavior issues', $questioning_techniques);
+            if($behavior_issues == '1'){ echo 'checked';}?>> Few behavior issues <br>
+        <input type="checkbox" id="questioning_techniques4" name="questioning_techniques[]" value="Frequent redirection needed" <?php 
+            $frequent=in_array('Frequent redirection needed', $questioning_techniques);
+            if($frequent == '1'){ echo 'checked';}?>> Frequent redirection needed
       </div>
       <div class="form-group mb-1">
-        <label for="name">Use of Resources</label><br>
-        <input type="checkbox" id="use_resources1" name="use_resources[]" value="Effective use of textbooks/materials"> Effective use of textbooks/materials <br>
-        <input type="checkbox" id="use_resources2" name="use_resources[]" value="Use of visual aids"> Use of visual aids <br>
-        <input type="checkbox" id="use_resources3" name="use_resources[]" value="Use of digital resources"> Use of digital resources <br>
-        <input type="checkbox" id="use_resources4" name="use_resources[]" value="Other"> Other
+        <label for="name"><h5>Use of Resources</h5></label><br>
+        <?php 
+          $use_resources=explode(',', $data['use_resources']);
+        ?>
+        <input type="checkbox" id="use_resources1" name="use_resources[]" value="Effective use of textbooks/materials" <?php 
+            $effective_use=in_array('Effective use of textbooks/materials', $use_resources);
+            if($effective_use == '1'){ echo 'checked';}?>> Effective use of textbooks/materials <br>
+        <input type="checkbox" id="use_resources2" name="use_resources[]" value="Use of visual aids" <?php 
+            $use_of_visual=in_array('Use of visual aids', $use_resources);
+            if($use_of_visual == '1'){ echo 'checked';}?>> Use of visual aids <br>
+        <input type="checkbox" id="use_resources3" name="use_resources[]" value="Use of digital resources" <?php 
+            $use_of_digital=in_array('Use of digital resources', $use_resources);
+            if($use_of_digital == '1'){ echo 'checked';}?>> Use of digital resources <br>
+        <input type="checkbox" id="use_resources4" name="use_resources[]" value="Other" <?php 
+            $others=in_array('Other', $use_resources);
+            if($others == '1'){ echo 'checked';}?>> Other
       </div>
       <h4>Student Learning</h4>
       <div class="form-group mb-1">
-        <label for="name">Student Understanding</label><br>
-        <input type="checkbox" id="student_understanding1" name="student_understanding[]" value="Majority of students understand the content"> Majority of students understand the content <br>
-        <input type="checkbox" id="student_understanding2" name="student_understanding[]" value="Some students struggle with the content"> Some students struggle with the content <br>
-        <input type="checkbox" id="student_understanding3" name="student_understanding[]" value="Majority of students struggle with the content"> Majority of students struggle with the content <br>
+        <label for="name"><h5>Student Understanding</h5></label><br>
+         <?php 
+          $student_understanding=explode(',', $data['student_understanding']);
+        ?>
+       
+        <input type="checkbox" id="student_understanding1" name="student_understanding[]" value="Majority of students understand the content" <?php 
+            $majority_of_students=in_array('Majority of students understand the content', $student_understanding);
+            if($majority_of_students == '1'){ echo 'checked';}?>> Majority of students understand the content <br>
+        <input type="checkbox" id="student_understanding2" name="student_understanding[]" value="Some students struggle with the content" <?php 
+            $some_students=in_array('Some students struggle with the content', $student_understanding);
+            if($some_students == '1'){ echo 'checked';}?>> Some students struggle with the content <br>
+        <input type="checkbox" id="student_understanding3" name="student_understanding[]" value="Majority of students struggle with the content" <?php 
+            $content=in_array('Majority of students struggle with the content', $student_understanding);
+            if($content == '1'){ echo 'checked';}?>> Majority of students struggle with the content <br>
       </div>
        <div class="form-group mb-1">
-        <label for="name">Student Work</label><br>
-        <input type="checkbox" id="student_work1" name="student_work[]" value="Evidence of student work displayed"> Evidence of student work displayed <br>
-        <input type="checkbox" id="student_work2" name="student_work[]" value="Student work aligns with lesson objective"> Student work aligns with lesson objective <br>
-        <input type="checkbox" id="student_work3" name="student_work[]" value="Student work shows understanding"> Student work shows understanding <br>
-        <input type="checkbox" id="student_work4" name="student_work[]" value="Student work shows need for re-teaching"> Student work shows need for re-teaching 
+        <label for="name"><h5>Student Work</h5></label><br>
+         <?php 
+          $student_work=explode(',', $data['student_work']);
+        ?>
+       
+        <input type="checkbox" id="student_work1" name="student_work[]" value="Evidence of student work displayed" <?php 
+            $evidence=in_array('Evidence of student work displayed', $student_work);
+            if($evidence == '1'){ echo 'checked';}?>> Evidence of student work displayed <br>
+        <input type="checkbox" id="student_work2" name="student_work[]" value="Student work aligns with lesson objective" <?php 
+            $work=in_array('Student work aligns with lesson objective', $student_work);
+            if($work == '1'){ echo 'checked';}?>> Student work aligns with lesson objective <br>
+        <input type="checkbox" id="student_work3" name="student_work[]" value="Student work shows understanding" <?php 
+            $understanding=in_array('Student work shows understanding', $student_work);
+            if($understanding == '1'){ echo 'checked';}?>> Student work shows understanding <br>
+        <input type="checkbox" id="student_work4" name="student_work[]" value="Student work shows need for re-teaching" <?php 
+            $re_teaching=in_array('Student work shows need for re-teaching', $student_work);
+            if($re_teaching == '1'){ echo 'checked';}?>> Student work shows need for re-teaching 
 
       </div>
       <div class="form-group mb-1">
-        <label for="name">Differentiation</label><br>
-        <input type="checkbox" id="differentiation1" name="differentiation[]" value="Differentiated activities for different learning levels"> Differentiated activities for different learning levels <br>
-        <input type="checkbox" id="differentiation2" name="differentiation[]" value="Grouping by ability"> Grouping by ability <br>
-        <input type="checkbox" id="differentiation3" name="differentiation[]" value="Individualized instruction"> Individualized instruction <br>
-        <input type="checkbox" id="differentiation4" name="differentiation[]" value="No evidence of differentiation"> No evidence of differentiation
+        <label for="name"><h5>Differentiation</h5></label><br>
+        <?php 
+          $differentiation=explode(',', $data['differentiation']);
+        ?>
+       
+        <input type="checkbox" id="differentiation1" name="differentiation[]" value="Differentiated activities for different learning levels" <?php 
+            $diff_learning_levels=in_array('Differentiated activities for different learning levels', $differentiation);
+            if($diff_learning_levels == '1'){ echo 'checked';}?>> Differentiated activities for different learning levels <br>
+        <input type="checkbox" id="differentiation2" name="differentiation[]" value="Grouping by ability"<?php 
+            $grouping=in_array('Grouping by ability', $differentiation);
+            if($grouping == '1'){ echo 'checked';}?>
+        > Grouping by ability <br>
+        <input type="checkbox" id="differentiation3" name="differentiation[]" value="Individualized instruction" <?php 
+            $individualized=in_array('Individualized instruction', $differentiation);
+            if($individualized == '1'){ echo 'checked';}?>> Individualized instruction <br>
+        <input type="checkbox" id="differentiation4" name="differentiation[]" value="No evidence of differentiation" <?php 
+            $no_evidence=in_array('No evidence of differentiation', $differentiation);
+            if($no_evidence == '1'){ echo 'checked';}?>> No evidence of differentiation
 
       </div>
 
@@ -156,5 +297,13 @@ $(".ajaxForm").submit(function(e) {
 $(document).ready(function() {
   $('select.select2:not(.normal)').each(function () { $(this).select2({ dropdownParent: '#right-modal' }); }); //initSelect2(['#class_id_on_create']);
 });
+function classWiseSection(classId) {
+    $.ajax({
+        url: "<?php echo route('section/list/'); ?>"+classId,
+        success: function(response){
+            $('#sectionidss').html(response);
+        }
+    });
+}
 
 </script>

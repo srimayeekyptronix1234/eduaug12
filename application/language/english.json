@@ -1592,5 +1592,7 @@
     "classroom_walkthrough_has_been_added_successfully": "Classroom walkthrough has been added successfully",
     "classroom": "Classroom",
     "today's_attendance": "Today's attendance",
-    "update_classroom_walkthrough": "Update classroom walkthrough"
+    "update_classroom_walkthrough": "Update classroom walkthrough",
+    "classroom_walkthrough_has_been_updated_successfully": "Classroom walkthrough has been updated successfully",
+    "classroom_walkthrough_has_been_deleted_successfully": "Classroom walkthrough has been deleted successfully"
 }
