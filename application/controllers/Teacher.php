@@ -892,7 +892,32 @@ class Teacher extends CI_Controller {
       exit();
     }
   }
-  
+  //Classroom Walkthrough Section Start
+	public function classroom_walkthrough($param1 = '', $param2 = '',$param3 = '',$param4 = '',$param5 = ''){
+
+		
+		if($param1 == 'list'){
+			$page_data['class_id'] = $param2;
+			$page_data['section_id'] = $param3;			
+			$page_data['classroom_id'] = $param4;
+			$page_data['page_form']=$param1;
+			$this->load->view('backend/teacher/classroom_walkthrough/list', $page_data);
+		}
+
+		if(empty($param1)){
+			$page_data['folder_name'] = 'classroom_walkthrough';
+			$page_data['page_title'] = 'Classroom Walkthrough';
+            $page_data['page_form']=$param1;
+			$this->load->view('backend/index', $page_data);
+		}
+	}
+
+  	//Classroom Walkthrough Section End
+	
+
+	
+
+
 
 
 
