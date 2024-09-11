@@ -6,8 +6,9 @@
 </style>
 
 <?php
-if (!empty($class_id) && !empty($teacher_id)) {
-  $check_data = $this->db->get_where('classroom_walkthrough', array('class_rooms_id' => $class_id,'teacher_id' => $teacher_id))->result_array();
+
+if (!empty($class_id) && !empty($classroom_id) && !empty($teacher_id)) {
+  $check_data = $this->db->get_where('classroom_walkthrough', array('class_id' =>$class_id,'class_rooms_id' => $classroom_id,'teacher_id' => $teacher_id))->result_array();
 
 } else {
   $check_data = $this->crud_model->get_classroom_walkthrough_data();
@@ -50,7 +51,9 @@ if (count($check_data) > 0): ?>
                 <!-- item-->
                 <a href="javascript:void(0);" class="dropdown-item"
                   onclick="confirmModal('<?php echo route('classroom_walkthrough/delete/' . $data['id']); ?>', showAllClassroomWalkthrough)"><?php echo get_phrase('delete'); ?></a>
-              
+                <a href="javascript:void(0);" class="dropdown-item"
+                  onclick="previewModal('<?php echo site_url('modal/popup/classroom_walkthrough/view/' . $data['id']) ?>', '<?php echo get_phrase('classroom_walkthrough'); ?>');"><?php echo get_phrase('view'); ?></a>
+
               </div>
             </div>
           </td>

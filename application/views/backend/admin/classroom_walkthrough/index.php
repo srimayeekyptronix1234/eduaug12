@@ -72,8 +72,26 @@
         <div class="card parbox">
             <div class="row mt-3">
                 <div class="col-md-1 mb-1"></div>
-                <div class="col-md-4 mb-1">
-                    <select name="class" id="class_id" class="form-control select2" data-toggle="select2" required>
+                <div class="col-md-2 mb-1">
+                    <select name="class" id="class_id" class="form-control select2" data-toggle="select2" required
+                        onchange="classWiseSection(this.value)">
+                        <option value=""><?php echo get_phrase('select_a_class'); ?></option>
+                        <?php
+                        $classes = $this->db->get_where('classes', array('school_id' => school_id()))->result_array();
+                        foreach ($classes as $class) {
+                            ?>
+                            <option value="<?php echo $class['id']; ?>"><?php echo $class['name']; ?></option>
+                        <?php } ?>
+                    </select>
+                </div>
+                <div class="col-md-2 mb-1">
+                    <select name="section" id="section_id" class="form-control select2" data-toggle="select2" required>
+                        <option value=""><?php echo get_phrase('select_section'); ?></option>
+                    </select>
+                </div>
+                
+                <div class="col-md-2 mb-1">
+                    <select name="class_room" id="class_room_id" class="form-control select2" data-toggle="select2" required>
                         <option value=""><?php echo get_phrase('select_a_class_rooms'); ?></option>
                         <?php
                         $class_rooms = $this->db->get_where('class_rooms', array('school_id' => school_id()))->result_array();
@@ -84,7 +102,7 @@
                     </select>
                 </div>
                 
-                <div class="col-md-4 mb-1">
+                <div class="col-md-2 mb-1">
                     <select name="teacher" id="teacher_id" class="form-control select2" data-toggle="select2" required>
                         <option value=""><?php echo get_phrase('select_a_teacher'); ?></option>
                         <?php
@@ -112,6 +130,8 @@
 <script>
     function filter_class_rooms_walkthrough() {
         var class_id = $('#class_id').val();
+        var section_id = $('#section_id').val();
+        var class_room_id = $('#class_room_id').val();
         var teacher_id = $('#teacher_id').val();
         if (class_id != "") {
             showAllClassroomWalkthrough();
@@ -121,11 +141,13 @@
 
     var showAllClassroomWalkthrough = function () {
         var class_id = $('#class_id').val();
+        var section_id = $('#section_id').val();
+        var class_room_id = $('#class_room_id').val();
         var teacher_id = $('#teacher_id').val();
-
-        if (class_id != "" && teacher_id != "") {
+      
+        if (class_id != "" && section_id != "" && class_room_id != "" && teacher_id != "") {
             $.ajax({
-                url: '<?php echo route('classroom_walkthrough/list/') ?>' + class_id + '/' + teacher_id,
+                url: '<?php echo route('classroom_walkthrough/list/') ?>' + class_id + '/' + '/' + section_id + '/' + '/' + class_room_id + '/' + teacher_id,
                 success: function (response) {
                     $('.classroom_walkthrough_content').html(response);
                 }
@@ -139,5 +161,14 @@
             });
         }
     }
+    function classWiseSection(classId) {
+        $.ajax({
+            url: "<?php echo route('section/list/'); ?>" + classId,
+            success: function (response) {
+                $('#section_id').html(response);
+            }
+        });
+    }
+  
    
 </script>

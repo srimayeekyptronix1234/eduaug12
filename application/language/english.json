@@ -1594,5 +1594,16 @@
     "today's_attendance": "Today's attendance",
     "update_classroom_walkthrough": "Update classroom walkthrough",
     "classroom_walkthrough_has_been_updated_successfully": "Classroom walkthrough has been updated successfully",
-    "classroom_walkthrough_has_been_deleted_successfully": "Classroom walkthrough has been deleted successfully"
+    "classroom_walkthrough_has_been_deleted_successfully": "Classroom walkthrough has been deleted successfully",
+    "classrooms:": "Classrooms:",
+    "observer_name:": "Observer name:",
+    "classroom_layout:": "Classroom layout:",
+    "differentiation:": "Differentiation:",
+    "classroom_management:": "Classroom management:",
+    "lesson_objective:": "Lesson objective:",
+    "instructional_strategies:": "Instructional strategies:",
+    "questioning_techniques:": "Questioning techniques:",
+    "use_resources:": "Use resources:",
+    "student_understanding:": "Student understanding:",
+    "student_work:": "Student work:"
 }
