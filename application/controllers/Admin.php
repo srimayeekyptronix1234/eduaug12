@@ -212,12 +212,20 @@ class Admin extends CI_Controller {
 			$response = $this->crud_model->syllabus_create();
 			echo $response;
 		}
-
-		if($param1 == 'delete'){
-			$response = $this->crud_model->syllabus_delete($param2);
+        if($param1 == 'semester_plan_create'){
+			$response = $this->crud_model->semester_plan_create();
+			echo $response;
+		}
+        if($param1 == 'update_semester_plan'){
+			$response = $this->crud_model->update_semester_plan($param2);
 			echo $response;
 		}
 
+		if($param1 == 'delete'){
+			$response = $this->crud_model->semester_plan_delete($param2);
+			echo $response;
+		}
+       
 		if($param1 == 'list'){
 			$page_data['class_id'] = $param2;
 			$page_data['section_id'] = $param3;

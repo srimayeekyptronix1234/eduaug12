@@ -86,7 +86,7 @@
                                         <i class="fal fa-envelope"></i>
                                     </div>
                                     <div class="offcanvas__contact-text">
-                                        <a href="mailto:info@example.com"><span class="mailto:info@example.com">info@eduquest.com</span></a>
+                                        <a href="mailto:info@eduquest.com" class="link">info@eduquest.com</a>
                                     </div>
                                 </li>
                                 <li class="d-flex align-items-center">
@@ -107,8 +107,8 @@
                                 </li>
                             </ul>
                             <div class="header-button mt-4">
-                                <a href="contact.html" class="theme-btn text-center">
-                                    <span>Get A Quote<i class="fa-solid fa-arrow-right-long"></i></span>
+                                <a href="/eduaug12/login" class="theme-btn text-center">
+                                    <span>Sign In<i class="fa-solid fa-arrow-right-long"></i></span>
                                 </a>
                             </div>
                             <div class="social-icon d-flex align-items-center">

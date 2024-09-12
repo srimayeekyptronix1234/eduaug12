@@ -11,7 +11,6 @@
                     <option value="<?php echo $class['id']; ?>" <?php if($class['id'] == $data['class_id']){echo  'selected';}?>><?php echo $class['name']; ?></option>
                 <?php } ?>
        </select>
-         <small id="class_help" class="form-text text-muted"><?php echo get_phrase('select_a_class'); ?></small>
     </div>
     <div class="form-group mb-1">
       <label for=""><?php echo get_phrase('section'); ?></label>
@@ -36,7 +35,6 @@
                 <option value="<?php echo $class['id']; ?>"<?php if($class['id'] == $data['class_rooms_id']){echo 'selected';}?>><?php echo $class['name']; ?></option>
               <?php } ?>
             </select>
-            <small id="class_help" class="form-text text-muted"><?php echo get_phrase('select_a_class_rooms'); ?></small>
 
         </div>
 

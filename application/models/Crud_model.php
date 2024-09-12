@@ -2557,7 +2557,69 @@ class Crud_model extends CI_Model {
 
 		return json_encode($response);
 	}
+    //START Semester section
+	public function semester_plan_create($param1 = '')
+	{
+		$data['quarter_id'] = html_escape($this->input->post('quarter_id'));
+		$data['class_id'] = html_escape($this->input->post('class_id'));
+		$data['section_id'] = html_escape($this->input->post('section_id'));
+		$data['subject_id'] = html_escape($this->input->post('subject_id'));
+		$data['teacher_id'] = html_escape($this->input->post('teacher_id'));
+		$data['semester_id'] = html_escape($this->input->post('semester_id'));
+		$data['week'] = html_escape($this->input->post('week'));
+		$data['date'] = html_escape($this->input->post('date'));
+		$data['content'] = html_escape($this->input->post('content'));
+		$data['events_id'] = html_escape($this->input->post('events_id'));
+		$data['school_id'] = html_escape($this->input->post('school_id'));
+		$this->db->insert('semester_plan', $data);
 
+		$response = array(
+			'status' => true,
+			'notification' => get_phrase('semester_plan_added_successfully')
+		);
+		return json_encode($response);
+	}
 	
+	public function get_semester_plan_data() {
+		return $this->db->get('semester_plan')->result_array();
+	}
+    
+    public function update_semester_plan($param1 = '')
+	{
+		$data['quarter_id'] = html_escape($this->input->post('quarter_id'));
+		$data['class_id'] = html_escape($this->input->post('class_id'));
+		$data['section_id'] = html_escape($this->input->post('section_id'));
+		$data['subject_id'] = html_escape($this->input->post('subject_id'));
+		$data['teacher_id'] = html_escape($this->input->post('teacher_id'));
+		$data['semester_id'] = html_escape($this->input->post('semester_id'));
+		$data['week'] = html_escape($this->input->post('week'));
+		$data['date'] = html_escape($this->input->post('date'));
+		$data['content'] = html_escape($this->input->post('content'));
+		$data['events_id'] = html_escape($this->input->post('events_id'));
+	
+		$this->db->where('id', $param1);
+		$this->db->update('semester_plan', $data);
+
+		$response = array(
+			'status' => true,
+			'notification' => get_phrase('semester_plan_has_been_updated_successfully')
+		);
+
+		return json_encode($response);
+	}
+	public function semester_plan_delete($param1=''){
+		$this->db->where('id', $param1);
+		$this->db->delete('semester_plan');
+
+		$response = array(
+			'status' => true,
+			'notification' => get_phrase('semester_plan_has_been_deleted_successfully')
+		);
+
+		return json_encode($response);
+
+	}
+
+
 
 }

@@ -49,7 +49,6 @@
     <div class="col-xl-12">
         <div class="card parentbar">
             <div class="card-body py-2 d-flex justify-content-between align-items-center">
-                <div>
                     <h4 class="page-title d-flex align-items-center">
                         <i class="mdi mdi-chart-timeline title_icon"></i>
                         <span class="ms-2"><?php echo get_phrase('syllabus'); ?></span>
@@ -57,11 +56,15 @@
                     <p class="inspiring-line mt-2">
                         Mapping out the path to your educational journey.
                     </p>
-                </div>
                 <button type="button" class="btn btn-outline-primary btn-rounded alignToTitle float-end mt-1"
                     onclick="rightModal('<?php echo site_url('modal/popup/syllabus/create'); ?>', '<?php echo get_phrase('create_syllabus'); ?>')">
                     <i class="mdi mdi-plus"></i> <?php echo get_phrase('add_syllabus'); ?>
                 </button>
+                <button type="button" class="btn btn-outline-primary btn-rounded alignToTitle float-end mt-1"
+                    onclick="rightModal('<?php echo site_url('modal/popup/syllabus/semester_plan_create'); ?>', '<?php echo get_phrase('create_semester_plan'); ?>')">
+                    <i class="mdi mdi-plus"></i> <?php echo get_phrase('add_semester_plan'); ?>
+                </button>
+
             </div> <!-- end card body-->
         </div> <!-- end card -->
     </div><!-- end col-->
@@ -123,9 +126,7 @@
         var section_id = $('#section_id').val();
         if (class_id != "" && section_id != "") {
             showAllSyllabuses();
-        } else {
-            toastr.error('<?php echo get_phrase('please_select_a_class_and_section'); ?>');
-        }
+        } 
     }
 
     var showAllSyllabuses = function () {
@@ -139,6 +140,16 @@
                     initDataTable('basic-datatable');
                 }
             });
+        }else{
+            $.ajax({
+                url: '<?php echo route('syllabus/list/') ?>',
+                success: function (response) {
+                    $('.syllabus_content').html(response);
+                    initDataTable('basic-datatable');
+                }
+            });
+   
+
         }
     }
 </script>

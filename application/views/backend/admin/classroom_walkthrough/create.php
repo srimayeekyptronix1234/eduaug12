@@ -15,7 +15,6 @@ $school_id = school_id();
                     <option value="<?php echo $class['id']; ?>"><?php echo $class['name']; ?></option>
                 <?php } ?>
        </select>
-         <small id="class_help" class="form-text text-muted"><?php echo get_phrase('select_a_class'); ?></small>
     </div>
     <div class="form-group mb-1">
        <label for=""><?php echo get_phrase('section'); ?></label>
@@ -33,7 +32,6 @@ $school_id = school_id();
                     <option value="<?php echo $class['id']; ?>"><?php echo $class['name']; ?></option>
                 <?php } ?>
        </select>
-         <small id="class_help" class="form-text text-muted"><?php echo get_phrase('select_a_class_rooms'); ?></small>
     </div>
     <div class="form-group mb-1">
        <label for=""><?php echo get_phrase('Observer Name'); ?></label>

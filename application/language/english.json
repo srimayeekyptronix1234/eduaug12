@@ -1605,5 +1605,16 @@
     "questioning_techniques:": "Questioning techniques:",
     "use_resources:": "Use resources:",
     "student_understanding:": "Student understanding:",
-    "student_work:": "Student work:"
+    "student_work:": "Student work:",
+    "add_semester_plan": "Add semester plan",
+    "create_semester_plan": "Create semester plan",
+    "semester": "Semester",
+    "select_a_semester": "Select a semester",
+    "content": "Content",
+    "select_a_events": "Select a events",
+    "week": "Week",
+    "semester_plan_added_successfully": "Semester plan added successfully",
+    "update_semester_plan": "Update semester plan",
+    "semester_plan_has_been_updated_successfully": "Semester plan has been updated successfully",
+    "semester_plan_has_been_deleted_successfully": "Semester plan has been deleted successfully"
 }
