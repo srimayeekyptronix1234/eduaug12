@@ -1617,6 +1617,7 @@
     "update_semester_plan": "Update semester plan",
     "semester_plan_has_been_updated_successfully": "Semester plan has been updated successfully",
     "semester_plan_has_been_deleted_successfully": "Semester plan has been deleted successfully",
+<<<<<<< Updated upstream
     "semester_plan": "Semester plan",
     "content_(unit_/_chapter,_lesson…)": "Content (unit / chapter, lesson…)",
     "sb_/_wb_pages": "Sb / wb pages",
@@ -1628,4 +1629,7 @@
     "school_events_/_extra-curricular_activities_/_notes": "School events / extra-curricular activities / notes",
     "school_events_/_extra-curricular_activities_/notes": "School events / extra-curricular activities /notes",
     "date1": "Date1"
+=======
+    "parent_has_been_deleted_successfully": "Parent has been deleted successfully"
+>>>>>>> Stashed changes
 }
