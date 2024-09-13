@@ -33,7 +33,7 @@ if (count($check_data) > 0): ?>
         $subject_data = $this->db->get_where('subjects',['id'=>$data['subject_id']])->row_array();
         $quarters = $this->db->get_where('exams', array('school_id' => school_id(),'id' =>$data['quarter_id']))->row_array();
         $semester = $this->db->get_where('semester', array('school_id' => school_id(),'id' =>$data['semester_id']))->row_array();
-        $syllabuses = $this->db->get_where('syllabuses', array('class_id' => $data['class_id'], 'section_id' => $data['section_id'], 'subject_id' => $data['subject_id'], 'school_id' =>$school_id, 'session_id' => active_session()))->row_array();
+        $syllabuses_data = $this->db->get_where('syllabuses', array('subject_id' => $data['subject_id'], 'school_id' =>$school_id, 'session_id' => active_session()))->row_array();
         ?>
         <tr>
           <td><?=$quarters['name'];?></td>
@@ -41,7 +41,12 @@ if (count($check_data) > 0): ?>
           <td><?=$semester['name'];?></td>
           <td><?php echo $teacher_data['name']; ?></td>
           <td><?=$subject_data['name'];?></td>
-          <td><a href="<?php echo base_url('uploads/syllabus/'.$syllabuses['file']); ?>" class="btn btn-info mdi mdi-download" download><?php echo get_phrase('download'); ?></a></td>
+          <td>
+            <?php if(!empty($syllabuses_data)){ ?>
+            <a href="<?php echo base_url('uploads/syllabus/'.$syllabuses_data['file']); ?>" class="btn btn-info mdi mdi-download" download><?php echo get_phrase('download'); ?></a>
+           <?php } ?>
+         </td>
+
           <td>
 
             <div class="dropdown text-center">
@@ -53,8 +58,8 @@ if (count($check_data) > 0): ?>
                   onclick="rightModal('<?php echo site_url('modal/popup/syllabus/semester_plan_edit/' . $data['id']) ?>', '<?php echo get_phrase('update_semester_plan'); ?>');"><?php echo get_phrase('edit'); ?></a>
                 <a href="javascript:void(0);" class="dropdown-item"
                   onclick="confirmModal('<?php echo route('syllabus/delete/' . $data['id']); ?>', showAllSyllabuses)"><?php echo get_phrase('delete'); ?></a>
-              <!--  <a href="javascript:void(0);" class="dropdown-item"
-                  onclick="previewModal('<?php echo site_url('modal/popup/syllabus/view/' . $data['id']) ?>', '<?php echo get_phrase('syllabus'); ?>');"><?php echo get_phrase('view'); ?></a>-->
+                <a href="javascript:void(0);" class="dropdown-item"
+                  onclick="previewModal('<?php echo site_url('modal/popup/syllabus/view/' . $data['id']) ?>', '<?php echo get_phrase('semester_plan'); ?>');"><?php echo get_phrase('view'); ?></a>
 
               </div>
             </div>

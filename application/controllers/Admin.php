@@ -36,7 +36,7 @@ class Admin extends CI_Controller {
 		timezone();
 
 		/*LOAD EXTERNAL LIBRARIES*/
-    $this->load->library('pdf');
+        $this->load->library('pdf');
 		
 		if($this->session->userdata('admin_login') != 1){
 			redirect(site_url('login'), 'refresh');
@@ -225,7 +225,7 @@ class Admin extends CI_Controller {
 			$response = $this->crud_model->semester_plan_delete($param2);
 			echo $response;
 		}
-       
+        
 		if($param1 == 'list'){
 			$page_data['class_id'] = $param2;
 			$page_data['section_id'] = $param3;

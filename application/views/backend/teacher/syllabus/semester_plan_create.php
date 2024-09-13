@@ -77,7 +77,7 @@
         </div>
        <div class="form-group mb-1">
             <label for="date"><?php echo get_phrase('date'); ?></label>
-           <input type="text" class="form-control date" id="date" data-bs-toggle="date-picker" data-single-date-picker="true" name="date" value="" required>
+            <input type="text" class="form-control date" id="date" data-bs-toggle="date-picker" data-single-date-picker="true" name="date" value="<?php echo date('d/m/Y'); ?>" required>
             <small id="name_help" class="form-text text-muted"><?php echo get_phrase('date'); ?></small>
         </div>
         <div class="form-group mb-1">
@@ -110,15 +110,12 @@ $(".ajaxForm").validate({}); // jQuery form validation initialization
 $(".ajaxForm").submit(function(e) {
     var form = $(this);
     ajaxSubmit(e, form, showAllSyllabuses);
-
 });
 
 $(document).ready(function(){
     $('select.select2:not(.normal)').each(function () {
         $(this).select2({ dropdownParent: '#right-modal' });
     });
-    $('#date').daterangepicker();
-
 });
 
 function classWiseSectionOnCreate(classId) {

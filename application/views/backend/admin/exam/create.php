@@ -5,7 +5,7 @@
             <input type="text" class="form-control" id="exam_name" name = "exam_name" placeholder="name" required>
             <small id="name_help" class="form-text text-muted"><?php echo get_phrase('provide_exam_name'); ?></small>
         </div>
-
+        
         <div class="form-group mb-1">
             <label for="starting_date"><?php echo get_phrase('starting_date'); ?></label>
             <input type="text" class="form-control date" id="starting_date" data-bs-toggle="date-picker" data-single-date-picker="true" name = "starting_date" value="<?php echo date('m/d/Y'); ?>" required>

@@ -243,16 +243,7 @@ class Teacher extends CI_Controller {
 	//START SYLLABUS section
 	public function syllabus($param1 = '', $param2 = '', $param3 = ''){
 
-		if($param1 == 'create'){
-			$response = $this->crud_model->syllabus_create();
-			echo $response;
-		}
-
-		if($param1 == 'delete'){
-			$response = $this->crud_model->syllabus_delete($param2);
-			echo $response;
-		}
-
+		
 		if($param1 == 'list'){
 			$page_data['class_id'] = $param2;
 			$page_data['section_id'] = $param3;
@@ -265,6 +256,7 @@ class Teacher extends CI_Controller {
 			$this->load->view('backend/index', $page_data);
 		}
 	}
+	
 	//END SYLLABUS section
 
 	//START CLASS ROUTINE section
