@@ -43,7 +43,9 @@
         padding: 7px 50px 7px 50px;
     }
 </style>
-
+<?php 
+ $student_data = $this->user_model->get_logged_in_student_details(); 
+?>
 <!--title-->
 <div class="row">
     <div class="col-xl-12">
@@ -73,11 +75,7 @@
                         <select name="class" id="class_id" class="form-control select2" data-toggle="select2"
                             onchange="classWiseSection(this.value)" required>
                             <option value=""><?php echo get_phrase('select_a_class'); ?></option>
-                            <?php
-                            $classes = $this->db->get_where('classes', array('school_id' => school_id()))->result_array();
-                            foreach ($classes as $class): ?>
-                                <option value="<?php echo $class['id']; ?>"><?php echo $class['name']; ?></option>
-                            <?php endforeach; ?>
+                                <option value="<?php echo $student_data['class_id']; ?>"><?php echo $student_data['class_name']; ?></option>
                         </select>
                     </div>
                     <div class="col-md-4 mb-1">

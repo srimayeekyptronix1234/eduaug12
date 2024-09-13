@@ -33,7 +33,7 @@ if (count($check_data) > 0): ?>
         $subject_data = $this->db->get_where('subjects',['id'=>$data['subject_id']])->row_array();
         $quarters = $this->db->get_where('exams', array('school_id' => school_id(),'id' =>$data['quarter_id']))->row_array();
         $semester = $this->db->get_where('semester', array('school_id' => school_id(),'id' =>$data['semester_id']))->row_array();
-        $syllabuses_data = $this->db->get_where('syllabuses', array('subject_id' => $data['subject_id'], 'school_id' =>$school_id, 'session_id' => active_session()))->row_array();
+        $syllabuses_data = $this->db->get_where('syllabuses', array('subject_id' => $data['subject_id'], 'school_id' =>school_id(), 'session_id' => active_session()))->row_array();
         ?>
         <tr>
           <td><?=$quarters['name'];?></td>
