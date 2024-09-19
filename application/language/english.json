@@ -1628,5 +1628,6 @@
     "school_events_/_extra-curricular_activities_/_notes": "School events / extra-curricular activities / notes",
     "school_events_/_extra-curricular_activities_/notes": "School events / extra-curricular activities /notes",
     "date1": "Date1",
-    "parent_has_been_deleted_successfully": "Parent has been deleted successfully"
+    "parent_has_been_deleted_successfully": "Parent has been deleted successfully",
+    "total_number_of_complaints": "Total number of complaints"
 }
