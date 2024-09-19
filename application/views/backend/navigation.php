@@ -10,9 +10,9 @@ if ($user_type == 'parent') {
 
 <style>
   .leftside-menu.leftside-menu-detached.show {
-    border-radius: 10px;
     box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
-    margin-bottom: 30px;
+    margin-left: -54px;
+    margin-top: -10px;
   }
 
   .side-nav-link:hover {
