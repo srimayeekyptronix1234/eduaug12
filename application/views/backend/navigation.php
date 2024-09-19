@@ -19,6 +19,12 @@ if ($user_type == 'parent') {
     z-index: 1001 !important;
   }
 
+  .side-nav .side-nav-link span {
+    vertical-align: middle;
+    COLOR: #000;
+    FONT-SIZE: 16PX;
+  }
+
   .leftside-menu {
     background-color: #f8f9fa;
     /* Light background */
@@ -57,9 +63,9 @@ if ($user_type == 'parent') {
   }
 
   .side-nav-title {
-    font-size: 14px;
+    font-size: 16px;
     font-weight: bold;
-    color: #888;
+    color: #000;
     margin-bottom: 15px;
   }
 
@@ -81,7 +87,7 @@ if ($user_type == 'parent') {
   }
 
   .side-nav-link i {
-    font-size: 28px;
+    font-size: 20px !important;
     /* Increased icon size */
     margin-right: 15px;
     transition: all 0.3s;
