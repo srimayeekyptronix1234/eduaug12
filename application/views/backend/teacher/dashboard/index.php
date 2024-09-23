@@ -156,7 +156,7 @@ $school_id = school_id();
           <!-- Student Count Start -->
           <div class="col-lg-4">
             <div class="card widget-flat" id="student"
-              style="background-image: linear-gradient(to right top, rgb(12, 2, 76), rgb(8, 43, 116), rgb(14, 67, 135), rgb(0, 102, 185), rgb(26, 51, 241));
+              style="background-image: linear-gradient(to right top, #051937, #004d7a, #008793, #00bf72, #a8eb12);
                border-radius: 10px; transition: all 0.3s ease-in-out; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); position: relative; overflow: hidden;">
               <div class="card-body" style="color: #fff;">
                 <div class="float-end">
@@ -169,7 +169,7 @@ $school_id = school_id();
                     <i class="mdi mdi-export"></i>
                   </a>
                 </h5>
-                <h3 class="mt-3 mb-3" style="font-size: 2rem; color: #fff;">
+                <h3 class="mt-3 mb-3" style="font-size: 26px; color: #fff;">
                   <?php
                   if (isset($current_session_students) && $current_session_students != '') {
                     echo count($current_session_students);
@@ -250,7 +250,7 @@ $school_id = school_id();
           <div class="col-xl-4">
             <!-- Today's Attendance Card Start -->
             <div class="card"
-              style="background: linear-gradient(to right, #0066cc, #3399ff); border-radius: 12px; box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2); color: #fff; overflow: hidden;">
+              style="background-image: linear-gradient(to left, #c2ba01, #ba7821, #8d4632, #4d262b, #0b090a);; border-radius: 12px; box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2); color: #fff; overflow: hidden;">
               <div class="card-body">
                 <h4 class="header-title text-white mb-3" style="font-size: 20px; font-weight: 600; text-align: center;">
                   <?php echo get_phrase('todays_attendance'); ?>
@@ -268,8 +268,7 @@ $school_id = school_id();
                     ?>
                   </h3>
                   <p class="text-light text-uppercase font-14 font-weight-bold" style="font-size: 16px !important; font-weight: 600 !important;
-    text-align: center;
-}">
+                     text-align: center; margin: 0 0;">
                     <?php echo isset($students_attendance) ? $students_attendance : '0'; ?>
                     <?php echo get_phrase('students_are_attending_today'); ?>
                   </p>

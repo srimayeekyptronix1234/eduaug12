@@ -1638,5 +1638,6 @@
     "certificate_quote": "Certificate quote",
     "upload_principal_signature": "Upload principal signature",
     "select_exam_set": "Select exam set",
-    "quarter_set": "Quarter set"
+    "quarter_set": "Quarter set",
+    "marksheet": "Marksheet"
 }

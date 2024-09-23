@@ -35,7 +35,7 @@
 <div class="row">
   <div class="col-xl-12">
     <div class="card adminbar">
-      <div class="card-body d-flex flex-column py-2">
+      <div class="card-body d-flex align-items-center justify-content-between py-2">
         <div>
           <h4 class="page-title mb-0 d-flex align-items-center">
             <i class="mdi mdi-view-dashboard title_icon" style="font-size: 1.5rem; color: #ff7580;"></i>
@@ -44,10 +44,13 @@
               <?php echo get_phrase('dashboard'); ?>
             </span>
           </h4>
-          <!-- Optional Description -->
           <p class="text-muted mt-2" style="font-size: 16px; font-weight: 600; color: #2c2c2c;">
             Get an overview of key metrics and system status on the dashboard.
           </p>
+        </div>
+        <div>
+          <img src="../assets/backend/images/bus.png" alt="Dashboard Image"
+            style=" height: auto; width: 285px; position: absolute; top: -75px; right: 27px;}" />
         </div>
       </div> <!-- end card body-->
     </div> <!-- end card -->
