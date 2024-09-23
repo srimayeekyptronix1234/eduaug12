@@ -1,16 +1,16 @@
 <div class="row mb-3">
     <div class="col-md-4"></div>
-    <div class="col-md-4 toll-free-box text-center text-white pb-2"
-        style="background-color: #6c757d; border-radius: 10px;">
+    <div class="col-md-4 toll-free-box text-center text-white pb-2">
         <h4><?php echo get_phrase('manage_marks'); ?></h4>
-        <span><?php echo get_phrase('class'); ?> :
-            <?php echo $this->db->get_where('classes', array('id' => $class_id))->row('name'); ?></span><br>
-        <span><?php echo get_phrase('section'); ?> :
-            <?php echo $this->db->get_where('sections', array('id' => $section_id))->row('name'); ?></span><br>
-        <span><?php echo get_phrase('subject'); ?> :
+        <span><?php echo get_phrase('class'); ?>:
+            <?php echo $this->db->get_where('classes', array('id' => $class_id))->row('name'); ?></span>
+        <span><?php echo get_phrase('section'); ?>:
+            <?php echo $this->db->get_where('sections', array('id' => $section_id))->row('name'); ?></span>
+        <span><?php echo get_phrase('subject'); ?>:
             <?php echo $this->db->get_where('subjects', array('id' => $subject_id))->row('name'); ?></span>
     </div>
 </div>
+
 
 <?php
 $school_id = school_id();
@@ -108,6 +108,36 @@ $marks = $this->crud_model->get_classwork($exam_id, $class_id, $section_id, $sub
         color: #000;
         font-weight: 600;
         font-size: 16px;
+    }
+
+    .toll-free-box {
+        background: linear-gradient(195deg, #ff00c3, #d123ba, #a42dab, #7b2f97, #552b80, #342465, #181a48, #050b2b);
+        border-radius: 10px;
+        padding: 13px 30px;
+        transition: transform 0.3s, box-shadow 0.3s;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    }
+
+    .toll-free-box h4 {
+        font-size: 1.5rem;
+        font-weight: bold;
+    }
+
+    .toll-free-box span {
+        display: block;
+        font-size: 1.1rem;
+        margin: 5px;
+    }
+
+    .toll-free-box:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+    }
+
+    @media (max-width: 768px) {
+        .toll-free-box {
+            margin: 10px;
+        }
     }
 </style>
 
