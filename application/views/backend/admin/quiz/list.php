@@ -3,23 +3,29 @@ if (isset($class_id) && isset($exam) && isset($subject_id) ):
 
 
   $school_id  = school_id();
-  $check_data = $this->db->get_where('quiz', array('school_id' => $school_id,'class_id' => $class_id,'quarter_id' =>$exam,'subject_id'=>$subject_id))->result_array();
+  $check_data = $this->db->get_where('quiz', array('school_id' => $school_id,'class_id' => $class_id,'quarter_id' =>$exam,'subject_id'=>$subject_id,'quarter_set_id'=>$quiz_set_id))->result_array();
   if (count($check_data) > 0):?>
   <table id="basic-datatable" class="table table-striped dt-responsive nowrap" width="100%">
     <thead>
       <tr style="background-color: #313a46; color: #ababab;">
         <th><?php echo get_phrase('Questions'); ?></th>
+        <th><?php echo get_phrase('quarter'); ?></th>
+        <th><?php echo get_phrase('quarter_set'); ?></th>
         <th><?php echo get_phrase(''); ?></th>
       </tr>
     </thead>
     <tbody>
       <?php
       $school_id = school_id();
-      $quiz_data = $this->db->get_where('quiz', array('school_id' => $school_id, 'class_id' => $class_id,'quarter_id' =>$exam,'subject_id'=>$subject_id))->result_array();
+      $quiz_data = $this->db->get_where('quiz', array('school_id' => $school_id, 'class_id' => $class_id,'quarter_id' =>$exam,'subject_id'=>$subject_id,'quarter_set_id'=>$quiz_set_id))->result_array();
       foreach($quiz_data as $quiz){
+        $exam_details = $this->db->get_where('exams', array('id' => $exam))->row_array();
+        $set_details = $this->db->get_where('quiz_sets', array('id' => $quiz_set_id))->row_array();
         ?>
         <tr>
           <td><?php echo $quiz['questions']; ?></td>
+          <td><?php echo $exam_details['name'];?></td>
+          <td><?php echo $set_details['name'];?></td>
           <td>
 
             <div class="dropdown text-center">

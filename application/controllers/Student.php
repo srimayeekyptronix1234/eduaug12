@@ -382,7 +382,7 @@ class Student extends CI_Controller {
 
 	// Student Online exam
 	//START EXAM section
-	public function student_online_exam($param1 = '', $param2 = '',$param3='',$param4='',$param5=''){
+	public function student_online_exam($param1 = '', $param2 = '',$param3='',$param4='',$param5='',$param6=''){
 
 		if($param1 == 'create'){
 			$response = $this->crud_model->online_exam_data_submit();
@@ -393,13 +393,14 @@ class Student extends CI_Controller {
         	 $render_data['exam_id']=$param3;
         	 $render_data['class_id']=$param4;
         	 $render_data['subject_id']=$param5;
+			 $render_data['quarter_set_id']=$param6;
         	 $render_data['working_page'] = 'start_exam';
 			 $render_data['folder_name'] = 'online_exam';
 			 $render_data['page_title'] = 'start_exam';
              $this->load->view('backend/index', $render_data);
 		}
 
-		if(empty($param1)){
+		//if(empty($param1)){
 
 		// if($param1 == 'update'){
 		// 	$response = $this->crud_model->exam_update($param2);
@@ -440,7 +441,7 @@ class Student extends CI_Controller {
 			$page_data['page_title'] = 'online exam details';
 			$this->load->view('backend/index', $page_data);
 		}
-	}
+	//}
    }
 
 	// Student Online status update
@@ -450,6 +451,7 @@ class Student extends CI_Controller {
 		
 		$loginStudentId = $this->session->userdata('user_id'); 
         $quarter_id = $this->input->post('quarter_id');
+		$quarter_set_id = $this->input->post('quarter_set_id');
 		$class_id = $this->input->post('class_id');
 		$subject_id = $this->input->post('subject_id');
 		$exam_id = $this->input->post('exam_id');
@@ -463,7 +465,7 @@ class Student extends CI_Controller {
         //     // Add more parameters as needed
         // ];
 
-		$response = $this->crud_model->student_online_exam_status_update($loginStudentId, $quarter_id,$class_id, $subject_id, $exam_id, $get_student_answers);
+		$response = $this->crud_model->student_online_exam_status_update($loginStudentId, $quarter_id,$quarter_set_id,$class_id, $subject_id, $exam_id, $get_student_answers);
 
 		echo $response;
 	}

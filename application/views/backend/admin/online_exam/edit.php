@@ -2,6 +2,8 @@
 <?php $exam_data = $this->db->get_where('online_exam_details', array('id' => $param1))->result_array(); ?>
 <?php foreach($exam_data as $exam){ ?>
 <form method="POST" class="d-block ajaxForm" action="<?php echo route('online_exam_create/update_exam/'.$param1); ?>">
+    <input type="hidden" name="school_id" value="<?php echo school_id(); ?>">
+    <input type="hidden" name="session" value="<?php echo active_session();?>">
     <div class="form-row">
           <div class="form-group mb-1">
             <label for="class"><?php echo get_phrase('quarter'); ?></label>
@@ -15,6 +17,20 @@
                     <?php } ?>
             </select>
             <small id="class_help" class="form-text text-muted"><?php echo get_phrase('select_a_class'); ?></small>
+        </div>
+
+        <div class="form-group mb-1">
+            <label for="class_id_on_create"><?php echo get_phrase('Exam_Set'); ?></label>
+            <select name="quarter_set_id" id="class_id_on_create" class="form-control select2" data-bs-toggle="select2" required>
+                <option value=""><?php echo get_phrase('select_a_exam_set'); ?></option>
+                <?php
+                $quizSets = $this->db->get_where('quiz_sets', array('status' => 'active'))->result_array();
+                foreach($quizSets as $set){
+                ?>
+                <option value="<?php echo $set['id']; ?>" <?php if($set['id'] == $exam['quarter_set_id']){ echo 'selected'; } ?>><?php echo $set['name']; ?></option>
+                <?php } ?>
+            </select>
+            <small id="class_help" class="form-text text-muted"><?php echo get_phrase('select_a_exam_set'); ?></small>
         </div>
         
         <div class="form-group mb-1">
@@ -60,20 +76,20 @@
         <div class="form-group mb-1">
             <label for="from_time"><?php echo get_phrase('from_time'); ?></label>
             <input type="time" id="from-time" name="from-time" class="form-control"  value="<?php echo $exam['exam_start_time']; ?>" required>
-          <!--  <select id="from-ampm" name="from-ampm">
+           <select id="from-ampm" name="from-ampm">
                 <option value="AM" <?php if($exam['exam_start_am_pm'] == 'AM'){ echo 'selected'; } ?>>AM</option>
                 <option value="PM" <?php if($exam['exam_start_am_pm'] == 'PM'){ echo 'selected'; } ?>>PM</option>
-            </select>-->
+            </select>
             <small id="name_help" class="form-text text-muted"><?php echo get_phrase('enter_from_time'); ?></small>
         </div>
 
         <div class="form-group mb-1">
             <label for="to_time"><?php echo get_phrase('to_time'); ?></label>
             <input type="time" id="to-time" name="to-time" class="form-control" value="<?php echo $exam['exam_end_time']; ?>" required>
-            <!--<select id="to-ampm" name="to-ampm">
+            <select id="to-ampm" name="to-ampm">
                 <option value="AM" <?php if($exam['exam_end_am_pm'] == 'AM'){ echo 'selected'; } ?>>AM</option>
                 <option value="PM" <?php if($exam['exam_end_am_pm'] == 'PM'){ echo 'selected'; } ?>>PM</option>
-            </select>-->
+            </select>
             <small id="name_help" class="form-text text-muted"><?php echo get_phrase('enter_to_time'); ?></small>
         </div>
 

@@ -2,7 +2,7 @@
 // $check_data = $this->db->get_where('online_exam_details', array(
 //     'status' => '1'
 // ))->row_array();
-
+echo "Hii"; exit;
 $getquarter_id = $get_quarter_id ? $get_quarter_id : "";
 $getclass_id = $get_quize_class_id ? $get_quize_class_id : "";
 $getsubject_id = $get_quize_subject_id ? $get_quize_subject_id : "";
@@ -70,10 +70,11 @@ $get_quize_first_row = $this->db->order_by('id', 'ASC')->get_where('quiz', array
             var examStartStatus = '<?php echo $exam_start_status; ?>';
             var getexam_start_date = '<?php echo $getexam_start_date; ?>';
             var getexam_start_time = '<?php echo $getexam_start_time; ?>';
+            var getexam_start_am_pm = '<?php echo $get_exam_start_am_pm; ?>'; 
             // Sweet alert will be shown if exam is not start 
             if (examStartStatus === 'notstart') {
                 //alert("Exam Not strted till now");
-                alert("The exam is not started.\Your exam will be started on "+getexam_start_date+" at "+getexam_start_time+".");
+                alert("The exam is not started.\Your exam will be started on "+getexam_start_date+" at "+getexam_start_time+" "+getexam_start_am_pm+".");
                 window.location.href = '<?php echo base_url("student/student_online_exam"); ?>';
                 // Swal.fire({
                 // title: 'Exam Not Started',

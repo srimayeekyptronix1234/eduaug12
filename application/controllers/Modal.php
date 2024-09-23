@@ -31,7 +31,7 @@ class Modal extends CI_Controller {
 		$page_data['param1']		=	$param1;
 		$page_data['param2']		=	$param2;
 		$page_data['param3']		=	$param3;
-
+        //echo "Hii=".$param1; exit;
 		// Check exam time
 		date_default_timezone_set('Asia/kolkata');
 		$currentDatetimeToday = new DateTime(); 
@@ -60,7 +60,7 @@ class Modal extends CI_Controller {
 		$quarter_id = $param1;
 		$getclass_id = $param3;
 		$getsubject_id = $param4;
-		$questions = $this->crud_model->get_questions($quarter_id,$getclass_id,$getsubject_id);
+		$questions = $this->crud_model->get_questions($quarter_id,$quarter_set_id="",$getclass_id,$getsubject_id);
 
 		$js_array = [];
 		foreach ($questions as $key => $question) {

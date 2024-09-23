@@ -1629,5 +1629,14 @@
     "school_events_/_extra-curricular_activities_/notes": "School events / extra-curricular activities /notes",
     "date1": "Date1",
     "parent_has_been_deleted_successfully": "Parent has been deleted successfully",
-    "total_number_of_complaints": "Total number of complaints"
+    "total_number_of_complaints": "Total number of complaints",
+    "quiz_question_add": "Quiz question add",
+    "quiz_mark": "Quiz mark",
+    "exam_set": "Exam set",
+    "select_a_exam_set": "Select a exam set",
+    "total_school_days": "Total school days",
+    "certificate_quote": "Certificate quote",
+    "upload_principal_signature": "Upload principal signature",
+    "select_exam_set": "Select exam set",
+    "quarter_set": "Quarter set"
 }

@@ -70,6 +70,7 @@
                                     <th><?php echo get_phrase('exam_name'); ?></th>
                                     <th><?php echo get_phrase('subjcetnam'); ?></th>
                                     <th><?php echo get_phrase('quarter'); ?></th>
+                                    <th><?php echo get_phrase('quarter_set'); ?></th>
                                     <th><?php echo get_phrase('starting_date'); ?></th>
                                     <th><?php echo get_phrase('exam_time'); ?></th>
                                     <th><?php echo get_phrase('exam_duration'); ?></th>
@@ -80,78 +81,74 @@
                             </thead>
                             <tbody>
                                 <?php
-                                foreach ($online_exams as $exam):
-                                    $examId = $exam['id'];
-                                    date_default_timezone_set('Asia/kolkata'); // Replace with your desired time zone
-                                    //$currentDatetime = new DateTime(); 
-                                    $currentDatetimeToday = new DateTime();
-                                    $currentDatetimeString = $currentDatetimeToday->format('Y-m-d h:i A');
-                                    $currentDatetime = DateTime::createFromFormat('Y-m-d h:i A', $currentDatetimeString);
+                                foreach($online_exams as $exam):
+                        $examId = $exam['id'];
+                        date_default_timezone_set('Asia/kolkata'); // Replace with your desired time zone
+                        $set_details = $this->db->get_where('quiz_sets', array('id' => $exam['quarter_set_id']))->row_array();
+                        //$currentDatetime = new DateTime(); 
+                        $currentDatetimeToday = new DateTime(); 
+                        $currentDatetimeString = $currentDatetimeToday->format('Y-m-d h:i A');
 
-                                    $get_exam_status = $this->db->get_where('online_exam_details', array('status' => '1', 'id' => $examId))->row_array();
+                        $currentDatetime = DateTime::createFromFormat('Y-m-d h:i A', $currentDatetimeString);
 
-                                    $loginStudentId = $this->session->userdata('user_id');
-                                    $get_student_exam_status = $this->db->get_where('online_exam_result', array('student_id' => $loginStudentId, 'exam_id' => $examId, 'quarter_id' => $get_exam_status['quarter_id']))->row_array();
+                        $get_exam_status = $this->db->get_where('online_exam_details', array('status' => '1','id' => $examId))->row_array();
 
-                                    $stu_online_exam_status = $get_student_exam_status ? ($get_student_exam_status['exam_status'] == 1 ? "Pending" : "Completed") : "Exam not given";
+                         $loginStudentId = $this->session->userdata('user_id'); 
+                         $get_student_exam_status = $this->db->get_where('online_exam_result', array('student_id' => $loginStudentId,'exam_id' => $examId,'quarter_id' => $get_exam_status['quarter_id']))->row_array();
 
-                                    $get_exam_start_dt = $get_exam_status['exam_start_date'];
-                                    // $get_exam_start_time = $get_exam_status['exam_start_time'];
-                                    // $get_exam_start_am_pm = $get_exam_status['exam_start_am_pm'];
-                                    $get_exam_end_time = $get_exam_status['exam_end_time'];
-                                    $get_exam_end_am_pm = $get_exam_status['exam_end_am_pm'];
+                         $stu_online_exam_status = $get_student_exam_status ? ($get_student_exam_status['exam_status'] == 1 ? "Pending" : "Completed")  : "Exam not given";
 
-                                    // $examStartDateTimeString = $get_exam_start_dt.' '.$get_exam_start_time.' '.$get_exam_start_am_pm;
-                        
-                                    //$examEndDateTimeString = $get_exam_start_dt . ' ' . $get_exam_end_time . ' ' . $get_exam_end_am_pm;
-                                     $examEndDateTimeString = $get_exam_start_dt . ' ' . $get_exam_end_time;
- 
-                                    // echo $examStartDateTime = $get_exam_start_dt.' '.$get_exam_start_time.' '.$get_exam_start_am_pm;
-                        
-                                    // $examEndDateTime = $get_exam_start_dt.' '.$get_exam_end_time.' '.$get_exam_end_am_pm;
-                        
-                                    // Convert the datetime string to a DateTime object
-                                    // For 12 hour use 'h'
-                                    //    $examStartDateTime = DateTime::createFromFormat('Y-m-d h:i A', $examStartDateTimeString);
-                                   /* $examEndDateTime = DateTime::createFromFormat('Y-m-d h:i A', $examEndDateTimeString);*/
-                                    // For 24 hour use 'H'
-                                    // $examStartDateTime = DateTime::createFromFormat('Y-m-d H:i', $examStartDateTimeString);
-                                     $examEndDateTime = DateTime::createFromFormat('Y-m-d H:i', $examEndDateTimeString);
-                        
-                                    $exam_status = $get_student_exam_status ? "Closed" : (($examEndDateTime < $currentDatetime) ? 'Closed' : 'Open');
+                        $get_exam_start_dt = $get_exam_status['exam_start_date'];
+                        // $get_exam_start_time = $get_exam_status['exam_start_time'];
+                        // $get_exam_start_am_pm = $get_exam_status['exam_start_am_pm'];
+                        $get_exam_end_time = $get_exam_status['exam_end_time'];
+                        $get_exam_end_am_pm = $get_exam_status['exam_end_am_pm'];
 
-                                    // $exam_start_status = ($currentDatetime >= $examStartDateTime ) ? 'start' : 'notstart';
-                                    ?>
-                                    <tr>
-                                        <td><?php echo $exam['online_exam_name']; ?></td>
-                                        <th><?php echo $exam['name']; ?></th>
-                                        <th><?php echo $exam['subjcetnam']; ?></th>
-                                        <td><?php echo $exam['exam_start_date']; ?></td>
-                                        <td>Time:
-                                            <?php echo $exam['exam_start_time'] . $exam['exam_start_am_pm'] . "-" . $exam['exam_end_time'] . $exam['exam_end_am_pm']; ?>
-                                        </td>
-                                        <td><?php echo $exam['exam_duration']; ?> Min</td>
-                                        <td><?php echo $exam_status; ?></td>
-                                        <td><?php echo $stu_online_exam_status; ?></td>
-                                        <td>
-                                            <?php if ($examEndDateTime > $currentDatetime && empty($get_student_exam_status)) { ?>
-                                                <div class="dropdown text-center">
-                                                    <button type="button"
-                                                        class="btn btn-sm btn-icon btn-rounded btn-outline-secondary dropdown-btn dropdown-toggle arrow-none card-drop"
-                                                        data-bs-toggle="dropdown" aria-expanded="false"><i
-                                                            class="mdi mdi-dots-vertical"></i></button>
-                                                    <div class="dropdown-menu dropdown-menu-end">
-                                                        <!-- item-->
-                                                        <!-- <a href="javascript:void(0)" class="dropdown-item" onclick="rightModal('<?php echo site_url('modal/popup/online_exam/exam-page/' . $exam['quarter_id'] . '/' . $exam['id'] . '/' . $exam['class_id'] . '/' . $exam['subject_id']) ?>', '<?php echo get_phrase('exam_page'); ?>')"><?php echo get_phrase('start_exam'); ?></a>-->
-                                                        <a href="<?php echo route('student_online_exam/start_exam_details/' . $exam['quarter_id'] . '/' . $exam['id'] . '/' . $exam['class_id'] . '/' . $exam['subject_id']); ?>"
-                                                            class="dropdown-item"><?php echo get_phrase('start_exam'); ?></a>
+                        // $examStartDateTimeString = $get_exam_start_dt.' '.$get_exam_start_time.' '.$get_exam_start_am_pm;
 
-                                                    </div>
-                                                </div>
-                                            <?php } ?>
-                                        </td>
-                                    </tr>
-                                <?php endforeach; ?>
+                        $examEndDateTimeString = $get_exam_start_dt.' '.$get_exam_end_time.' '.$get_exam_end_am_pm;
+
+                        // echo $examStartDateTime = $get_exam_start_dt.' '.$get_exam_start_time.' '.$get_exam_start_am_pm;
+
+                        // $examEndDateTime = $get_exam_start_dt.' '.$get_exam_end_time.' '.$get_exam_end_am_pm;
+
+                        // Convert the datetime string to a DateTime object
+                        // For 12 hour use 'h'
+                    //    $examStartDateTime = DateTime::createFromFormat('Y-m-d h:i A', $examStartDateTimeString);
+                       $examEndDateTime = DateTime::createFromFormat('Y-m-d h:i A', $examEndDateTimeString);
+                        // For 24 hour use 'H'
+                        // $examStartDateTime = DateTime::createFromFormat('Y-m-d H:i', $examStartDateTimeString);
+                        // $examEndDateTime = DateTime::createFromFormat('Y-m-d H:i', $examEndDateTimeString);
+
+                        $exam_status = $get_student_exam_status ? "Closed" : (($examEndDateTime < $currentDatetime) ? 'Closed' : 'Open');
+
+                        // $exam_start_status = ($currentDatetime >= $examStartDateTime ) ? 'start' : 'notstart';
+                    ?>
+                    <tr>
+                        <td><?php echo $exam['online_exam_name']; ?></td>
+                        <th><?php echo $exam['subjcetnam']; ?></th>
+                        <th><?php echo $exam['name']; ?></th>
+                        <th><?php echo $set_details['name']; ?></th>
+                        <td><?php echo $exam['exam_start_date']; ?></td>
+                        <td>Time: <?php echo $exam['exam_start_time'].$exam['exam_start_am_pm']."-".$exam['exam_end_time'].$exam['exam_end_am_pm']; ?></td>
+                        <td><?php echo $exam['exam_duration']; ?> Min</td>
+                        <td><?php echo $exam_status; ?></td>
+                         <td><?php echo $stu_online_exam_status; ?></td>
+                        <td>
+                        <?php if ($examEndDateTime > $currentDatetime && empty($get_student_exam_status)) {?> 
+                        <div class="dropdown text-center">
+                            <button type="button" class="btn btn-sm btn-icon btn-rounded btn-outline-secondary dropdown-btn dropdown-toggle arrow-none card-drop" data-bs-toggle="dropdown" aria-expanded="false"><i class="mdi mdi-dots-vertical"></i></button>
+                            <div class="dropdown-menu dropdown-menu-end">
+                                <!-- item-->
+                               <!-- <a href="javascript:void(0)" class="dropdown-item" onclick="rightModal('<?php echo site_url('modal/popup/online_exam/exam-page/'.$exam['quarter_id'].'/'.$exam['id'].'/'.$exam['class_id'].'/'.$exam['subject_id'])?>', '<?php echo get_phrase('exam_page'); ?>')"><?php echo get_phrase('start_exam'); ?></a>-->
+                               <a href="<?php echo route('student_online_exam/start_exam_details/'.$exam['quarter_id'].'/'.$exam['id'].'/'.$exam['class_id'].'/'.$exam['subject_id'].'/'.$exam['quarter_set_id']); ?>" class="dropdown-item"><?php echo get_phrase('start_exam'); ?></a>
+                              
+                           </div>
+                        </div>
+                        <?php } ?>
+                        </td>
+                    </tr>
+                    <?php endforeach; ?>
                             </tbody>
                         </table>
                     <?php else: ?>
@@ -167,11 +164,11 @@
 <?php } ?>
 
 <script>
-    $(document).ready(function () {
-        $('#basic-datatable2').DataTable({
-            "order": [[3, "desc"]]  // Order by the first column (ID) in descending order
-        });
+$(document).ready(function() {
+    $('#basic-datatable2').DataTable({
+        "order": [[3, "desc"]]  // Order by the first column (ID) in descending order
     });
+});
 
 </script>
 <script>
@@ -179,9 +176,9 @@
         var url = '<?php echo route('grade/list'); ?>';
 
         $.ajax({
-            type: 'GET',
+            type : 'GET',
             url: url,
-            success: function (response) {
+            success : function(response) {
                 $('.grade_content').html(response);
                 initDataTable('basic-datatable');
             }
@@ -191,7 +188,7 @@
 </script>
 
 <script>
-    $(document).ready(function () {
+    $(document).ready(function() {
         var examStartStatus = '<?php echo $exam_start_status; ?>';
         // Sweet alert will be shown if exam is not start 
         // if (examStartStatus === 'notstart') {
@@ -202,7 +199,7 @@
         //     confirmButtonText: 'OK'
         //     }).then((result) => {
         //         if (result.isConfirmed) {
-
+       
         //         }
         //     });
         // }
@@ -210,8 +207,8 @@
         // Timer automatically run
         if (examStartStatus === 'start') {
             alert("hello");
-            $('#startTimer').click();
+            $('#startTimer').click(); 
         }
-
+        
     });
-</script>
+   </script>

@@ -84,6 +84,16 @@
                     </select>
                 </div>
                 <div class="col-md-2 mb-1">
+                    <select name="quiz_set" id="quiz_set" class="form-control select2" data-toggle="select2" required>
+                        <option value=""><?php echo get_phrase('select_exam_set'); ?></option>
+                        <?php 
+                        $quiz_set = $this->db->get_where('quiz_sets')->result_array();
+                        foreach ($quiz_set as $set) { ?>
+                            <option value="<?php echo $set['id']; ?>"><?php echo $set['name']; ?></option>
+                        <?php } ?>
+                    </select>
+                </div>
+                <div class="col-md-2 mb-1">
                     <select name="class" id="class_id" class="form-control select2" data-toggle="select2" required
                         onchange="classWiseSection(this.value)">
                         <option value=""><?php echo get_phrase('select_a_class'); ?></option>
@@ -125,6 +135,7 @@
         var class_id = $('#class_id').val();
         var exam = $('#exam_id').val();
         var subject_id = $('#subject_id').val();
+        var quiz_set = $('#quiz_set').val();
 
         if (class_id != "") {
             showAllQuiz();
@@ -136,10 +147,11 @@
         var exam = $('#exam_id').val();
         var class_id = $('#class_id').val();
         var subject_id = $('#subject_id').val();
+        var quiz_set = $('#quiz_set').val();
 
         if (class_id != "" && exam != "" && subject_id != "") {
             $.ajax({
-                url: '<?php echo route('quiz/list/') ?>' + class_id + '/' + exam + '/' + subject_id,
+                url: '<?php echo route('quiz/list/') ?>' + class_id + '/' + exam + '/' + subject_id + '/' + quiz_set,
                 success: function (response) {
                     $('.quiz_content').html(response);
                 }

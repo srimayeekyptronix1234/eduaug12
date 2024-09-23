@@ -13,10 +13,10 @@ $school_id = school_id();
 //     'session' => active_session()
 // ))->result_array();
 
-// $grades = $this->db->get_where('grades', array(
-//     'school_id' => $school_id,
-//     'session' => active_session()
-// ))->result_array();
+$grades = $this->db->get_where('grades', array(
+    'school_id' => $school_id,
+    'session' => active_session()
+))->result_array();
 
 $subject = $this->db->get_where('subjects', array('class_id' => $class_id))->result_array();
 //echo "<pre/>";
@@ -49,6 +49,9 @@ $subject = $this->db->get_where('subjects', array('class_id' => $class_id))->res
             $projectmultiply = 5;
             $writtenmultiply = 25;
 
+            $total_grade_points = 0;
+            $total_subjects = 0;
+
             foreach ($subject as $list): 
                 if (!empty($list['id'])) {
                     //$subject = $this->db->get_where('subjects', array('id' => $mark['subject_id']))->row_array();
@@ -56,6 +59,7 @@ $subject = $this->db->get_where('subjects', array('class_id' => $class_id))->res
                     $class_id = $class_id;
                     $subjectId = $list['id'];
                     //$subjectId = 1;
+                    $total_subjects++;
 
                     // Class work Mark calculation
                     $this->db->select('student_id, class_id, exam_id, subject_id, SUM(mark_obtained) AS total_marks');
@@ -69,6 +73,8 @@ $subject = $this->db->get_where('subjects', array('class_id' => $class_id))->res
                     $classwork_marks = $classwork_query->result_array();
 
                     $class_work_mark = $classwork_marks[0]['total_marks'] ? $classwork_marks[0]['total_marks'] : 0;
+
+                    $class_work_cal_value = $class_work_mark ? $class_work_multiply * ( $class_work_mark / 100) : 0;
 
                     // End
 
@@ -86,6 +92,8 @@ $subject = $this->db->get_where('subjects', array('class_id' => $class_id))->res
 
                     $home_work_marks = $homework_marks[0]['total_marks'] ? $homework_marks[0]['total_marks'] : 0;
 
+                    $home_work_cal_value = $home_work_marks ? $home_work_multiply * ( $home_work_marks / 100) : 0;
+
                     // End
 
                     // Behaviour Mark calculation
@@ -101,6 +109,8 @@ $subject = $this->db->get_where('subjects', array('class_id' => $class_id))->res
                     $behaviour_marks = $behaviour_query->result_array();
 
                     $behavior_mark = $behaviour_marks[0]['total_marks'] ? $behaviour_marks[0]['total_marks'] : 0;
+
+                    $behavior_cal_value = $behavior_mark ? $behavior_multiply * ( $behavior_mark / 100) : 0;
 
                     // End
 
@@ -118,6 +128,8 @@ $subject = $this->db->get_where('subjects', array('class_id' => $class_id))->res
 
                     $test_quize_mark = $test_quize_marks[0]['total_marks'] ? $test_quize_marks[0]['total_marks'] : 0;
 
+                    $test_quize_cal_value = $test_quize_mark ? $test_quize_multiply * ( $test_quize_mark / 100) : 0;
+
                     // End
 
                     // Project Mark calculation
@@ -133,6 +145,8 @@ $subject = $this->db->get_where('subjects', array('class_id' => $class_id))->res
                     $project_marks = $project_query->result_array();
  
                     $project_mark = $project_marks[0]['total_marks'] ? $project_marks[0]['total_marks'] : 0;
+
+                    $project_cal_value = $project_mark ? $projectmultiply * ( $project_mark / 100) : 0;
 
                     // End
 
@@ -150,15 +164,17 @@ $subject = $this->db->get_where('subjects', array('class_id' => $class_id))->res
 
                     $written_test_mark = $written_marks[0]['total_marks'] ? $written_marks[0]['total_marks'] : 0;
 
+                    $writtent_test_cal_value = $written_test_mark ? $writtenmultiply * ( $written_test_mark / 100) : 0; 
+
                     // End
 
                     // Count ExtraCariculam activity
-                    $extraCaricularActivityScore = ($class_work_mark + $home_work_marks + $behavior_mark + $test_quize_mark + $project_mark) / 100;
+                    $extraCaricularActivityScore = ($class_work_cal_value + $home_work_cal_value + $behavior_cal_value + $test_quize_cal_value + $project_cal_value) / 100;
 
                     // count Total Score
-                    $get_original_activityVal = intval($extraCaricularActivityScore);
-                    $extracaricul_percent = $get_original_activityVal ? 75 * ($get_original_activityVal / 100) : 0;
-                    $totalScore_of_student = $written_test_mark + $extracaricul_percent;
+                    //$get_original_activityVal = intval($extraCaricularActivityScore);
+                    $get_extraCaricularActivityScore = $extraCaricularActivityScore ? 75 * ($extraCaricularActivityScore) : 0;
+                    $totalScore_of_student = $writtent_test_cal_value + $get_extraCaricularActivityScore;
                     $gettotalScore_of_student = intval($totalScore_of_student);
 
                     // Calculate Grade
@@ -172,6 +188,7 @@ $subject = $this->db->get_where('subjects', array('class_id' => $class_id))->res
                     $grade_name = $grade_row ? $grade_row['name'] : "";
                     $grade_point = $grade_row ? $grade_row['grade_point'] : 0;
 
+                    $total_grade_points += $grade_point;
      
                     ?>
                     <tr class="text-center">
@@ -182,19 +199,36 @@ $subject = $this->db->get_where('subjects', array('class_id' => $class_id))->res
                         <td><?php echo intval($class_work_mark); ?></td>
                         <td><?php echo intval($behavior_mark); ?></td>
                         <td><?php echo intval($project_mark); ?></td>
-                        <td><?php echo $get_original_activityVal; ?></td>
-                        <td><?php echo $gettotalScore_of_student; ?></td>
+                        <td><?php echo intval($get_extraCaricularActivityScore); ?></td>
+                        <td><?php echo intval($totalScore_of_student); ?></td>
                         <td><?php echo $grade_name; ?></td>
                         <td><?php echo $grade_point; ?></td>
                     </tr>
                 <?php 
                 }
             endforeach; 
+
+            // Calculate cumulative grade
+            $cumulative_grade_point = $total_subjects > 0 ? $total_grade_points / $total_subjects : 0;
+            $cumulative_grade_name = '-';
+            foreach ($grades as $grade) {
+                if (intval($cumulative_grade_point) == $grade['grade_point']) {
+                    $cumulative_grade_name = $grade['name'];
+                    break;
+                }
+            }
             ?>
 
         </tbody>
 
-        
+        <!-- Cumulative Grade Row -->
+        <tfoot>
+            <tr class="text-center font-weight-bold">
+                <td colspan="4"><b><?php echo get_phrase('cumulative_grades'); ?></b></td>
+                <td colspan="6"><span style="float:right"><?php echo $cumulative_grade_name; ?></span></td>
+                <td><?php echo number_format($cumulative_grade_point, 2); ?></td>
+            </tr>
+        </tfoot>
 
     </table>
 

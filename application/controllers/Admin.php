@@ -1236,7 +1236,7 @@ class Admin extends CI_Controller {
 	}
 	//MANAGE PROFILE ENDS
 	//Quiz Section Start
-	public function quiz($param1 = '', $param2 = '',$param3 = '',$param4 = ''){
+	public function quiz($param1 = '', $param2 = '',$param3 = '',$param4 = '',$param5 = ''){
 
 		if($param1 == 'create'){
 			$response = $this->crud_model->quiz_create();
@@ -1256,7 +1256,8 @@ class Admin extends CI_Controller {
 		if($param1 == 'list'){
 			$page_data['class_id'] = $param2;
 			$page_data['exam']=$param3;
-			$page_data['subject_id']=$param4;	
+			$page_data['subject_id']=$param4;
+			$page_data['quiz_set_id']=$param5;	
 			$this->load->view('backend/admin/quiz/list', $page_data);
 		}
 

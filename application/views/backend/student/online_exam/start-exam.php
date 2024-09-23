@@ -1,5 +1,4 @@
 <?php 
-
 // Check exam time
 date_default_timezone_set('Asia/kolkata');
 $currentDatetimeToday = new DateTime(); 
@@ -11,9 +10,9 @@ $get_exam_status = $this->db->get_where('online_exam_details', array('status' =>
 
 $get_exam_start_dt = $get_exam_status['exam_start_date'];
 $get_exam_start_time = $get_exam_status['exam_start_time'];
-//$get_exam_start_am_pm = $get_exam_status['exam_start_am_pm'];
+$get_exam_start_am_pm = $get_exam_status['exam_start_am_pm'];
 
-$examStartDateTimeString = $get_exam_start_dt.' '.$get_exam_start_time;
+$examStartDateTimeString = $get_exam_start_dt.' '.$get_exam_start_time.' '.$get_exam_start_am_pm;
 
 $examStartDateTime = DateTime::createFromFormat('Y-m-d h:i A', $examStartDateTimeString);
 $page_data['exam_start_status'] = ($currentDatetime >= $examStartDateTime ) ? 'start' : 'notstart';
@@ -22,9 +21,10 @@ $page_data['getexam_start_time'] = $get_exam_start_time." ".$get_exam_start_am_p
 
 $page_data['getexam_id'] = $exam_id;
 $page_data['getquarter_id'] = $get_exam_status && $get_exam_status['quarter_id'] ? $get_exam_status['quarter_id'] : "";
+$page_data['getquarter_set_id'] = $get_exam_status && $get_exam_status['quarter_set_id'] ? $get_exam_status['quarter_set_id'] : "";
 
 // Get Data of question and options
-$questions = $this->crud_model->get_questions($quarter_id,$class_id,$subject_id);
+$questions = $this->crud_model->get_questions($quarter_id,$quarter_set_id,$class_id,$subject_id);
 
 $js_array = [];
 foreach ($questions as $key => $question) {
@@ -51,20 +51,22 @@ $page_data['exam_durations'] = $get_exam_status['exam_duration'];
 $currentTime = $currentDatetimeToday->format('h:i'); 
 $currentAmPm = $currentDatetimeToday->format('A'); 
 $DatabasetoTime = $get_exam_status['exam_end_time'];
-//$DatabasetoAmPm = $get_exam_status['exam_end_am_pm'];
+$DatabasetoAmPm = $get_exam_status['exam_end_am_pm'];
 
-$duration = $this->crud_model->calculateDuration($currentTime, $DatabasetoTime);
+$duration = $this->crud_model->calculateDurationInMinutes($currentTime, $currentAmPm, $DatabasetoTime, $DatabasetoAmPm);
 $page_data['actual_exam_duration'] = urlencode($duration);
 
 
 $getquarter_id = $quarter_id ? $quarter_id : "";
+$getquarter_set_id = $quarter_set_id ? $quarter_set_id : ""; 
 $getclass_id = $class_id ? $class_id : "";
 $getsubject_id = $subject_id ? $subject_id : "";
 
 $get_quize_first_row = $this->db->order_by('id', 'ASC')->get_where('quiz', array(
     'class_id' => $getclass_id,
     'subject_id' => $getsubject_id,
-    'quarter_id' => $getquarter_id
+    'quarter_id' => $getquarter_id,
+    'quarter_set_id' => $getquarter_set_id
 ))->row_array();
 
 ?>
@@ -130,11 +132,12 @@ $get_quize_first_row = $this->db->order_by('id', 'ASC')->get_where('quiz', array
         $(document).ready(function() {
             var examStartStatus = '<?php echo $page_data['exam_start_status']; ?>';
             var getexam_start_date = '<?php echo $get_exam_start_dt; ?>';
-            var getexam_start_time = '<?php echo $get_exam_start_time; ?>';
+            var getexam_start_time = '<?php echo $get_exam_start_time; ?>'; 
+            var getexam_start_am_pm = '<?php echo $get_exam_start_am_pm; ?>'; 
             // Sweet alert will be shown if exam is not start 
             if (examStartStatus === 'notstart') {
                 //alert("Exam Not strted till now");
-                alert("The exam is not started.\Your exam will be started on "+getexam_start_date+" at "+getexam_start_time+".");
+                alert("The exam is not started.\Your exam will be started on "+getexam_start_date+" at "+getexam_start_time+" "+getexam_start_am_pm+".");
                 window.location.href = '<?php echo base_url("student/student_online_exam"); ?>';
                 // Swal.fire({
                 // title: 'Exam Not Started',
@@ -301,10 +304,11 @@ $get_quize_first_row = $this->db->order_by('id', 'ASC')->get_where('quiz', array
             var getclass_id = '<?php echo $class_id; ?>';
             var getsubject_id = '<?php echo $subject_id; ?>';
             var getquarter_id = '<?php echo $quarter_id; ?>';
+            var getquarter_set_id = '<?php echo $quarter_set_id; ?>';
             $.ajax({
                 url: url,
                 method: 'POST',
-                data: { quarter_id: getquarter_id, exam_id: getexam_id, class_id: getclass_id, subject_id: getsubject_id, student_answers: studentAns },
+                data: { quarter_id: getquarter_id,quarter_set_id: getquarter_set_id, exam_id: getexam_id, class_id: getclass_id, subject_id: getsubject_id, student_answers: studentAns },
                 //contentType: 'application/json', // Ensuring content type is JSON
                 // data: JSON.stringify({ 
                 //     quarter_id: getquarter_id, 
@@ -351,6 +355,7 @@ $get_quize_first_row = $this->db->order_by('id', 'ASC')->get_where('quiz', array
         var getclass_id = '<?php echo $class_id; ?>';
         var getsubject_id = '<?php echo $subject_id; ?>';
         var getquarter_id = '<?php echo $quarter_id; ?>';
+        var getquarter_set_id = '<?php echo $quarter_set_id; ?>';
         // Timer automatically run
         if (examStartStatus === 'start') {
 
@@ -359,7 +364,7 @@ $get_quize_first_row = $this->db->order_by('id', 'ASC')->get_where('quiz', array
             $.ajax({
                 url: url,
                 method: 'POST',
-                data: { quarter_id: getquarter_id, exam_id: getexam_id , class_id: getclass_id, subject_id: getsubject_id , student_answers: ""},
+                data: { quarter_id: getquarter_id,quarter_set_id: getquarter_set_id, exam_id: getexam_id , class_id: getclass_id, subject_id: getsubject_id , student_answers: ""},
                 success : function(response) {
                     console.log(response);
                     if (typeof response === 'string') {

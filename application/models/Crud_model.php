@@ -628,25 +628,26 @@ class Crud_model extends CI_Model {
 		$data['online_exam_name'] = html_escape($this->input->post('online_exam_name'));
 		$data['exam_start_date'] = date('Y-m-d', strtotime($this->input->post('exam_start_date')));
 		$data['quarter_id'] = $this->input->post('quarter_id');
-		$data['class_id'] = $this->input->post('class_id');
+		$data['quarter_set_id'] = $this->input->post('quarter_set_id');
+		$data['school_id'] = $this->input->post('school_id');
+		$data['session'] = $this->input->post('session');
+		$data['class_id'] = $this->input->post('class_id'); 
 		$data['subject_id'] = $this->input->post('subject_id');
 		$data['exam_start_time'] = $this->input->post('from-time');
-		//$data['exam_start_am_pm'] = $this->input->post('from-ampm');
+		$data['exam_start_am_pm'] = $this->input->post('from-ampm');
 		$data['exam_end_time'] = $this->input->post('to-time');
-		//$data['exam_end_am_pm'] = $this->input->post('to-ampm');
+		$data['exam_end_am_pm'] = $this->input->post('to-ampm');
 
 		// Calculate time duration
 		$fromTime = $this->input->post('from-time');
-		//$fromAmPm = $this->input->post('from-ampm');
+		$fromAmPm = $this->input->post('from-ampm');
 		$toTime = $this->input->post('to-time');
-		//$toAmPm = $this->input->post('to-ampm');*/
-        
-
-        //$duration = $this->calculateDurationInMinutes($fromTime, $fromAmPm, $toTime, $toAmPm);
-        $duration = $this->calculateDuration($fromTime,$toTime);
+		$toAmPm = $this->input->post('to-ampm');
 
 
-		$data['exam_duration'] = urlencode($duration);
+        $duration = $this->calculateDurationInMinutes($fromTime, $fromAmPm, $toTime, $toAmPm);
+
+		$data['exam_duration'] = $duration;
 		$this->db->insert('online_exam_details', $data);
 
 		$response = array(
@@ -657,46 +658,32 @@ class Crud_model extends CI_Model {
 	}
 
 	// Function for time duration start
-	public function convertTo24HourFormat($time, $ampm='') {
+	public function convertTo24HourFormat($time, $ampm) {
         list($hours, $minutes) = explode(':', $time);
         $hours = (int)$hours;
         $minutes = (int)$minutes;
 
-        // if ($ampm === 'PM' && $hours != 12) {
-        //     $hours += 12;
-        // } elseif ($ampm === 'AM' && $hours == 12) {
-        //     $hours = 0;
-        // }
+        if ($ampm === 'PM' && $hours != 12) {
+            $hours += 12;
+        } elseif ($ampm === 'AM' && $hours == 12) {
+            $hours = 0;
+        }
 
         return sprintf('%02d:%02d', $hours, $minutes);
     }
 
-  //   public function calculateDurationInMinutes($fromTime, $fromAmPm, $toTime, $toAmPm) {
-		// date_default_timezone_set('Asia/kolkata'); 
-  //       $fromTime24 = $this->convertTo24HourFormat($fromTime, $fromAmPm);
-  //       $toTime24 = $this->convertTo24HourFormat($toTime, $toAmPm);
-
-  //       $fromDateTime = new DateTime($fromTime24);
-  //       $toDateTime = new DateTime($toTime24);
-
-  //       if ($toDateTime < $fromDateTime) {
-  //           $toDateTime->modify('+1 day');
-  //       }
-
-  //       $interval = $fromDateTime->diff($toDateTime);
-  //       $minutes = ($interval->h * 60) + $interval->i;
-
-  //       return $minutes;
-  //   }
-
-	// Function for time duration End
-     public function calculateDuration($fromTime,$toTime) {
+    public function calculateDurationInMinutes($fromTime, $fromAmPm, $toTime, $toAmPm) {
 		date_default_timezone_set('Asia/kolkata'); 
-        $fromTime24 = $this->convertTo24HourFormat($fromTime);
-        $toTime24 = $this->convertTo24HourFormat($toTime);
+		
+        $fromTime24 = $this->convertTo24HourFormat($fromTime, $fromAmPm);
+        $toTime24 = $this->convertTo24HourFormat($toTime, $toAmPm);
+		
 
-        $fromDateTime = new DateTime($fromTime24);
-        $toDateTime = new DateTime($toTime24);
+        //$fromDateTime = new DateTime($fromTime24);
+        //$toDateTime = new DateTime($toTime24);
+		$fromDateTime = new DateTime(date('Y-m-d') . ' ' . $fromTime24);
+		$toDateTime = new DateTime(date('Y-m-d') . ' ' . $toTime24);
+		//echo "SubmitTTMMZZWW===>"; exit;
 
         if ($toDateTime < $fromDateTime) {
             $toDateTime->modify('+1 day');
@@ -707,6 +694,7 @@ class Crud_model extends CI_Model {
 
         return $minutes;
     }
+
 
 	public function exam_update($param1 = '')
 	{
@@ -1507,7 +1495,8 @@ class Crud_model extends CI_Model {
     }
     public function quiz_create()
 	{
-		$data['quarter_id'] = html_escape($this->input->post('quarter_id'));
+		$data['quarter_id'] = html_escape($this->input->post('quarter_id')); 
+		$data['quarter_set_id'] = html_escape($this->input->post('quarter_set_id'));
 		$data['class_id'] = html_escape($this->input->post('class_id'));
 		$data['school_id'] = html_escape($this->input->post('school_id'));
 		$data['subject_id'] = html_escape($this->input->post('subject_id'));
@@ -1523,8 +1512,6 @@ class Crud_model extends CI_Model {
 
 		// Use the concatenated variable name in the html_escape function
 		$correct_answer_value = html_escape($this->input->post($correctVariable));
-		$correct_answer_value = $this->input->post('correct_answer');
-
 		$data['correct_answer'] = $correct_answer_value;
 
 		$this->db->insert('quiz', $data);
@@ -1539,6 +1526,7 @@ class Crud_model extends CI_Model {
 	public function quiz_update($param1 = '')
 	{
 		$data['quarter_id'] = html_escape($this->input->post('quarter_id'));
+		$data['quarter_set_id'] = html_escape($this->input->post('quarter_set_id'));
 		$data['class_id'] = html_escape($this->input->post('class_id'));
 		$data['subject_id'] = html_escape($this->input->post('subject_id'));
 		$data['questions'] = html_escape($this->input->post('questions'));
@@ -1795,10 +1783,11 @@ class Crud_model extends CI_Model {
 	}
   
 	// Get online exam question and option list
-	public function get_questions($quarter_id,$class_id,$subject_id){
+	public function get_questions($quarter_id,$quarter_set_id,$class_id,$subject_id){
         $this->db->select('questions, answers1, answers2, answers3, answers4');
         $this->db->from('quiz');
-		$this->db->where('quarter_id', $quarter_id); 
+		$this->db->where('quarter_id', $quarter_id);
+		$this->db->where('quarter_set_id', $quarter_set_id); 
 		$this->db->where('class_id', $class_id);
 		$this->db->where('subject_id', $subject_id);
         $query = $this->db->get();
@@ -1830,14 +1819,14 @@ class Crud_model extends CI_Model {
 
 	// Student online exam status update
 	// Student online exam status update
-	public function student_online_exam_status_update($loginStudentId, $quarter_id,$class_id, $subject_id, $exam_id, $get_student_answers)
+	public function student_online_exam_status_update($loginStudentId, $quarter_id,$quarter_set_id,$class_id, $subject_id, $exam_id, $get_student_answers)
 	{
-		$checkexam_details = $this->db->get_where('online_exam_result', array('student_id' => $loginStudentId,'exam_id' => $exam_id,'class_id'=>$class_id,'subject_id'=>$subject_id,'quarter_id'=>$quarter_id))->row_array(); 
+		$checkexam_details = $this->db->get_where('online_exam_result', array('student_id' => $loginStudentId,'exam_id' => $exam_id,'class_id'=>$class_id,'subject_id'=>$subject_id,'quarter_id'=>$quarter_id,'quarter_set_id'=>$quarter_set_id))->row_array(); 
 		if(!empty($checkexam_details))
 		{
 
 	    // Get correct answer from quiz table working
-			$resultData = $this->db->select('correct_answer')->get_where('quiz', array('quarter_id' => $quarter_id, 'class_id' => $class_id, 'subject_id' => $subject_id))->result_array();
+			$resultData = $this->db->select('correct_answer')->get_where('quiz', array('quarter_id' => $quarter_id, 'quarter_set_id' => $quarter_set_id, 'class_id' => $class_id, 'subject_id' => $subject_id))->result_array();
 
 			$correct_answers = array_map(function($item) {
                 return $item['correct_answer'];
@@ -1873,12 +1862,14 @@ class Crud_model extends CI_Model {
 
 		}
 		else{
+			
         // Insert
 		$data['student_id'] = $loginStudentId;
 		$data['class_id'] = $class_id;
 		$data['subject_id'] = $subject_id;
 		$data['exam_id'] = $exam_id;
 		$data['quarter_id'] = $quarter_id;
+		$data['quarter_set_id'] = $quarter_set_id;
 		$data['exam_result'] = $get_student_answers;
 		$this->db->insert('online_exam_result', $data);
 
@@ -2074,6 +2065,9 @@ class Crud_model extends CI_Model {
 		$data['online_exam_name'] = html_escape($this->input->post('online_exam_name'));
 		$data['exam_start_date'] = date('Y-m-d', strtotime($this->input->post('exam_start_date')));
 		$data['quarter_id'] = $this->input->post('quarter_id');
+		$data['quarter_set_id'] = $this->input->post('quarter_set_id');
+		$data['school_id'] = $this->input->post('school_id');
+		$data['session'] = $this->input->post('session');
 		$data['class_id'] = $this->input->post('class_id');
 		$data['subject_id'] = $this->input->post('subject_id');
 		$data['exam_start_time'] = $this->input->post('from-time');
@@ -2083,13 +2077,11 @@ class Crud_model extends CI_Model {
 
 		// Calculate time duration
 		$fromTime = $this->input->post('from-time');
-		//$fromAmPm = $this->input->post('from-ampm');
+		$fromAmPm = $this->input->post('from-ampm');
 		$toTime = $this->input->post('to-time');
-		//$toAmPm = $this->input->post('to-ampm');
-       // $duration = $this->calculateDurationInMinutes($fromTime, $fromAmPm, $toTime, $toAmPm);
-		$duration = $this->calculateDuration($fromTime,$toTime);
-
-		$data['exam_duration'] = urlencode($duration);
+		$toAmPm = $this->input->post('to-ampm');
+        $duration = $this->calculateDurationInMinutes($fromTime, $fromAmPm, $toTime, $toAmPm);
+		$data['exam_duration'] = $duration;
 		$this->db->where('id', $param1);
 		$this->db->update('online_exam_details', $data);
 

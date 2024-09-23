@@ -1,20 +1,34 @@
 <form method="POST" class="d-block ajaxForm" action="<?php echo route('online_exam_create/create'); ?>">
-    <div class="form-row">
-        <input type="hidden" name="school_id" value="<?php echo school_id(); ?>">
-        <input type="hidden" name="session" value="<?php echo active_session();?>">
-        <div class="form-group mb-1">
-        <label for="quarter_id"><?php echo get_phrase('quarter'); ?></label>
-        <select name="quarter_id" id="quarter_id" class="form-control select2" data-bs-toggle="select2" required>
-            <option value=""><?php echo get_phrase('select_a_quarter'); ?></option>
+        <div class="form-row">
+            <input type="hidden" name="school_id" value="<?php echo school_id(); ?>">
+            <input type="hidden" name="session" value="<?php echo active_session();?>">
+            <div class="form-group mb-1">
+            <label for="quarter_id"><?php echo get_phrase('quarter'); ?></label>
+            <select name="quarter_id" id="quarter_id" class="form-control select2" data-bs-toggle="select2" required>
+                <option value=""><?php echo get_phrase('select_a_quarter'); ?></option>
+                <?php
+                $quarters = $this->db->get_where('exams', array('school_id' => school_id()))->result_array();
+                foreach($quarters as $quarter){
+                ?>
+                <option value="<?php echo $quarter['id']; ?>"><?php echo $quarter['name']; ?></option>
+                <?php } ?>
+            </select>
+            <small id="class_help" class="form-text text-muted"><?php echo get_phrase('select_a_quarter'); ?></small>
+
+       </div>
+
+       <div class="form-group mb-1">
+        <label for="class_id_on_create"><?php echo get_phrase('Exam_Set'); ?></label>
+        <select name="quarter_set_id" id="class_id_on_create" class="form-control select2" data-bs-toggle="select2" required>
+            <option value=""><?php echo get_phrase('select_a_exam_set'); ?></option>
             <?php
-            $quarters = $this->db->get_where('exams', array('school_id' => school_id()))->result_array();
-            foreach($quarters as $quarter){
+            $quizSets = $this->db->get_where('quiz_sets', array('status' => 'active'))->result_array();
+            foreach($quizSets as $set){
             ?>
-            <option value="<?php echo $quarter['id']; ?>"><?php echo $quarter['name']; ?></option>
+            <option value="<?php echo $set['id']; ?>"><?php echo $set['name']; ?></option>
             <?php } ?>
         </select>
-        <small id="class_help" class="form-text text-muted"><?php echo get_phrase('select_a_quarter'); ?></small>
-
+        <small id="class_help" class="form-text text-muted"><?php echo get_phrase('select_a_exam_set'); ?></small>
        </div>
 
         <div class="form-group mb-1">
@@ -61,20 +75,20 @@
         <div class="form-group mb-1">
             <label for="from_time"><?php echo get_phrase('from_time'); ?></label>
             <input type="time" id="from-time" name="from-time" class="form-control" required>
-           <!-- <select id="from-ampm" name="from-ampm">
+           <select id="from-ampm" name="from-ampm">
                 <option value="AM">AM</option>
                 <option value="PM">PM</option>
-            </select>-->
+            </select>
             <small id="name_help" class="form-text text-muted"><?php echo get_phrase('enter_from_time'); ?></small>
         </div>
 
         <div class="form-group mb-1">
             <label for="to_time"><?php echo get_phrase('to_time'); ?></label>
             <input type="time" id="to-time" name="to-time" class="form-control" required>
-            <!--<select id="to-ampm" name="to-ampm">
+            <select id="to-ampm" name="to-ampm">
                 <option value="AM">AM</option>
                 <option value="PM">PM</option>
-            </select>-->
+            </select>
             <small id="name_help" class="form-text text-muted"><?php echo get_phrase('enter_to_time'); ?></small>
         </div>
 

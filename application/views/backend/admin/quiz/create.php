@@ -18,6 +18,20 @@
     </div>
 
     <div class="form-group mb-1">
+      <label for="class_id_on_create"><?php echo get_phrase('Exam_Set'); ?></label>
+      <select name="quarter_set_id" id="class_id_on_create" class="form-control select2" data-bs-toggle="select2" required>
+        <option value=""><?php echo get_phrase('select_a_exam_set'); ?></option>
+        <?php
+        $quizSets = $this->db->get_where('quiz_sets', array('status' => 'active'))->result_array();
+        foreach($quizSets as $set){
+          ?>
+          <option value="<?php echo $set['id']; ?>"><?php echo $set['name']; ?></option>
+        <?php } ?>
+      </select>
+      <small id="class_help" class="form-text text-muted"><?php echo get_phrase('select_a_exam_set'); ?></small>
+    </div>
+
+    <div class="form-group mb-1">
       <label for="class_id_on_create"><?php echo get_phrase('class'); ?></label>
       <select name="class_id" id="class_id_on_create" class="form-control select2" data-bs-toggle="select2" required>
         <option value=""><?php echo get_phrase('select_a_class'); ?></option>

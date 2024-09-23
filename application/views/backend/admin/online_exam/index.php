@@ -46,8 +46,8 @@
 </style>
 
 <?php
-
-$online_exams = $this->db->select('online_exam_details.*, exams.name')->from('online_exam_details')->join('exams', 'online_exam_details.quarter_id = exams.id')->where('online_exam_details.status', '1')->order_by('online_exam_details.id', 'desc')->get()->result_array();
+$school_id = school_id(); 
+$online_exams = $this->db->select('online_exam_details.*, exams.name')->from('online_exam_details')->join('exams', 'online_exam_details.quarter_id = exams.id')->where('online_exam_details.status', '1')->where('online_exam_details.school_id', $school_id)->order_by('online_exam_details.id', 'desc')->get()->result_array();
 // Debug the query
 //echo $this->db->last_query();  
 
@@ -81,6 +81,7 @@ $online_exams = $this->db->select('online_exam_details.*, exams.name')->from('on
             <tr style="background-color: #0272F3; color: #FFF;">
                 <th><?php echo get_phrase('exam_name'); ?></th>
                 <th><?php echo get_phrase('quarter_name'); ?></th>
+                <th><?php echo get_phrase('quarter_set'); ?></th>
                 <th><?php echo get_phrase('class'); ?></th>
                 <th><?php echo get_phrase('starting_date'); ?></th>
                 <th><?php echo get_phrase('exam_time'); ?></th>
@@ -89,10 +90,13 @@ $online_exams = $this->db->select('online_exam_details.*, exams.name')->from('on
             </tr>
         </thead>
         <tbody>
-            <?php foreach ($online_exams as $exam): ?>
+            <?php foreach ($online_exams as $exam): 
+                $set_details = $this->db->get_where('quiz_sets', array('id' => $exam['quarter_set_id']))->row_array();
+                ?>
                 <tr>
                     <td><?php echo $exam['online_exam_name']; ?></td>
                     <td><?php echo $exam['name']; ?></td>
+                    <td><?php echo $set_details['name']; ?></td>
                     <td><?php 
                            $class_details=$this->db->get_where('classes',['id'=>$exam['class_id']])->row_array();
                            echo $class_details['name'];
