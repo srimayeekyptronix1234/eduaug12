@@ -1,3 +1,38 @@
+<style>
+    .table {
+        width: 100%;
+        border-collapse: collapse;
+    }
+
+    .table thead {
+        background: linear-gradient(15deg, #142850, #14365f, #13476f, #125d80, #107792, #0d96a5, #09b8b4, #04ccb1);
+        color: white;
+        text-transform: capitalize;
+        font-size: 15px;
+    }
+
+    .table th,
+    .table td {
+        padding: 15px;
+        text-align: center;
+        border: 1px solid #dee2e6;
+    }
+
+    .table tbody tr:nth-child(even) {
+        background-color: #f2f2f2;
+    }
+
+    .table th {
+        font-weight: bold;
+    }
+
+    .table td {
+        font-size: 16px;
+        color: #000;
+        font-weight: 600;
+    }
+</style>
+
 <?php
 $school_id = school_id();
 // $marks = $this->db->get_where('marks', array(
@@ -37,7 +72,7 @@ $subject = $this->db->get_where('subjects', array('class_id' => $class_id))->res
             </tr>
         </thead>
         <tbody>
-            <?php 
+            <?php
             $home_work_multiply = 30;
             $test_quize_multiply = 30;
             $class_work_multiply = 25;
@@ -45,14 +80,14 @@ $subject = $this->db->get_where('subjects', array('class_id' => $class_id))->res
             $projectmultiply = 5;
             $writtenmultiply = 25;
 
-            foreach ($subject as $list): 
+            foreach ($subject as $list):
                 if (!empty($list['id'])) {
                     //$subject = $this->db->get_where('subjects', array('id' => $mark['subject_id']))->row_array();
                     $student_id = $student_id;
                     $class_id = $class_id;
                     $subjectId = $list['id'];
                     //$subjectId = 1;
-
+        
                     // Class work Mark calculation
                     $this->db->select('COUNT(*) as row_count');
                     $this->db->from('classwork');
@@ -74,12 +109,12 @@ $subject = $this->db->get_where('subjects', array('class_id' => $class_id))->res
                     $number_of_classwork_count = $classwork_count > 0 ? 100 * $classwork_count : 0;
                     $class_work_mark = $classwork_marks[0]['total_marks'] ? $classwork_marks[0]['total_marks'] : 0;
 
-                    $class_work_cal_value = $class_work_mark ? $class_work_multiply * ( $class_work_mark / $number_of_classwork_count) : 0;
+                    $class_work_cal_value = $class_work_mark ? $class_work_multiply * ($class_work_mark / $number_of_classwork_count) : 0;
 
                     //echo "class_work_cal_value=".$class_work_cal_value;
-
+        
                     // End
-
+        
                     // Home work Mark calculation
                     $this->db->select('COUNT(*) as row_count');
                     $this->db->from('homework');
@@ -101,9 +136,9 @@ $subject = $this->db->get_where('subjects', array('class_id' => $class_id))->res
                     $number_of_homework_count = $homework_count > 0 ? 100 * $homework_count : 0;
                     $home_work_marks = $homework_marks[0]['total_marks'] ? $homework_marks[0]['total_marks'] : 0;
 
-                    $home_work_cal_value = $home_work_marks ? $home_work_multiply * ( $home_work_marks / $number_of_homework_count) : 0;
+                    $home_work_cal_value = $home_work_marks ? $home_work_multiply * ($home_work_marks / $number_of_homework_count) : 0;
                     // End
-
+        
                     // Behaviour Mark calculation
                     $this->db->select('COUNT(*) as row_count');
                     $this->db->from('behaviour');
@@ -125,10 +160,10 @@ $subject = $this->db->get_where('subjects', array('class_id' => $class_id))->res
                     $number_of_behaviour_count = $behaviour_count > 0 ? 100 * $behaviour_count : 0;
                     $behavior_mark = $behaviour_marks[0]['total_marks'] ? $behaviour_marks[0]['total_marks'] : 0;
 
-                    $behavior_cal_value = $behavior_mark ? $behavior_multiply * ( $behavior_mark / $number_of_behaviour_count) : 0;
+                    $behavior_cal_value = $behavior_mark ? $behavior_multiply * ($behavior_mark / $number_of_behaviour_count) : 0;
 
                     // End
-
+        
                     // Test/Quize Mark calculation
                     $this->db->select('COUNT(*) as row_count');
                     $this->db->from('online_exam_result');
@@ -150,18 +185,18 @@ $subject = $this->db->get_where('subjects', array('class_id' => $class_id))->res
                     $number_of_quize_count = $test_quize_count > 0 ? 100 * $test_quize_count : 0;
                     $test_quize_mark = $test_quize_marks[0]['total_marks'] ? $test_quize_marks[0]['total_marks'] : 0;
 
-                    $test_quize_cal_value = $test_quize_mark ? $test_quize_multiply * ( $test_quize_mark / $number_of_quize_count) : 0;
+                    $test_quize_cal_value = $test_quize_mark ? $test_quize_multiply * ($test_quize_mark / $number_of_quize_count) : 0;
                     // End
-
+        
                     // Project Mark calculation
-
+        
                     $this->db->select('COUNT(*) as row_count');
                     $this->db->from('project');
                     $this->db->where('student_id', $student_id);
                     $this->db->where('class_id', $class_id);
                     $this->db->where('subject_id', $subjectId);
                     $count_project_query = $this->db->get();
-                    $row_project_count = $count_project_query->row()->row_count; 
+                    $row_project_count = $count_project_query->row()->row_count;
 
                     $this->db->select('student_id, class_id, subject_id, SUM(mark_obtained) AS total_marks');
                     $this->db->from('project');
@@ -172,22 +207,22 @@ $subject = $this->db->get_where('subjects', array('class_id' => $class_id))->res
                     $project_query = $this->db->get();
                     $project_marks = $project_query->result_array();
 
-                    $number_of_project_exam = $row_project_count > 0 ? 100 * $row_project_count : 0; 
+                    $number_of_project_exam = $row_project_count > 0 ? 100 * $row_project_count : 0;
                     $projectmark = $project_marks[0]['total_marks'] ? $project_marks[0]['total_marks'] : 0;
 
-                    $project_cal_value = $projectmark ? $projectmultiply * ( $projectmark / $number_of_project_exam) : 0;
+                    $project_cal_value = $projectmark ? $projectmultiply * ($projectmark / $number_of_project_exam) : 0;
 
                     // End
-
+        
                     // Written test calculation
-
+        
                     $this->db->select('COUNT(*) as row_count');
                     $this->db->from('marks');
                     $this->db->where('student_id', $student_id);
                     $this->db->where('class_id', $class_id);
                     $this->db->where('subject_id', $subjectId);
                     $count_writtent_query = $this->db->get();
-                    $row_written_count = $count_writtent_query->row()->row_count; 
+                    $row_written_count = $count_writtent_query->row()->row_count;
 
                     $this->db->select('student_id, class_id, subject_id, SUM(mark_obtained) AS total_marks');
                     $this->db->from('marks');
@@ -198,13 +233,13 @@ $subject = $this->db->get_where('subjects', array('class_id' => $class_id))->res
                     $written_query = $this->db->get();
                     $written_marks = $written_query->result_array();
 
-                    $number_of_written_exam = $row_written_count > 0 ? 100 * $row_written_count : 0; 
+                    $number_of_written_exam = $row_written_count > 0 ? 100 * $row_written_count : 0;
                     $writtentest_mark = $written_marks[0]['total_marks'] ? $written_marks[0]['total_marks'] : 0;
 
-                    $writtent_test_cal_value = $writtentest_mark ? $writtenmultiply * ( $writtentest_mark / $number_of_written_exam) : 0; 
+                    $writtent_test_cal_value = $writtentest_mark ? $writtenmultiply * ($writtentest_mark / $number_of_written_exam) : 0;
 
                     // End
-
+        
                     // Count ExtraCariculam activity
                     $extraCaricularActivityScore = ($class_work_cal_value + $home_work_cal_value + $behavior_cal_value + $test_quize_cal_value + $project_cal_value) / 100;
 
@@ -225,7 +260,7 @@ $subject = $this->db->get_where('subjects', array('class_id' => $class_id))->res
                     $grade_name = $grade_row ? $grade_row['name'] : "";
                     $grade_point = $grade_row ? $grade_row['grade_point'] : 0;
 
-     
+
                     ?>
                     <tr class="text-center">
                         <td><?php echo $list['name']; ?></td>
@@ -240,18 +275,18 @@ $subject = $this->db->get_where('subjects', array('class_id' => $class_id))->res
                         <td><?php echo $grade_name; ?></td>
                         <td><?php echo $grade_point; ?></td>
                     </tr>
-                <?php 
+                    <?php
                 }
-            endforeach; 
+            endforeach;
             ?>
         </tbody>
     </table>
 <?php else: ?>
-    <?php include APPPATH.'views/backend/empty.php'; ?>
+    <?php include APPPATH . 'views/backend/empty.php'; ?>
 <?php endif; ?>
 
 <script>
 
 
-    
+
 </script>
