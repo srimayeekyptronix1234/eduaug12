@@ -160,7 +160,7 @@ $teacher_table_data = $this->db->get_where('teachers', ['user_id' => $user_id])-
 
 <div class="row">
   <div class="col-12">
-    <div class="card">
+    <div class="card boxhover">
       <div class="row mt-3 d-print-none">
         <div class="col-md-1 mb-1"></div>
         <div class="col-md-2 mb-1">

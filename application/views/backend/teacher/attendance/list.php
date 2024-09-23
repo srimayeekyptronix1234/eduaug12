@@ -1,26 +1,70 @@
+<style>
+    .boxhover {
+        background-color: #ffffff;
+        border-radius: 10px;
+        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+        transition: all 0.3s ease;
+        padding: 20px;
+        margin: 20px auto;
+        text-align: center;
+    }
+
+    .boxhover:hover {
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+        transform: translateY(-5px);
+    }
+
+    .boxhover h4 {
+        font-size: 1.8em;
+        color: #313a46;
+        font-weight: bold;
+        margin-bottom: 10px;
+    }
+
+    .boxhover h5 {
+        font-size: 1.3em;
+        color: #6c757d;
+        margin: 8px 0;
+    }
+
+    .boxhover h5 span {
+        color: #ff8911;
+        font-weight: bold;
+    }
+
+    .boxhover h5:last-child {
+        margin-top: 20px;
+    }
+
+    .boxhover h5 .time {
+        color: #1B81F6;
+        font-weight: bold;
+    }
+</style>
+
 <?php $school_id = school_id(); ?>
 <div class="row">
     <div class="col-md-4"></div>
     <div class="col-md-4">
-        <div class="card bg-secondary text-white">
-            <div class="card-body">
+        <div class="card text-white">
+            <div class="card-body boxhover">
                 <div class="text-center">
                     <h4><?php echo get_phrase('attendance_report') . ' ' . get_phrase('of') . ' ' . date('F', $attendance_date); ?>
                     </h4>
                     <h5><?php echo get_phrase('class'); ?> :
-                        <?php echo $this->db->get_where('classes', array('id' => $class_id))->row('name'); ?>
+                        <span><?php echo $this->db->get_where('classes', array('id' => $class_id))->row('name'); ?></span>
                     </h5>
                     <h5><?php echo get_phrase('section'); ?> :
-                        <?php echo $this->db->get_where('sections', array('id' => $section_id))->row('name'); ?>
+                        <span><?php echo $this->db->get_where('sections', array('id' => $section_id))->row('name'); ?></span>
                     </h5>
-                    <h5>
-                        <?php echo get_phrase('last_updated_at'); ?> :
+                    <h5><?php echo get_phrase('last_updated_at'); ?> :
                         <?php if (get_settings('date_of_last_updated_attendance') == ""): ?>
-                            <?php echo get_phrase('not_updated_yet'); ?>
+                            <span><?php echo get_phrase('not_updated_yet'); ?></span>
                         <?php else: ?>
-                            <?php echo date('d-M-Y', get_settings('date_of_last_updated_attendance')); ?> <br>
+                            <span><?php echo date('d-M-Y', get_settings('date_of_last_updated_attendance')); ?></span> <br>
                             <?php echo get_phrase('time'); ?> :
-                            <?php echo date('H:i:s', get_settings('date_of_last_updated_attendance')); ?>
+                            <span
+                                class="time"><?php echo date('H:i:s', get_settings('date_of_last_updated_attendance')); ?></span>
                         <?php endif; ?>
                     </h5>
                 </div>
