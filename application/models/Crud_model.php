@@ -636,15 +636,17 @@ class Crud_model extends CI_Model {
 		$data['class_id'] = $this->input->post('class_id'); 
 		$data['subject_id'] = $this->input->post('subject_id');
 		$data['exam_start_time'] = $this->input->post('from-time');
-		$data['exam_start_am_pm'] = $this->input->post('from-ampm');
+		//$data['exam_start_am_pm'] = $this->input->post('from-ampm');
 		$data['exam_end_time'] = $this->input->post('to-time');
-		$data['exam_end_am_pm'] = $this->input->post('to-ampm');
+		//$data['exam_end_am_pm'] = $this->input->post('to-ampm');
 
 		// Calculate time duration
 		$fromTime = $this->input->post('from-time');
-		$fromAmPm = $this->input->post('from-ampm');
+		$fromTimeParts = explode(" ", $fromTime);
+		$fromAmPm = $fromTimeParts[1];
 		$toTime = $this->input->post('to-time');
-		$toAmPm = $this->input->post('to-ampm');
+		$toTimeParts = explode(" ", $toTime);
+		$toAmPm = $toTimeParts[1];
 
 
         $duration = $this->calculateDurationInMinutes($fromTime, $fromAmPm, $toTime, $toAmPm);
@@ -2073,15 +2075,19 @@ class Crud_model extends CI_Model {
 		$data['class_id'] = $this->input->post('class_id');
 		$data['subject_id'] = $this->input->post('subject_id');
 		$data['exam_start_time'] = $this->input->post('from-time');
-		$data['exam_start_am_pm'] = $this->input->post('from-ampm');
+		//$data['exam_start_am_pm'] = $this->input->post('from-ampm');
 		$data['exam_end_time'] = $this->input->post('to-time');
-		$data['exam_end_am_pm'] = $this->input->post('to-ampm');
+		//$data['exam_end_am_pm'] = $this->input->post('to-ampm');
 
 		// Calculate time duration
+
 		$fromTime = $this->input->post('from-time');
-		$fromAmPm = $this->input->post('from-ampm');
+		$fromTimeParts = explode(" ", $fromTime);
+		$fromAmPm = $fromTimeParts[1];
 		$toTime = $this->input->post('to-time');
-		$toAmPm = $this->input->post('to-ampm');
+		$toTimeParts = explode(" ", $toTime);
+		$toAmPm = $toTimeParts[1];
+
         $duration = $this->calculateDurationInMinutes($fromTime, $fromAmPm, $toTime, $toAmPm);
 		$data['exam_duration'] = $duration;
 		$this->db->where('id', $param1);

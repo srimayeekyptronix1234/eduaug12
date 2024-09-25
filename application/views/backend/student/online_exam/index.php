@@ -100,17 +100,10 @@
 
                         $get_exam_start_dt = $get_exam_status['exam_start_date'];
                         // $get_exam_start_time = $get_exam_status['exam_start_time'];
-                        // $get_exam_start_am_pm = $get_exam_status['exam_start_am_pm'];
                         $get_exam_end_time = $get_exam_status['exam_end_time'];
-                        $get_exam_end_am_pm = $get_exam_status['exam_end_am_pm'];
 
-                        // $examStartDateTimeString = $get_exam_start_dt.' '.$get_exam_start_time.' '.$get_exam_start_am_pm;
 
-                        $examEndDateTimeString = $get_exam_start_dt.' '.$get_exam_end_time.' '.$get_exam_end_am_pm;
-
-                        // echo $examStartDateTime = $get_exam_start_dt.' '.$get_exam_start_time.' '.$get_exam_start_am_pm;
-
-                        // $examEndDateTime = $get_exam_start_dt.' '.$get_exam_end_time.' '.$get_exam_end_am_pm;
+                        $examEndDateTimeString = $get_exam_start_dt.' '.$get_exam_end_time;
 
                         // Convert the datetime string to a DateTime object
                         // For 12 hour use 'h'
@@ -130,7 +123,7 @@
                         <th><?php echo $exam['name']; ?></th>
                         <th><?php echo $set_details['name']; ?></th>
                         <td><?php echo $exam['exam_start_date']; ?></td>
-                        <td>Time: <?php echo $exam['exam_start_time'].$exam['exam_start_am_pm']."-".$exam['exam_end_time'].$exam['exam_end_am_pm']; ?></td>
+                        <td>Time: <?php echo $exam['exam_start_time']."-".$exam['exam_end_time']; ?></td>
                         <td><?php echo $exam['exam_duration']; ?> Min</td>
                         <td><?php echo $exam_status; ?></td>
                          <td><?php echo $stu_online_exam_status; ?></td>

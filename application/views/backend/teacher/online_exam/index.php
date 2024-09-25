@@ -176,7 +176,7 @@ $check_permission = has_permission($teacher_table_data['class_id'], $teacher_tab
             <td><?php echo $exam['name']; ?></td>
             <td><?php echo $exam['exam_start_date']; ?></td>
             <td>Time:
-              <?php echo $exam['exam_start_time'] . $exam['exam_start_am_pm'] . "-" . $exam['exam_end_time'] . $exam['exam_end_am_pm']; ?>
+              <?php echo $exam['exam_start_time']. "-" . $exam['exam_end_time']; ?>
             </td>
             <td><?php echo $exam['exam_duration']; ?> Min</td>
             <td>

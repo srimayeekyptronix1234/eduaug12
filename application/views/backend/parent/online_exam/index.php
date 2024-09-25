@@ -103,7 +103,7 @@ $online_exams=$this->db->get()->result_array();
                     </td>
                     <td><?php echo $exam['exam_start_date']; ?></td>
                     <td>Time:
-                        <?php echo $exam['exam_start_time'] . $exam['exam_start_am_pm'] . "-" . $exam['exam_end_time'] . $exam['exam_end_am_pm']; ?>
+                        <?php echo $exam['exam_start_time']. "-" . $exam['exam_end_time']; ?>
                     </td>
                     <td><?php echo $exam['exam_duration']; ?> Min</td>
                  </tr>

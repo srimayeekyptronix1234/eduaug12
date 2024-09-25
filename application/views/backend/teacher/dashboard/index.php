@@ -318,7 +318,7 @@ $school_id = school_id();
                               <td><?php echo $data['online_exam_name']; ?></td>
                               <td><?php echo $data['exam_start_date']; ?></td>
                               <td>
-                                <?php echo $data['exam_start_time'] . $data['exam_start_am_pm'] . " - " . $data['exam_end_time'] . $data['exam_end_am_pm']; ?>
+                                <?php echo $data['exam_start_time']. " - " . $data['exam_end_time']; ?>
                               </td>
                             </tr>
                           <?php endforeach; ?>
@@ -382,7 +382,7 @@ $school_id = school_id();
                             <td><?php echo $data['online_exam_name']; ?></td>
                             <td><?php echo $data['exam_start_date']; ?></td>
                             <td>
-                              <?php echo $data['exam_start_time'] . $data['exam_start_am_pm'] . " - " . $data['exam_end_time'] . $data['exam_end_am_pm']; ?>
+                              <?php echo $data['exam_start_time']. " - " . $data['exam_end_time']; ?>
                             </td>
                           </tr>
                         <?php endforeach; ?>

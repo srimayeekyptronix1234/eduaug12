@@ -9,8 +9,10 @@ $currentDatetime = DateTime::createFromFormat('Y-m-d h:i A', $currentDatetimeStr
 $get_exam_status = $this->db->get_where('online_exam_details', array('status' => '1','id' => $exam_id))->row_array();
 
 $get_exam_start_dt = $get_exam_status['exam_start_date'];
-$get_exam_start_time = $get_exam_status['exam_start_time'];
-$get_exam_start_am_pm = $get_exam_status['exam_start_am_pm'];
+$fetch_exam_start_time = $get_exam_status['exam_start_time'];
+$startTimeParts = explode(" ", $fetch_exam_start_time);
+$get_exam_start_time = $startTimeParts[0];
+$get_exam_start_am_pm = $startTimeParts[1];
 
 $examStartDateTimeString = $get_exam_start_dt.' '.$get_exam_start_time.' '.$get_exam_start_am_pm;
 
@@ -50,8 +52,10 @@ $page_data['exam_durations'] = $get_exam_status['exam_duration'];
 // Code to find remaining exam duration
 $currentTime = $currentDatetimeToday->format('h:i'); 
 $currentAmPm = $currentDatetimeToday->format('A'); 
-$DatabasetoTime = $get_exam_status['exam_end_time'];
-$DatabasetoAmPm = $get_exam_status['exam_end_am_pm'];
+$fetch_exam_end_time = $get_exam_status['exam_end_time'];
+$endTimeParts = explode(" ", $fetch_exam_end_time);
+$DatabasetoTime = $endTimeParts[0];
+$DatabasetoAmPm = $endTimeParts[1];
 
 $duration = $this->crud_model->calculateDurationInMinutes($currentTime, $currentAmPm, $DatabasetoTime, $DatabasetoAmPm);
 $page_data['actual_exam_duration'] = urlencode($duration);

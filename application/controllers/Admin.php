@@ -93,11 +93,12 @@ class Admin extends CI_Controller {
 	//END CLASS section
 
 	//	SECTION STARTED
-	public function section($action = "", $id = "") {
+	public function section($action = "", $id = "", $sectionId = "") {
 
 		// PROVIDE A LIST OF SECTION ACCORDING TO CLASS ID
 		if ($action == 'list') {
 			$page_data['class_id'] = $id;
+			$page_data['section_id'] = $sectionId;
 			$this->load->view('backend/admin/section/list', $page_data);
 		}
 	}

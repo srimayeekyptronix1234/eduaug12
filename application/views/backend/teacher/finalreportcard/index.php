@@ -201,13 +201,20 @@ $teacher_table_data = $this->db->get_where('teachers', ['user_id' => $user_id])-
     });
 
     function classWiseSectionTeacherLogin(classId, sectionId) {
-        $.ajax({
-            url: "<?php echo route('section/list/'); ?>" + classId + '/' + sectionId,
-            success: function (response) {
-                $('#section_id').html(response);
-                classWiseStudent(classId);
-            }
-        });
+        if(classId)
+        {
+            $.ajax({
+                url: "<?php echo route('section/list/'); ?>" + classId + '/' + sectionId,
+                success: function (response) {
+                    $('#section_id').html(response);
+                    classWiseStudent(classId);
+                }
+            });
+        }
+        else 
+        {
+            $('#student_id').html("");
+        }
     }
 
 

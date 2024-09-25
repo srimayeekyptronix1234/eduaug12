@@ -691,6 +691,9 @@ class Teacher extends CI_Controller {
 			$student_id = $this->input->post('student_id'); 
 			//$exam_id = $this->input->post('exam_id');
 	
+			// Get user details
+			$data['user_details'] =$this->user_model->get_user_details($student_id);
+
 			// Fetch necessary data
 			$data['class_id'] = $class_id;
 			$data['section_id'] = $section_id;
@@ -699,17 +702,60 @@ class Teacher extends CI_Controller {
 	
 			// Load the list view with the data
 			$this->load->view('backend/teacher/finalreportcard/list', $data);
+		} else if ($param1 == 'remarks_submit') {
+			// Collect the posted data
+			$behavior_grade = $this->input->post('behavior_grade');
+			$student_remarks = $this->input->post('student_remarks');
+			$student_id = $this->input->post('student_id'); 
+
+			// Fetch necessary data
+			$data['behavior_grade'] = $behavior_grade;
+			$data['student_remarks'] = $student_remarks;
+			$data['student_id'] = $student_id;
+			$response = $this->user_model->student_remarks_update($data);
+			//echo $response;
+			echo $response;
 		} else {
 			$page_data['page_name'] = 'finalreportcard/index';
 			$page_data['page_title'] = get_phrase('manage_final_report_cards');
 			$this->load->view('backend/index', $page_data);
 		}
 	}
-     public function class_wise_student($class_id) {
+
+	// Quarterly Grade calculation
+	public function quarterly_report_card($param1 = '', $param2 = '', $param3 = '') {
+		if ($param1 == 'list') {
+			// Collect the posted data
+			$exam_id = $this->input->post('exam_id');
+			$class_id = $this->input->post('class_id');
+			$section_id = $this->input->post('section_id');
+			$student_id = $this->input->post('student_id'); 
+			//$exam_id = $this->input->post('exam_id');
+	
+			// Get user details
+			$data['user_details'] =$this->user_model->get_user_details($student_id);
+			
+			// Fetch necessary data
+			$data['exam_id'] = $exam_id;
+			$data['class_id'] = $class_id;
+			$data['section_id'] = $section_id;
+			$data['student_id'] = $student_id;
+			//$data['exam_id'] = $exam_id;
+	
+			// Load the list view with the data
+			$this->load->view('backend/teacher/quarterlyreportcard/list', $data);
+		} else {
+			$page_data['page_name'] = 'quarterlyreportcard/index';
+			$page_data['page_title'] = get_phrase('manage_quarterly_report_cards');
+			$this->load->view('backend/index', $page_data);
+		}
+	}
+
+    public function class_wise_student($class_id) {
         $students = $this->crud_model->get_students_by_class($class_id);
         echo '<option value="">'.get_phrase('select_student').'</option>';
         foreach ($students as $student) {
-            echo '<option value="'.$student['id'].'">'.$this->user_model->get_user_details($student['user_id'], 'name').'</option>';
+            echo '<option value="'.$student['id'].'">'.$this->user_model->get_user_details($student['id'], 'name').'</option>';
         }
     }
     // Online exam create

@@ -75,21 +75,13 @@
 
         <div class="form-group mb-1">
             <label for="from_time"><?php echo get_phrase('from_time'); ?></label>
-            <input type="time" id="from-time" name="from-time" class="form-control"  value="<?php echo $exam['exam_start_time']; ?>" required>
-           <select id="from-ampm" name="from-ampm">
-                <option value="AM" <?php if($exam['exam_start_am_pm'] == 'AM'){ echo 'selected'; } ?>>AM</option>
-                <option value="PM" <?php if($exam['exam_start_am_pm'] == 'PM'){ echo 'selected'; } ?>>PM</option>
-            </select>
+            <input type="text" id="from-time" name="from-time" class="form-control"  value="<?php echo $exam['exam_start_time']; ?>" required>
             <small id="name_help" class="form-text text-muted"><?php echo get_phrase('enter_from_time'); ?></small>
         </div>
 
         <div class="form-group mb-1">
             <label for="to_time"><?php echo get_phrase('to_time'); ?></label>
-            <input type="time" id="to-time" name="to-time" class="form-control" value="<?php echo $exam['exam_end_time']; ?>" required>
-            <select id="to-ampm" name="to-ampm">
-                <option value="AM" <?php if($exam['exam_end_am_pm'] == 'AM'){ echo 'selected'; } ?>>AM</option>
-                <option value="PM" <?php if($exam['exam_end_am_pm'] == 'PM'){ echo 'selected'; } ?>>PM</option>
-            </select>
+            <input type="text" id="to-time" name="to-time" class="form-control" value="<?php echo $exam['exam_end_time']; ?>" required>
             <small id="name_help" class="form-text text-muted"><?php echo get_phrase('enter_to_time'); ?></small>
         </div>
 
@@ -157,4 +149,32 @@
 
     // Js for calendar
     $("#starting_date" ).daterangepicker();
+
+    $(document).ready(function() {
+        $('#from-time').timepicker({
+            timeFormat: 'hh:mm',  // 12-hour format without AM/PM
+            interval: 30,         // Time intervals in minutes (e.g., 30-minute intervals)
+            minTime: '12:00am',   // Minimum time allowed (midnight)
+            maxTime: '11:59pm',   // Maximum time allowed (11:59 PM)
+            defaultTime: '10:20', // Default selected time (without AM/PM)
+            startTime: '12:00am', // Start time displayed in the picker
+            dynamic: false,       // Disable dynamic time update
+            dropdown: true,       // Show dropdown for time selection
+            scrollbar: true       // Enable scrollbar for long lists
+        });
+
+        $('#to-time').timepicker({
+            timeFormat: 'hh:mm',  // 12-hour format without AM/PM
+            interval: 30,         // Time intervals in minutes (e.g., 30-minute intervals)
+            minTime: '12:00am',   // Minimum time allowed (midnight)
+            maxTime: '11:59pm',   // Maximum time allowed (11:59 PM)
+            defaultTime: '10:20', // Default selected time (without AM/PM)
+            startTime: '12:00am', // Start time displayed in the picker
+            dynamic: false,       // Disable dynamic time update
+            dropdown: true,       // Show dropdown for time selection
+            scrollbar: true       // Enable scrollbar for long lists
+        });
+
+    });
+    
 </script>

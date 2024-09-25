@@ -280,6 +280,16 @@ $subject = $this->db->get_where('subjects', array('class_id' => $class_id))->res
             endforeach;
             ?>
         </tbody>
+
+        <!-- Cumulative Grade Row -->
+        <!-- <tfoot>
+            <tr class="text-center font-weight-bold">
+                <td colspan="4"><b><?php //echo get_phrase('cumulative_grades'); ?></b></td>
+                <td colspan="6"><span style="float:right"><?php //echo $cumulative_grade_name; ?></span></td>
+                <td><?php //echo number_format($cumulative_grade_point, 2); ?></td>
+            </tr>
+        </tfoot> -->
+
     </table>
 <?php else: ?>
     <?php include APPPATH . 'views/backend/empty.php'; ?>
