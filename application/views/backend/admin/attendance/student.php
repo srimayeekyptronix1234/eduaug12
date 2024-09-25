@@ -26,11 +26,26 @@
                             <?php if($update_attendance->num_rows() > 0): ?>
                                 <?php $row = $update_attendance->row(); ?>
                                 <input type="hidden" name="attendance_id[]" value="<?php echo $row->id; ?>">
-                                <input type="radio" id="" name="status-<?php echo $enroll['student_id']; ?>" value="1" class="present" <?php if($row->status == 1) echo 'checked'; ?> required> <?php echo get_phrase('present'); ?> &nbsp;
-                                <input type="radio" id="" name="status-<?php echo $enroll['student_id']; ?>" value="0" class="absent" <?php if($row->status != 1) echo 'checked'; ?> required> <?php echo get_phrase('absent'); ?>
+
+                                <input type="radio" id="" onclick="lateReason('studentNotLate','<?php echo $enroll['student_id']; ?>')" name="status-<?php echo $enroll['student_id']; ?>" value="1" class="present" <?php if($row->status == 1) echo 'checked'; ?> required> <?php echo get_phrase('present'); ?> &nbsp;
+
+                                <input type="radio" id="" onclick="lateReason('studentNotLate','<?php echo $enroll['student_id']; ?>')" name="status-<?php echo $enroll['student_id']; ?>" value="0" class="absent" <?php if($row->status == 0) echo 'checked'; ?> required> <?php echo get_phrase('absent'); ?> &nbsp;
+
+                                <input type="radio" id="student_late" onclick="lateReason('studentLate','<?php echo $enroll['student_id']; ?>')" name="status-<?php echo $enroll['student_id']; ?>" value="2" class="late" <?php if($row->status == 2) echo 'checked'; ?> required> <?php echo get_phrase('late'); ?>
+
+                                <div class="lateCls<?php echo $enroll['student_id']; ?>" <?php if($row->status == 2){?> style="display:block;" <?php } else { ?> style="display:none;" <?php } ?>>
+                                    <textarea name="lateReason-<?php echo $enroll['student_id']; ?>" cols="20" rows="1"></textarea>
+                                </div> 
                             <?php else: ?>
-                                <input type="radio" id="" name="status-<?php echo $enroll['student_id']; ?>" value="1" class="present" required> <?php echo get_phrase('present'); ?> &nbsp;
-                                <input type="radio" id="" name="status-<?php echo $enroll['student_id']; ?>" value="0" class="absent" checked required> <?php echo get_phrase('absent'); ?>
+                                <input type="radio" id=""onclick="lateReason('studentNotLate','<?php echo $enroll['student_id']; ?>')"  name="status-<?php echo $enroll['student_id']; ?>" value="1" class="present" required> <?php echo get_phrase('present'); ?> &nbsp;
+
+                                <input type="radio" id="" onclick="lateReason('studentNotLate','<?php echo $enroll['student_id']; ?>')" name="status-<?php echo $enroll['student_id']; ?>" value="0" class="absent" checked required> <?php echo get_phrase('absent'); ?> &nbsp;
+
+                                <input type="radio" id="student_late" onclick="lateReason('studentLate','<?php echo $enroll['student_id']; ?>')" name="status-<?php echo $enroll['student_id']; ?>" value="2" class="late" required> <?php echo get_phrase('late'); ?>
+                                
+                                <div class="lateCls<?php echo $enroll['student_id']; ?>" style="display:none;">
+                                    <textarea id="lateReason-<?php echo $enroll['student_id']; ?>" name="lateReason-<?php echo $enroll['student_id']; ?>" cols="20" rows="1"></textarea>
+                                </div> 
                             <?php endif; ?>
                         </div>
                     </td>
@@ -47,5 +62,19 @@
 
     function absent_all() {
         $(".absent").prop('checked',true);
+    }
+
+    function lateReason(par1, par2)
+    {
+      //alert(par1);
+      //alert(par2);
+      if(par1 === 'studentLate')
+      {
+       $(".lateCls"+par2).css("display", "block"); 
+      }
+      else 
+      {
+        $(".lateCls"+par2).css("display", "none"); 
+      }
     }
 </script>

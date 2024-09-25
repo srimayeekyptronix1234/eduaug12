@@ -438,6 +438,7 @@ class Crud_model extends CI_Model {
 		if($check_data->num_rows() > 0){
 			foreach($students as $key => $student):
 				$data['status'] = $this->input->post('status-'.$student);
+				$data['comment_for_late'] = $this->input->post('lateReason-'.$student);
 				$data['student_id'] = $student;
 				$attendance_id = $this->input->post('attendance_id');
 				$this->db->where('id', $attendance_id[$key]);
@@ -446,6 +447,7 @@ class Crud_model extends CI_Model {
 		}else{
 			foreach($students as $student):
 				$data['status'] = $this->input->post('status-'.$student);
+				$data['comment_for_late'] = $this->input->post('lateReason-'.$student);
 				$data['student_id'] = $student;
 				$this->db->insert('daily_attendances', $data);
 			endforeach;

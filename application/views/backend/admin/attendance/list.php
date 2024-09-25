@@ -51,11 +51,16 @@
                                     <?php $date = $i.' '.$month.' '.$year; ?>
                                     <?php $timestamp = strtotime($date); ?>
                                     <td class="text-center">
-                                        <?php $status = $this->db->get_where('daily_attendances', array('class_id' => $class_id, 'section_id' => $section_id, 'school_id' => $school_id, 'session_id' => $active_sesstion, 'student_id' => $attendance_of_student['student_id'], 'timestamp' => $timestamp))->row('status'); ?>
+                                        <?php $status = $this->db->get_where('daily_attendances', array('class_id' => $class_id, 'section_id' => $section_id, 'school_id' => $school_id, 'session_id' => $active_sesstion, 'student_id' => $attendance_of_student['student_id'], 'timestamp' => $timestamp))->row('status');
+                                        
+                                        $comment_for_late = $this->db->get_where('daily_attendances', array('class_id' => $class_id, 'section_id' => $section_id, 'school_id' => $school_id, 'session_id' => $active_sesstion, 'student_id' => $attendance_of_student['student_id'], 'timestamp' => $timestamp))->row('comment_for_late');
+                                        ?>
                                             <?php if($status == 1){ ?>
                                                 <i class="mdi mdi-circle text-success"></i>
                                             <?php }elseif($status === "0"){ ?>
                                                 <i class="mdi mdi-circle text-danger"></i>
+                                            <?php } elseif($status === "2"){ ?>
+                                                <i class="mdi mdi-circle text-warning" title="<?php echo $comment_for_late;?>"></i>
                                             <?php } ?>
                                     </td>
                                 <?php endfor; ?>
