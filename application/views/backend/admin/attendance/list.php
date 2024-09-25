@@ -25,6 +25,13 @@
 </div>
 
 <div class="w-100 table-responsive">
+    <div>
+        <p>
+            <i class="mdi mdi-circle text-success"></i> => Present | 
+            <i class="mdi mdi-circle text-danger"></i>  => Absent | 
+            <i class="mdi mdi-circle text-warning"></i> => Late
+        </p>
+    </div>
     <table  class="table table-bordered table-sm">
         <thead class="thead-dark">
             <tr style="font-size: 12px;">
