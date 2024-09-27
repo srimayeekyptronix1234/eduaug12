@@ -133,8 +133,6 @@ $school_id = school_id();
   </div><!-- end col-->
 </div>
 
-
-
 <!-- end page title -->
 <div class="row ">
   <div class="col-xl-12">
@@ -143,12 +141,10 @@ $school_id = school_id();
         <div class="row">
           <div class="col-lg-6">
             <div class="card widget-flat bg-primary colhover" id="student">
-              <div class="card-body" style="background-color: #5655AB;">
+              <div class="card-body" style="background:linear-gradient(to right, #f1142e, #6a0167);">
                 <div class="float-end">
                   <i class="mdi mdi-account-multiple widget-icon" style="color: #ffffff;"></i>
                 </div>
-
-
                 <h5 class="text-muted font-weight-normal mt-0" title="Number of Student">
                   <i class="fa-solid fa-graduation-cap" style="color: #ffffff;"></i>
                   <span style="color: #ffffff;">
@@ -175,7 +171,7 @@ $school_id = school_id();
 
           <div class="col-lg-6">
             <div class="card widget-flat colhover" id="teacher">
-              <div class="card-body" style="background-color:#FD858F; color: #ffffff;">
+              <div class="card-body" style="background: linear-gradient(to right, #00C6FF, #0072FF); color: #ffffff;">
                 <div class="float-end">
                   <i class="mdi mdi-account-multiple widget-icon" style="color: #ffffff!important;"></i>
                 </div>
@@ -208,7 +204,8 @@ $school_id = school_id();
         <div class="row">
           <div class="col-lg-6">
             <div class="card widget-flat colhover" id="total_exams">
-              <div class="card-body" style="background-color: #035fbd; color: #ffffff!important;">
+              <div class="card-body"
+                style="background: linear-gradient(to right, #024808, #9ea900); color: #ffffff!important;">
                 <div class="float-end">
                   <i class="mdi mdi-account-multiple widget-icon" style="color: #ffffff;"></i>
                 </div>
@@ -238,7 +235,7 @@ $school_id = school_id();
 
           <div class="col-lg-6">
             <div class="card widget-flat colhover">
-              <div class="card-body" style="background-color: #FF8911; color: #ffffff;">
+              <div class="card-body" style="background: linear-gradient(to right, #01002c, #051199); color: #ffffff;">
                 <div class="float-end">
                   <i class="mdi mdi-account-multiple widget-icon" style="color: #ffffff;"></i>
                 </div>
