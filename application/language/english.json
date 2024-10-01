@@ -1642,5 +1642,9 @@
     "marksheet": "Marksheet",
     "late": "Late",
     "late1": "Late1",
-    "start_exam1": "Start exam1"
+    "start_exam1": "Start exam1",
+    "quiz_marks": "Quiz marks",
+    "manage_quiz_marks": "Manage quiz marks",
+    "view_mark": "View mark",
+    "quiz_mark_has_been_updated_successfully": "Quiz mark has been updated successfully"
 }

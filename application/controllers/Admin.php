@@ -1293,6 +1293,66 @@ class Admin extends CI_Controller {
 		}
 	}
 	//Classwork Section End
+
+	//Quiz Marks Given Section Start
+	public function quiz_marks($param1 = '', $param2 = ''){
+
+		if($param1 == 'list'){
+			$page_data['class_id'] = htmlspecialchars($this->input->post('class_id'));
+			$page_data['section_id'] = htmlspecialchars($this->input->post('section_id'));
+			$page_data['subject_id'] = htmlspecialchars($this->input->post('subject_id'));
+			$page_data['exam_id'] = htmlspecialchars($this->input->post('exam_id'));
+
+			$this->crud_model->quiz_exam_mark_insert($page_data['exam_id'],$page_data['class_id'],$page_data['section_id'],$page_data['subject_id']);
+
+           $this->load->view('backend/admin/quiz_marks/list', $page_data);
+		}
+
+		if($param1 == 'view_marks'){
+			$class_id = htmlspecialchars($this->input->post('class_id'));
+			$student_id = htmlspecialchars($this->input->post('student_id'));
+			$subject_id = htmlspecialchars($this->input->post('subject_id'));
+			$exam_id = htmlspecialchars($this->input->post('exam_id'));
+
+			$student_details = $this->user_model->get_student_details_by_id('student', $student_id);
+		    $student_name = $student_details['name'];
+			$userID = $student_details['user_id'];
+
+			$exam_number_list = $this->db->get_where('online_exam_result', array('school_id' => school_id(),'class_id' => $class_id,'student_id' => $userID,'subject_id' => $subject_id,'quarter_id' => $exam_id))->result_array();
+
+			$list ='<div class="col-md-12">
+				<table border="1" cellpadding="10" width="100%">
+					<tr>
+						<td colspan="2"><b>Student Name: '.$student_name.'</b></td>
+					</tr>
+					<tr>
+						<td><b>Exam Set Name</b></td>
+						<td><b>Marks</b></td>
+					</tr>';
+			foreach ($exam_number_list as $details) {
+			$list .='<tr>
+						<td>Quarter Set=>'.$details['quarter_set_id'].'</td>
+						<td>'.$details['total_marks_obtained'].'</td>
+					</tr>';
+			}
+			$list .='</table>
+			</div>';
+
+			echo $list;
+
+		}
+
+		if($param1 == 'quiz_mark_update'){
+            $this->crud_model->quiz_mark_update();
+		}
+
+		if(empty($param1)){
+			$page_data['folder_name'] = 'quiz_marks';
+			$page_data['page_title'] = 'Quiz Marks';
+			$this->load->view('backend/index', $page_data);
+		}
+	}
+	//Quiz Marks Given Section End
     
     //Project Section Start
 	public function project($param1 = '', $param2 = ''){
