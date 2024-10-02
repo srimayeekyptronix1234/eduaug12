@@ -26,9 +26,12 @@
     </div>
     <div class="form-group mb-1">
       <label for="date"><?php echo get_phrase('salary_month'); ?></label>
-       <input type="month" name="month" onchange="changeMonth()" id="month" class="form-control" required="" data-gtm-form-interact-field-id="0">   
+       <input type="month" name="month" onchange="selectedMonthWiseSalary(this.value)" id="month" class="form-control" required="" data-gtm-form-interact-field-id="0">   
    </div>
    <div class="form-group mb-1" id="salary_amount">
+   </div>
+
+   <div class="form-group mb-1" id="paid_salary_amount">
    </div>
    
     <div class="form-group mb-1">
@@ -67,7 +70,30 @@ function staffRoleWiseName(staffRole) {
     }
   });
 }
+// selected month wise salary
+function selectedMonthWiseSalary(selectedDate) {
+  //alert(selectedDate);
+  var year = parseInt(selectedDate.split('-')[0]);
+  var month = parseInt(selectedDate.split('-')[1]);
+  //alert(month);
+  
+  // Create a date object for the first day of the next month, and subtract one day to get the last day of the current month
+  var daysInMonth = new Date(year, month, 0).getDate();
+  //alert(daysInMonth);
+
+  var staffId = document.getElementById('staff_name').value;
+  //alert(staffId);
+  //console.log(staffNameValue); // This will log the selected value
+  $.ajax({
+    url: "<?php echo route('staff_salary/selectedMonthSalary/'); ?>" + staffId +"/"+ daysInMonth +"/"+ month +"/"+ year,
+    success: function (response) {
+      $('#paid_salary_amount').html(response);
+    }
+  });
+}
+
 function staffNameWiseSalary(staffId) {
+  $('#month').val("");
   $.ajax({
     url: "<?php echo route('staff_salary/salary/'); ?>" + staffId,
     success: function (response) {

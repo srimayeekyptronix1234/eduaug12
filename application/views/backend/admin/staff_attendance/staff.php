@@ -49,10 +49,12 @@
                                 <?php $row = $update_attendance->row(); ?>
                                 <input type="hidden" name="attendance_id[]" value="<?php echo $row->id; ?>">
                                 <input type="radio" id="" name="status-<?php echo $staff['id']; ?>" value="1" class="present" <?php if($row->status == 1) echo 'checked'; ?> required> <?php echo get_phrase('present'); ?> &nbsp;
-                                <input type="radio" id="" name="status-<?php echo $staff['id']; ?>" value="0" class="absent" <?php if($row->status != 1) echo 'checked'; ?> required> <?php echo get_phrase('absent'); ?>
+                                <input type="radio" id="" name="status-<?php echo $staff['id']; ?>" value="0" class="absent" <?php if($row->status == 0) echo 'checked'; ?> required> <?php echo get_phrase('paid leave'); ?>
+                                <input type="radio" id="" name="status-<?php echo $staff['id']; ?>" value="2" class="unpaid" <?php if($row->status == 2) echo 'checked'; ?> required> <?php echo get_phrase('unpaid leave'); ?>
                             <?php else: ?>
                                 <input type="radio" id="" name="status-<?php echo $staff['id']; ?>" value="1" class="present" required> <?php echo get_phrase('present'); ?> &nbsp;
-                                <input type="radio" id="" name="status-<?php echo $staff['id']; ?>" value="0" class="absent" checked required> <?php echo get_phrase('absent'); ?>
+                                <input type="radio" id="" name="status-<?php echo $staff['id']; ?>" value="0" class="absent" checked required> <?php echo get_phrase('paid leave'); ?>
+                                <input type="radio" id="" name="status-<?php echo $staff['id']; ?>" value="2" class="unpaid" checked required> <?php echo get_phrase('unpaid leave'); ?>
                             <?php endif; ?>
                         </div>
                     </td>

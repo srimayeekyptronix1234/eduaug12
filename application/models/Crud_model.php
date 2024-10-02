@@ -2287,6 +2287,7 @@ class Crud_model extends CI_Model {
 		$data['month'] = htmlspecialchars($this->input->post('month'));
 		$data['date'] = htmlspecialchars($this->input->post('date'));
 		$data['salary_amount'] = htmlspecialchars($this->input->post('salary_amount'));
+		$data['paid_salary_amount'] = htmlspecialchars($this->input->post('paid_salary_amount'));
 		$data['status'] = htmlspecialchars($this->input->post('status'));
 
 		$this->db->insert('staff_salary', $data);
@@ -2296,7 +2297,7 @@ class Crud_model extends CI_Model {
 		   $insert_data['school_id'] = $this->school_id;
 		   $insert_data['session'] = $this->active_session;
 		   $insert_data['created_at'] = strtotime(date('d-M-Y'));
-		   $insert_data['amount'] = $data['salary_amount'];
+		   $insert_data['amount'] = $data['paid_salary_amount'];
 		   $this->db->insert('expenses', $insert_data);
 		}
 		$response = array(

@@ -2,6 +2,9 @@
 $school_id = school_id();
  $all_staffs = $this->db->get_where('users', array('role' => $staff_role, 'school_id' => $school_id))->result_array();
 if (count($all_staffs) > 0):
+  ?>
+ <option value="">Please select staff</option>
+  <?php
   foreach ($all_staffs as $staff): ?>
     <option value="<?php echo $staff['id']; ?>"><?php echo $staff['name']; ?></option>
   <?php endforeach; ?>

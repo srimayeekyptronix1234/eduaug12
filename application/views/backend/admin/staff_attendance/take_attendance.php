@@ -4,7 +4,7 @@
 <form method="POST" class="d-block ajaxForm responsive_media_query" action="<?php echo route('staff_attendance/take_attendance'); ?>" style="min-width: 300px; max-width: 400px;">
     <div class="form-group row">
         <div class="col-md-12">
-            <label for="date_on_taking_attendance"><?php echo get_phrase('date'); ?></label>
+            <label for="date_on_taking_attendance"><?php echo get_phrase('date1'); ?></label>
             <input type="text" class="form-control date" id="date_on_taking_attendance" data-bs-toggle="date-picker" data-single-date-picker="true" name = "date" value="" required>
         </div>
     </div>

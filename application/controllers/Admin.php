@@ -1837,7 +1837,7 @@ class Admin extends CI_Controller {
 		}
 	}
 	//Staff Salary Start
-	public function staff_salary($param1 = "", $param2 = "") {
+	public function staff_salary($param1 = "", $param2 = "", $param3 = "", $param4 = "", $param5 = "") {
 		if ($param1 == 'create') {
 			$response = $this->crud_model->save_staff_salary();
 			echo $response;
@@ -1859,6 +1859,14 @@ class Admin extends CI_Controller {
 		if ($param1 == 'salary') {
 			$page_data['staff_id'] = $param2;
 			$this->load->view('backend/admin/staff_salary/salary',$page_data);
+
+		}
+		if ($param1 == 'selectedMonthSalary') {
+			$page_data['staff_id'] = $param2;
+			$page_data['daysInMonth'] = $param3;
+			$page_data['selectedMonth'] = $param4;
+			$page_data['selectedYear'] = $param5;
+			$this->load->view('backend/admin/staff_salary/current_month_salary',$page_data);
 
 		}
 
