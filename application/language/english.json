@@ -1646,5 +1646,7 @@
     "quiz_marks": "Quiz marks",
     "manage_quiz_marks": "Manage quiz marks",
     "view_mark": "View mark",
-    "quiz_mark_has_been_updated_successfully": "Quiz mark has been updated successfully"
+    "quiz_mark_has_been_updated_successfully": "Quiz mark has been updated successfully",
+    "total_number_of_teachers": "Total number of teachers",
+    "map_view": "Map view"
 }
