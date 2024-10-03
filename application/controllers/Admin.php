@@ -621,7 +621,7 @@ class Admin extends CI_Controller {
         $dompdf = new Dompdf($options);
 
 		$page_data['student_id'] = $param2;
-		$page_data['student_details'] = $this->user_model->get_user_details($param2);
+		$page_data['student_details'] = $this->user_model->get_user_details($param3);
 
         // Load HTML content
         $html = $this->load->view('backend/admin/student-certificate/leaving-certificate',$page_data, true);
@@ -804,7 +804,7 @@ class Admin extends CI_Controller {
         $students = $this->crud_model->get_students_by_class($class_id);
         echo '<option value="">'.get_phrase('select_student').'</option>';
         foreach ($students as $student) {
-            echo '<option value="'.$student['id'].'">'.$this->user_model->get_user_details($student['id'], 'name').'</option>';
+            echo '<option value="'.$student['id'].'">'.$this->user_model->get_user_details($student['user_id'], 'name').'</option>';
         }
     }
 
@@ -1837,7 +1837,7 @@ class Admin extends CI_Controller {
 		}
 	}
 	//Staff Salary Start
-	public function staff_salary($param1 = "", $param2 = "") {
+	public function staff_salary($param1 = "", $param2 = "", $param3 = "", $param4 = "", $param5 = "") {
 		if ($param1 == 'create') {
 			$response = $this->crud_model->save_staff_salary();
 			echo $response;
@@ -1859,6 +1859,14 @@ class Admin extends CI_Controller {
 		if ($param1 == 'salary') {
 			$page_data['staff_id'] = $param2;
 			$this->load->view('backend/admin/staff_salary/salary',$page_data);
+
+		}
+		if ($param1 == 'selectedMonthSalary') {
+			$page_data['staff_id'] = $param2;
+			$page_data['daysInMonth'] = $param3;
+			$page_data['selectedMonth'] = $param4;
+			$page_data['selectedYear'] = $param5;
+			$this->load->view('backend/admin/staff_salary/current_month_salary',$page_data);
 
 		}
 

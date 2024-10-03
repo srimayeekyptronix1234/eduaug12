@@ -5,7 +5,7 @@ $user_details = $this->db->get_where('users', array('id' => $param1))->row_array
     <div class="form-row">
         <div class="form-group mb-1">
             <label for="leaving_date"><?php echo get_phrase('leaving_date'); ?></label>
-            <input type="text" value="<?php echo date('m/d/Y', $user_details['leaving_date']); ?>" class="form-control date" id="leaving_date" data-bs-toggle="date-picker" data-single-date-picker="true" name = "leaving_date" required>
+            <input type="text" value="<?php echo date('m/d/Y', strtotime($user_details['leaving_date'])); ?>" class="form-control date" id="leaving_date" data-bs-toggle="date-picker" data-single-date-picker="true" name = "leaving_date" required>
             <small id="name_help" class="form-text text-muted"><?php echo get_phrase('provide_leaving_date'); ?></small>
         </div>
 

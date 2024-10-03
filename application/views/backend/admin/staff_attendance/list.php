@@ -23,6 +23,13 @@
 </div>
 
 <div class="w-100 table-responsive">
+    <div>
+        <p>
+            <i class="mdi mdi-circle text-success"></i> =&gt; Present | 
+            <i class="mdi mdi-circle text-danger"></i>  =&gt; Paid Leave | 
+            <i class="mdi mdi-circle text-warning"></i> =&gt; Unpaid Leave
+        </p>
+    </div>
     <table  class="table table-bordered table-sm">
         <thead class="thead-dark">
             <tr style="font-size: 12px;">
@@ -75,6 +82,8 @@
                                                 <i class="mdi mdi-circle text-success"></i>
                                             <?php }elseif($status === "0"){ ?>
                                                 <i class="mdi mdi-circle text-danger"></i>
+                                            <?php }elseif($status === "2"){ ?>
+                                                <i class="mdi mdi-circle text-warning"></i>
                                             <?php } ?>
                                     </td>
                                 <?php endfor; ?>

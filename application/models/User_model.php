@@ -818,7 +818,7 @@ class User_model extends CI_Model {
 
 	// Student leaving data update
 	public function student_update_leaving_data($user_id = ''){
-		$user_data['leaving_date'] = strtotime($this->input->post('leaving_date'));
+		$user_data['leaving_date'] = $this->input->post('leaving_date');
 		$user_data['reason_for_leaving'] = html_escape($this->input->post('reason_for_leaving'));
 		$user_data['academic_performance'] = html_escape($this->input->post('academic_performance'));
 

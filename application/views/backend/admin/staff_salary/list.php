@@ -15,6 +15,7 @@ if (count($staff_salary) > 0): ?>
           <th><?php echo get_phrase('staff_name'); ?></th>
           <th><?php echo get_phrase('month'); ?></th>
           <th><?php echo get_phrase('salary'); ?></th>
+          <th><?php echo get_phrase('paid_salary'); ?></th>
           <th><?php echo get_phrase('status'); ?></th>
           <th><?php echo get_phrase('option'); ?></th>
         </tr>
@@ -41,6 +42,13 @@ if (count($staff_salary) > 0): ?>
               <?php
                   if(!empty($staff['salary_amount'])){
                     echo $staff['salary_amount'];  
+                  }
+              ?>
+            </td>
+            <td>
+              <?php
+                  if(!empty($staff['paid_salary_amount'])){
+                    echo $staff['paid_salary_amount'];  
                   }
               ?>
             </td>
