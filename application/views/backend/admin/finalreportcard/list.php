@@ -135,15 +135,15 @@ $subject = $this->db->get_where('subjects', array('class_id' => $class_id))->res
 
                     // Test/Quize Mark calculation
                     $this->db->select('COUNT(*) as row_count');
-                    $this->db->from('online_exam_result');
+                    $this->db->from('quiz_marks');
                     $this->db->where('student_id', $student_id);
                     $this->db->where('class_id', $class_id);
                     $this->db->where('subject_id', $subjectId);
                     $cnt_test_quize_query = $this->db->get();
                     $test_quize_count = $cnt_test_quize_query->row()->row_count;
 
-                    $this->db->select('student_id, class_id, subject_id, SUM(total_marks_obtained) AS total_marks');
-                    $this->db->from('online_exam_result');
+                    $this->db->select('student_id, class_id, subject_id, SUM(mark_obtained) AS total_marks');
+                    $this->db->from('quiz_marks');
                     $this->db->where('student_id', $student_id);
                     $this->db->where('class_id', $class_id);
                     $this->db->where('subject_id', $subjectId);

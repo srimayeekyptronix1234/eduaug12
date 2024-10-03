@@ -1,6 +1,6 @@
 <?php
 $school_id = school_id();
-// echo "hello";print_r($user_details); 
+//echo "hello";echo $user_details['id']; 
 // $subject = $this->db->get_where('subjects', array('class_id' => $class_id))
 // exit;
 
@@ -116,13 +116,13 @@ $subject = $this->db->get_where('subjects', array('class_id' => $class_id))->res
 
                     // Test/Quize Mark calculation
 
-                    $this->db->select('student_id, class_id, subject_id, quarter_id, SUM(total_marks_obtained) AS total_marks');
-                    $this->db->from('online_exam_result');
+                    $this->db->select('student_id, class_id, subject_id, exam_id, SUM(mark_obtained) AS total_marks');
+                    $this->db->from('quiz_marks');
                     $this->db->where('student_id', $student_id);
                     $this->db->where('class_id', $class_id);
                     $this->db->where('subject_id', $subjectId); 
-                    $this->db->where('quarter_id', $exam_id);
-                    $this->db->group_by(array('student_id', 'class_id', 'subject_id', 'quarter_id'));
+                    $this->db->where('exam_id', $exam_id);
+                    $this->db->group_by(array('student_id', 'class_id', 'subject_id', 'exam_id'));
                     $test_quize_query = $this->db->get();
                     $test_quize_marks = $test_quize_query->result_array();
 

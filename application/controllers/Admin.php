@@ -621,7 +621,7 @@ class Admin extends CI_Controller {
         $dompdf = new Dompdf($options);
 
 		$page_data['student_id'] = $param2;
-		$page_data['student_details'] = $this->user_model->get_user_details($param2);
+		$page_data['student_details'] = $this->user_model->get_user_details($param3);
 
         // Load HTML content
         $html = $this->load->view('backend/admin/student-certificate/leaving-certificate',$page_data, true);
@@ -804,7 +804,7 @@ class Admin extends CI_Controller {
         $students = $this->crud_model->get_students_by_class($class_id);
         echo '<option value="">'.get_phrase('select_student').'</option>';
         foreach ($students as $student) {
-            echo '<option value="'.$student['id'].'">'.$this->user_model->get_user_details($student['id'], 'name').'</option>';
+            echo '<option value="'.$student['id'].'">'.$this->user_model->get_user_details($student['user_id'], 'name').'</option>';
         }
     }
 

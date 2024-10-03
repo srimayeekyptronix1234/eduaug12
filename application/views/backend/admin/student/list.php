@@ -44,7 +44,7 @@ $school_id = school_id();
               <a href="javascript:;" class="dropdown-item" onclick="confirmModal('<?php echo route('student/delete/'.$student['id'].'/'.$student['user_id']); ?>', showAllStudents)"><?php echo get_phrase('delete'); ?></a>
               <a href="<?php echo route('student/download-certificate/'.$student['id']); ?>" class="dropdown-item"><?php echo get_phrase('download_certificate'); ?></a>
               <a href="javascript:void(0);" class="dropdown-item" onclick="rightModal('<?php echo site_url('modal/popup/student/leaving_data_update/'.$student['user_id']); ?>', '<?php echo get_phrase('leaving_data_update'); ?>')"><?php echo get_phrase('leaving_data_update'); ?></a>
-              <a href="<?php echo route('student/download-leaving-certificate/'.$student['id']); ?>" class="dropdown-item"><?php echo get_phrase('download_leaving_certificate'); ?></a>
+              <a href="<?php echo route('student/download-leaving-certificate/'.$student['id'].'/'.$student['user_id']); ?>" class="dropdown-item"><?php echo get_phrase('download_leaving_certificate'); ?></a>
   					</div>
   				</div>
         </td>
