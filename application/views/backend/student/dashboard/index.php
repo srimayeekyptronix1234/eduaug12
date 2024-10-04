@@ -112,7 +112,7 @@
   }
 
   .listar-header-category-name {
-    font-size: 16px;
+    font-size: 15px;
     font-weight: 500;
     text-transform: uppercase;
     color: #000;
@@ -159,7 +159,7 @@
     font-size: 0;
     line-height: 0;
     border-radius: 36px 36px 0 0;
-    background: #00c4ff0f;
+    background: #0000000f;
   }
 
   .listar-category-icon-box {
@@ -512,9 +512,9 @@ $school_id = school_id();
               <div>
                 <div class="listar-category-icon-wrapper">
                   <div class="listar-category-icon-box" style="background-color: rgb(121, 50, 209)"></div>
-                  <span class="far fa-moon"> </span>
+                  <span class="fa-solid fa-clipboard-user"> </span>
                 </div>
-                <div class="listar-header-category-name">Nightlife</div>
+                <div class="listar-header-category-name">Attendance</div>
               </div>
             </a>
 
@@ -522,9 +522,39 @@ $school_id = school_id();
               <div>
                 <div class="listar-category-icon-wrapper">
                   <div class="listar-category-icon-box" style="background-color: rgb(38, 100, 201)"></div>
-                  <span class="fab fa-airbnb"> </span>
+                  <span class="fa-solid fa-a"> </span>
                 </div>
-                <div class="listar-header-category-name">Stay</div>
+                <div class="listar-header-category-name"> Grades</div>
+              </div>
+            </a>
+
+            <a>
+              <div>
+                <div class="listar-category-icon-wrapper">
+                  <div class="listar-category-icon-box" style="background-color: #0b5e0a"></div>
+                  <span class="fa-solid fa-route"> </span>
+                </div>
+                <div class="listar-header-category-name">Assign route</div>
+              </div>
+            </a>
+
+            <a>
+              <div>
+                <div class="listar-category-icon-wrapper">
+                  <div class="listar-category-icon-box" style="background-color: #343A40"></div>
+                  <span class="fa-solid fa-list"> </span>
+                </div>
+                <div class="listar-header-category-name"> Project</div>
+              </div>
+            </a>
+
+            <a>
+              <div>
+                <div class="listar-category-icon-wrapper">
+                  <div class="listar-category-icon-box" style="background-color: #0272F3"></div>
+                  <span class="fa-solid fa-school"> </span>
+                </div>
+                <div class="listar-header-category-name"> Classwork</div>
               </div>
             </a>
 
@@ -532,49 +562,9 @@ $school_id = school_id();
               <div>
                 <div class="listar-category-icon-wrapper">
                   <div class="listar-category-icon-box" style="background-color: rgb(178, 39, 99)"></div>
-                  <span class="fab fa-fly"> </span>
+                  <span class="fa-solid fa-money-bill"> </span>
                 </div>
-                <div class="listar-header-category-name">Air</div>
-              </div>
-            </a>
-
-            <a>
-              <div>
-                <div class="listar-category-icon-wrapper">
-                  <div class="listar-category-icon-box" style="background-color: rgb(178, 39, 99)"></div>
-                  <span class="fab fa-fly"> </span>
-                </div>
-                <div class="listar-header-category-name">Air</div>
-              </div>
-            </a>
-
-            <a>
-              <div>
-                <div class="listar-category-icon-wrapper">
-                  <div class="listar-category-icon-box" style="background-color: rgb(178, 39, 99)"></div>
-                  <span class="fab fa-fly"> </span>
-                </div>
-                <div class="listar-header-category-name">Air</div>
-              </div>
-            </a>
-
-            <a>
-              <div>
-                <div class="listar-category-icon-wrapper">
-                  <div class="listar-category-icon-box" style="background-color: rgb(178, 39, 99)"></div>
-                  <span class="fab fa-fly"> </span>
-                </div>
-                <div class="listar-header-category-name">Air</div>
-              </div>
-            </a>
-
-            <a>
-              <div>
-                <div class="listar-category-icon-wrapper">
-                  <div class="listar-category-icon-box" style="background-color: rgb(178, 39, 99)"></div>
-                  <span class="fab fa-fly"> </span>
-                </div>
-                <div class="listar-header-category-name">Air</div>
+                <div class="listar-header-category-name"> Student fees</div>
               </div>
             </a>
 
@@ -582,9 +572,9 @@ $school_id = school_id();
               <div>
                 <div class="listar-category-icon-wrapper">
                   <div class="listar-category-icon-box" style="background-color: rgb(9, 151, 44)"></div>
-                  <span class="fab fa-fly"> </span>
+                  <span class="fa-solid fa-sheet-plastic"> </span>
                 </div>
-                <div class="listar-header-category-name">Air</div>
+                <div class="listar-header-category-name"> Marks</div>
               </div>
             </a>
 
@@ -592,9 +582,9 @@ $school_id = school_id();
               <div>
                 <div class="listar-category-icon-wrapper">
                   <div class="listar-category-icon-box" style="background-color: rgb(13, 134, 150)"></div>
-                  <span class="fab fa-fly"> </span>
+                  <span class="fa-solid fa-user-graduate"> </span>
                 </div>
-                <div class="listar-header-category-name">Air</div>
+                <div class="listar-header-category-name"> Syllabus</div>
               </div>
             </a>
 
@@ -602,9 +592,9 @@ $school_id = school_id();
               <div>
                 <div class="listar-category-icon-wrapper">
                   <div class="listar-category-icon-box" style="background-color: rgb(83, 132, 55)"></div>
-                  <span class="fab fa-forumbee"> </span>
+                  <span class="fa-solid fa-book"> </span>
                 </div>
-                <div class="listar-header-category-name">Outdoor</div>
+                <div class="listar-header-category-name">Routine</div>
               </div>
             </a>
           </div>
