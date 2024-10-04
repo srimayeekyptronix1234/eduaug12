@@ -160,7 +160,7 @@
     font-size: 0;
     line-height: 0;
     border-radius: 36px 36px 0 0;
-    background: #0000000f;
+    background: #ffeb3b2e;
     margin-bottom: 30px;
   }
 
