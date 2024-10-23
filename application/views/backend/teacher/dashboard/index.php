@@ -524,57 +524,57 @@ $school_id = school_id();
               </div>
             </a>
 
-            <a href="<?php echo base_url() ?>teacher/staff_attendance">
+            <a href="<?php echo base_url() ?>teacher/staff_salary">
               <div>
                 <div class="listar-category-icon-wrapper">
                   <div class="listar-category-icon-box" style="background-color: rgb(38, 100, 201)"></div>
-                  <span class="fa-solid fa-a"> </span>
+                  <span class="fa-solid fa-money-check-dollar"> </span>
                 </div>
-                <div class="listar-header-category-name"> Grades</div>
+                <div class="listar-header-category-name">Staff Salary</div>
               </div>
             </a>
 
-            <a>
+            <a href="<?php echo base_url() ?>teacher/final_report_card">
               <div>
                 <div class="listar-category-icon-wrapper">
                   <div class="listar-category-icon-box" style="background-color: #0b5e0a"></div>
-                  <span class="fa-solid fa-route"> </span>
+                  <span class="fa-regular fa-id-card"> </span>
                 </div>
-                <div class="listar-header-category-name">Assign route</div>
+                <div class="listar-header-category-name">Final Report</div>
               </div>
             </a>
 
-            <a>
+            <a href="<?php echo base_url() ?>teacher/exam">
               <div>
                 <div class="listar-category-icon-wrapper">
                   <div class="listar-category-icon-box" style="background-color: #343A40"></div>
-                  <span class="fa-solid fa-list"> </span>
+                  <span class="fa-solid fa-school"> </span>
+                </div>
+                <div class="listar-header-category-name"> Exam</div>
+              </div>
+            </a>
+
+            <a href="<?php echo base_url() ?>teacher/event_calendar">
+              <div>
+                <div class="listar-category-icon-wrapper">
+                  <div class="listar-category-icon-box" style="background-color: #0272F3"></div>
+                  <span class="fa-regular fa-calendar-days"> </span>
+                </div>
+                <div class="listar-header-category-name">calendar</div>
+              </div>
+            </a>
+
+            <a href="<?php echo base_url() ?>teacher/project">
+              <div>
+                <div class="listar-category-icon-wrapper">
+                  <div class="listar-category-icon-box" style="background-color: rgb(178, 39, 99)"></div>
+                  <span class="fa-solid fa-list-check"> </span>
                 </div>
                 <div class="listar-header-category-name"> Project</div>
               </div>
             </a>
 
-            <a>
-              <div>
-                <div class="listar-category-icon-wrapper">
-                  <div class="listar-category-icon-box" style="background-color: #0272F3"></div>
-                  <span class="fa-solid fa-school"> </span>
-                </div>
-                <div class="listar-header-category-name"> Classwork</div>
-              </div>
-            </a>
-
-            <a>
-              <div>
-                <div class="listar-category-icon-wrapper">
-                  <div class="listar-category-icon-box" style="background-color: rgb(178, 39, 99)"></div>
-                  <span class="fa-solid fa-money-bill"> </span>
-                </div>
-                <div class="listar-header-category-name"> Student fees</div>
-              </div>
-            </a>
-
-            <a>
+            <a href="<?php echo base_url() ?>teacher/mark">
               <div>
                 <div class="listar-category-icon-wrapper">
                   <div class="listar-category-icon-box" style="background-color: rgb(9, 151, 44)"></div>
@@ -584,17 +584,17 @@ $school_id = school_id();
               </div>
             </a>
 
-            <a>
+            <a href="<?php echo base_url() ?>teacher/homework">
               <div>
                 <div class="listar-category-icon-wrapper">
                   <div class="listar-category-icon-box" style="background-color: rgb(13, 134, 150)"></div>
                   <span class="fa-solid fa-user-graduate"> </span>
                 </div>
-                <div class="listar-header-category-name"> Syllabus</div>
+                <div class="listar-header-category-name"> Homeworks</div>
               </div>
             </a>
 
-            <a>
+            <a href="<?php echo base_url() ?>teacher/routine">
               <div>
                 <div class="listar-category-icon-wrapper">
                   <div class="listar-category-icon-box" style="background-color: rgb(83, 132, 55)"></div>
