@@ -508,7 +508,8 @@ $school_id = school_id();
         <!--------->
         <div class="listar-search-categories listar-categories-fixed-bottom">
           <div class="listar-listing-categories">
-            <a>
+
+            <a href="<?php echo base_url() ?>student/attendance">
               <div>
                 <div class="listar-category-icon-wrapper">
                   <div class="listar-category-icon-box" style="background-color: rgb(121, 50, 209)"></div>
@@ -518,7 +519,7 @@ $school_id = school_id();
               </div>
             </a>
 
-            <a>
+            <a href="<?php echo base_url() ?>student/grade">
               <div>
                 <div class="listar-category-icon-wrapper">
                   <div class="listar-category-icon-box" style="background-color: rgb(38, 100, 201)"></div>
@@ -528,7 +529,7 @@ $school_id = school_id();
               </div>
             </a>
 
-            <a>
+            <a href="<?php echo base_url() ?>student/grade">
               <div>
                 <div class="listar-category-icon-wrapper">
                   <div class="listar-category-icon-box" style="background-color: #0b5e0a"></div>
@@ -538,7 +539,7 @@ $school_id = school_id();
               </div>
             </a>
 
-            <a>
+            <a href="<?php echo base_url() ?>student/project">
               <div>
                 <div class="listar-category-icon-wrapper">
                   <div class="listar-category-icon-box" style="background-color: #343A40"></div>
@@ -548,7 +549,7 @@ $school_id = school_id();
               </div>
             </a>
 
-            <a>
+            <a href="<?php echo base_url() ?>student/classwork">
               <div>
                 <div class="listar-category-icon-wrapper">
                   <div class="listar-category-icon-box" style="background-color: #0272F3"></div>
@@ -558,7 +559,7 @@ $school_id = school_id();
               </div>
             </a>
 
-            <a>
+            <a href="<?php echo base_url() ?>student/invoice">
               <div>
                 <div class="listar-category-icon-wrapper">
                   <div class="listar-category-icon-box" style="background-color: rgb(178, 39, 99)"></div>
@@ -568,7 +569,7 @@ $school_id = school_id();
               </div>
             </a>
 
-            <a>
+            <a href="<?php echo base_url() ?>student/mark">
               <div>
                 <div class="listar-category-icon-wrapper">
                   <div class="listar-category-icon-box" style="background-color: rgb(9, 151, 44)"></div>
@@ -578,7 +579,7 @@ $school_id = school_id();
               </div>
             </a>
 
-            <a>
+            <a href="<?php echo base_url() ?>student/syllabus">
               <div>
                 <div class="listar-category-icon-wrapper">
                   <div class="listar-category-icon-box" style="background-color: rgb(13, 134, 150)"></div>
@@ -588,7 +589,7 @@ $school_id = school_id();
               </div>
             </a>
 
-            <a>
+            <a href="<?php echo base_url() ?>student/routine">
               <div>
                 <div class="listar-category-icon-wrapper">
                   <div class="listar-category-icon-box" style="background-color: rgb(83, 132, 55)"></div>

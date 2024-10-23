@@ -514,7 +514,7 @@ $school_id = school_id();
         <!--------->
         <div class="listar-search-categories listar-categories-fixed-bottom">
           <div class="listar-listing-categories">
-            <>
+            <a href="<?php echo base_url() ?>teacher/staff_attendance">
               <div>
                 <div class="listar-category-icon-wrapper">
                   <div class="listar-category-icon-box" style="background-color: rgb(121, 50, 209)"></div>
@@ -522,87 +522,87 @@ $school_id = school_id();
                 </div>
                 <div class="listar-header-category-name">Attendance</div>
               </div>
-              </a>
+            </a>
 
-              <a>
-                <div>
-                  <div class="listar-category-icon-wrapper">
-                    <div class="listar-category-icon-box" style="background-color: rgb(38, 100, 201)"></div>
-                    <span class="fa-solid fa-a"> </span>
-                  </div>
-                  <div class="listar-header-category-name"> Grades</div>
+            <a href="<?php echo base_url() ?>teacher/staff_attendance">
+              <div>
+                <div class="listar-category-icon-wrapper">
+                  <div class="listar-category-icon-box" style="background-color: rgb(38, 100, 201)"></div>
+                  <span class="fa-solid fa-a"> </span>
                 </div>
-              </a>
+                <div class="listar-header-category-name"> Grades</div>
+              </div>
+            </a>
 
-              <a>
-                <div>
-                  <div class="listar-category-icon-wrapper">
-                    <div class="listar-category-icon-box" style="background-color: #0b5e0a"></div>
-                    <span class="fa-solid fa-route"> </span>
-                  </div>
-                  <div class="listar-header-category-name">Assign route</div>
+            <a>
+              <div>
+                <div class="listar-category-icon-wrapper">
+                  <div class="listar-category-icon-box" style="background-color: #0b5e0a"></div>
+                  <span class="fa-solid fa-route"> </span>
                 </div>
-              </a>
+                <div class="listar-header-category-name">Assign route</div>
+              </div>
+            </a>
 
-              <a>
-                <div>
-                  <div class="listar-category-icon-wrapper">
-                    <div class="listar-category-icon-box" style="background-color: #343A40"></div>
-                    <span class="fa-solid fa-list"> </span>
-                  </div>
-                  <div class="listar-header-category-name"> Project</div>
+            <a>
+              <div>
+                <div class="listar-category-icon-wrapper">
+                  <div class="listar-category-icon-box" style="background-color: #343A40"></div>
+                  <span class="fa-solid fa-list"> </span>
                 </div>
-              </a>
+                <div class="listar-header-category-name"> Project</div>
+              </div>
+            </a>
 
-              <a>
-                <div>
-                  <div class="listar-category-icon-wrapper">
-                    <div class="listar-category-icon-box" style="background-color: #0272F3"></div>
-                    <span class="fa-solid fa-school"> </span>
-                  </div>
-                  <div class="listar-header-category-name"> Classwork</div>
+            <a>
+              <div>
+                <div class="listar-category-icon-wrapper">
+                  <div class="listar-category-icon-box" style="background-color: #0272F3"></div>
+                  <span class="fa-solid fa-school"> </span>
                 </div>
-              </a>
+                <div class="listar-header-category-name"> Classwork</div>
+              </div>
+            </a>
 
-              <a>
-                <div>
-                  <div class="listar-category-icon-wrapper">
-                    <div class="listar-category-icon-box" style="background-color: rgb(178, 39, 99)"></div>
-                    <span class="fa-solid fa-money-bill"> </span>
-                  </div>
-                  <div class="listar-header-category-name"> Student fees</div>
+            <a>
+              <div>
+                <div class="listar-category-icon-wrapper">
+                  <div class="listar-category-icon-box" style="background-color: rgb(178, 39, 99)"></div>
+                  <span class="fa-solid fa-money-bill"> </span>
                 </div>
-              </a>
+                <div class="listar-header-category-name"> Student fees</div>
+              </div>
+            </a>
 
-              <a>
-                <div>
-                  <div class="listar-category-icon-wrapper">
-                    <div class="listar-category-icon-box" style="background-color: rgb(9, 151, 44)"></div>
-                    <span class="fa-solid fa-sheet-plastic"> </span>
-                  </div>
-                  <div class="listar-header-category-name"> Marks</div>
+            <a>
+              <div>
+                <div class="listar-category-icon-wrapper">
+                  <div class="listar-category-icon-box" style="background-color: rgb(9, 151, 44)"></div>
+                  <span class="fa-solid fa-sheet-plastic"> </span>
                 </div>
-              </a>
+                <div class="listar-header-category-name"> Marks</div>
+              </div>
+            </a>
 
-              <a>
-                <div>
-                  <div class="listar-category-icon-wrapper">
-                    <div class="listar-category-icon-box" style="background-color: rgb(13, 134, 150)"></div>
-                    <span class="fa-solid fa-user-graduate"> </span>
-                  </div>
-                  <div class="listar-header-category-name"> Syllabus</div>
+            <a>
+              <div>
+                <div class="listar-category-icon-wrapper">
+                  <div class="listar-category-icon-box" style="background-color: rgb(13, 134, 150)"></div>
+                  <span class="fa-solid fa-user-graduate"> </span>
                 </div>
-              </a>
+                <div class="listar-header-category-name"> Syllabus</div>
+              </div>
+            </a>
 
-              <a>
-                <div>
-                  <div class="listar-category-icon-wrapper">
-                    <div class="listar-category-icon-box" style="background-color: rgb(83, 132, 55)"></div>
-                    <span class="fa-solid fa-book"> </span>
-                  </div>
-                  <div class="listar-header-category-name">Routine</div>
+            <a>
+              <div>
+                <div class="listar-category-icon-wrapper">
+                  <div class="listar-category-icon-box" style="background-color: rgb(83, 132, 55)"></div>
+                  <span class="fa-solid fa-book"> </span>
                 </div>
-              </a>
+                <div class="listar-header-category-name">Routine</div>
+              </div>
+            </a>
           </div>
         </div>
         <!--------->
