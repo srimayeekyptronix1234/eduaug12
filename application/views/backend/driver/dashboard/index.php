@@ -29,6 +29,19 @@
   .filbtn {
     background-color: #091E6C;
   }
+
+  #map {
+    height: 400px;
+    /* Adjust height as needed */
+    width: 100%;
+    /* Full width */
+    border-radius: 10px;
+    /* Rounded corners */
+    box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+    /* Shadow for map */
+    margin-top: 20px;
+    /* Space above map */
+  }
 </style>
 
 <!-- start page title -->
@@ -195,3 +208,38 @@
     </div>
   </div><!-- end col-->
 </div>
+
+<!-- Map Section -->
+<div class="row">
+  <div class="col-lg-12">
+    <div class="card">
+      <div class="card-body">
+        <h4 class="page-title mb-0" style="color: #2c2c2c;">
+          <i class="mdi mdi-map title_icon" style="font-size: 1.5rem; color: #ff7580;"></i>
+          <span style="font-size: 1.5rem; font-weight: 700; margin-left: 10px;">
+            Map View
+          </span>
+        </h4>
+        <div id="map"></div>
+      </div> <!-- end card-body -->
+    </div> <!-- end card -->
+  </div> <!-- end col -->
+</div>
+
+<!-- Google Maps Script -->
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDYMsSqgjmaJ5h-6CZniHdS7JRYMh5h370"></script>
+<script>
+  function initMap() {
+    var map = new google.maps.Map(document.getElementById('map'), {
+      center: { lat: 22.5726, lng: 88.3639 }, // Kolkata coordinates
+      zoom: 12
+    });
+    var marker = new google.maps.Marker({
+      position: { lat: 22.5726, lng: 88.3639 },
+      map: map,
+      title: 'Hello from Kolkata!'
+    });
+  }
+
+  google.maps.event.addDomListener(window, 'load', initMap);
+</script>
