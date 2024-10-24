@@ -1713,8 +1713,9 @@ class Admin extends CI_Controller {
 			$this->load->view('backend/index', $page_data);
 		}
 	}
-	public function users_list($param1 = '', $param2 = '', $param3 = ''){
 
+
+	public function users_list($param1 = '', $param2 = '', $param3 = ''){
 
 		if($param1 == 'create'){
 			$response = $this->user_model->create_users();

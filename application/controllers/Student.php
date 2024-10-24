@@ -522,6 +522,48 @@ class Student extends CI_Controller {
 		}
 	}
 
+	// Create Assignment List
+
+	public function assignment_list($param1 = '', $param2 = '', $param3 = ''){
+
+        $loginUserID = $this->session->userdata('user_id'); 
+		$studentDetails = $this->db->get_where('students', array('user_id' => $loginUserID))->row_array();
+		
+		$studentId = $studentDetails['id'];
+		$enrolDetails = $this->db->get_where('enrols', array('student_id' => $studentId))->row_array();
+		$studentClassId = $enrolDetails['class_id'];
+		$studentSchoolId = $enrolDetails['school_id'];
+		//exit;
+		// if($param1 == 'create'){
+		// 	$response = $this->user_model->create_new_assignment();
+		// 	echo $response;
+		// }
+
+		if($param1 == 'update'){
+			$response = $this->user_model->student_assignment_answer($param2);
+			//$response = $this->user_model->update_candidate($param2);
+			echo $response;
+		}
+
+		if($param1 == 'delete'){
+			$response = $this->user_model->delete_candidate($param2);
+			echo $response;
+		}
+
+		if ($param1 == 'list') {
+			$this->load->view('backend/teacher/assignment_list/list');
+		}
+
+		if(empty($param1)){
+			$page_data['folder_name'] = 'assignment_list';
+			$page_data['page_title'] = 'assignment_list';
+			$page_data['login_student_ID'] = $studentId;
+			$page_data['login_student_classId'] = $studentClassId;
+			$page_data['login_student_schoolId'] = $studentSchoolId;
+			$this->load->view('backend/index', $page_data);
+		}
+	}
+
   	//Final Reportcard
 	  public function final_report_card($param1 = '', $param2 = '', $param3 = '') {
 		if ($param1 == 'list') {

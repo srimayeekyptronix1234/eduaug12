@@ -155,6 +155,83 @@ class Teacher extends CI_Controller {
 	}
 	//END TEACHER section
 
+	
+	// Create Assignment List
+
+	public function create_assignment($param1 = '', $param2 = '', $param3 = ''){
+
+
+		if($param1 == 'create'){
+			$response = $this->user_model->create_new_assignment();
+			echo $response;
+		}
+
+		if($param1 == 'update'){
+			$response = $this->user_model->update_assignment($param2);
+			//$response = $this->user_model->update_candidate($param2);
+			echo $response;
+		}
+
+		if($param1 == 'delete'){
+			$response = $this->user_model->delete_candidate($param2);
+			echo $response;
+		}
+
+		if ($param1 == 'list') {
+			$this->load->view('backend/teacher/create_assignment_list/list');
+		}
+
+		if(empty($param1)){
+			$page_data['folder_name'] = 'create_assignment_list';
+			$page_data['page_title'] = 'create_assignment_list';
+			$page_data['teacher_ID'] = $this->session->userdata('user_id');
+			$this->load->view('backend/index', $page_data);
+		}
+	}
+
+	// Check Assignment Answer
+
+	public function check_assignment_answer_list($param1 = '', $param2 = '', $param3 = ''){
+
+		if($param1 == 'update'){
+			$response = $this->user_model->update_assignment($param2);
+			//$response = $this->user_model->update_candidate($param2);
+			echo $response;
+		}
+
+		if ($param1 == 'list') {
+			$this->load->view('backend/teacher/assignment_answer_list/list');
+		}
+
+		if(empty($param1)){
+			//echo $_REQUEST['assignId'];
+            $loginTeacherId = $this->session->userdata('user_id');
+
+			$this->db->select('student_assignment_answer.*, assignment_new.id, assignment_new.teacher_id,assignment_new.assignment_name'); 
+			$this->db->from('student_assignment_answer');
+			$this->db->join('assignment_new', 'student_assignment_answer.assignment_new_tbl_id = assignment_new.id', 'left');
+			$this->db->where('student_assignment_answer.assignment_new_tbl_id', $_REQUEST['assignId']); 
+			$this->db->where('assignment_new.teacher_id', $loginTeacherId);
+			$query = $this->db->get();
+			$check_details = $query->row_array();
+			if(empty($check_details))
+			{
+				redirect(site_url('teacher/create_assignment'), 'refresh');
+			}
+
+			//$subject_details = $this->db->get_where('subjects', array('id' => $list['subject_id']))->row_array();
+
+			//echo "Goo==>"; exit;
+			$page_data['folder_name'] = 'assignment_answer_list';
+			$page_data['page_title'] = 'assignment_answer_list';
+			$page_data['assignment_ID'] = $_REQUEST['assignId'];
+			$page_data['assignment_name'] = $check_details['assignment_name']; 
+			$this->load->view('backend/index', $page_data);
+		}
+	}
+
+	// End Create Assignment List
+
 	//START CLASS secion
 	public function manage_class($param1 = '', $param2 = '', $param3 = ''){
 
@@ -232,10 +309,11 @@ class Teacher extends CI_Controller {
 		}
 	}
 
-	public function class_wise_subject($class_id) {
+	public function class_wise_subject($class_id,$subjectId=null) {
 
 		// PROVIDE A LIST OF SUBJECT ACCORDING TO CLASS ID
 		$page_data['class_id'] = $class_id;
+		$page_data['subjectId'] = $subjectId;
 		$this->load->view('backend/teacher/subject/dropdown', $page_data);
 	}
 	//END SUBJECT section

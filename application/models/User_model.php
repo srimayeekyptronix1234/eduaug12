@@ -1262,6 +1262,144 @@ class User_model extends CI_Model {
 		return json_encode($response);
 	}
 
+	//Create new assignment section
+	public function create_new_assignment()
+	{
+		$data['school_id'] = $this->school_id;
+		$data['teacher_id'] = $this->session->userdata('user_id');
+		$data['assignment_name'] = html_escape($this->input->post('assignment_name'));
+		$data['publish_time'] = html_escape($this->input->post('publish_time'));
+		$data['publish_date'] = html_escape($this->input->post('publish_date'));
+		$data['due_date'] = $this->input->post('due_date');
+		$data['class_id'] = html_escape($this->input->post('class_id'));
+		$data['subject_id'] = html_escape($this->input->post('subject_id'));
+		$data['category_name'] = $this->input->post('category_name');
+		$data['assignment_content'] = $this->input->post('assignment_content');
+		
+		if ($_FILES['assignment_content_file']['name'] != "") {
+			$uploadDir = 'uploads/teacher/assignment/';
+			$candidateId = $candidate_id; // Assuming $candidate_id is already defined
+			$fileExtension = pathinfo($_FILES['assignment_content_file']['name'], PATHINFO_EXTENSION);
+			// Generate a unique file name using datetime and uniqid
+			$newFileName = date('Ymd_His') . '_' . uniqid() . '.' . $fileExtension;
+			$uploadFilePath = $uploadDir . $newFileName;
+
+			move_uploaded_file($_FILES['assignment_content_file']['tmp_name'], $uploadFilePath);
+
+			$data['assignment_content_file'] = $newFileName;
+		}
+
+		
+		$this->db->insert('assignment_new', $data);
+		$insert_id = $this->db->insert_id();
+		if($insert_id)
+		{
+			$response = array(
+				'status' => true,
+				'notification' => get_phrase('assignment_added_successfully')
+		    );
+
+		}else{
+			$response = array(
+				'status' => false,
+				'notification' => get_phrase('sorry_assignment_not_added')
+			);
+		}
+			
+		return json_encode($response);
+	}
+
+	//Update assignment content
+	public function update_assignment($param1 = '')
+	{
+		$data['school_id'] = $this->school_id;
+		$data['teacher_id'] = $this->session->userdata('user_id');
+		$data['assignment_name'] = html_escape($this->input->post('assignment_name'));
+		$data['publish_time'] = html_escape($this->input->post('publish_time'));
+		$data['publish_date'] = html_escape($this->input->post('publish_date'));
+		$data['due_date'] = $this->input->post('due_date');
+		$data['class_id'] = html_escape($this->input->post('class_id'));
+		$data['subject_id'] = html_escape($this->input->post('subject_id'));
+		$data['category_name'] = $this->input->post('category_name');
+		$data['assignment_content'] = $this->input->post('assignment_content');
+		
+		if ($_FILES['assignment_content_file']['name'] != "") {
+			$uploadDir = 'uploads/teacher/assignment/';
+			$candidateId = $candidate_id; // Assuming $candidate_id is already defined
+			$fileExtension = pathinfo($_FILES['assignment_content_file']['name'], PATHINFO_EXTENSION);
+			// Generate a unique file name using datetime and uniqid
+			$newFileName = date('Ymd_His') . '_' . uniqid() . '.' . $fileExtension;
+			$uploadFilePath = $uploadDir . $newFileName;
+
+			move_uploaded_file($_FILES['assignment_content_file']['tmp_name'], $uploadFilePath);
+
+			$data['assignment_content_file'] = $newFileName;
+		}
+
+		
+		$this->db->where('id', $param1);
+		//$this->db->update('assignment_new', $data);
+		if($this->db->update('assignment_new', $data))
+		{
+			$response = array(
+				'status' => true,
+				'notification' => get_phrase('assignment_updated_successfully')
+		    );
+
+		}else{
+			$response = array(
+				'status' => false,
+				'notification' => get_phrase('sorry_assignment_not_updated')
+			);
+		}
+			
+		return json_encode($response);
+	}
+
+	//Student assignment answer update
+	public function student_assignment_answer($param1 = '')
+	{
+		$data['school_id'] = $this->school_id;
+		$data['assignment_new_tbl_id'] = $param1;
+		$data['student_id'] = html_escape($this->input->post('hid_studentId'));
+		$data['class_id'] = html_escape($this->input->post('hid_classId'));
+		$data['subject_id'] = html_escape($this->input->post('hid_subjectId'));
+		$data['category'] = html_escape($this->input->post('hid_category'));
+		$data['assignment_answer'] = $this->input->post('assignment_answer');
+		
+		if ($_FILES['assignment_answer_file']['name'] != "") {
+			$uploadDir = 'uploads/student/assignment_answer_files/';
+			$candidateId = $candidate_id; // Assuming $candidate_id is already defined
+			$fileExtension = pathinfo($_FILES['assignment_answer_file']['name'], PATHINFO_EXTENSION);
+			// Generate a unique file name using datetime and uniqid
+			$newFileName = date('Ymd_His') . '_' . uniqid() . '.' . $fileExtension;
+			$uploadFilePath = $uploadDir . $newFileName;
+
+			move_uploaded_file($_FILES['assignment_answer_file']['tmp_name'], $uploadFilePath);
+
+			$data['assignment_answer_file'] = $newFileName;
+		}
+
+		
+		$this->db->insert('student_assignment_answer', $data);
+		$insert_id = $this->db->insert_id();
+		if($insert_id)
+		{
+			$response = array(
+				'status' => true,
+				'notification' => get_phrase('assignment_answer_updated_successfully')
+		    );
+
+		}else{
+			$response = array(
+				'status' => false,
+				'notification' => get_phrase('sorry_assignment_not_answered')
+			);
+		}
+			
+		return json_encode($response);
+	}
+
 	public function update_candidate($param1 = '')
 	{
 		$postion_apply = $this->input->post('position_applied_for');

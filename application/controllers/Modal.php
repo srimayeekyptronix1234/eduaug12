@@ -31,6 +31,7 @@ class Modal extends CI_Controller {
 		$page_data['param1']		=	$param1;
 		$page_data['param2']		=	$param2;
 		$page_data['param3']		=	$param3;
+		$page_data['param4']		=	$param4;
         //echo "Hii=".$param1; exit;
 		// Check exam time
 		date_default_timezone_set('Asia/kolkata');
