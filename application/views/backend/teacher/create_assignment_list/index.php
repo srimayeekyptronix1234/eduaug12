@@ -72,16 +72,17 @@
 <div class="row">
   <div class="col-12">
     <div class="card parbox">
-      <div class="card-body candidate_content">
+      <div class="card-body assignment_content">
         <?php include 'list.php'; ?>
       </div>
     </div>
   </div>
 </div>
 
-<script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script> 
   var showAllCandidate = function () {
-    var url = '<?php echo route('candidate_list/list'); ?>';
+    var url = '<?php echo route('create_assignment/list'); ?>';
 
     $.ajax({
       type: 'GET',
@@ -90,9 +91,54 @@
         // Hide the loader
         document.getElementById('loader').style.display = 'none';
         document.getElementById('submitbtn').disabled = false;
-        $('.candidate_content').html(response);
-        initDataTable('basic-datatable');
+        $('.assignment_content').html(response);
+        location.reload(); 
+        //initDataTable('basic-datatable');
       }
     });
   }
-</script>
+
+
+  function showConfirmModal(id)
+  {
+    var url = '<?php echo route('create_assignment/delete'); ?>/' + id;
+    $.ajax({
+        type: 'GET', // or 'POST' if you want to change it
+        url: url,
+        dataType: 'text', // Expect text to handle string response
+        success: function (response) {
+            console.log(response); // Log the entire response
+            
+            // Parse the response if it's a string
+            try {
+                var jsonResponse = JSON.parse(response); // Parse the JSON string
+                console.log(jsonResponse.status); // Log the parsed object
+
+                // Check the response status
+                if (jsonResponse && jsonResponse.status) {
+                    // Show SweetAlert
+                    Swal.fire({
+                        title: 'Success!',
+                        text: jsonResponse.notification,
+                        icon: 'success',
+                        confirmButtonText: 'OK'
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            location.reload(); // Reload the page
+                        }
+                    });
+                } else {
+                    alert('An error occurred while deleting the assignment.');
+                }
+            } catch (e) {
+                console.error('Parsing error:', e);
+                alert('Error parsing response.');
+            }
+        },
+        error: function (xhr, status, error) {
+            console.error('AJAX Error:', status, error);
+            alert('An error occurred. Please try again.');
+        }
+    });
+  }
+</script> 

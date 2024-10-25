@@ -1,4 +1,3 @@
-<script src="https://cdn.ckeditor.com/4.16.0/standard/ckeditor.js"></script>
 <script type="text/javascript">
 var callBackFunction;
 var callBackFunctionForGenericConfirmationModal;
@@ -32,7 +31,7 @@ function previewModal(url, header)
 
 function rightModal(url, header)
 {
-  let editorInstance;
+  //let editorInstance;
   // LOADING THE AJAX MODAL
   jQuery('#right-modal').modal('show', {backdrop: 'true'});
 
@@ -43,8 +42,15 @@ function rightModal(url, header)
     {
       jQuery('#right-modal .modal-body').html(response);
       jQuery('#right-modal .modal-title').html(header);
-      CKEDITOR.replace('assignment_content');
-      CKEDITOR.replace('assignment_answer');
+
+      $('#assignment_content').summernote({
+      height: 300,
+      });
+
+      $('#assignment_answer').summernote({
+      height: 300,
+      });
+
     }
   });
 }

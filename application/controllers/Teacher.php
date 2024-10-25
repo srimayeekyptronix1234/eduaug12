@@ -173,7 +173,7 @@ class Teacher extends CI_Controller {
 		}
 
 		if($param1 == 'delete'){
-			$response = $this->user_model->delete_candidate($param2);
+			$response = $this->user_model->delete_assignment($param2);
 			echo $response;
 		}
 

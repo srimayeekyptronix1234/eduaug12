@@ -6,9 +6,10 @@
 </style>
 
 <?php
-$school_id = school_id();
-$teacher_id = $teacher_ID; //exit;
-$check_data = $this->db->get_where('assignment_new', array('teacher_id' => $teacher_id,'status' => 1));
+$login_student_ID = $login_student_ID; //exit;
+$login_student_classId = $login_student_classId; 
+$login_student_schoolId = $login_student_schoolId; 
+$check_data = $this->db->get_where('assignment_new', array('status' => 1));
 if ($check_data->num_rows() > 0): ?>
     <table id="basic-datatable" class="table table-striped dt-responsive nowrap w-100">
         <thead>
@@ -24,9 +25,11 @@ if ($check_data->num_rows() > 0): ?>
         </thead>
         <tbody>
             <?php
-            $assignmentList = $this->db->get_where('assignment_new', array('teacher_id' => $teacher_id,'status' => 1))->result_array();
+            $assignmentList = $this->db->get_where('assignment_new', array('status' => 1))->result_array();
             foreach ($assignmentList as $list) {
-                 $subject_details = $this->db->get_where('subjects', array('id' => $list['subject_id']))->row_array();
+                $subject_details = $this->db->get_where('subjects', array('id' => $list['subject_id']))->row_array();
+
+                $already_answered = $this->db->get_where('student_assignment_answer', array('assignment_new_tbl_id' => $list['id'],'student_id' => $login_student_ID))->row_array();
                 ?>
                 <tr>
                     <td><?php echo get_phrase($list['assignment_name']); ?></td>
@@ -42,15 +45,21 @@ if ($check_data->num_rows() > 0): ?>
                                 data-bs-toggle="dropdown" aria-expanded="false"><i class="mdi mdi-dots-vertical"></i></button>
                             <div class="dropdown-menu dropdown-menu-end">
                                 <!-- item-->
-                                    <a href="javascript:void(0);" class="dropdown-item"
-                                    onclick="rightModal('<?php echo site_url('modal/popup/create_assignment_list/edit/' . $list['id'].'/'.$list['subject_id']); ?>', '<?php echo get_phrase('update_assignment'); ?>')"><?php echo get_phrase('edit'); ?></a>
-                                <!-- item-->
-                                    <a href="<?php echo route('check_assignment_answer_list?assignId=' . $list['id']); ?>" class="dropdown-item" ><?php echo get_phrase('view_student_answer'); ?></a>
+                                <?php
+                                $publishDate = $list['publish_date'];
+                                $dueDate = $list['due_date'];
+                                $todayDate = date("Y-m-d");
 
-                                    <a href="javascript:void(0);" class="dropdown-item"
-   onclick="showConfirmModal(<?php echo $list['id'];?>)">
-   <?php echo get_phrase('delete'); ?>
-</a>
+                                $publishTimestamp = strtotime($publishDate);
+                                $dueTimestamp = strtotime($dueDate);
+                                $todayTimestamp = strtotime($todayDate);
+                                ?>    
+                                <a href="javascript:void(0);" class="dropdown-item"
+                                onclick="rightModal('<?php echo site_url('modal/popup/assignment_list/edit/' . $list['id']); ?>', '<?php echo get_phrase('view_assignment'); ?>')"><?php echo get_phrase('View'); ?></a>
+                       
+                                <!-- item-->
+                                   
+
                             </div>
                         </div>
                     </td>

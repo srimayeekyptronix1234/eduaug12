@@ -551,7 +551,7 @@ class Student extends CI_Controller {
 		}
 
 		if ($param1 == 'list') {
-			$this->load->view('backend/teacher/assignment_list/list');
+			$this->load->view('backend/student/assignment_list/list');
 		}
 
 		if(empty($param1)){

@@ -250,6 +250,21 @@ class User_model extends CI_Model {
 		return json_encode($response);
 	}
 
+	public function delete_assignment($param1 = '')
+	{
+		$this->db->where('id', $param1);
+		$this->db->delete('assignment_new');
+
+		$this->db->where('assignment_new_tbl_id', $param1);
+		$this->db->delete('student_assignment_answer');
+
+		$response = array(
+			'status' => true,
+			'notification' => get_phrase('assignment_has_been_deleted_successfully')
+		);
+		return json_encode($response);
+	}
+
 	public function get_teachers() {
 		$checker = array(
 			'school_id' => $this->school_id,

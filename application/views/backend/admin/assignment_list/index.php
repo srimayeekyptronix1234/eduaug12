@@ -77,7 +77,7 @@
 
 <script>
   var showAllCandidate = function () {
-    var url = '<?php echo route('assignment_list/list'); ?>';
+    var url = '<?php echo route('candidate_list/list'); ?>';
 
     $.ajax({
       type: 'GET',
@@ -87,8 +87,7 @@
         document.getElementById('loader').style.display = 'none';
         document.getElementById('submitbtn').disabled = false;
         $('.candidate_content').html(response);
-        location.reload(); 
-        //initDataTable('basic-datatable');
+        initDataTable('basic-datatable');
       }
     });
   }

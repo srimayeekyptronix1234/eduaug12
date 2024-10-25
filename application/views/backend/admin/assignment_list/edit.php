@@ -24,15 +24,9 @@
         </div>
 
         <div class="form-group mb-1">
-            <label for="email"><?php echo get_phrase('Assignment Content3'); ?></label>
+            <label for="email"><?php echo get_phrase('Assignment Content'); ?></label>
             <textarea readonly name="assignment_content" class="form-control" id="assignment_content" cols="8" rows="2"><?php echo $assignment_details['assignment_content'];?></textarea>
             <small id="" class="form-text text-muted"><?php echo get_phrase('provide_assignment_content'); ?></small>
-        </div>
-
-        <div class="form-group mb-1">
-            <label for="email"><?php echo get_phrase('Assignment Answer'); ?></label>
-            <textarea <?php if(isset($already_answered)) {?> readonly <?php }?> name="assignment_answer" class="form-control" id="assignment_answer" cols="8" rows="2"><?php echo $already_answered['assignment_answer'];?></textarea>
-            <small id="" class="form-text text-muted"><?php echo get_phrase('provide_assignment_answer'); ?></small>
         </div>
 
         <?php if(!empty($assignment_details['assignment_content_file'])) {?>
@@ -42,20 +36,6 @@
         </div>
         <?php } ?>
 
-        <div class="form-group mb-1">
-            <label for="assignment_answer_file"><?php echo get_phrase('upload_answer'); ?></label>
-            <input type="file" <?php if(isset($already_answered)) {?> readonly <?php }?>  class="form-control" id="assignment_answer_file" name="assignment_answer_file">
-        </div>
-
-        <!-- <div class="form-group mb-1">
-            <label for="image_file"><?php echo get_phrase('upload_profile_picture'); ?></label>
-            <input type="file" class="form-control" id="image_file" name="image_file">
-        </div> -->
-
-        <div class="form-group mt-2 col-md-12">
-            <button class="btn btn-block btn-primary" <?php if(isset($already_answered)) {?> disabled <?php }?> id="submitbtn" type="submit"><?php echo get_phrase('submit'); ?></button>
-            <img id="loader" style="display:none; text-align:center;" src="<?php echo base_url('assets/backend/images/straight-loader.gif'); ?>" alt="Loading..." width="30px" height="30px"/>
-        </div>
     </div>
 </form>
 
