@@ -1536,6 +1536,38 @@ class User_model extends CI_Model {
 		}
 	}
 	//END Interview Candidate section
+
+
+	// Choose I-card design of student
+	public function update_IcardDesign($param1 = '',$param2 = '',$param3 = '')
+	{
+		
+		$data['i_card_template_no'] = $param2;
+		$data['school_id'] = $param3;
+
+		// check email duplication
+		$get_card = $this->db->get_where('i_card_setting', array('school_id' => $param3))->row_array();
+		if($get_card){
+			$this->db->where('school_id', $param3);
+			$this->db->update('i_card_setting', $data);
+
+			$response = array(
+				'status' => true,
+				'notification' => get_phrase('i_card_design_updated_successfully')
+			);
+
+		}else{
+			$this->db->insert('i_card_setting', $data);
+			$last_id = $this->db->insert_id();
+			$response = array(
+				'status' => false,
+				'notification' => get_phrase('i_card_design_inserted_successfully')
+			);
+		}
+
+		return json_encode($response);
+	}
+
     public function add_driver()
 	{
 		$user_data['school_id'] = html_escape($this->input->post('school_id'));

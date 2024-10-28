@@ -1991,9 +1991,42 @@ class Admin extends CI_Controller {
 			$this->load->view('backend/index', $page_data);
 		}
 	}
-	
 
-	
+	// I-Card Choose
+
+	public function icard_choose($param1 = '', $param2 = '', $param3 = ''){
+
+        $loginUserID = $this->session->userdata('user_id'); 
+		$school_ID = school_id();
+
+		$ICardDetails = $this->db->get_where('i_card_setting', array('school_id' => $school_ID))->row_array();
+		$selectedICardNo = $ICardDetails['i_card_template_no'];
+		
+		// $studentId = $studentDetails['id'];
+		// $enrolDetails = $this->db->get_where('enrols', array('student_id' => $studentId))->row_array();
+		// $studentClassId = $enrolDetails['class_id'];
+		// $studentSchoolId = $enrolDetails['school_id'];
+
+		if($param1 == 'update'){
+			$cardSelection = $this->input->post('cardSelection');
+			//echo "cardSelection=>".$cardSelection; exit;
+			$response = $this->user_model->update_IcardDesign($param2,$cardSelection,$school_ID);
+			//$response = $this->user_model->update_candidate($param2);
+			echo $response;
+		}
+
+
+		if ($param1 == 'list') {
+			$this->load->view('backend/admin/icard_choose/list');
+		}
+
+		if(empty($param1)){
+			$page_data['folder_name'] = 'icard_choose';
+			$page_data['page_title'] = 'icard_choose';
+			$page_data['selectedICardNo'] = $selectedICardNo;
+			$this->load->view('backend/index', $page_data);
+		}
+	}
 
 	
 }
