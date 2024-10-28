@@ -112,12 +112,13 @@
                         <th>Marks Obtained</th>
                         <th>Maximum Marks</th>
                         <th>Grade</th>
-                        <th>Remarks</th>
+                        <!-- <th>Remarks</th> -->
                     </tr>
                 </thead>
                 <tbody>
                     <!-- Repeat this row for each subject -->
                     <?php 
+                    $final_marks = 0;
                     foreach($subject_list as $list)
                     {
                         $subject_id = $list['id'];
@@ -130,14 +131,21 @@
 
                         $sum_of_marks = $result['mark_obtained'] ? $result['mark_obtained'] : 0;
                         $final_marks = $sum_of_marks / 4;
+
+                        // Get Grades
+                        $this->db->select('name, grade_point');
+                        $this->db->from('grades');
+                        $this->db->where('mark_from <=', $final_marks);
+                        $this->db->where('mark_upto >=', $final_marks);
+                        $result_grade = $this->db->get()->row_array()
                     ?>
                         <tr>
                             <td><?php echo $list['name']; ?></td>
                             <td>Final Exam</td>
                             <td><?php echo $final_marks; ?></td>
                             <td>100</td>
-                            <td>A</td>
-                            <td>Excellent</td>
+                            <td><?php echo $result_grade['name']; ?></td>
+                            <!-- <td>Excellent</td> -->
                         </tr>
                     <?php 
                     }
@@ -149,29 +157,52 @@
             <table class="table table-bordered">
                 <thead>
                     <tr>
-                        <th>Quarter</th>
                         <th>Subject Name</th>
                         <th>Marks Obtained</th>
                         <th>Overall Performance</th>
-                        <th>Remarks</th>
                     </tr>
                 </thead>
                 <tbody>
                     <!-- Repeat this row for each quarter and subject -->
                     <tr>
-                        <td>Q1</td>
-                        <td>Science</td>
+                        <td>Classwork</td>
                         <td>80</td>
                         <td>B+</td>
-                        <td>Good</td>
+                    </tr>
+                    <tr>
+                        <td>Homework</td>
+                        <td>80</td>
+                        <td>A+</td>
+                    </tr>
+                    <tr>
+                        <td>Behaviour</td>
+                        <td>80</td>
+                        <td>A+</td>
+                    </tr>
+                    <tr>
+                        <td>Project</td>
+                        <td>80</td>
+                        <td>A+</td>
                     </tr>
                 </tbody>
             </table>
 
+            <?php 
+            // Get student attendance
+            $this->db->from('daily_attendances');
+            $this->db->where('student_id', $student_id);
+            $this->db->where('status !=', 0);
+            $attendance_count = $this->db->count_all_results();
+
+            // Attendance percentage
+            $total_days = $school_details['total_school_days'];
+            $attended_days = $attendance_count;
+            $attendance_percentage = ($attended_days / $total_days) * 100;
+            ?>
             <h4 class="section-title">Attendance Record</h4>
             <p><strong>Total Days:</strong> <?php echo $school_details['total_school_days'];?></p>
-            <p><strong>Days Attended:</strong> 180</p>
-            <p><strong>Attendance Percentage:</strong> 90%</p>
+            <p><strong>Days Attended:</strong> <?php echo $attendance_count;?></p>
+            <p><strong>Attendance Percentage:</strong> <?php echo round($attendance_percentage, 2) . "%"; ?></p>
 
             <h4 class="section-title">Behavior and Conduct</h4>
             <p><strong>Conduct Grade:</strong> <?php echo $student_details['behavior_grade'];?></p>

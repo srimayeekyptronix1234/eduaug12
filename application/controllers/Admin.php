@@ -591,7 +591,8 @@ class Admin extends CI_Controller {
         $dompdf = new Dompdf($options);
 
 		$page_data['student_id'] = $param2;
-		$page_data['student_details'] = $this->user_model->get_user_details($param2);
+		$student = $this->db->get_where('students', array('id' => $param2))->row_array();
+		$page_data['student_details'] = $this->user_model->get_user_details($student['user_id']);
 
         // Load HTML content
         $html = $this->load->view('backend/admin/student-certificate/certificate',$page_data, true);
@@ -1619,7 +1620,8 @@ class Admin extends CI_Controller {
 			// Fetch necessary data
 			$data['behavior_grade'] = $behavior_grade;
 			$data['student_remarks'] = $student_remarks;
-			$data['student_id'] = $student_id;
+			$student_details = $this->db->get_where('students', array('id' => $student_id))->row_array();
+			$data['student_id'] = $student_details['user_id'];
 			$response = $this->user_model->student_remarks_update($data);
 			//echo $response;
 			echo $response;
