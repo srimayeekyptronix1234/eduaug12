@@ -24,7 +24,7 @@
       }
 
       .id-card {
-        background-image: url("1.jpg");
+        background-image: url("ICardImages/1.jpg");
         background-size: cover;
         background-position: center;
         padding: 15px;
@@ -36,7 +36,7 @@
       }
 
       .id-card2 {
-        background-image: url("2.jpg");
+        background-image: url("ICardImages/2.jpg");
         background-size: cover;
         background-position: center;
         padding: 15px;
@@ -48,7 +48,7 @@
       }
 
       .id-card3 {
-        background-image: url("3.jpg");
+        background-image: url("ICardImages/3.jpg");
         background-size: cover;
         background-position: center;
         padding: 15px;
@@ -60,7 +60,7 @@
       }
 
       .id-card4 {
-        background-image: url("4.jpg");
+        background-image: url("ICardImages/4.jpg");
         background-size: cover;
         background-position: center;
         padding: 15px;
