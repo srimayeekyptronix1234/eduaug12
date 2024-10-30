@@ -1,4 +1,205 @@
+<<<<<<< Updated upstream
 <!-- Title -->
+=======
+<style>
+
+
+      .card-container {
+        display: flex;
+        gap: 20px;
+        flex-wrap: wrap;
+        justify-content: center;
+      }
+
+      .id-card-holder {
+        width: 225px;
+        padding: 4px;
+        background-color: #1f1f1f;
+        border-radius: 5px;
+        position: relative;
+        text-align: center;
+      }
+
+      .id-card-holder:hover {
+        box-shadow: rgba(5, 99, 207, 0.4) 0px 0px 0px 2px,
+          rgba(2, 124, 8, 0.65) 0px 4px 6px -1px,
+          rgba(29, 155, 3, 0.08) 0px 1px 0px inset;
+      }
+
+      .id-card {
+        background-image: url("ICardImages/1.jpg");
+        background-size: cover;
+        background-position: center;
+        padding: 15px;
+        border-radius: 10px;
+        text-align: center;
+        box-shadow: 0 0 1.5px 0px #b9b9b9;
+        position: relative;
+        overflow: hidden;
+      }
+
+      .id-card2 {
+        background-image: url("ICardImages/2.jpg");
+        background-size: cover;
+        background-position: center;
+        padding: 15px;
+        border-radius: 10px;
+        text-align: center;
+        box-shadow: 0 0 1.5px 0px #b9b9b9;
+        position: relative;
+        overflow: hidden;
+      }
+
+      .id-card3 {
+        background-image: url("ICardImages/3.jpg");
+        background-size: cover;
+        background-position: center;
+        padding: 15px;
+        border-radius: 10px;
+        text-align: center;
+        box-shadow: 0 0 1.5px 0px #b9b9b9;
+        position: relative;
+        overflow: hidden;
+      }
+
+      .id-card4 {
+        background-image: url("uploads/ICardImages/4.jpg");
+        background-size: cover;
+        background-position: center;
+        padding: 15px;
+        border-radius: 10px;
+        text-align: center;
+        box-shadow: 0 0 1.5px 0px #b9b9b9;
+        position: relative;
+        overflow: hidden;
+      }
+
+      .id-card::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background-color: rgba(255, 255, 255, 0.22);
+        border-radius: 10px;
+        z-index: 1;
+      }
+
+      .id-card img {
+        margin: 0 auto;
+        position: relative;
+        z-index: 2;
+      }
+
+      .header img {
+        width: 90px;
+      }
+
+      .photo img {
+        border-radius: 5%;
+        border: 3px solid #41686b;
+      }
+
+      h2 {
+        font-size: 15px;
+        margin: 5px 0;
+        position: relative;
+        z-index: 2;
+      }
+
+      h3 {
+        font-size: 12px;
+        margin: 2.5px 0;
+        font-weight: 300;
+        position: relative;
+        z-index: 2;
+      }
+
+      p {
+        font-size: 6px;
+        margin: 3px;
+        position: relative;
+        z-index: 2;
+      }
+
+      /* Styling for the radio button section */
+      .radio-section {
+        margin-top: 10px;
+      }
+
+      /* Styling for the submit button */
+      .submit-button {
+        margin-top: 20px;
+        padding: 10px 20px;
+        background-color: #41686b;
+        color: #fff;
+        font-size: 16px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+      }
+
+      .submit-button:hover {
+        background-color: #34555a;
+      }
+
+      input[type="radio"] {
+        display: none;
+      }
+
+      label {
+        display: block;
+        cursor: pointer;
+        color: #fff;
+      }
+
+      label:before {
+        background-color: white;
+        color: white;
+        content: " ";
+        display: block;
+        border-radius: 50%;
+        border: 1px solid grey;
+        position: absolute;
+        top: -13px;
+        left: -15px;
+        width: 40px;
+        height: 40px;
+        text-align: center;
+        line-height: 38px;
+        transition-duration: 0.4s;
+        transform: scale(0);
+        font-size: 26px;
+      }
+
+      label img {
+        height: 100px;
+        width: 100px;
+        transition-duration: 0.2s;
+        transform-origin: 50% 50%;
+      }
+
+      :checked + label {
+        border-color: #ddd;
+      }
+
+      :checked + label:before {
+        content: "✓";
+        background-color: green;
+        transform: scale(1);
+        border: 1px solid green;
+      }
+
+      :checked + label img {
+        transform: scale(0.9);
+        box-shadow: 0 0 5px #333;
+        z-index: -1;
+      }
+</style>
+
+<!--title-->
+>>>>>>> Stashed changes
 <div class="row">
   <div class="col-xl-12">
     <div class="card parentbar">
