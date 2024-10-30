@@ -1649,5 +1649,13 @@
     "quiz_mark_has_been_updated_successfully": "Quiz mark has been updated successfully",
     "total_number_of_teachers": "Total number of teachers",
     "map_view": "Map view",
-    "manage_your_expense_categories_here": "Manage your expense categories here"
+    "manage_your_expense_categories_here": "Manage your expense categories here",
+    "download_student_icard": "Download student icard",
+    "download_student_i-card": "Download student i-card",
+    "paid_salary": "Paid salary",
+    "assignment_list": "Assignment list",
+    "i-card_choose": "I-card choose",
+    "icard_choose": "Icard choose",
+    "i-card-choose": "I-card-choose",
+    "i_card_design_updated_successfully": "I card design updated successfully"
 }
