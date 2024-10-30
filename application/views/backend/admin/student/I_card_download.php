@@ -24,10 +24,7 @@ $user_details = $this->db->get_where('users', array('id' => $param1))->row_array
             <p style="font-size: 12px; margin: 1px; position: relative; z-index: 2; color: #000;">Texas, United States <strong>301705</strong></p>
             <p style="font-size: 12px; margin: 1px; position: relative; z-index: 2; color: #000;">Ph: 01494-660600, 7073222393</p>
           </div>
-          <div class="radio-section" style="margin-top: 10px;">
-            <input type="radio" name="cardSelection" value="3" id="card3" <?php if ($selectedICardNo == 3) { ?>checked<?php } ?> required />
-            <label for="card3" style="display: block; cursor: pointer; color: #fff;">Choose Card 3</label>
-          </div>
+          
         </div>
 
 </div>      
