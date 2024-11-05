@@ -13,7 +13,7 @@ $teacher_data = $this->db->get_where('users', array('id' => $complaint_data['tea
                         <div class="col-12">
                             <div class="">
                                <?php if(isset($complaint_data['class_id']) && $complaint_data['class_id'] != ''){?>
-                               	<label class="col-md-4 col-form-label"> <?php echo get_phrase('class :') ;?> 
+                               	<label class="col-md-4 col-form-label"><b><?php echo get_phrase('class :') ;?> </b>
                                  <?=$complaint_data['class_id'].'('.$section_data['name'].')'; ?>
                                 </label>
                                <?php } ?>
@@ -21,7 +21,7 @@ $teacher_data = $this->db->get_where('users', array('id' => $complaint_data['tea
 
                             <div class="">
                             	<?php if(isset($complaint_data['student_id']) && $complaint_data['student_id'] != ''){?>
-                                <label class="col-md-4 col-form-label"><?php echo get_phrase('student :') ;?>
+                                <label class="col-md-4 col-form-label"><b><?php echo get_phrase('student :') ;?></b>
                                 <?=$student_data['name'];?>
                                </label>
                                <?php } ?>
@@ -29,36 +29,52 @@ $teacher_data = $this->db->get_where('users', array('id' => $complaint_data['tea
                             
                             <div class="">
                             	<?php if(isset($complaint_data['teacher_id']) && $complaint_data['teacher_id'] != ''){?>
-                                <label class="col-md-4 col-form-label"><?php echo get_phrase('teacher :') ;?>
+                                <label class="col-md-4 col-form-label"><b><?php echo get_phrase('teacher :') ;?></b>
                                 <?=$teacher_data['name'];?>
                                </label>
                                <?php } ?>
                             </div>
-                             <div class="">
-                              <?php if(isset($complaint_data['complaint_type']) && $complaint_data['complaint_type'] != ''){?>
-                                <label class="col-md-4 col-form-label"><?php echo get_phrase('complaint_type :') ;?>
-                                <?php if($complaint_data['complaint_type'] == '1'){ echo 'Major';}elseif($complaint_data['complaint_type'] == '2'){ echo 'Minor';}?>
+                             <!-- <div class="">
+                              <?php //if(isset($complaint_data['complaint_type']) && $complaint_data['complaint_type'] != ''){?>
+                                <label class="col-md-4 col-form-label"><b><?php //echo get_phrase('complaint_type :') ;?></b>
+                                <?php //if($complaint_data['complaint_type'] == '1'){ echo 'Major';}elseif($complaint_data['complaint_type'] == '2'){ echo 'Minor';}?>
+                               </label>
+                               <?php //} ?>
+                            </div> -->
+                           
+                            <div class="">
+                            	<?php if(isset($complaint_data['minor_problem']) && $complaint_data['minor_problem'] != ''){?>
+                                <label class="col-md-4 col-form-label"><b><?php echo get_phrase('minor_problem :') ;?></b>
+                                <?=$complaint_data['minor_problem'];?>
                                </label>
                                <?php } ?>
                             </div>
-                           
+
+                            <div class="">
+                            	<?php if(isset($complaint_data['major_problem']) && $complaint_data['major_problem'] != ''){?>
+                                <label class="col-md-4 col-form-label"><b><?php echo get_phrase('major_problem :') ;?></b>
+                                <?=$complaint_data['major_problem'];?>
+                                </label>
+                               <?php } ?>
+                            </div>
+
                             <div class="">
                             	<?php if(isset($complaint_data['complaint_by']) && $complaint_data['complaint_by'] != ''){?>
-                                <label class="col-md-4 col-form-label"><?php echo get_phrase('complaint_by :') ;?>
+                                <label class="col-md-4 col-form-label"><b><?php echo get_phrase('complaint_by :') ;?></b>
                                 <?=$complaint_data['complaint_by'];?>
                                </label>
                                <?php } ?>
                             </div>
                             <div class="">
                             	<?php if(isset($complaint_data['complaint_date']) && $complaint_data['complaint_date'] != ''){?>
-                                <label class="col-md-4 col-form-label"><?php echo get_phrase('complaint_date :') ;?>
+                                <label class="col-md-4 col-form-label"><b><?php echo get_phrase('complaint_date :') ;?></b>
                                 <?=$complaint_data['complaint_date'];?>
                                </label>
                                <?php } ?>
                             </div>
                             <div class="">
                             	<?php if(isset($complaint_data['complaint_desc']) && $complaint_data['complaint_desc'] != ''){?>
-                                <label class="col-md-4 col-form-label"><?php echo get_phrase('complaint_description :') ;?>
+                                <label class="col-md-4 col-form-label"><b><?php echo get_phrase('complaint_description :') ;?></b>
                                 <?=$complaint_data['complaint_desc'];?>
                                </label>
                                <?php } ?>

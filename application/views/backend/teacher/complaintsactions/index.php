@@ -1,3 +1,4 @@
+<?php if ($working_page == 'filter'): ?>
 <style>
     .progress {
         margin: 20px auto;
@@ -141,10 +142,13 @@ $teacher_table_data = $this->db->get_where('teachers', ['user_id' => $user_id])-
                         Manage and track complaints and actions effectively.
                     </p>
                 </div>
-                <button type="button" class="btn btn-outline-primary btn-rounded alignToTitle mt-1 "
-                    onclick="rightModal('<?php echo site_url('modal/popup/complaintsactions/create'); ?>', '<?php echo get_phrase('create_Complaints'); ?>')">
+                <!-- <button type="button" class="btn btn-outline-primary btn-rounded alignToTitle mt-1 "
+                    onclick="rightModal('<?php //echo site_url('modal/popup/complaintsactions/create'); ?>', '<?php //echo get_phrase('create_Complaints'); ?>')">
+                    <i class="mdi mdi-plus"></i> <?php //echo get_phrase('add_complaint'); ?>
+                </button> -->
+                <a href="<?php echo route('complaintsactions/createFrm'); ?>" class="btn btn-outline-primary btn-rounded mt-1">
                     <i class="mdi mdi-plus"></i> <?php echo get_phrase('add_complaint'); ?>
-                </button>
+                </a>
             </div> <!-- end card body-->
         </div> <!-- end card -->
     </div><!-- end col-->
@@ -203,7 +207,11 @@ $teacher_table_data = $this->db->get_where('teachers', ['user_id' => $user_id])-
         </div>
     </div>
 </div>
-
+<?php elseif ($working_page == 'create'): ?>
+    <?php include 'create.php'; ?>
+<?php elseif ($working_page == 'edit'): ?>
+    <?php include 'edit.php'; ?>
+<?php endif; ?>
 <script>
     function filter_complaint_class() {
         var class_id = $('#class_id').val();

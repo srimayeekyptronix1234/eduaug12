@@ -1,6 +1,6 @@
 
 //Form Submition
-function ajaxSubmit(e, form, callBackFunction) {
+function ajaxSubmit(e, form, callBackFunction,baseUrl =null,type =null) {
 
     if(form.valid()) {
         e.preventDefault();
@@ -24,6 +24,10 @@ function ajaxSubmit(e, form, callBackFunction) {
                         $('#alert-modal').modal('toggle')
                     }else{
                         $('#right-modal').modal('hide');
+                    }
+
+                    if (response.type == 'complaintsactions') {
+                        window.location.href = (type === 'admin') ? baseUrl + 'admin/complaintsactions' :  baseUrl + 'teacher/complaintsactions';
                     }
                     callBackFunction();
                 }else{

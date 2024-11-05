@@ -736,6 +736,25 @@ class Teacher extends CI_Controller {
 			$response = $this->crud_model->complaints_delete($param2);
 			echo $response;
 		}
+
+		if($param1 == 'createFrm')
+		{
+			$page_data['aria_expand'] = 'single';
+			$page_data['working_page'] = 'create';
+			$page_data['folder_name'] = 'complaintsactions';
+			$page_data['page_title'] = 'add_complaint';
+			$this->load->view('backend/index', $page_data);
+		}
+
+		if($param1 == 'updateFrm')
+		{
+			$page_data['param2'] = $param2;
+			$page_data['aria_expand'] = 'single';
+			$page_data['working_page'] = 'edit';
+			$page_data['folder_name'] = 'complaintsactions';
+			$page_data['page_title'] = 'update_complaint';
+			$this->load->view('backend/index', $page_data);
+		}
 		
 		if($param1 == 'list'){
 			$page_data['class_id'] = $param2;
@@ -746,6 +765,7 @@ class Teacher extends CI_Controller {
 		}
 
 		if(empty($param1)){
+			$page_data['working_page'] = 'filter';
 			$page_data['folder_name'] = 'complaintsactions';
 			$page_data['page_title'] = 'complaints / actions';
             $page_data['page_form']=$param1;

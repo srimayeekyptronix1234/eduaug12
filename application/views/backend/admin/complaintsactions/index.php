@@ -1,3 +1,4 @@
+<?php if ($working_page == 'filter'): ?>
 <style>
     .title_icon {
         font-size: 1.5rem;
@@ -58,10 +59,14 @@
                         Addressing concerns with empathy and action to drive positive change.
                     </p>
                 </div>
-                <button type="button" class="btn btn-outline-primary btn-rounded alignToTitle float-end"
-                    onclick="rightModal('<?php echo site_url('modal/popup/complaintsactions/create'); ?>', '<?php echo get_phrase('create_Complaints'); ?>')">
+                <!-- <button type="button" class="btn btn-outline-primary btn-rounded alignToTitle float-end"
+                    onclick="rightModal('<?php //echo site_url('modal/popup/complaintsactions/create'); ?>', '<?php //echo get_phrase('create_Complaints'); ?>')">
+                    <i class="mdi mdi-plus"></i> <?php //echo get_phrase('add_complaint'); ?>
+                </button> -->
+
+                <a href="<?php echo route('complaintsactions/createFrm'); ?>" class="btn btn-outline-primary btn-rounded mt-1">
                     <i class="mdi mdi-plus"></i> <?php echo get_phrase('add_complaint'); ?>
-                </button>
+                </a>
             </div> <!-- end card body-->
         </div> <!-- end card -->
     </div><!-- end col-->
@@ -120,6 +125,12 @@
         </div>
     </div>
 </div>
+
+<?php elseif ($working_page == 'create'): ?>
+    <?php include 'create.php'; ?>
+<?php elseif ($working_page == 'edit'): ?>
+    <?php include 'edit.php'; ?>
+<?php endif; ?>
 
 <script>
     function filter_complaint_class() {

@@ -43,7 +43,7 @@
     					<button type="button" class="btn btn-sm btn-icon btn-rounded btn-outline-secondary dropdown-btn dropdown-toggle arrow-none card-drop" data-bs-toggle="dropdown" aria-expanded="false"><i class="mdi mdi-dots-vertical"></i></button>
     					<div class="dropdown-menu dropdown-menu-end">
     						<!-- item-->
-    						<a href="javascript:void(0);" class="dropdown-item" onclick="rightModal('<?php echo site_url('modal/popup/complaintsactions/edit/'.$data['id'])?>', '<?php echo get_phrase('update_Complaint'); ?>');"><?php echo get_phrase('edit'); ?></a>
+    						<a href="<?php echo route('complaintsactions/updateFrm/'. $data['id']); ?>" class="dropdown-item"><?php echo get_phrase('edit'); ?></a>
                 <!-- item-->
                 <a href="javascript:void(0);" class="dropdown-item" onclick="confirmModal('<?php echo route('complaintsactions/delete/'.$data['id']); ?>', showAllComplaint)"><?php echo get_phrase('delete'); ?></a>
                 <a href="javascript:void(0);" class="dropdown-item" onclick="previewModal('<?php echo site_url('modal/popup/complaintsactions/view/'.$data['id'])?>', '<?php echo get_phrase('Complaint'); ?>');"><?php echo get_phrase('view'); ?></a>

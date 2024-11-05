@@ -1806,11 +1806,19 @@ class Crud_model extends CI_Model {
 		$data['status'] = html_escape($this->input->post('status'));
 		$data['complaint_type'] = html_escape($this->input->post('complaint_type'));
 
+		$behavior_major = $this->input->post('behavior_major');
+		// Convert the array to a comma-separated string
+		$data['major_problem'] = is_array($behavior_major) ? implode(',', $behavior_major) : null;
+
+		$behavior_minor = $this->input->post('behavior_minor');
+		// Convert the array to a comma-separated string
+		$data['minor_problem'] = is_array($behavior_minor) ? implode(',', $behavior_minor) : null;
 
 		$this->db->insert('complaint', $data);
 
 		$response = array(
 			'status' => true,
+			'type' => 'complaintsactions',
 			'notification' => get_phrase('complaint_has_been_added_successfully')
 		);
 
@@ -1821,6 +1829,14 @@ class Crud_model extends CI_Model {
 	}
     public function complaints_update($param1 = '')
 	{
+
+		$data['major_problem'] = null;
+
+		$data['minor_problem'] = null;
+
+		$this->db->where('id', $param1);
+		$this->db->update('complaint', $data);
+
 		$data['class_id'] = html_escape($this->input->post('class_id'));
 		$data['section_id'] = html_escape($this->input->post('section_id'));
 		$data['student_id'] = html_escape($this->input->post('student_id'));
@@ -1831,11 +1847,20 @@ class Crud_model extends CI_Model {
 		$data['status'] = html_escape($this->input->post('status'));
 		$data['complaint_type'] = html_escape($this->input->post('complaint_type'));
 
+		$behavior_major = $this->input->post('behavior_major');
+		// Convert the array to a comma-separated string
+		$data['major_problem'] = is_array($behavior_major) ? implode(',', $behavior_major) : null;
+
+		$behavior_minor = $this->input->post('behavior_minor');
+		// Convert the array to a comma-separated string
+		$data['minor_problem'] = is_array($behavior_minor) ? implode(',', $behavior_minor) : null;
+
 		$this->db->where('id', $param1);
 		$this->db->update('complaint', $data);
 
 		$response = array(
 			'status' => true,
+			'type' => 'complaintsactions',
 			'notification' => get_phrase('complaint_has_been_updated_successfully')
 		);
 
